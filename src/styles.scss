@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'style/colors.scss';
+@import 'style/autocomplete.scss';
+@import 'style/badge.scss';
+@import 'style/breadcrumb.scss';
+@import 'style/button.scss';
+@import 'style/chip.scss';
+@import 'style/daterangepicker.scss';
+@import 'style/dialog.scss';
+@import 'style/dropzone.scss';
+@import 'style/form.scss';
+@import 'style/image.scss';
+@import 'style/layout.scss';
+@import 'style/loader.scss';
+@import 'style/preview-file.scss';
+@import 'style/print.scss';
+@import 'style/selector.scss';
+@import 'style/slider.scss';
+@import 'style/step.scss';
+@import 'style/svg.scss';
+@import 'style/switch.scss';
+@import 'style/table.scss';
+@import 'style/tooltip.scss';
+@import 'style/treeview.scss';
+@import 'style/typography.scss';
+@import 'style/week.scss';
+
+@import '~highlight.js/styles/gruvbox-dark.css';
+
+@font-face {
+  font-family: Segoe UI;
+  src: local('Segoe UI'), url('assets/segoeui.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.hljs {
+  border-radius: 6px;
+}
+
+.scheme-dark {
+  background-color: var(--dark-grey-0dp);
+
+  a{
+    color: white;
+  }
+}

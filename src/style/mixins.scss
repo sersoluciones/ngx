@@ -1,0 +1,245 @@
+﻿
+$browser-context: 14; // Default
+
+@function rem($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}rem;
+}
+
+@mixin row{
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+
+@mixin row-wrap{
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+@mixin column{
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-direction: normal;
+}
+
+@mixin start-h {
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+}
+
+@mixin start-v {
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-grid-row-align: flex-start;
+    align-items: flex-start;
+    -webkit-align-content: flex-start;
+    align-content: flex-start;
+}
+
+@mixin center-h {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+@mixin center-v {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-grid-row-align: center;
+    align-items: center;
+    -webkit-align-content: center;
+    align-content: center;
+}
+
+@mixin end-h {
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+}
+
+@mixin end-v {
+    -webkit-box-align: end;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+    -webkit-align-content: flex-end;
+    align-content: flex-end;
+}
+
+@mixin stretch {
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    -webkit-align-content: stretch;
+    align-content: stretch;
+}
+
+@mixin space-around {
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+}
+
+@mixin space-between {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+// Combinations
+
+@mixin start-start {
+    @include start-h;
+    @include start-v;
+    max-width: 100%;
+}
+
+@mixin start-center {
+    @include start-h;
+    @include center-v;
+    max-width: 100%;
+}
+
+@mixin start-end {
+    @include start-h;
+    @include end-v;
+    max-width: 100%;
+}
+
+@mixin start-stretch {
+    @include start-h;
+    @include stretch;
+    max-width: 100%;
+}
+
+@mixin center-start {
+    @include center-h;
+    @include start-v;
+    max-width: 100%;
+}
+
+@mixin center-center {
+    @include center-h;
+    @include center-v;
+    max-width: 100%;
+}
+
+@mixin center-end {
+    @include center-h;
+    @include end-v;
+    max-width: 100%;
+}
+
+@mixin center-stretch {
+    @include center-h;
+    @include stretch;
+    max-width: 100%;
+}
+
+@mixin end-start {
+    @include end-h;
+    @include start-v;
+    max-width: 100%;
+}
+
+@mixin end-center {
+    @include end-h;
+    @include center-v;
+    max-width: 100%;
+}
+
+@mixin end-end {
+    @include end-h;
+    @include end-v;
+    max-width: 100%;
+}
+
+@mixin end-stretch {
+    @include end-h;
+    @include stretch;
+    max-width: 100%;
+}
+
+@mixin space-around-start {
+    @include space-around;
+    @include start-v;
+    max-width: 100%;
+}
+
+@mixin space-around-center {
+    @include space-around;
+    @include center-v;
+    max-width: 100%;
+}
+
+@mixin space-around-end {
+    @include space-around;
+    @include end-v;
+    max-width: 100%;
+}
+
+@mixin space-around-stretch {
+    @include space-around;
+    @include stretch;
+    max-width: 100%;
+}
+
+@mixin space-between-start {
+    @include space-between;
+    @include start-v;
+    max-width: 100%;
+}
+
+@mixin space-between-center {
+    @include space-between;
+    @include center-v;
+    max-width: 100%;
+}
+
+@mixin space-between-end {
+    @include space-between;
+    @include end-v;
+    max-width: 100%;
+}
+
+@mixin space-between-stretch {
+    @include space-between;
+    @include stretch;
+    max-width: 100%;
+}
+
+// Shadows
+@mixin md-shadow {
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+    -moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+}
+
+@mixin shadow{
+    -webkit-box-shadow: 4px 4px 20px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: 4px 4px 20px 0px rgba(0,0,0,0.2);
+    box-shadow: 4px 4px 20px 0px rgba(0,0,0,0.2);
+}
+
+@mixin b-shadow{
+    -webkit-box-shadow: 2px 2px 4px 0 rgba(0,0,0,0.5);
+    -moz-box-shadow: 2px 2px 4px 0 rgba(0,0,0,0.5);
+    box-shadow: 2px 2px 4px 0 rgba(0,0,0,0.5);
+}
