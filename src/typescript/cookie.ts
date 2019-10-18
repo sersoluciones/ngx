@@ -1,5 +1,3 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-
 /**
  * @description
  * Clase abstracta para obtener, actualizar y borrar cookies en el navegador web

@@ -53,10 +53,24 @@
   <pre><code [highlight]="examples.PrefersColorSchemeExample"></code></pre>
 
 
+
   <h2>Cookies</h2>
 
   <p class="description">(<a href="https://sersoluciones.github.io/ngx-ui-doc/classes/_cookie_.cookies.html" target="_blank" rel="noopener noreferrer">Cookies</a>) Clase abstracta para obtener, actualizar y borrar cookies en el navegador web</p>
 
   <pre><code [highlight]="examples.CookiesExample"></code></pre>
+
+
+
+  <h2>Fullscreen</h2>
+
+  <p class="description">(<a href="https://sersoluciones.github.io/ngx-ui-doc/classes/_fullscreen_.fullscreen.html" target="_blank" rel="noopener noreferrer">Fullscreen</a>) Clase para entrar y salir del modo pantalla completa en el navegador web</p>
+
+  <div class="bttn-group">
+    <button type="button" class="bttn" (click)="fullscreen.toggle()" [disabled]="fullscreen.isEnabled">Entrar a pantalla completa</button>
+    <button type="button" class="bttn" (click)="fullscreen.disable()" [disabled]="!fullscreen.isEnabled">Salir de pantalla completa</button>
+  </div>
+
+  <pre><code [highlight]="examples.FullscreenExample"></code></pre>
 
 </div>

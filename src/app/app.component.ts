@@ -1,4 +1,5 @@
 import { Cookies } from 'src/typescript/cookie';
+import { Fullscreen } from 'src/typescript/fullscreen';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PrefersColorScheme } from 'src/typescript/prefers-color-scheme';
 import * as examples from 'src/app/app.examples';
@@ -11,6 +12,7 @@ import * as examples from 'src/app/app.examples';
 })
 export class AppComponent implements OnInit {
   colorscheme: PrefersColorScheme;
+  fullscreen: Fullscreen;
   examples = examples;
 
   constructor() { }
@@ -19,7 +21,8 @@ export class AppComponent implements OnInit {
     this.colorscheme = new PrefersColorScheme();
     this.colorscheme.init();
     this.colorscheme.watch();
-    Cookies.deleteAll();
+
+    this.fullscreen = new Fullscreen();
 
     const queryString = new URLSearchParams(window.location.search);
     console.log(queryString);
