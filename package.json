@@ -1,6 +1,6 @@
 {
   "name": "@sersol/ngx-ui",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -18,10 +18,13 @@
     "@angular/platform-browser": "~8.2.4",
     "@angular/platform-browser-dynamic": "~8.2.4",
     "@angular/router": "~8.2.4",
+    "@types/jquery": "^3.3.31",
     "angular-cli-ghpages": "^0.6.0",
     "highlight.js": "^9.15.10",
+    "jquery": "^3.4.1",
     "ngx-highlightjs": "^3.0.3",
     "rxjs": "~6.4.0",
+    "tooltipster": "^4.2.7",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

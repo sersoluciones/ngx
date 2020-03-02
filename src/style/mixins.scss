@@ -5,6 +5,10 @@ $browser-context: 14; // Default
   @return #{$pixels/$context}rem;
 }
 
+@function toRGB ($color) {
+    @return red($color) + ", " + green($color) + ", " + blue($color);
+}
+
 @mixin row{
     box-sizing: border-box;
     display: -webkit-box;
@@ -223,6 +227,22 @@ $browser-context: 14; // Default
     @include space-between;
     @include stretch;
     max-width: 100%;
+}
+
+@mixin border-t {
+    border-top: 1px solid $grey-border;
+}
+
+@mixin border-b {
+    border-bottom: 1px solid $grey-border;
+}
+
+@mixin border-l {
+    border-left: 1px solid $grey-border;
+}
+
+@mixin border-r {
+    border-right: 1px solid $grey-border;
 }
 
 // Shadows

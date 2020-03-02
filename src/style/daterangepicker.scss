@@ -445,6 +445,12 @@
         display: none;
     }
 
+    &.two-months {
+        .month-wrapper {
+            min-width: 490px;
+        }
+    }
+
     .week-number {
         padding: 5px 0;
         line-height: 1;
@@ -459,6 +465,14 @@
         }
     }
 
+}
+
+.tooltipster-top {
+    .date-picker-wrapper {
+        .month-wrapper {
+            min-height: 244px;
+        }
+    }
 }
 
 .single {

@@ -5,7 +5,6 @@
     margin: 16px;
     padding: 12px;
     border-radius: 4px;
-    background-color: var(--light-grey-1dp);
     transition: all 500ms;
 
     em, a {
@@ -69,9 +68,8 @@
     }
 }
 
-.dark-mode {
+.scheme-dark {
     .breadcrumb {
-        background-color: var(--dark-grey-1dp);
 
         li.active em, li.active a, em {
             color: rgba(white, 0.4);

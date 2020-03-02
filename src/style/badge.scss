@@ -12,30 +12,30 @@
     min-height: 14px;
     text-align: center;
     font-size: 14px;
-}
 
-.bdg.light-blue {
-  background: var(--light-blue-background);
-}
-
-.bdg.blue {
-    background: var(--blue-background);
-}
-
-.bdg.green {
-    background: var(--green-background);
-}
-
-.bdg.yellow {
-    background: var(--yellow-background);
-}
-
-.bdg.orange {
-    background: var(--orange-border);
-    color: white;
-}
-
-.bdg.red {
-    background: red;
-    color: white;
+    &.light-blue {
+        background: var(--light-blue-background);
+    }
+    
+    &.blue {
+        background: var(--blue-background);
+    }
+    
+    &.green {
+        background: var(--green-background);
+    }
+    
+    &.yellow {
+        background: var(--yellow-background);
+    }
+    
+    &.orange {
+        background: var(--orange-border);
+        color: white;
+    }
+    
+    &.red {
+        background: red;
+        color: white;
+    }
 }

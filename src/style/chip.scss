@@ -6,30 +6,30 @@
     background: var(--grey-hover);
     margin-left: 8px;
     border-radius: 6px;
-}
 
-.chip.blue {
-    background: var(--blue-background);
-}
-
-.chip.light-blue {
-    background: var(--light-blue-background);
-}
-
-.chip.green {
-    background: var(--green-background);
-}
-
-.chip.yellow {
-    background: var(--yellow-background);
-}
-
-.chip.orange {
-    background: var(--orange-background);
-}
-
-.chip.red {
-    background: var(--red-border);
+    &.blue {
+        background: var(--blue-background);
+    }
+    
+    &.light-blue {
+        background: var(--light-blue-background);
+    }
+    
+    &.green {
+        background: var(--green-background);
+    }
+    
+    &.yellow {
+        background: var(--yellow-background);
+    }
+    
+    &.orange {
+        background: var(--orange-background);
+    }
+    
+    &.red {
+        background: var(--red-border);
+    }
 }
 
 ser-chips {

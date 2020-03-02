@@ -13,10 +13,6 @@ body{
     cursor: default;
 }
 
-[ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, [translate-cloak], .translate-cloak, .hidden {
-  display: none !important;
-}
-
 @for $i from 1 through 32{
     .margin-#{$i}{
         margin: 0px + $i;
@@ -195,7 +191,7 @@ small {
     margin: 0 auto;
 }
 
-.show-in-mobile{
+.show-on-mb{
     display: none;
 }
 
@@ -249,14 +245,16 @@ $sizes: 10, 20, 30, 33, 40, 45, 48, 50, 60, 63, 70, 85, 100;
 }
 
 @media (max-width: 800px){
-    .show-in-mobile{
+    .show-on-mb{
         display: block;
     }
+
     .s-field{
         -webkit-flex: 1 1 100%;
         flex: 1 1 100%;
         max-width: 100%;
     }
+
     @for $i from 1 through 100{
         .s-#{$i}{
             -webkit-flex: 1 1 100%;
@@ -282,12 +280,6 @@ $sizes: 10, 20, 30, 33, 40, 45, 48, 50, 60, 63, 70, 85, 100;
     }
 }
 
-[ng-click],
-[ui-sref]{
-    cursor: pointer;
-    outline: none;
-}
-
 .backdrop {
     background: rgba(0, 0, 0, 0.7);
     width: 100%;
@@ -299,10 +291,6 @@ $sizes: 10, 20, 30, 33, 40, 45, 48, 50, 60, 63, 70, 85, 100;
 
 .vs-hidden{
     visibility: hidden;
-}
-
-[md-virtual-repeat-container]{
-    height: 100%;
 }
 
 i.red{
@@ -401,6 +389,10 @@ button.print {
     text-align: left;
 }
 
+mat-icon {
+    color: #555;
+}
+
 .dp0 {
     background-color: var(--light-grey-0dp);
 }
@@ -414,6 +406,10 @@ button.print {
 }
 
 .scheme-dark {
+    mat-icon {
+        color: white;
+    }
+
     .dp0 {
         background-color: var(--dark-grey-0dp);
     }
