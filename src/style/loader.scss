@@ -1,5 +1,44 @@
 ﻿@import 'mixins.scss';
 
+.content-placeholder-container {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.content-placeholder-checkbox-space::before {
+  animation: content-placeholder 2s linear infinite;
+  background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
+  background-size: 1000px 100%;
+}
+
+.content-placeholder {
+  animation : content-placeholder 2s linear infinite;
+  background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
+  background-size: 1000px 100%;
+
+  &.input {
+      height: 29px;
+      margin-top: 39px;
+      border-radius: 6px;
+  }
+
+  &.text {
+      height: 16px;
+      width: 100%;
+      border-radius: 4px;
+  }
+}
+
+@keyframes content-placeholder {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
 .loader-wrapper{
     position: absolute;
     width: 100%;
