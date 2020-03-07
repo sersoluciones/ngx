@@ -1,7 +1,7 @@
-import { Cookies } from 'src/typescript/cookie';
-import { Fullscreen } from 'src/typescript/fullscreen';
+import { Cookies } from 'lib/cookie';
+import { Fullscreen } from 'lib/fullscreen';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { PrefersColorScheme } from 'src/typescript/prefers-color-scheme';
+import { PrefersColorScheme } from 'lib/prefers-color-scheme';
 import * as examples from 'src/app/app.examples';
 
 @Component({
