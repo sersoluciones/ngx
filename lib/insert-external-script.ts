@@ -3,8 +3,8 @@
  * Función para insertar scritps externos (ejem: gapi, facebook sdk)
  * @example
  * insertExternalScript('google-jssdk', 'https://apis.google.com/js/platform.js?onload=googleSDKLoaded');
- * @param id
- * @param src
+ * @param {string} id - Id para la etiqueta script
+ * @param {stirng} src - url para la etiqueta script
  */
 export function insertExternalScript(id: string, src: string) {
   const fjs = document.getElementsByTagName('script')[0];

@@ -18,14 +18,19 @@
       "es2018",
       "dom"
     ],
-    "paths": {}
+    "paths": {
+      "utils": [
+        "dist/utils/utils",
+        "dist/utils"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
   },
   "typedocOptions": {
-      "mode": "modules",
-      "out": "../ngx-ui-doc/"
+    "mode": "modules",
+    "out": "../ngx-ui-doc/"
   }
 }
