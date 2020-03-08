@@ -1,10 +1,15 @@
 {
   "name": "@sersol/ngx",
-  "version": "0.0.6",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --aot",
+    "build": "ng build ngx --prod",
+    "build-showcase": "ng build --prod",
+    "publish": "npm run build && npm publish ./dist --access public",
+    "publish-showcase": "npm run build-showcase",
+    "build-all": "npm run build && npm run build-showcase",
+    "publish-all": "npm run publish && npm run publish-showcase",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

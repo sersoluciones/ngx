@@ -1,24 +1,43 @@
+import { Injectable } from '@angular/core';
+
 /**
  * @description
  * Clase para obtener, observar y cambiar el esquema de color claro/oscuro
  * @example
- * this.colorscheme = new PrefersColorScheme();
- * this.colorscheme.init(); // Setea el esquema inicial
- * this.colorscheme.watch(); // Observa cambio de esquema en OS
+ * constructor(prefersColorSchemeService: PrefersColorSchemeService) { }
+ *
+ * this.prefersColorSchemeService.init(); // Setea el esquema inicial
+ * this.prefersColorSchemeService.watch(); // Observa cambio de esquema en OS
  */
-export class PrefersColorScheme {
-  Scheme: MediaQueryList;
-  SchemeLightClassName: string;
-  SchemeDarkClassName: string;
+@Injectable({
+  providedIn: 'root'
+})
+export class PrefersColorSchemeService {
+  private _Scheme: MediaQueryList;
+  public get Scheme(): MediaQueryList {
+    return this._Scheme;
+  }
+  public set Scheme(value: MediaQueryList) {
+    this._Scheme = value;
+  }
 
-  /**
-   * Crea una instancia de PrefersColorScheme
-   * @param SchemeLightClassName - Clase css opcional para el esquema de color claro
-   * @param SchemeDarkClassName - Clase css opcional para el esquema de color oscuro
-   */
-  constructor(SchemeLightClassName = 'scheme-light', SchemeDarkClassName = 'scheme-dark') {
-    this.SchemeLightClassName = SchemeLightClassName;
-    this.SchemeDarkClassName = SchemeDarkClassName;
+  private _SchemeLightClassName = 'scheme-light';
+  public get SchemeLightClassName() {
+    return this._SchemeLightClassName;
+  }
+  public set SchemeLightClassName(value) {
+    this._SchemeLightClassName = value;
+  }
+
+  private _SchemeDarkClassName = 'scheme-dark';
+  public get SchemeDarkClassName() {
+    return this._SchemeDarkClassName;
+  }
+  public set SchemeDarkClassName(value) {
+    this._SchemeDarkClassName = value;
+  }
+
+  constructor() {
     this.Scheme = window.matchMedia('(prefers-color-scheme: dark)');
   }
 
@@ -109,5 +128,4 @@ export class PrefersColorScheme {
 
     }
   }
-
 }

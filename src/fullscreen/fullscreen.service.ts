@@ -1,14 +1,27 @@
-import * as $ from 'jquery';
+import { Injectable } from '@angular/core';
+import { FsDocument, FsDocumentElement } from './fullscreen-interface';
 
 /**
  * @description
  * Clase para entrar y salir del modo pantalla completa en el navegador web
  * @example
- * Fullscreen.enable(); // Habilita el modo pantalla completa
- * Fullscreen.disable(); // Deshabilita el modo pantalla completa
+ * constructor(public fullscreenService: FullscreenService) { }
+ * fullscreenService.enable(); // Habilita el modo pantalla completa
+ * fullscreenService.disable(); // Deshabilita el modo pantalla completa
+ * fullscreenService.isEnabled // Obtiene el estado del servicio
  */
-export class Fullscreen {
-  isEnabled: boolean;
+@Injectable({
+  providedIn: 'root'
+})
+export class FullscreenService {
+
+  private _isEnabled: boolean;
+  public get isEnabled(): boolean {
+    return this._isEnabled;
+  }
+  public set isEnabled(value: boolean) {
+    this._isEnabled = value;
+  }
 
   /**
    * Crea una instancia de Fullscreen
@@ -96,20 +109,4 @@ export class Fullscreen {
       this.enable();
     }
   }
-
-}
-
-interface FsDocument extends HTMLDocument {
-  msFullscreenElement?: Element;
-  mozFullScreenElement?: Element;
-  webkitFullscreenElement?: Element;
-  msExitFullscreen?: () => void;
-  mozCancelFullScreen?: () => void;
-  webkitExitFullscreen?: () => void;
-}
-
-interface FsDocumentElement extends HTMLElement {
-  msRequestFullscreen?: () => void;
-  mozRequestFullScreen?: () => void;
-  webkitRequestFullscreen?: () => void;
 }

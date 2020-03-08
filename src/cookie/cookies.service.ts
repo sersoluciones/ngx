@@ -1,13 +1,20 @@
+import { Injectable } from '@angular/core';
+
 /**
  * @description
- * Clase abstracta para obtener, actualizar y borrar cookies en el navegador web
+ * Servicio para obtener, actualizar y borrar cookies en el navegador web
  * @example
- * Cookies.get('Test'); // Obtiene el valor de una cookie
- * Cookies.set('Test', '123'); // Setea valor de una cookie
- * Cookies.delete('Test'); // Elimina una cookie
- * Cookies.deleteAll(); // Elimina todas las cookies
+ * CookiesService.get('Test'); // Obtiene el valor de una cookie
+ * CookiesService.set('Test', '123'); // Setea valor de una cookie
+ * CookiesService.delete('Test'); // Elimina una cookie
+ * CookiesService.deleteAll(); // Elimina todas las cookies
  */
-export abstract class Cookies {
+@Injectable({
+  providedIn: 'root'
+})
+export class CookiesService {
+
+  constructor() { }
 
   /**
    * @description
@@ -63,6 +70,7 @@ export abstract class Cookies {
     return null;
   }
 
+
   /**
    * @param name     Nombre
    * @param value    valor
@@ -117,6 +125,7 @@ export abstract class Cookies {
     document.cookie = cookieString;
   }
 
+
   /**
   * @param name   Nombre
   * @param path   Ruta
@@ -141,5 +150,4 @@ export abstract class Cookies {
       document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
     }
   }
-
 }

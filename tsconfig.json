@@ -19,9 +19,8 @@
       "dom"
     ],
     "paths": {
-      "utils": [
-        "dist/utils/utils",
-        "dist/utils"
+      "ngx": [
+        "dist"
       ]
     }
   },

@@ -1,0 +1,24 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "../out-tsc/showcase",
+    "paths": {
+      "@sersol/ngx": ["../src/index"]
+    }
+  },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.po.ts",
+    "src/**/*.e2e-spec.ts"
+  ],
+  "angularCompilerOptions": {
+    "strictTemplates": true
+  }
+}

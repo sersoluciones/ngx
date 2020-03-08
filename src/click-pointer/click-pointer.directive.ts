@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding } from '@angular/core';
+import { Directive, HostBinding } from '@angular/core';
 
 /**
  * @description
@@ -8,10 +8,11 @@ import { Directive, ElementRef, HostBinding } from '@angular/core';
   // tslint:disable-next-line: directive-selector
   selector: '[click]'
 })
-export class ClickCursorPointerDirective {
+export class ClickPointerDirective {
 
-  constructor(private el: ElementRef) { }
+  constructor() { }
 
   @HostBinding('style.cursor') cursor = 'pointer';
 
 }
+

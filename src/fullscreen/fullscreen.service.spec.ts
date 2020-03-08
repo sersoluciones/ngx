@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UtilsService } from './utils.service';
+import { FullscreenService } from './fullscreen.service';
 
-describe('UtilsService', () => {
-  let service: UtilsService;
+describe('FullscreenService', () => {
+  let service: FullscreenService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UtilsService);
+    service = TestBed.inject(FullscreenService);
   });
 
   it('should be created', () => {
