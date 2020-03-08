@@ -6,6 +6,7 @@ import { FsDocument, FsDocumentElement } from './fullscreen-interface';
  * Clase para entrar y salir del modo pantalla completa en el navegador web
  * @example
  * constructor(public fullscreenService: FullscreenService) { }
+ *
  * fullscreenService.enable(); // Habilita el modo pantalla completa
  * fullscreenService.disable(); // Deshabilita el modo pantalla completa
  * fullscreenService.isEnabled // Obtiene el estado del servicio

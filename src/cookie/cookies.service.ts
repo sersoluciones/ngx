@@ -4,10 +4,12 @@ import { Injectable } from '@angular/core';
  * @description
  * Servicio para obtener, actualizar y borrar cookies en el navegador web
  * @example
- * CookiesService.get('Test'); // Obtiene el valor de una cookie
- * CookiesService.set('Test', '123'); // Setea valor de una cookie
- * CookiesService.delete('Test'); // Elimina una cookie
- * CookiesService.deleteAll(); // Elimina todas las cookies
+ * constructor(cookiesService: CookiesService) { }
+ *
+ * cookiesService.get('Test'); // Obtiene el valor de una cookie
+ * cookiesService.set('Test', '123'); // Setea valor de una cookie
+ * cookiesService.delete('Test'); // Elimina una cookie
+ * cookiesService.deleteAll(); // Elimina todas las cookies
  */
 @Injectable({
   providedIn: 'root'
