@@ -21,7 +21,7 @@ export class CookiesService {
    * Obtiene todas las cookies
    * @returns {}
    */
-  public static getAll(): {} {
+  public getAll(): {} {
 
     const cookies: {} = {};
 
@@ -59,7 +59,7 @@ export class CookiesService {
    * @param {string} name - Nombre de la cookie
    * @returns {any} Valor de la cookie
    */
-  public static get(name: string): any {
+  public get(name: string): any {
 
     const cookies = this.getAll();
 
@@ -80,7 +80,7 @@ export class CookiesService {
    * @param secure   Cookie segura
    * @param sameSite OWASP samesite token `Lax` ó `Strict`
    */
-  public static set(
+  public set(
     name: string,
     value: any,
     expires?: number | Date,
@@ -131,7 +131,7 @@ export class CookiesService {
   * @param path   Ruta
   * @param domain Dominio
   */
-  public static delete(name: string, path?: string, domain?: string): void {
+  public delete(name: string, path?: string, domain?: string): void {
 
     this.set(name, '', new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path, domain);
   }
@@ -140,7 +140,7 @@ export class CookiesService {
    * @description
    * elimina todas las cookes
    */
-  public static deleteAll() {
+  public deleteAll() {
     const cookies = document.cookie.split(';');
 
     for (let i = 0; i < cookies.length; i++) {
