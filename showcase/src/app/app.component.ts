@@ -1,5 +1,5 @@
 import { FullscreenService } from './../../../src/fullscreen/fullscreen.service';
-import { PrefersColorSchemeService } from './../../../src/public-api';
+import { PrefersColorSchemeService } from './../../../src/prefers-color-scheme/prefers-color-scheme.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import * as examples from 'src/app/app.examples';
 
@@ -17,8 +17,5 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.colorscheme.init();
     this.colorscheme.watch();
-
-    const queryString = new URLSearchParams(window.location.search);
-    console.log(queryString);
   }
 }

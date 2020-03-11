@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
  * @example
  * constructor(externalScriptService: ExternalScriptService) { }
  *
- * externalScriptService.insert('google-jssdk', 'https://apis.google.com/js/platform.js?onload=googleSDKLoaded');
+ * this.externalScriptService.insert('google-jssdk', 'https://apis.google.com/js/platform.js?onload=googleSDKLoaded');
  * @param {string} id - Id para la etiqueta script
  * @param {stirng} src - url para la etiqueta script
  */

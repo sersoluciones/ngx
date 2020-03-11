@@ -6,10 +6,10 @@ import { Injectable } from '@angular/core';
  * @example
  * constructor(cookiesService: CookiesService) { }
  *
- * cookiesService.get('Test'); // Obtiene el valor de una cookie
- * cookiesService.set('Test', '123'); // Setea valor de una cookie
- * cookiesService.delete('Test'); // Elimina una cookie
- * cookiesService.deleteAll(); // Elimina todas las cookies
+ * this.cookiesService.get('Test'); // Obtiene el valor de una cookie
+ * this.cookiesService.set('Test', '123'); // Setea valor de una cookie
+ * this.cookiesService.delete('Test'); // Elimina una cookie
+ * this.cookiesService.deleteAll(); // Elimina todas las cookies
  */
 @Injectable({
   providedIn: 'root'

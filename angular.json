@@ -167,6 +167,46 @@
           }
         }
       }
+    },
+    "prueba": {
+      "projectType": "library",
+      "root": "prueba",
+      "sourceRoot": "prueba/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "prueba/tsconfig.lib.json",
+            "project": "prueba/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "prueba/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "prueba/src/test.ts",
+            "tsConfig": "prueba/tsconfig.spec.json",
+            "karmaConfig": "prueba/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "prueba/tsconfig.lib.json",
+              "prueba/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
     "defaultProject": "ngx"
 }

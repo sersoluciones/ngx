@@ -7,9 +7,9 @@ import { FsDocument, FsDocumentElement } from './fullscreen-interface';
  * @example
  * constructor(public fullscreenService: FullscreenService) { }
  *
- * fullscreenService.enable(); // Habilita el modo pantalla completa
- * fullscreenService.disable(); // Deshabilita el modo pantalla completa
- * fullscreenService.isEnabled // Obtiene el estado del servicio
+ * this.fullscreenService.enable(); // Habilita el modo pantalla completa
+ * this.fullscreenService.disable(); // Deshabilita el modo pantalla completa
+ * this.fullscreenService.isEnabled // Obtiene el estado del servicio
  */
 @Injectable({
   providedIn: 'root'
