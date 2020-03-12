@@ -1,0 +1,22 @@
+:host {
+    display: flex;
+    align-items: center;
+    width: 212px;
+    height: 36px;
+    margin: 0 auto 12px;
+    border-radius: 24px;
+    padding: 8px 21px;
+    box-sizing: border-box;
+    background-color: #1877f2;
+    color: white;
+    cursor: pointer;
+
+    img {
+        width: 20px;
+        max-height: 20px;
+    }
+
+    .txt {
+        margin-left: 24px;
+    }
+}
