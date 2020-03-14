@@ -7,9 +7,17 @@ export * from './external-script/external-script.service';
 export * from './fullscreen/fullscreen-interface';
 export * from './prefers-color-scheme/prefers-color-scheme.service';
 export * from './click-pointer/click-pointer.directive';
-export * from './google/GoogleApiModule';
-export * from './google/GoogleAuthService';
-export * from './google/GoogleApiService';
-export * from './google/config/GoogleApiConfig';
-export * from './google/IGoogleApi';
+
+// Google
+export * from './google/GoogleSDKModule';
+export * from './google/GoogleSDKService';
+export * from './google/config/GoogleSDKConfig';
+export * from './google/IGoogle';
+
+// Facebook
+export * from './facebook/FacebookSDKModule';
+export * from './facebook/FacebookSDKService';
+export * from './facebook/config/FacebookSDKConfig';
+export * from './facebook/IFacebook';
+
 export * from './ui/ui.module';

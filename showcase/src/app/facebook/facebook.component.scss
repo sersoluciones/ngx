@@ -1,7 +1,7 @@
 :host {
     display: flex;
     align-items: center;
-    width: 212px;
+    width: 220px;
     height: 36px;
     margin: 0 auto 12px;
     border-radius: 24px;
@@ -9,6 +9,7 @@
     box-sizing: border-box;
     background-color: #1877f2;
     color: white;
+    font-size: 12px;
     cursor: pointer;
 
     img {
