@@ -1,3 +1,5 @@
+/// <reference types="facebook-js-sdk" />
+
 import { FacebookUserProfile } from './IFacebook';
 import { Observable } from 'rxjs';
 import { Inject, Injectable, InjectionToken, Output, EventEmitter } from '@angular/core';

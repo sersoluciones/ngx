@@ -14,7 +14,7 @@ export class GoogleComponent {
   @HostListener('click')
   click() {
     this.googleApiService.login().subscribe((res: GoogleUserProfile) => {
-      console.log(res);
+      console.log('Google profile: ', res);
     });
   }
 

@@ -12,3 +12,5 @@ export interface GoogleUserProfile {
   email?: string;
   picture?: string;
 }
+
+export class GoogleClientConfig implements gapi.auth2.ClientConfig { }

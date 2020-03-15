@@ -25,26 +25,26 @@ import { NG_FSDK_CONFIG } from '../../../src/facebook/FacebookSDKService';
     HighlightModule.forRoot({
       languages() {
         return [
-          {name: 'typescript', func: typescript},
-          {name: 'scss', func: scss},
-          {name: 'xml', func: xml}
+          { name: 'typescript', func: typescript },
+          { name: 'scss', func: scss },
+          { name: 'xml', func: xml }
         ];
       }
     }),
     GoogleSDKModule.forRoot({
-        provide: NG_GAPI_CONFIG,
-        useValue: {
-            client_id: '977736754031-s7h70n08u6q41i9b66hsriqv88rf0dm1.apps.googleusercontent.com',
-            scope: 'profile email'
-        }
+      provide: NG_GAPI_CONFIG,
+      useValue: {
+        client_id: '977736754031-s7h70n08u6q41i9b66hsriqv88rf0dm1.apps.googleusercontent.com',
+        scope: 'profile email'
+      }
     }),
     FacebookSDKModule.forRoot({
-        provide: NG_FSDK_CONFIG,
-        useValue: {
-          appId: '828631504305155',
-          cookie: true,
-          xfbml: true,
-          version: 'v6.0'
+      provide: NG_FSDK_CONFIG,
+      useValue: {
+        appId: '828631504305155',
+        cookie: true,
+        xfbml: true,
+        version: 'v6.0'
       }
     })
   ],

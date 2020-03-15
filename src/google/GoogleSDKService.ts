@@ -1,16 +1,22 @@
+/// <reference types="gapi" />
+/// <reference types="gapi.auth2" />
+
 import { Observable } from 'rxjs';
 import { Inject, Injectable, InjectionToken, Output, EventEmitter } from '@angular/core';
 import { Observer } from 'rxjs';
 import { GoogleSDKConfig } from './config/GoogleSDKConfig';
-import { GoogleUserProfile } from './IGoogle';
+import { GoogleUserProfile, GoogleClientConfig } from './IGoogle';
 
-export let NG_GAPI_CONFIG: InjectionToken<gapi.auth2.ClientConfig> = new InjectionToken<gapi.auth2.ClientConfig>('google.config');
+export let NG_GAPI_CONFIG: InjectionToken<GoogleClientConfig> = new InjectionToken<GoogleClientConfig>('google.config');
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleSDKService {
   private readonly gapiUrl: string = 'https://apis.google.com/js/api.js';
+
+  @Output() onload: EventEmitter<void> = new EventEmitter();
+
   private _config: GoogleSDKConfig;
   public get config(): GoogleSDKConfig {
     return this._config;
@@ -27,9 +33,7 @@ export class GoogleSDKService {
     this._GoogleAuth = value;
   }
 
-  @Output() onload: EventEmitter<void> = new EventEmitter();
-
-  constructor(@Inject(NG_GAPI_CONFIG) config: gapi.auth2.ClientConfig) {
+  constructor(@Inject(NG_GAPI_CONFIG) config: GoogleClientConfig) {
     this.config = new GoogleSDKConfig(config);
     this.loadSDK().subscribe(() => {
       console.log('Google: SDK loaded');

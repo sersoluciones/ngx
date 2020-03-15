@@ -1,15 +1,15 @@
-import ClientConfig = gapi.auth2.ClientConfig;
+
 
 export class GoogleSDKConfig {
-  private _clientConfig: ClientConfig;
-  public get clientConfig(): ClientConfig {
+  private _clientConfig: gapi.auth2.ClientConfig;
+  public get clientConfig(): gapi.auth2.ClientConfig {
     return this._clientConfig;
   }
-  public set clientConfig(value: ClientConfig) {
+  public set clientConfig(value: gapi.auth2.ClientConfig) {
     this._clientConfig = value;
   }
 
-  constructor(clientConfig: ClientConfig) {
+  constructor(clientConfig: gapi.auth2.ClientConfig) {
     this.clientConfig = clientConfig;
   }
 }
