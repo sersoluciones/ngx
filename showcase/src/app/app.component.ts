@@ -1,3 +1,4 @@
+import { inArray } from './../../../src/public-api';
 import { FullscreenService } from './../../../src/fullscreen/fullscreen.service';
 import { PrefersColorSchemeService } from './../../../src/prefers-color-scheme/prefers-color-scheme.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -17,5 +18,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.colorscheme.init();
     this.colorscheme.watch();
+    console.log(inArray('tes', ['asd', 'test']));
   }
 }

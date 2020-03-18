@@ -20,4 +20,17 @@ export * from './facebook/FacebookSDKService';
 export * from './facebook/config/FacebookSDKConfig';
 export * from './facebook/IFacebook';
 
+// OpenID
+export * from './open-id/IOpenIdClient';
+export * from './open-id/ClaimsModule';
+export * from './open-id/ClaimsService';
+export * from './open-id/IOpenIdClient';
+
+// Utils
+export * from './utils/array';
+export * from './utils/check';
+export * from './utils/navigator';
+export * from './utils/random';
+export * from './utils/keyboard-keys';
+
 export * from './ui/ui.module';
