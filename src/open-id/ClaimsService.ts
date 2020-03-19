@@ -4,6 +4,12 @@ import { inArray } from '../utils/array';
 
 export let OPEN_ID_CONFIG: InjectionToken<OpenIdData> = new InjectionToken<OpenIdData>('claims.config');
 
+/**
+ * @description
+ * Servicio para verificar si es usuario tiene o no permisos para realizar ciertas acciones
+ * @example
+ * constructor(private claimsService: ClaimsService) { }
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -22,16 +28,26 @@ export class ClaimsService {
   }
 
   /**
-   * hasPermission
+   * @description
+   * Método para verificar si el usuario tiene un permiso
+   * @param {string} requiredPermission - Nombre del permiso a consultar
+   * @example
+   * this.claimsService.hasPermission('users.view');
+   * @returns {boolean}
    */
-  public hasPermission(requiredPermission: string) {
+  public hasPermission(requiredPermission: string): boolean {
     return this.openIdData.claims.indexOf(requiredPermission) !== -1;
   }
 
   /**
-   * atLeastPermissions
+   * @description
+   * Método para verificar si el usuario tiene un al menos un permiso del listado consultado
+   * @param {string[]} requiredPermissions - Arreglo de permisos a consultar
+   * @example
+   * this.claimsService.atLeastPermissions(['users.view', 'users.update', 'users.add']);
+   * @returns {boolean}
    */
-  public atLeastPermissions(requiredPermissions: string[]) {
+  public atLeastPermissions(requiredPermissions: string[]): boolean {
     for (let index = 0; index < requiredPermissions.length; index++) {
 
       if (inArray(requiredPermissions[index], this.openIdData.claims)) {
@@ -43,9 +59,14 @@ export class ClaimsService {
   }
 
   /**
-   * hasPermissions
+   * @description
+   * Método para verificar si el usuario tiene todos los permisos consultados
+   * @param {string[]} requiredPermissions - Arreglo de permisos a consultar
+   * @example
+   * this.claimsService.hasPermissions(['users.view', 'users.update', 'users.add']);
+   * @returns {boolean}
    */
-  public hasPermissions(requiredPermissions: string[]) {
+  public hasPermissions(requiredPermissions: string[]): boolean {
 
     for (let index = 0; index < requiredPermissions.length; index++) {
 

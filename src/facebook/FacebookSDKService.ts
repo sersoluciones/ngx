@@ -8,6 +8,10 @@ import { Observer } from 'rxjs';
 
 export let NG_FSDK_CONFIG: InjectionToken<facebook.InitParams> = new InjectionToken<facebook.InitParams>('facebook.config');
 
+/**
+ * @description
+ * Servicio para interacturar con el SDK de Facebook
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -31,6 +35,11 @@ export class FacebookSDKService {
     });
   }
 
+  /**
+   * @description
+   * Método para obtener un token de inicio de sesión junto con la información de perfil
+   * @returns {Observable<FacebookUserProfile>}
+   */
   public login(): Observable<FacebookUserProfile> {
     return new Observable((observer: Observer<FacebookUserProfile>) => {
 
@@ -69,6 +78,10 @@ export class FacebookSDKService {
     });
   }
 
+  /**
+   * @description
+   * Metodo privado que carga la libreria de Facebook, al cargarse correctamente, se emite el evento 'onload'
+   */
   public loadSDK(): Observable<boolean> {
     return new Observable((observer: Observer<boolean>) => {
 

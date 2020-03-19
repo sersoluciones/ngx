@@ -9,6 +9,10 @@ import { GoogleUserProfile, GoogleClientConfig } from './IGoogle';
 
 export let NG_GAPI_CONFIG: InjectionToken<GoogleClientConfig> = new InjectionToken<GoogleClientConfig>('google.config');
 
+/**
+ * @description
+ * Servicio para interactuar con la API de Google
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -41,6 +45,11 @@ export class GoogleSDKService {
     });
   }
 
+  /**
+   * @description
+   * Método para obtener un token de inicio de sesión junto con la información de perfil
+   * @returns {Observable<GoogleUserProfile>}
+   */
   public login(): Observable<GoogleUserProfile> {
     return new Observable((observer: Observer<GoogleUserProfile>) => {
 
@@ -67,7 +76,11 @@ export class GoogleSDKService {
     });
   }
 
-  public loadSDK(): Observable<void> {
+  /**
+   * @description
+   * Metodo privado que carga la libreria de Google, al cargarse correctamente, se emite el evento 'onload'
+   */
+  private loadSDK(): Observable<void> {
     return new Observable((observer: Observer<void>) => {
 
       if ((window as any).gapi == null) {

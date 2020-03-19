@@ -18,6 +18,5 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.colorscheme.init();
     this.colorscheme.watch();
-    console.log(inArray('tes', ['asd', 'test']));
   }
 }

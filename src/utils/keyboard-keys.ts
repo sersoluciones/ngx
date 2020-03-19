@@ -1,3 +1,7 @@
+/**
+ * @description
+ * Mapeo de teclas con su respectivo código númerico
+ */
 export const KEYBOARD_KEYS = {
   up: 38,
   down: 40,
