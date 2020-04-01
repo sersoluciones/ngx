@@ -30,7 +30,18 @@
     "strictInjectionParameters": true
   },
   "typedocOptions": {
-    "mode": "modules",
-    "out": "../ngx-ui-doc/"
+    "mode": "library",
+    "inputFiles": ["./src"],
+    "excludeExternals": true,
+    "excludeNotExported": true,
+    "disableOutputCheck": true,
+    "disableSources": true,
+    "out": "../ngx-doc/",
+    "exclude": [
+      "**/**/*.spec.ts",
+      "**/*.module.ts",
+      "**/test.ts",
+      "**/public-api.ts"
+    ]
   }
 }

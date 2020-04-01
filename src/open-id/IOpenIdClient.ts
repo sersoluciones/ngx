@@ -5,8 +5,9 @@
 export interface OpenIdClient {
     id: string;
     third_id?: string;
+    credential_id?: string;
     secret: string;
-    scopes: string;
+    scopes?: string;
 }
 
 /**
