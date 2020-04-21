@@ -2,7 +2,7 @@ import { FullscreenService } from './../../../src/fullscreen/fullscreen.service'
 import { PrefersColorSchemeService } from './../../../src/prefers-color-scheme/prefers-color-scheme.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import * as examples from 'src/app/app.examples';
-import { GoogleSDKModule } from '../../../src/google/GoogleSDKModule';
+import { GoogleSDKModule } from '../../../src/google/google-sdk.module';
 
 @Component({
   selector: 'app-root',

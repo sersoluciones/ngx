@@ -1,5 +1,5 @@
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
-import { FacebookSDKService } from './FacebookSDKService';
+import { FacebookSDKService } from './facebook-sdk.service';
 
 /**
  * @description

@@ -4,8 +4,8 @@
 import { Observable } from 'rxjs';
 import { Inject, Injectable, InjectionToken, Output, EventEmitter } from '@angular/core';
 import { Observer } from 'rxjs';
-import { GoogleSDKConfig } from './config/GoogleSDKConfig';
-import { GoogleUserProfile, GoogleClientConfig } from './IGoogle';
+import { GoogleSDKConfig } from './config/google-sdk.config';
+import { GoogleUserProfile, GoogleClientConfig } from './Igoogle';
 
 export let NG_GAPI_CONFIG: InjectionToken<GoogleClientConfig> = new InjectionToken<GoogleClientConfig>('google.config');
 

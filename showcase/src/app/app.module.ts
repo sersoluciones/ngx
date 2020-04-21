@@ -9,10 +9,10 @@ import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
 
 import { AppComponent } from './app.component';
-import { GoogleSDKModule } from '../../../src/google/GoogleSDKModule';
-import { NG_GAPI_CONFIG } from '../../../src/google/GoogleSDKService';
-import { FacebookSDKModule } from '../../../src/facebook/FacebookSDKModule';
-import { NG_FSDK_CONFIG } from '../../../src/facebook/FacebookSDKService';
+import { GoogleSDKModule } from '../../../src/google/google-sdk.module';
+import { NG_GAPI_CONFIG } from '../../../src/google/google-sdk.service';
+import { FacebookSDKModule } from '../../../src/facebook/facebook-sdk.module';
+import { NG_FSDK_CONFIG } from '../../../src/facebook/facebook-sdk.service';
 
 @NgModule({
   declarations: [

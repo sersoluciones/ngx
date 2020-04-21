@@ -1,9 +1,9 @@
 /// <reference types="facebook-js-sdk" />
 
-import { FacebookUserProfile } from './IFacebook';
+import { FacebookUserProfile } from './Ifacebook';
 import { Observable } from 'rxjs';
 import { Inject, Injectable, InjectionToken, Output, EventEmitter } from '@angular/core';
-import { FacebookSDKConfig } from './config/FacebookSDKConfig';
+import { FacebookSDKConfig } from './config/facebook-sdk.config';
 import { Observer } from 'rxjs';
 
 export let NG_FSDK_CONFIG: InjectionToken<facebook.InitParams> = new InjectionToken<facebook.InitParams>('facebook.config');

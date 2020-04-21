@@ -1,4 +1,4 @@
-import { OpenIdData } from './IOpenIdClient';
+import { OpenIdData } from './Iopen-id-client';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { inArray } from '../utils/array';
 

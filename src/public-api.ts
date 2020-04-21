@@ -8,23 +8,28 @@ export * from './fullscreen/fullscreen-interface';
 export * from './prefers-color-scheme/prefers-color-scheme.service';
 export * from './click-pointer/click-pointer.directive';
 
+// AWS
+export * from './aws/aws.module';
+export * from './aws/aws.service';
+export * from './aws/Iaws';
+
 // Google
-export * from './google/GoogleSDKModule';
-export * from './google/GoogleSDKService';
-export * from './google/config/GoogleSDKConfig';
-export * from './google/IGoogle';
+export * from './google/google-sdk.module';
+export * from './google/google-sdk.service';
+export * from './google/config/google-sdk.config';
+export * from './google/Igoogle';
 
 // Facebook
-export * from './facebook/FacebookSDKModule';
-export * from './facebook/FacebookSDKService';
-export * from './facebook/config/FacebookSDKConfig';
-export * from './facebook/IFacebook';
+export * from './facebook/facebook-sdk.module';
+export * from './facebook/facebook-sdk.service';
+export * from './facebook/config/facebook-sdk.config';
+export * from './facebook/Ifacebook';
 
 // OpenID
-export * from './open-id/IOpenIdClient';
-export * from './open-id/ClaimsModule';
-export * from './open-id/ClaimsService';
-export * from './open-id/IOpenIdClient';
+export * from './open-id/Iopen-id-client';
+export * from './open-id/claims.module';
+export * from './open-id/claims.service';
+export * from './open-id/Iopen-id-client';
 
 // Utils
 export * from './utils/array';

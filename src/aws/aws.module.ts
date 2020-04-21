@@ -1,19 +1,21 @@
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
-import { ClaimsService } from './ClaimsService';
+import { AwsService } from './aws.service';
 
 /**
  * @description
- * Módulo para inicializar el servicio ClaimsService
+ * Módulo para inicializar el servicio AwsService
  * @example
- * import { OPEN_ID_CONFIG, ClaimsModule } from '@sersol/ngx';
+ * import { AWS_CONFIG, AwsModule } from '@sersol/ngx';
  *
  * @NgModule({
     imports: [
       ...,
-      ClaimsModule.forRoot({
-          provide: OPEN_ID_CONFIG,
+      AwsModule.forRoot({
+          provide: AWS_CONFIG,
           useValue: {
-              claims: (document as any).CLAIMS
+              s3: {
+                bucket: 'ser-app'
+              }
           }
       }),
       ...
@@ -26,13 +28,13 @@ import { ClaimsService } from './ClaimsService';
 export class AppModule { }
  */
 @NgModule()
-export class ClaimsModule {
+export class AwsModule {
   static forRoot(ConfigProvider: Provider): ModuleWithProviders {
     return {
-      ngModule: ClaimsModule,
+      ngModule: AwsModule,
       providers: [
         ConfigProvider,
-        ClaimsService
+        AwsService
       ]
     };
   }

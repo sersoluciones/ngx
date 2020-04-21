@@ -1,6 +1,6 @@
-import { FacebookUserProfile } from './../../../../src/facebook/IFacebook';
+import { FacebookUserProfile } from '../../../../src/facebook/Ifacebook';
 import { Component, HostListener } from '@angular/core';
-import { FacebookSDKService } from '../../../../src/facebook/FacebookSDKService';
+import { FacebookSDKService } from '../../../../src/facebook/facebook-sdk.service';
 declare var FB: any;
 
 @Component({

@@ -1,5 +1,5 @@
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
-import { GoogleSDKService } from './GoogleSDKService';
+import { GoogleSDKService } from './google-sdk.service';
 
 /**
  * @description

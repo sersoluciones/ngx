@@ -1,6 +1,6 @@
-import { GoogleSDKService } from '../../../../src/google/GoogleSDKService';
+import { GoogleSDKService } from '../../../../src/google/google-sdk.service';
 import { Component, HostListener } from '@angular/core';
-import { GoogleUserProfile } from '../../../../src/google/IGoogle';
+import { GoogleUserProfile } from '../../../../src/google/Igoogle';
 
 @Component({
   selector: 'app-google',
