@@ -2,7 +2,6 @@ import { ClickPointerDirective } from './../click-pointer/click-pointer.directiv
 import { NgModule } from '@angular/core';
 
 
-
 @NgModule({
   declarations: [ClickPointerDirective],
   imports: [

@@ -1,5 +1,18 @@
 ﻿@import 'mixins.scss';
 
+$primary_color: #653182;
+$primary_color_dark: #00adff;
+
+:root {
+  --primary-color: #{$primary_color};
+  --primary-color-rgb: #{toRGB($primary_color)};
+  --grey-border: #f3f3f3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 html,
 body{
     margin: 0;
