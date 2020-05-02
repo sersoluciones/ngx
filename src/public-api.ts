@@ -37,5 +37,6 @@ export * from './utils/check';
 export * from './utils/navigator';
 export * from './utils/random';
 export * from './utils/keyboard-keys';
+export * from './utils/patterns';
 
 export * from './ui/ui.module';

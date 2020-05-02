@@ -188,10 +188,15 @@ input {
         box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.3);
     } */
 
-    [ngxerrors]:not(:empty) {
+    [ngxerrors],
+    .errors {
         margin-top: 8px;
         color: red;
         user-select: none;
+
+        * {
+          margin-top: 2px;
+        }
     }
 
     input.ng-invalid.ng-dirty:not(.not-styled),
