@@ -76,7 +76,7 @@ export class CookiesService {
   /**
    * @param name     Nombre
    * @param value    valor
-   * @param expires  Número de días en que será vigente la cookie o un objeto `Date` (30 dìas por defecto)
+   * @param expires  Unix Timestamp en que será vigente la cookie o un objeto `Date`
    * @param path     Ruta
    * @param domain   Dominio
    * @param secure   Cookie segura
@@ -100,7 +100,7 @@ export class CookiesService {
 
     if (expires) {
       if (typeof expires === 'number') {
-        const dateExpires: Date = new Date(new Date().getTime() + expires * 1000 * 60 * 60 * 24);
+        const dateExpires: Date = new Date(expires * 1000);
 
         cookieString += 'expires=' + dateExpires.toUTCString() + ';';
       } else {
