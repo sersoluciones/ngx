@@ -31,6 +31,9 @@ export * from './open-id/claims.module';
 export * from './open-id/claims.service';
 export * from './open-id/Iopen-id-client';
 
+// Form
+export * from './form/custom-validators';
+
 // Utils
 export * from './utils/array';
 export * from './utils/check';
