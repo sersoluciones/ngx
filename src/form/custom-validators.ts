@@ -1,8 +1,16 @@
 import { ValidationErrors, ValidatorFn, FormGroup } from '@angular/forms';
 import { hasValue } from '../utils/check';
 
+/**
+ * @description Validaciones adicionales para Form Control's
+ */
 export class CustomValidators {
 
+  /**
+   * @description Verifica si los campos proveidos son iguales
+   * @param originalPathField Path del campo original
+   * @param duplicatePathField Path del campo que deberia ser igual al original
+   */
   static match(originalPathField: string, duplicatePathField: string): ValidatorFn {
     const validation = (fg: FormGroup): ValidationErrors | null => {
 

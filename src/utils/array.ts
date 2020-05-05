@@ -22,6 +22,13 @@ export function notInArray(value: any, array: any[]): boolean {
 
 /**
  * @description
+ * Función para convertir un string en string[]
+ * @param value Valor a convertir
+ */
+export const toArray = (value: any): string[] => Array.isArray(value) ? value : [value];
+
+/**
+ * @description
  * Función para crear un objeto con los datos agrupado de un arreglo por un valor dado
  * @param {any[]} array Arreglo para agrupar
  * @param {string | number} field Campo para agrupar

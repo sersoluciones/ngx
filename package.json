@@ -1,6 +1,6 @@
 {
   "name": "@sersol/ngx",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --aot --ssl --ssl-key localhost.key  --ssl-cert localhost.crt",
@@ -32,6 +32,7 @@
     "jquery": "^3.4.1",
     "ngx-highlightjs": "^3.0.3",
     "rxjs": "^6.5.4",
+    "rxjs-compat": "^6.5.4",
     "tooltipster": "^4.2.7",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
