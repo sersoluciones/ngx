@@ -1,11 +1,12 @@
 {
   "name": "@sersol/ngx",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "peerDependencies": {
     "@angular/common": "^9.0.6",
     "@angular/core": "^9.0.6",
     "@types/gapi": "0.0.39",
     "@types/facebook-js-sdk": "^3.3.0",
+    "bowser": "^2.9.0",
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",
     "tslib": "^1.10.0"

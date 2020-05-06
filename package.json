@@ -28,6 +28,7 @@
     "@types/gapi.auth2": "0.0.51",
     "@types/jquery": "^3.3.33",
     "angular-cli-ghpages": "^0.6.2",
+    "bowser": "^2.9.0",
     "highlight.js": "^9.18.1",
     "jquery": "^3.4.1",
     "ngx-highlightjs": "^3.0.3",

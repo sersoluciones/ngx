@@ -35,6 +35,7 @@ export * from './form/custom-validators';
 
 // Utils
 export * from './utils/array';
+export * from './utils/bowser';
 export * from './utils/check';
 export * from './utils/navigator';
 export * from './utils/random';
