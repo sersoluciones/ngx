@@ -21,11 +21,6 @@ legend {
   user-select: none;
 }
 
-label {
-  user-select: none;
-  pointer-events: none;
-}
-
 select,
 textarea,
 input {
@@ -56,6 +51,13 @@ input:-webkit-autofill {
   -webkit-animation-delay: 1s; /* Safari support - any positive time runs instantly */
   -webkit-animation-name: autofill-fix;
   -webkit-animation-fill-mode: both;
+}
+
+ser-form-element {
+  > label:not(.switch) {
+    user-select: none;
+    pointer-events: none;
+  }
 }
 
 ser-form-element,
