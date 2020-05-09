@@ -2,14 +2,8 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/lib",
-    "target": "es6",
     "declaration": true,
-    "inlineSources": true,
-    "types": [],
-    "lib": [
-      "dom",
-      "es6"
-    ]
+    "inlineSources": true
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

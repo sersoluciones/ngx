@@ -33,6 +33,9 @@ export * from './open-id/Iopen-id-client';
 // Form
 export * from './form/custom-validators';
 
+// GraphQL
+export * from './graphql/utils';
+
 // Utils
 export * from './utils/array';
 export * from './utils/bowser';
@@ -49,3 +52,7 @@ export * from './form/ser-errors/ser-errors';
 export * from './form/ser-errors/ser-errors.directive';
 export * from './form/ser-errors/ser-error.directive';
 export * from './form/ser-form.module';
+
+// UI
+export * from './ui/when-scrolled.directive';
+export * from './ui/ser-ui.module';
