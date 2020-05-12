@@ -55,4 +55,5 @@ export * from './form/ser-form.module';
 
 // UI
 export * from './ui/when-scrolled.directive';
+export * from './ui/finish-typing.directive';
 export * from './ui/ser-ui.module';
