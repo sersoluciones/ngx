@@ -4,8 +4,17 @@
  * @returns {string}
  */
 export function guid(): string {
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+/**
+ * @description
+ * Función para generar un código alfanúmerico único
+ * @returns {string}
+ */
+export function uniqueId(): string {
+  const today = new Date();
+  return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + Math.floor((today.getTime() * Math.random()));
 }
 
 function s4(): string {
