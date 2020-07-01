@@ -1,6 +1,7 @@
 import { Directive, Output, EventEmitter, ElementRef, Renderer2, OnDestroy } from '@angular/core';
 
 @Directive({
+    // tslint:disable-next-line: directive-selector
     selector: '[finishTyping]'
 })
 export class FinishTypingDirective implements OnDestroy {

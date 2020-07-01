@@ -30,9 +30,6 @@ export * from './open-id/claims.module';
 export * from './open-id/claims.service';
 export * from './open-id/Iopen-id-client';
 
-// Form
-export * from './form/custom-validators';
-
 // GraphQL
 export * from './graphql/utils';
 
@@ -45,7 +42,11 @@ export * from './utils/random';
 export * from './utils/keyboard-keys';
 export * from './utils/patterns';
 
+// File
+export * from './file/read';
+
 // Forms
+export * from './form/custom-validators';
 export * from './form/ser-form-element/ser-form-element.component';
 export * from './form/ser-form-element/ser-control.directive';
 export * from './form/ser-errors/ser-errors';
