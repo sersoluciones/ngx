@@ -34,6 +34,7 @@ export * from './open-id/Iopen-id-client';
 export * from './graphql/utils';
 
 // Utils
+export * from './utils/object';
 export * from './utils/array';
 export * from './utils/bowser';
 export * from './utils/check';
@@ -41,6 +42,13 @@ export * from './utils/navigator';
 export * from './utils/random';
 export * from './utils/keyboard-keys';
 export * from './utils/patterns';
+
+// Map
+export * from './map/types';
+export * from './map/map.service';
+export * from './map/leaflet/types';
+export * from './map/leaflet/providers';
+export * from './map/leaflet/main';
 
 // File
 export * from './file/read';
