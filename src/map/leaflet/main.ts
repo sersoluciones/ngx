@@ -43,9 +43,9 @@ export class LeafletMap {
 
         this.layerControl = new L.Control.Layers(this.options.layers, null, this.options.layersOptions);
         this.map.addControl(this.layerControl);
+        this.map.addControl(new L.Control.MousePosition(this.options.mousePositionOptions));
         this.map.addControl(new L.Control.Fullscreen(this.options.fullscreen));
         this.map.addControl(new L.Control.Zoom(this.options.zoom));
-        this.map.addControl(new L.Control.MousePosition(this.options.mousePositionOptions));
 
         this.map.setView([this.options.initialView.lat, this.options.initialView.lng], this.options.initialView.zoom);
 
