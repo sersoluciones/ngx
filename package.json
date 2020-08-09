@@ -1,6 +1,6 @@
 {
   "name": "@sersol/ngx",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --aot --ssl --ssl-key localhost.key  --ssl-cert localhost.crt",
@@ -31,7 +31,6 @@
     "angular-cli-ghpages": "^0.6.2",
     "bowser": "^2.9.0",
     "highlight.js": "^9.18.1",
-    "jquery": "^3.4.1",
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
     "ngx-highlightjs": "^3.0.3",
