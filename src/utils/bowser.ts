@@ -8,8 +8,8 @@ import { Parser } from 'bowser';
  * @param {Renderer2} renderer Elemento a modificar
  */
 export function setBowserClasses(bowserInstance: Parser.Parser, renderer: Renderer2) {
-    renderer.addClass(document.body, 'bos-' + bowserInstance.getOSName());
-    renderer.addClass(document.body, 'bosv-' + bowserInstance.getOSVersion());
-    renderer.addClass(document.body, 'bn-' + bowserInstance.getBrowserName());
-    renderer.addClass(document.body, 'bv-' + bowserInstance.getBrowserVersion());
+    renderer.addClass(document.body, 'bos-' + bowserInstance.getOSName().replace(/ +/g, '-'));
+    renderer.addClass(document.body, 'bosv-' + bowserInstance.getOSVersion().replace(/ +/g, '-'));
+    renderer.addClass(document.body, 'bn-' + bowserInstance.getBrowserName().replace(/ +/g, '-'));
+    renderer.addClass(document.body, 'bv-' + bowserInstance.getBrowserVersion().replace(/ +/g, '-'));
 }

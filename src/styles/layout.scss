@@ -403,47 +403,17 @@ button.print {
 }
 
 mat-icon {
-    color: #555;
+    color: var(--font-color-2);
 }
 
 .dp0 {
-    background-color: var(--light-grey-0dp);
+    background-color: var(--bg-0dp);
 }
 
 .dp1 {
-    background-color: var(--light-grey-1dp);
+    background-color: var(--bg-1dp);
 }
 
 .dp2 {
-    background-color: var(--light-grey-2dp);
-}
-
-.scheme-dark {
-    mat-icon {
-        color: white;
-    }
-
-    .dp0 {
-        background-color: var(--dark-grey-0dp);
-    }
-
-    .dp1 {
-        background-color: var(--dark-grey-1dp);
-    }
-
-    .dp2 {
-        background-color: var(--dark-grey-2dp);
-    }
-
-    .dp3 {
-        background-color: var(--dark-grey-3dp);
-    }
-
-    .dp4 {
-        background-color: var(--dark-grey-4dp);
-    }
-
-    .dp6 {
-        background-color: var(--dark-grey-6dp);
-    }
+    background-color: var(--bg-2dp);
 }

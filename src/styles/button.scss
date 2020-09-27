@@ -4,7 +4,7 @@
 .bttn {
     height: 38px;
     padding: 0 20px;
-    color: #555;
+    color: var(--font-color-2);
     font-family: 'Segoe UI', sans-serif;
     background-image: none;
     font-size: rem(10);
@@ -201,12 +201,5 @@
         -webkit-box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.3);
         -moz-box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.3);
         box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.3);
-    }
-}
-
-.scheme-dark {
-    .fc button,
-    .bttn:not(.light-blue):not(.blue):not(.red):not(.orange):not(.yellow):not(.green){
-        color: white;
     }
 }

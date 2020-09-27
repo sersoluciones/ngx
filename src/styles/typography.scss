@@ -3,7 +3,7 @@
 body{
     font-size: 14px;
     font-family: $font-family;
-    color: rgba(black,0.87);
+    color: var(--font-color-1);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -38,7 +38,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .scheme-dark{
-  color: rgba(white,0.87);
 
   h1, h2, h3, h4, h5, h6 {
     text-shadow: rgba(white, 0.15) 0 0 1px;

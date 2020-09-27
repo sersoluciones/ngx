@@ -1,5 +1,8 @@
 :root {
   --primary-color: #653182;
+  --font-color-1: #040404;
+  --font-color-2:  #555;
+  --font-color-disabled: #a5a5a5;
 
   --blue-accent: #0676ec;
   --blue-primary: #3ec1eb;
@@ -30,17 +33,31 @@
   --grey-border: #f3f3f3;
   --grey-hover: #efefef;
 
-  --light-grey-0dp: #eff1f4;
-  --light-grey-1dp: white;
-  --light-grey-2dp: #f4f4f4;
-  --light-grey-3dp: #dfdfdf;
+  --card-bg: #e4e3e3;
 
-  --dark-grey-0dp: #1e1e1e;
-  --dark-grey-1dp: #272727;
-  --dark-grey-2dp: #3e3e3e;
-  --dark-grey-3dp: #363636;
+  --bg-disabled: #f3f3f3;
+  --bg-0dp: #eff1f4;
+  --bg-1dp: white;
+  --bg-2dp: #e4e3e3;
+  --bg-3dp: #dfdfdf;
+
   --dark-grey-4dp: #272727;
   --dark-grey-6dp: #2c2c2c;
-  --dark-grey-border: #4e4e4e;
   --dark-error-color: #cf6679;
+}
+
+.scheme-dark {
+    --font-color-1: white;
+    --font-color-2:  white;
+    --font-color-disabled: #a5a5a5;
+
+    --card-bg: #3e3e3e;
+
+    --grey-border: #4e4e4e;
+
+    --bg-disabled: #131313;
+    --bg-0dp: #1e1e1e;
+    --bg-1dp: #272727;
+    --bg-2dp: #3e3e3e;
+    --bg-3dp: #272727;
 }

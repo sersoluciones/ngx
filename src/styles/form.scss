@@ -24,7 +24,7 @@ legend {
 select,
 textarea,
 input {
-    background-color: var(--light-grey-2dp);
+    background-color: var(--bg-2dp);
     color: black;
     border: none;
 }
@@ -33,7 +33,7 @@ input {
     0%,
     100% {
         color: black;
-        background: var(--light-grey-2dp);
+        background: var(--bg-2dp);
     }
 }
 
@@ -41,7 +41,7 @@ input {
     0%,
     100% {
         color: white;
-        background: var(--dark-grey-2dp);
+        background: var(--bg-2dp);
     }
 }
 
@@ -78,8 +78,8 @@ ser-form-element,
             margin-bottom: 0;
             font-weight: normal;
             text-align: center;
-            color: black;
-            background-color: var(--light-grey-3dp);
+            color: var(--font-color-1);
+            background-color: var(--bg-3dp);
             transition: background-color 500ms;
             border-radius: 6px;
             user-select: none;
@@ -138,7 +138,8 @@ ser-form-element,
 
     input:not(.not-styled),
     textarea:not(.not-styled),
-    select:not(.not-styled) {
+    select:not(.not-styled),
+    .mat-select:not(.not-styled) {
         position: relative;
         -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -147,8 +148,8 @@ ser-form-element,
         padding: 6px 12px;
         font-family: inherit;
         font-size: rem(10);
-        color: black;
-        background-color: var(--light-grey-2dp);
+        color: var(--font-color-1);
+        background-color: var(--bg-2dp);
         transition: background-color 500ms;
         background-image: none;
         background-clip: padding-box;
@@ -163,15 +164,24 @@ ser-form-element,
         max-width: 100%;
     }
 
+    input:not(.not-styled)::placeholder,
+    textarea:not(.not-styled)::placeholder,
+    select:not(.not-styled)::placeholder,
+    .mat-select:not(.not-styled)::placeholder {
+        color: var(--font-color-1);
+    }
+
     input[disabled],
     textarea[disabled],
-    select[disabled] {
-        background-color: #f3f3f3;
-        color: #a5a5a5;
+    select[disabled],
+    .mat-select[disabled] {
+        background-color: var(--bg-disabled);
+        color: var(--font-color-disabled);
     }
 
     > input:not(.not-styled),
-    > select:not(.not-styled) {
+    > select:not(.not-styled),
+    > .mat-select:not(.not-styled) {
         max-height: 33px;
     }
 
@@ -228,7 +238,7 @@ ser-form-element,
                 top: -16px;
                 left: 4px;
                 padding: 4px 8px 0;
-                background-color: var(--light-grey-2dp);
+                background-color: var(--bg-2dp);
                 border-radius: 8px 8px 0 0;
                 transition: all 200ms ease-in-out;
                 pointer-events: all;
@@ -253,7 +263,8 @@ ser-form-element,
 
             input:not(.not-styled),
             textarea:not(.not-styled),
-            select:not(.not-styled) {
+            select:not(.not-styled),
+            .mat-select:not(.not-styled) {
                 border-top-left-radius: 0;
             }
         }
@@ -283,6 +294,7 @@ ser-form-element,
     input.ng-invalid.ng-dirty:not(.not-styled),
     textarea.ng-invalid.ng-dirty:not(.not-styled),
     select.ng-invalid.ng-dirty:not(.not-styled),
+    .mat-select.ng-invalid.ng-dirty:not(.not-styled),
     .selector-container.ng-invalid.ng-dirty .selector-input {
         border: 1px solid #fd4e4e;
     }
@@ -304,20 +316,15 @@ ser-form-element,
 input[disabled],
 textarea[disabled],
 select[disabled],
+.mat-select[disabled],
 .selector-container.disabled .selector-input {
     opacity: 0.8;
     cursor: not-allowed;
     user-select: none;
-    background-color: #f1f1f1;
+    background-color: var(--bg-disabled);
 }
 
 .scheme-dark {
-    select,
-    textarea,
-    input {
-        background-color: var(--dark-grey-2dp);
-        color: white;
-    }
 
     select:-webkit-autofill,
     textarea:-webkit-autofill,
@@ -335,7 +342,6 @@ select[disabled],
             &.active,
             &.focus {
                 > label:not(.switch) {
-                    background-color: var(--dark-grey-2dp);
 
                     &::after {
                         content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5.23 5.23'%3E%3Cpath d='M0,0V5.23H5.23A5.23,5.23,0,0,1,0,0Z' style='fill:%233e3e3e'/%3E%3C/svg%3E");
@@ -346,38 +352,16 @@ select[disabled],
 
         input:not(.not-styled),
         textarea:not(.not-styled),
-        select:not(.not-styled) {
-            transition: background-color 500ms, color 500ms;
-            background-color: var(--dark-grey-2dp);
-            color: white;
+        select:not(.not-styled),
+        .mat-select:not(.not-styled) {
             border: none;
-        }
-
-        input:not(.not-styled)::placeholder,
-        textarea:not(.not-styled)::placeholder,
-        select:not(.not-styled)::placeholder {
-            color: white;
         }
 
         input.ng-invalid.ng-dirty:not(.not-styled),
         textarea.ng-invalid.ng-dirty:not(.not-styled),
-        select.ng-invalid.ng-dirty:not(.not-styled) {
+        select.ng-invalid.ng-dirty:not(.not-styled),
+        .mat-select.ng-invalid.ng-dirty:not(.not-styled) {
             border: 1px solid #fd4e4e;
         }
-
-        .input-group {
-            .addon {
-                color: white;
-                background-color: var(--dark-grey-3dp);
-                transition: background-color 500ms;
-            }
-        }
-    }
-
-    input[disabled],
-    textarea[disabled],
-    select[disabled],
-    .selector-container.disabled .selector-input {
-        background-color: #131313;
     }
 }

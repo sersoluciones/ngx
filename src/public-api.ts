@@ -26,9 +26,7 @@ export * from './facebook/Ifacebook';
 
 // OpenID
 export * from './open-id/Iopen-id-client';
-export * from './open-id/claims.module';
 export * from './open-id/claims.service';
-export * from './open-id/Iopen-id-client';
 
 // GraphQL
 export * from './graphql/utils';

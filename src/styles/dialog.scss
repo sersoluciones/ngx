@@ -1,5 +1,9 @@
 @import 'mixins.scss';
 
+.mat-dialog-container {
+    background-color: var(--bg-0dp);
+}
+
 .dialog-message {
     @include row;
     max-width: 500px;
@@ -29,26 +33,6 @@
                 padding: 0;
                 list-style: none;
             }
-        }
-    }
-}
-
-md-dialog {
-
-    .md-actions, md-dialog-actions {
-        background-color: white;
-        border-radius: 4px;
-        padding: 12px 8px;
-    }
-}
-
-.scheme-dark {
-    md-dialog {
-        background-color: var(--dark-grey-0dp);
-        color: rgba(white, 0.87);
-
-        .md-actions, md-dialog-actions {
-            background-color: var(--dark-grey-0dp);
         }
     }
 }
