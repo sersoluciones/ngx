@@ -60,6 +60,13 @@ export * from './form/ser-errors/ser-errors.directive';
 export * from './form/ser-errors/ser-error.directive';
 export * from './form/ser-form.module';
 
+// Select
+export * from './select/clickOutside';
+export * from './select/list-filter';
+export * from './select/menu-item';
+export * from './select/virtual-scroll/virtual-scroll';
+export * from './select/multiselect.component';
+
 // UI
 export * from './ui/when-scrolled.directive';
 export * from './ui/finish-typing.directive';

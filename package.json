@@ -1,6 +1,6 @@
 {
   "name": "@sersol/ngx",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --aot --ssl --ssl-key localhost.key  --ssl-cert localhost.crt",
@@ -28,6 +28,7 @@
     "@types/gapi": "0.0.39",
     "@types/gapi.auth2": "0.0.51",
     "@types/jquery": "^3.3.33",
+    "@tweenjs/tween.js": "^17.4.0",
     "angular-cli-ghpages": "^0.6.2",
     "bowser": "^2.9.0",
     "highlight.js": "^9.18.1",
