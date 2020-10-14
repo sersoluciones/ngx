@@ -1,0 +1,14 @@
+<span *ngFor="let holder of codeInputs; index as i">
+
+    <input #input
+    [type]="type"
+    [disabled]="isDisabled"
+    (input)="onInput($event, i)"
+    (keydown)="onKeydown($event, i)"
+    (click)="onClick($event)"
+    autocomplete="chrome-off"
+     />
+
+    <!-- <input (paste)="onPaste($event, i)" /> -->
+
+</span>

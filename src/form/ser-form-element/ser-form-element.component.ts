@@ -1,3 +1,4 @@
+// tslint:disable: component-selector
 import { Subscription } from 'rxjs';
 import { Component, ContentChild, ViewEncapsulation, HostBinding } from '@angular/core';
 import { SerControlDirective } from './ser-control.directive';
@@ -9,11 +10,13 @@ import { SerControlDirective } from './ser-control.directive';
 })
 export class SerFormElementComponent {
 
-    @ContentChild(SerControlDirective)
-    formElement: SerControlDirective;
+    @ContentChild(SerControlDirective) formElement: SerControlDirective;
     observer: Subscription;
 
-    constructor() { }
+    @HostBinding('class.disabled')
+    get disabled() {
+        return this.formElement?.disabled;
+    }
 
     @HostBinding('class.focus')
     get focus() {

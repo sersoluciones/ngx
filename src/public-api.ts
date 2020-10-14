@@ -61,11 +61,16 @@ export * from './form/ser-errors/ser-error.directive';
 export * from './form/ser-form.module';
 
 // Select
-export * from './select/clickOutside';
-export * from './select/list-filter';
-export * from './select/menu-item';
-export * from './select/virtual-scroll/virtual-scroll';
-export * from './select/multiselect.component';
+export * from './form/select/ser-select.interface';
+export * from './form/select/ser-select.service';
+export * from './form/select/list-filter';
+export * from './form/select/menu-item';
+export * from './form/select/virtual-scroll/virtual-scroll';
+export * from './form/select/ser-select.component';
+export * from './form/select/ser-select.module';
+
+// PIN
+export * from './form/pin/pin-input.component';
 
 // UI
 export * from './ui/when-scrolled.directive';

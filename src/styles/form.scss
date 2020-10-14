@@ -1,5 +1,10 @@
 ﻿@import "mixins.scss";
 
+
+[hidden] {
+    display: none !important;
+}
+
 fieldset {
     -webkit-padding-before: 16px;
     padding: 16px 16px 8px;
@@ -139,6 +144,7 @@ ser-form-element,
     input:not(.not-styled),
     textarea:not(.not-styled),
     select:not(.not-styled),
+    ser-select:not(.not-styled),
     .mat-select:not(.not-styled) {
         position: relative;
         -webkit-box-flex: 1;
@@ -149,11 +155,11 @@ ser-form-element,
         font-family: inherit;
         font-size: rem(10);
         color: var(--font-color-1);
-        background-color: var(--bg-2dp);
+        background-color: var(--input-bg);
+        border: 2px solid var(--input-border);
         transition: background-color 500ms;
         background-image: none;
         background-clip: padding-box;
-        border: none;
         border-radius: 6px;
         outline: none;
         -moz-appearance: none;
@@ -174,6 +180,7 @@ ser-form-element,
     input[disabled],
     textarea[disabled],
     select[disabled],
+    ser-select.disabled,
     .mat-select[disabled] {
         background-color: var(--bg-disabled);
         color: var(--font-color-disabled);
@@ -182,16 +189,20 @@ ser-form-element,
     > input:not(.not-styled),
     > select:not(.not-styled),
     > .mat-select:not(.not-styled) {
-        max-height: 33px;
+        max-height: 50px;
+        min-height: 50px;
     }
 
-    .selector-container {
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        flex: 1;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
+    > ser-select:not(.not-styled) {
+        min-height: 50px;
+
+        &.active {
+            border-radius: 6px 6px 0 0;
+
+            &.ontop {
+                border-radius: 0 0 6px 6px;
+            }
+        }
     }
 
     > label:not(.switch) {
@@ -206,7 +217,8 @@ ser-form-element,
     &.invalid {
         input:not(.not-styled),
         textarea:not(.not-styled),
-        select:not(.not-styled) {
+        select:not(.not-styled),
+        ser-select:not(.not-styled) {
             padding: 5px 11px;
         }
     }
@@ -221,7 +233,7 @@ ser-form-element,
             letter-spacing: 1px;
             position: absolute;
             z-index: 1;
-            top: 6px;
+            top: 17px;
             left: 18px;
             margin-bottom: 0;
             max-width: calc(100% - 36px);
@@ -235,37 +247,18 @@ ser-form-element,
         &.focus {
             > label:not(.switch) {
                 font-size: rem(8);
-                top: -16px;
-                left: 4px;
-                padding: 4px 8px 0;
-                background-color: var(--bg-2dp);
-                border-radius: 8px 8px 0 0;
+                top: -7px;
+                left: 10px;
+                padding: 0 4px;
+                background-color: var(--input-bg);
                 transition: all 200ms ease-in-out;
                 pointer-events: all;
-
-                &::after {
-                    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5.23 5.23'%3E%3Cpath d='M0,0V5.23H5.23A5.23,5.23,0,0,1,0,0Z' style='fill:%23e9e9e9'/%3E%3C/svg%3E");
-                    position: absolute;
-                    right: -12px;
-                    bottom: 0;
-                    width: 12px;
-                    height: 12px;
-                }
             }
+        }
 
-            &.invalid.dirty {
-                > label:not(.switch) {
-                    border-top: 1px solid #fd4e4e;
-                    border-left: 1px solid #fd4e4e;
-                    border-right: 1px solid #fd4e4e;
-                }
-            }
-
-            input:not(.not-styled),
-            textarea:not(.not-styled),
-            select:not(.not-styled),
-            .mat-select:not(.not-styled) {
-                border-top-left-radius: 0;
+        &.invalid.dirty {
+            > label:not(.switch) {
+                color: red;
             }
         }
 
@@ -294,9 +287,15 @@ ser-form-element,
     input.ng-invalid.ng-dirty:not(.not-styled),
     textarea.ng-invalid.ng-dirty:not(.not-styled),
     select.ng-invalid.ng-dirty:not(.not-styled),
-    .mat-select.ng-invalid.ng-dirty:not(.not-styled),
-    .selector-container.ng-invalid.ng-dirty .selector-input {
-        border: 1px solid #fd4e4e;
+    ser-select.ng-invalid.ng-dirty:not(.not-styled),
+    .mat-select.ng-invalid.ng-dirty:not(.not-styled) {
+        border: var(--input-error-border);
+    }
+
+    ser-select.ng-invalid.ng-dirty:not(.not-styled) {
+        .selected-list .controls .chevron {
+            color: red;
+        }
     }
 
     .loader:after {
@@ -316,12 +315,31 @@ ser-form-element,
 input[disabled],
 textarea[disabled],
 select[disabled],
-.mat-select[disabled],
-.selector-container.disabled .selector-input {
+ser-select.disabled,
+.mat-select[disabled] {
     opacity: 0.8;
     cursor: not-allowed;
     user-select: none;
     background-color: var(--bg-disabled);
+}
+
+ser-select.disabled {
+    .d-btn {
+        cursor: not-allowed;
+        user-select: none;
+    }
+}
+
+@keyframes dropdown-appear {
+    from {
+        transform: scaleY(0.8);
+        opacity: 0.8;
+    }
+
+    to {
+        transform: scaleY(1);
+        opacity: 1;
+    }
 }
 
 .scheme-dark {
@@ -334,34 +352,5 @@ select[disabled],
 
     fieldset {
         border: 1px solid #4e4e4e;
-    }
-
-    ser-form-element,
-    .form-group {
-        &:not([plain]) {
-            &.active,
-            &.focus {
-                > label:not(.switch) {
-
-                    &::after {
-                        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5.23 5.23'%3E%3Cpath d='M0,0V5.23H5.23A5.23,5.23,0,0,1,0,0Z' style='fill:%233e3e3e'/%3E%3C/svg%3E");
-                    }
-                }
-            }
-        }
-
-        input:not(.not-styled),
-        textarea:not(.not-styled),
-        select:not(.not-styled),
-        .mat-select:not(.not-styled) {
-            border: none;
-        }
-
-        input.ng-invalid.ng-dirty:not(.not-styled),
-        textarea.ng-invalid.ng-dirty:not(.not-styled),
-        select.ng-invalid.ng-dirty:not(.not-styled),
-        .mat-select.ng-invalid.ng-dirty:not(.not-styled) {
-            border: 1px solid #fd4e4e;
-        }
     }
 }

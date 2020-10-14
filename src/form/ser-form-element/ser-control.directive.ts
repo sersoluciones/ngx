@@ -8,6 +8,7 @@ import { hasValue } from '../../utils/check';
     selector: '[serControl]'
 })
 export class SerControlDirective implements OnInit, OnDestroy {
+    disabled = false;
     focus = false;
     dirty = false;
     invalid = false;
@@ -30,6 +31,7 @@ export class SerControlDirective implements OnInit, OnDestroy {
         this.hasValue = hasValue(value);
         this.invalid = this._ngControl.control.invalid;
         this.dirty = this._ngControl.control.dirty;
+        this.disabled = this._ngControl.control.disabled;
     }
 
     ngOnInit(): void {
