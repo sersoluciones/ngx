@@ -33,9 +33,19 @@ export class SerFormElementComponent {
         return this.formElement?.dirty;
     }
 
+    @HostBinding('class.valid')
+    get valid() {
+        return this.formElement?.valid;
+    }
+
     @HostBinding('class.invalid')
     get invalid() {
         return this.formElement?.invalid;
+    }
+
+    @HostBinding('class.pending')
+    get pending() {
+        return this.formElement?.pending;
     }
 
 }

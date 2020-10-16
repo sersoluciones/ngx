@@ -1,18 +1,26 @@
 import { ValidationErrors, ValidatorFn, FormGroup, FormControl, AsyncValidatorFn } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { readAsArrayBuffer, getFileType } from '../file/read';
-import { map } from 'rxjs/operators';
+import { catchError, delay, map, switchMap } from 'rxjs/operators';
 import { hasValue } from '../utils/check';
 import { inArray } from '../utils/array';
+import { HttpClient } from '@angular/common/http';
+
+export interface BaseValidationModel {
+    Model: string;
+    Field: string;
+    Id?: string | number;
+    Value?: any;
+}
 
 // @dynamic
 /**
- * @description Validaciones adicionales para Form Control's
+ * Validaciones adicionales para Form Control's
  */
 export class CustomValidators {
 
     /**
-     * @description Verifica si los campos proveidos son iguales
+     * Verifica si los campos proveidos son iguales
      * @param originalPathField Path del campo original
      * @param duplicatePathField Path del campo que deberia ser igual al original
      */
@@ -54,7 +62,7 @@ export class CustomValidators {
     }
 
     /**
-     * @description Verifica si el tamaño no excede el tamaño maximo indicado
+     * Verifica si el tamaño no excede el tamaño maximo indicado
      * @param size Tamaño en KB, MG ó GB (ejem: 100MB)
      */
     static maxFileSize(size: string): ValidatorFn {
@@ -100,7 +108,7 @@ export class CustomValidators {
     }
 
     /**
-     * @description Verifica si el tamaño es mayor el tamaño mínimo indicado
+     * Verifica si el tamaño es mayor el tamaño mínimo indicado
      * @param size Tamaño en KB, MG ó GB (ejem: 100MB)
      */
     static minFileSize(size: string): ValidatorFn {
@@ -146,7 +154,7 @@ export class CustomValidators {
     }
 
     /**
-     * @description Verifica si el archivo tiene una extensión adminitida por medio de su cabecera
+     * Verifica si el archivo tiene una extensión adminitida por medio de su cabecera
      * @param ext Extensiones admitidas
      */
     static requiredFileType(ext: string | string[]): AsyncValidatorFn {
@@ -179,6 +187,34 @@ export class CustomValidators {
             }
 
             return of(null);
+        };
+    }
+
+    /**
+     * Verifica si existe dicho valor en la DB si coincide con el modelo y el nombre de campo
+     * @param http
+     * @param url
+     * @param requestBody propiedad Id opcional para excluir de la busqueda un registro
+     */
+    static alreadyExist(http: HttpClient, url: string, requestBody: BaseValidationModel): AsyncValidatorFn {
+        return (control: FormControl): Observable<ValidationErrors | null> => {
+
+            return of(control.value).pipe(
+                delay(1000),
+                switchMap((value) => {
+                    if (hasValue(value)) {
+
+                        requestBody.Value = value;
+
+                        return http.post(url, requestBody).pipe(
+                          map(() => ({ alreadyExist: true })),
+                          catchError(() => of(null))
+                        );
+                    }
+
+                    return of(null);
+                }
+            ));
         };
     }
 

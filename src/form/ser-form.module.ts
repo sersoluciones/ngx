@@ -6,13 +6,15 @@ import { SerErrorDirective } from './ser-errors/ser-error.directive';
 import { SerErrorsDirective } from './ser-errors/ser-errors.directive';
 import { PinInputComponent } from './pin/pin-input.component';
 import { SerSelectModule } from './select/ser-select.module';
+import { AddressColComponent } from './address/address-col/address-col.component';
 
 const dependencies = [
     SerFormElementComponent,
     SerControlDirective,
     SerErrorsDirective,
     SerErrorDirective,
-    PinInputComponent
+    PinInputComponent,
+    AddressColComponent
 ];
 
 @NgModule({

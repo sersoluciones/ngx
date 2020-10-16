@@ -72,7 +72,11 @@ export * from './form/select/ser-select.module';
 // PIN
 export * from './form/pin/pin-input.component';
 
+// Address
+export * from './form/address/address-col/address-col.component';
+
 // UI
 export * from './ui/when-scrolled.directive';
 export * from './ui/finish-typing.directive';
+export * from './ui/copy-to-clipboard.directive';
 export * from './ui/ser-ui.module';

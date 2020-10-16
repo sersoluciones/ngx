@@ -94,15 +94,24 @@ ser-form-element,
 
         > input:not(.not-styled),
         > textarea:not(.not-styled),
-        > select:not(.not-styled) {
+        > select:not(.not-styled),
+        > .address-input:not(.not-styled) {
             width: 100%;
+            max-height: 50px;
+            min-height: 50px;
+        }
+
+        > ser-select:not(.not-styled) {
+            width: 100%;
+            min-height: 50px;
         }
 
         > input:not(.not-styled):first-child,
         > textarea:not(.not-styled):first-child,
         > select:not(.not-styled):first-child,
         > .selector-container:first-child .selector-input,
-        > .addon:first-child {
+        > .addon:first-child,
+        > .address-input:not(.not-styled):first-child {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
         }
@@ -115,7 +124,8 @@ ser-form-element,
         > textarea:not(.not-styled):last-child,
         > select:not(.not-styled):last-child,
         > .selector-container:last-child .selector-input,
-        > .addon:last-child {
+        > .addon:last-child,
+        > .address-input:not(.not-styled):last-child  {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
         }
@@ -128,7 +138,8 @@ ser-form-element,
         > textarea:not(:first-child):not(:last-child),
         > select:not(:first-child):not(:last-child),
         > .selector-container:not(:first-child):not(:last-child) .selector-input,
-        > .addon:not(:first-child):not(:last-child) {
+        > .addon:not(:first-child):not(:last-child),
+        > .address-input:not(.not-styled):not(:last-child) {
             border-radius: 0;
         }
 
@@ -136,16 +147,18 @@ ser-form-element,
         > textarea:first-child:last-child:only-child,
         > select:first-child:last-child:only-child,
         > .selector-container:first-child:last-child:only-child .selector-input,
-        > .addon:first-child:last-child:only-child {
+        > .addon:first-child:last-child:only-child,
+        > .address-input:not(.not-styled):first-child:last-child:only-child {
             border-radius: 6px;
         }
     }
 
-    input:not(.not-styled),
-    textarea:not(.not-styled),
-    select:not(.not-styled),
-    ser-select:not(.not-styled),
-    .mat-select:not(.not-styled) {
+    > input:not(.not-styled),
+    > textarea:not(.not-styled),
+    > select:not(.not-styled),
+    > ser-select:not(.not-styled),
+    .mat-select:not(.not-styled),
+    > .address-input:not(.not-styled) {
         position: relative;
         -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -174,21 +187,29 @@ ser-form-element,
     textarea:not(.not-styled)::placeholder,
     select:not(.not-styled)::placeholder,
     .mat-select:not(.not-styled)::placeholder {
-        color: var(--font-color-1);
+        color: var(--font-color-placeholder);
+    }
+
+    > .address-input:not(.not-styled) {
+        input::placeholder {
+            color: var(--font-color-placeholder);
+        }
     }
 
     input[disabled],
     textarea[disabled],
     select[disabled],
     ser-select.disabled,
-    .mat-select[disabled] {
+    .mat-select[disabled],
+    .address-input.disabled:not(.not-styled) {
         background-color: var(--bg-disabled);
         color: var(--font-color-disabled);
     }
 
     > input:not(.not-styled),
     > select:not(.not-styled),
-    > .mat-select:not(.not-styled) {
+    > .mat-select:not(.not-styled),
+    > .address-input:not(.not-styled) {
         max-height: 50px;
         min-height: 50px;
     }
@@ -288,7 +309,8 @@ ser-form-element,
     textarea.ng-invalid.ng-dirty:not(.not-styled),
     select.ng-invalid.ng-dirty:not(.not-styled),
     ser-select.ng-invalid.ng-dirty:not(.not-styled),
-    .mat-select.ng-invalid.ng-dirty:not(.not-styled) {
+    .mat-select.ng-invalid.ng-dirty:not(.not-styled),
+    .address-input.ng-invalid.ng-dirty:not(.not-styled) {
         border: var(--input-error-border);
     }
 
