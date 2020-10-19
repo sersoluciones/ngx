@@ -31,23 +31,23 @@ export class SerControlDirective implements OnInit, OnDestroy {
 
     onChangeValue(value: any) {
         this.hasValue = hasValue(value);
-        this.valid = this._ngControl.control.valid;
-        this.invalid = this._ngControl.control.invalid;
-        this.dirty = this._ngControl.control.dirty;
-        this.disabled = this._ngControl.control.disabled;
-        this.pending = this._ngControl.control.pending;
+        this.valid = this._ngControl?.control?.valid;
+        this.invalid = this._ngControl?.control?.invalid;
+        this.dirty = this._ngControl?.control?.dirty;
+        this.disabled = this._ngControl?.control?.disabled;
+        this.pending = this._ngControl?.control?.pending;
     }
 
     ngOnInit(): void {
-        this.onChangeValue(this._ngControl.control.value);
+        this.onChangeValue(this._ngControl?.control?.value);
 
-        this.observer = this._ngControl.control.valueChanges.subscribe((value: any) => {
+        this.observer = this._ngControl?.control?.valueChanges.subscribe((value: any) => {
             this.onChangeValue(value);
         });
     }
 
     ngOnDestroy(): void {
-        this.observer.unsubscribe();
+        this.observer?.unsubscribe();
     }
 
 }

@@ -1,6 +1,6 @@
 <span *ngFor="let holder of codeInputs; index as i">
 
-    <input #input
+    <input class="not-styled" #input
     [type]="type"
     [disabled]="isDisabled"
     (input)="onInput($event, i)"

@@ -18,7 +18,6 @@ const dependencies = [
     SDSearchDirective
 ];
 
-
 @NgModule({
     imports: [CommonModule, BrowserModule, FormsModule, VirtualScrollerModule],
     declarations: [...dependencies],

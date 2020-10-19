@@ -1,15 +1,22 @@
-<!-- <ng-container [formGroup]="modelForm">
+<ng-container [formGroup]="modelForm">
 
-    <ser-select class="not-styled address1" formControlName="address1" [data]="optionsAddress" [settings]="address1Settings"></ser-select>
+    <div class="via" #viaElCont>
+        <input type="text" class="not-styled via-input" [size]="viaElHint?.value ? viaElHint?.value?.length : 1" #viaEl (focus)="openViaOptions()" (input)="filterViaOptions(viaEl.value)" autocomplete="off" spellcheck="false" >
+        <input type="text" #viaElHint class="not-styled hint" [size]="viaElHint?.value ? viaElHint?.value?.length : 1" />
 
-    <input class="not-styled address2" placeholder="18A" formControlName="address2" />
+        <div class="via-options" #viaOptionsEl>
+            <div class="via-item" *ngFor="let item of viaOptions" (click)="setVia(item)">{{ item }}</div>
+        </div>
+    </div>
+
+    <input class="not-styled address1" #address1 placeholder="" formControlName="address1"  [size]="address1?.value ? address1?.value?.length : 1" />
 
     <span class="separator s1">#</span>
 
-    <input class="not-styled address3" placeholder="1 Este" formControlName="address3" />
+    <input class="not-styled address2" #address2 placeholder="" formControlName="address2"  [size]="address2?.value ? address2?.value?.length : 1" />
 
     <span class="separator s2">-</span>
 
-    <input class="not-styled address4" placeholder="35" formControlName="address4" />
+    <input class="not-styled address3" #address3 placeholder="" formControlName="address3"  [size]="address3?.value ? address3?.value?.length : 1" />
 
-</ng-container> -->
+</ng-container>

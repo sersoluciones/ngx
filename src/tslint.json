@@ -2,15 +2,17 @@
   "extends": "../tslint.json",
   "rules": {
     "directive-selector": [
-      true,
+      false,
       "attribute",
-      "ngx",
       "camelCase"
     ],
-    "component-selector": [
+    "max-line-length": [
       true,
+      400
+    ],
+    "component-selector": [
+      false,
       "element",
-      "ngx",
       "kebab-case"
     ]
   }

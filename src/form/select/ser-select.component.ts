@@ -340,7 +340,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     }
 
-    // From ControlValueAccessor interface
     // tslint:disable-next-line: member-ordering
     private onTouchedCallback: (_: any) => void = noop;
     registerOnChange(fn: any) {
@@ -349,7 +348,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
 
 
-    // From ControlValueAccessor interface
     // tslint:disable-next-line: member-ordering
     private onChangeCallback: (_: any) => void = noop;
     registerOnTouched(fn: any) {
