@@ -63,8 +63,8 @@ export * from './form/ser-form.module';
 // Select
 export * from './form/select/ser-select.interface';
 export * from './form/select/ser-select.service';
-export * from './form/select/list-filter';
-export * from './form/select/menu-item';
+export * from './form/select/ser-select-list-filter.pipe';
+export * from './form/select/ser-select-menu-item.directive';
 export * from './form/select/virtual-scroll/virtual-scroll';
 export * from './form/select/ser-select.component';
 export * from './form/select/ser-select.module';

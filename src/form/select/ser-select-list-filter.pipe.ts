@@ -1,26 +1,30 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { hasValue } from '../../utils/check';
 import { DataService } from './ser-select.service';
 
 
 @Pipe({
-    name: 'listFilter',
+    name: 'serSelectListFilter',
     pure: true
 })
-export class ListFilterPipe implements PipeTransform {
+export class SerSelectListFilterPipe implements PipeTransform {
 
-    public filteredList: any = [];
-    constructor(private ds: DataService) {
-
-    }
+    constructor(private ds: DataService) { }
 
     transform(items: any[], filter: any, searchBy: any): any[] {
-        if (!items || !filter) {
-            this.ds.setData(items);
+        if (!hasValue(items) || !hasValue(filter)) {
+            // this.ds.setData(items);
             return items;
         }
-        this.filteredList = items.filter((item: any) => this.applyFilter(item, filter, searchBy));
-        this.ds.setData(this.filteredList);
-        return this.filteredList;
+
+        const filteredList = items.filter((item: any) => this.applyFilter(item, filter, searchBy));
+        // this.ds.setData(filteredList);
+
+        if (hasValue(filteredList)) {
+            return filteredList;
+        } else {
+            return [];
+        }
     }
 
     applyFilter(item: any, filter: any, searchBy: any): boolean {
@@ -29,7 +33,7 @@ export class ListFilterPipe implements PipeTransform {
             if (item.grpTitle) {
                 found = true;
             } else {
-                for (var t = 0; t < searchBy.length; t++) {
+                for (let t = 0; t < searchBy.length; t++) {
                     if (filter && item[searchBy[t]] && item[searchBy[t]] !== '') {
                         if (item[searchBy[t]].toString().toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
                             found = true;
@@ -42,7 +46,7 @@ export class ListFilterPipe implements PipeTransform {
             if (item.grpTitle) {
                 found = true;
             } else {
-                for (var prop in item) {
+                for (const prop in item) {
                     if (filter && item[prop]) {
                         if (item[prop].toString().toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
                             found = true;

@@ -12,8 +12,8 @@ import { Attribute, HostBinding, Optional, Renderer2 } from '@angular/core';
 import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef, ViewEncapsulation, ContentChild, ViewChild, forwardRef, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, Validator, FormControl } from '@angular/forms';
 import { DropdownSettings } from './ser-select.interface';
-import { ListFilterPipe } from './list-filter';
-import { SDItemDirective, SDBadgeDirective, SDSearchDirective } from './menu-item';
+import { SerSelectListFilterPipe } from './ser-select-list-filter.pipe';
+import { SDItemDirective, SDBadgeDirective, SDSearchDirective } from './ser-select-menu-item.directive';
 import { DataService } from './ser-select.service';
 import { Subscription, Subject, fromEvent } from 'rxjs';
 import { VirtualScrollerComponent } from './virtual-scroll/virtual-scroll';
@@ -104,7 +104,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     virtualdata: any = [];
     searchTerm$ = new Subject<string>();
 
-    filterPipe: ListFilterPipe;
+    filterPipe: SerSelectListFilterPipe;
     selectedItems: any[] = [];
     isSelectAll = false;
     isFilterSelectAll = false;
@@ -302,7 +302,12 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                     return item[this.settings.primaryKey] === value;
                 });
 
-                this.selectedItems = [selectedObject];
+                if (hasValue(selectedObject)) {
+                    this.selectedItems = [selectedObject];
+                } else {
+                    this.selectedItems = [];
+                    throw Error('No primaryKey finded in options, please set "primaryKey" setting with the correct value');
+                }
 
                 if (this.settings.groupBy) {
                     this.groupedData = this.transformData(this.data, this.settings.groupBy);
@@ -319,10 +324,15 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                     return inArray(item[this.settings.primaryKey], value);
                 });
 
-                if (this.settings.limitSelection) {
-                    this.selectedItems = selectedObjects.slice(0, this.settings.limitSelection);
+                if (hasValue(selectedObjects)) {
+                    if (this.settings.limitSelection) {
+                        this.selectedItems = selectedObjects.slice(0, this.settings.limitSelection);
+                    } else {
+                        this.selectedItems = selectedObjects;
+                    }
                 } else {
-                    this.selectedItems = selectedObjects;
+                    this.selectedItems = [];
+                    throw Error('No primaryKey finded in options, please set "primaryKey" setting with the correct value');
                 }
 
                 if (this.selectedItems.length === this.data.length && this.data.length > 0) {
@@ -341,7 +351,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     }
 
     // tslint:disable-next-line: member-ordering
-    private onTouchedCallback: (_: any) => void = noop;
+    private onChangeCallback: (_: any) => void = noop;
     registerOnChange(fn: any) {
         this.onChangeCallback = fn;
     }
@@ -349,7 +359,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
 
     // tslint:disable-next-line: member-ordering
-    private onChangeCallback: (_: any) => void = noop;
+    private onTouchedCallback: (_: any) => void = noop;
     registerOnTouched(fn: any) {
         this.onTouchedCallback = fn;
     }
@@ -576,6 +586,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.clearSearch();
             return;
         }
+
         this.groupedData = this.cloneArray(this.groupCachedItems);
         this.groupedData = this.groupedData.filter(obj => {
             let arr = [];
@@ -930,7 +941,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     addFilterNewItem() {
         this.onAddFilterNewItem.emit(this.filter);
-        this.filterPipe = new ListFilterPipe(this.ds);
+        this.filterPipe = new SerSelectListFilterPipe(this.ds);
         this.filterPipe.transform(this.data, this.filter, this.settings.searchBy);
     }
 

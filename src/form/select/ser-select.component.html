@@ -116,7 +116,7 @@
 
     <div *ngIf="!settings.groupBy && !settings.lazyLoading && !hasValue(itemTempl)" [style.maxHeight]="settings.maxHeight+'px'" style="overflow: auto;">
         <ul class="lazyContainer">
-            <li *ngFor="let item of data | listFilter:filter : settings.searchBy; let i = index;" (click)="onItemClick(item,i,$event)" class="pure-checkbox" [ngClass]="{'selected-item': isSelected(item) }">
+            <li *ngFor="let item of data | serSelectListFilter:filter : settings.searchBy; let i = index;" (click)="onItemClick(item,i,$event)" class="pure-checkbox" [ngClass]="{'selected-item': isSelected(item) }">
                 <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
                 <label>{{ item[settings.labelKey] }}</label>
             </li>
@@ -134,7 +134,7 @@
 
     <div *ngIf="!settings.groupBy && !settings.lazyLoading && hasValue(itemTempl)" [style.maxHeight]="settings.maxHeight+'px'" style="overflow: auto;">
         <ul class="lazyContainer">
-            <li *ngFor="let item of data | listFilter:filter : settings.searchBy; let i = index;" (click)="onItemClick(item,i,$event)" class="pure-checkbox" [ngClass]="{'selected-item': isSelected(item) }">
+            <li *ngFor="let item of data | serSelectListFilter:filter : settings.searchBy; let i = index;" (click)="onItemClick(item,i,$event)" class="pure-checkbox" [ngClass]="{'selected-item': isSelected(item) }">
                 <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
                 <label></label>
                 <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item}"></ng-container>

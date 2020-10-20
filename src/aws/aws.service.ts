@@ -1,5 +1,6 @@
 import { AwsData } from './Iaws';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
+import { hasValue } from '../utils/check';
 
 export let AWS_CONFIG: InjectionToken<AwsData> = new InjectionToken<AwsData>('aws.config');
 
@@ -10,43 +11,51 @@ export let AWS_CONFIG: InjectionToken<AwsData> = new InjectionToken<AwsData>('aw
  * constructor(private claimsService: ClaimsService) { }
  */
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AwsService {
 
-  private _awsData: AwsData;
-  public get awsData(): AwsData {
-    return this._awsData;
-  }
-  public set awsData(value: AwsData) {
-    this._awsData = value;
-  }
+    private _awsData: AwsData;
+    public get awsData(): AwsData {
+        return this._awsData;
+    }
+    public set awsData(value: AwsData) {
+        this._awsData = value;
+    }
 
-  constructor(@Inject(AWS_CONFIG) config: AwsData) {
-    this.awsData = config;
-  }
+    constructor(@Inject(AWS_CONFIG) config: AwsData) {
+        this.awsData = config;
+    }
 
-  /**
-   * @description
-   * Método obtener url de assets en S3
-   * @param {string} key - Ruta del objeto en el bucket (Sin '/' al principio)
-   * @example
-   * this.awsService.getS3Url('assets/file.png');
-   * @returns {string}
-   */
-  public getS3Url(key: string): string {
-    return `https://${this.awsData.s3.bucket}.s3.amazonaws.com/${key}`;
-  }
+    /**
+     * @description
+     * Método obtener url de assets en S3
+     * @param {string} key - Ruta del objeto en el bucket (Sin '/' al principio)
+     * @example
+     * this.awsService.getS3Url('assets/file.png');
+     * @returns {string}
+     */
+    public getS3Url(key: string): string {
+        if (hasValue(key)) {
+            return `https://${this.awsData.s3.bucket}.s3.amazonaws.com/${key}`;
+        } else {
+            return '';
+        }
+    }
 
-  /**
-   * @description
-   * Método obtener url de assets en S3
-   * @param {string} key - Ruta del objeto en el bucket (Sin '/' al principio)
-   * @example
-   * this.awsService.getS3Url('assets/file.png');
-   * @returns {string}
-   */
-  public getS3BgUrl(key: string): string {
-    return `url(https://${this.awsData.s3.bucket}.s3.amazonaws.com/${key})`;
-  }
+    /**
+     * @description
+     * Método obtener url de assets en S3
+     * @param {string} key - Ruta del objeto en el bucket (Sin '/' al principio)
+     * @example
+     * this.awsService.getS3Url('assets/file.png');
+     * @returns {string}
+     */
+    public getS3BgUrl(key: string): string {
+        if (hasValue(key)) {
+            return `url(https://${this.awsData.s3.bucket}.s3.amazonaws.com/${key})`;
+        } else {
+            return '';
+        }
+    }
 }

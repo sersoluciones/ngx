@@ -36,13 +36,13 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
     // tslint:disable-next-line: max-line-length
     viaOptionsSubs: Subscription[] = [];
-    viaRegex = /^Autopista|Avenida Calle|Avenida Carrera|Avenida|Calle|Carrera|Circunvalar|Circular|Diagonal|Kilometro|Manzana|Transversal|AUTOP|AV|AC|AK|CL|KR|CCV|DG|KM|TV$/i;
+    viaRegex = /^Autopista|Avenida Calle|Avenida Carrera|Avenida|Calle|Carrera|Circunvalar|Circular|Diagonal|Kilometro|Manzana|Transversal$/i;
     viaOptions = [
-        'Autopista', 'Avenida', 'Avenida Calle', 'Avenida Carrera', 'Calle', 'Carrera' , 'Circunvalar', 'Circular', 'Diagonal', 'Kilometro', 'Manzana', 'Transversal', 'Via', 'AUTOP', 'AV', 'AC', 'AK', 'CL', 'KR', 'CCV', 'DG', 'KM', 'TV'
+        'Autopista', 'Avenida', 'Avenida Calle', 'Avenida Carrera', 'Calle', 'Carrera' , 'Circunvalar', 'Circular', 'Diagonal', 'Kilometro', 'Manzana', 'Transversal', 'Via'
     ];
 
     viaOptionsOriginal = [
-        'Autopista', 'Avenida', 'Avenida Calle', 'Avenida Carrera', 'Calle', 'Carrera' , 'Circunvalar', 'Circular', 'Diagonal', 'Kilometro', 'Manzana', 'Transversal', 'Via', 'AUTOP', 'AV', 'AC', 'AK', 'CL', 'KR', 'CCV', 'DG', 'KM', 'TV'
+        'Autopista', 'Avenida', 'Avenida Calle', 'Avenida Carrera', 'Calle', 'Carrera' , 'Circunvalar', 'Circular', 'Diagonal', 'Kilometro', 'Manzana', 'Transversal', 'Via'
     ];
 
     constructor(private _fb: FormBuilder, private _renderer: Renderer2, private _elementRef: ElementRef) { }
@@ -58,7 +58,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
             if (/(\s?-\s?)+/.test(obj)) {
                 address3 = obj.split(/(\s?-\s?)+/);
-                this.modelForm.get('address3').setValue(address3[address3.length - 1].trim());
+                this.modelForm.get('address3').setValue(address3[address3.length - 1].trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' '));
                 address2 = address3[0].trim();
             } else {
                 address2 = obj;
@@ -66,7 +66,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
             if (/(\s?[#]\s?)+/.test(address2)) {
                 address2 = address2.split(/(\s?[#]\s?)+/);
-                this.modelForm.get('address2').setValue(address2[address2.length - 1].trim());
+                this.modelForm.get('address2').setValue(address2[address2.length - 1].trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' '));
                 address1 = address2[0].trim();
             } else {
                 address1 = obj;
@@ -74,10 +74,10 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
             if (this.viaRegex.test(address1)) {
                 address1 = address1.split(this.viaRegex);
-                this.modelForm.get('address1').setValue(address1[address1.length - 1].trim());
+                this.modelForm.get('address1').setValue(address1[address1.length - 1].trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' '));
 
                 setTimeout(() => {
-                    this.setVia(this.viaRegex.exec(obj)[0]);
+                    this.setVia(this.viaRegex.exec(obj)[0].split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' '));
                 });
             }
 
@@ -85,7 +85,13 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
     }
 
     generateValue() {
-        const address = this.modelForm.get('via').value + ' ' + this.modelForm.get('address1').value?.trim() + ' # ' + this.modelForm.get('address2').value?.trim() + ' - ' + this.modelForm.get('address3').value?.trim();
+        const address = this.modelForm.get('via').value + ' ' +
+        this.modelForm.get('address1').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ') +
+        ' # ' +
+        this.modelForm.get('address2').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ') +
+        ' - ' +
+        this.modelForm.get('address3').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
+
         return address;
     }
 
@@ -159,7 +165,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
             const el = (this.viaEl.nativeElement as HTMLElement);
             const remainingHeight = document.documentElement.offsetHeight - (dropdown.offsetHeight + el.getBoundingClientRect().top + el.offsetHeight);
 
-            this._renderer.setStyle(dropdown, 'left', (el.getBoundingClientRect().left - 8) + 'px');
+            this._renderer.setStyle(dropdown, 'left', (el.getBoundingClientRect().left - 6) + 'px');
 
             if (remainingHeight > 0) {
                 this._renderer.removeClass(el, 'ontop');
@@ -183,7 +189,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
             if (hasValue(this.viaOptions)) {
                 this.viaElHint.nativeElement.value = this.viaOptions[0];
-                this.viaEl.nativeElement.value = this.viaEl.nativeElement.value?.split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1)).join(' ');
+                this.viaEl.nativeElement.value = this.viaEl.nativeElement.value?.split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
             } else {
                 this.viaElHint.nativeElement.value = '';
             }

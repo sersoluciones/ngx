@@ -11,7 +11,6 @@ fieldset {
     margin: 0;
     border-radius: 4px;
     font-family: inherit;
-    border: 1px solid #bfbfbf;
     position: relative;
     min-width: 0;
 }
@@ -19,8 +18,6 @@ fieldset {
 legend {
     position: relative;
     top: 2px;
-    font-size: rem(13);
-    text-transform: uppercase;
     padding: 0 16px;
     margin-left: -10px;
     user-select: none;
@@ -29,25 +26,7 @@ legend {
 select,
 textarea,
 input {
-    background-color: var(--bg-2dp);
-    color: black;
     border: none;
-}
-
-@-webkit-keyframes autofill-fix {
-    0%,
-    100% {
-        color: black;
-        background: var(--bg-2dp);
-    }
-}
-
-@-webkit-keyframes autofill-fix-dark {
-    0%,
-    100% {
-        color: white;
-        background: var(--bg-2dp);
-    }
 }
 
 select:-webkit-autofill,
@@ -68,8 +47,6 @@ ser-form-element,
 .form-group {
     display: flex;
     position: relative;
-    padding: 0 4px 8px;
-    margin-top: 16px;
     flex-direction: column;
 
     .input-group {
@@ -79,77 +56,7 @@ ser-form-element,
 
         .addon {
             display: flex;
-            padding: 3px 12px;
-            margin-bottom: 0;
-            font-weight: normal;
-            text-align: center;
-            color: var(--font-color-1);
-            background-color: var(--bg-3dp);
-            transition: background-color 500ms;
-            border-radius: 6px;
             user-select: none;
-            justify-content: center;
-            align-items: center;
-        }
-
-        > input:not(.not-styled),
-        > textarea:not(.not-styled),
-        > select:not(.not-styled),
-        > .address-input:not(.not-styled) {
-            width: 100%;
-            max-height: 50px;
-            min-height: 50px;
-        }
-
-        > ser-select:not(.not-styled) {
-            width: 100%;
-            min-height: 50px;
-        }
-
-        > input:not(.not-styled):first-child,
-        > textarea:not(.not-styled):first-child,
-        > select:not(.not-styled):first-child,
-        > .selector-container:first-child .selector-input,
-        > .addon:first-child,
-        > .address-input:not(.not-styled):first-child {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        .addon:first-child {
-            border-right-width: 0;
-        }
-
-        > input:not(.not-styled):last-child,
-        > textarea:not(.not-styled):last-child,
-        > select:not(.not-styled):last-child,
-        > .selector-container:last-child .selector-input,
-        > .addon:last-child,
-        > .address-input:not(.not-styled):last-child  {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        .addon:last-child {
-            border-left-width: 0;
-        }
-
-        > input:not(:first-child):not(:last-child),
-        > textarea:not(:first-child):not(:last-child),
-        > select:not(:first-child):not(:last-child),
-        > .selector-container:not(:first-child):not(:last-child) .selector-input,
-        > .addon:not(:first-child):not(:last-child),
-        > .address-input:not(.not-styled):not(:last-child) {
-            border-radius: 0;
-        }
-
-        > input:first-child:last-child:only-child,
-        > textarea:first-child:last-child:only-child,
-        > select:first-child:last-child:only-child,
-        > .selector-container:first-child:last-child:only-child .selector-input,
-        > .addon:first-child:last-child:only-child,
-        > .address-input:not(.not-styled):first-child:last-child:only-child {
-            border-radius: 6px;
         }
     }
 
@@ -163,17 +70,8 @@ ser-form-element,
         -webkit-box-flex: 1;
         -ms-flex: 1;
         flex: 1;
-        margin: 0;
-        padding: 6px 12px;
-        font-family: inherit;
-        font-size: rem(10);
-        color: var(--font-color-1);
-        background-color: var(--input-bg);
-        border: 2px solid var(--input-border);
-        transition: background-color 500ms;
         background-image: none;
         background-clip: padding-box;
-        border-radius: 6px;
         outline: none;
         -moz-appearance: none;
         -webkit-appearance: none;
@@ -183,81 +81,18 @@ ser-form-element,
         max-width: 100%;
     }
 
-    input:not(.not-styled)::placeholder,
-    textarea:not(.not-styled)::placeholder,
-    select:not(.not-styled)::placeholder,
-    .mat-select:not(.not-styled)::placeholder {
-        color: var(--font-color-placeholder);
-    }
-
-    > .address-input:not(.not-styled) {
-        input::placeholder {
-            color: var(--font-color-placeholder);
-        }
-    }
-
-    input[disabled],
-    textarea[disabled],
-    select[disabled],
-    ser-select.disabled,
-    .mat-select[disabled],
-    .address-input.disabled:not(.not-styled) {
-        background-color: var(--bg-disabled);
-        color: var(--font-color-disabled);
-    }
-
-    > input:not(.not-styled),
-    > select:not(.not-styled),
-    > .mat-select:not(.not-styled),
-    > .address-input:not(.not-styled) {
-        max-height: 50px;
-        min-height: 50px;
-    }
-
-    > ser-select:not(.not-styled) {
-        min-height: 50px;
-
-        &.active {
-            border-radius: 6px 6px 0 0;
-
-            &.ontop {
-                border-radius: 0 0 6px 6px;
-            }
-        }
-    }
-
     > label:not(.switch) {
         display: inline-block;
-        font-size: rem(10);
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 8px;
-    }
-
-    &.invalid {
-        input:not(.not-styled),
-        textarea:not(.not-styled),
-        select:not(.not-styled),
-        ser-select:not(.not-styled) {
-            padding: 5px 11px;
-        }
     }
 
     &:not([plain]) {
-        margin-top: 24px;
 
         > label:not(.switch) {
             display: inline-block;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
             position: absolute;
             z-index: 1;
             top: 17px;
             left: 18px;
-            margin-bottom: 0;
-            max-width: calc(100% - 36px);
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
@@ -267,19 +102,10 @@ ser-form-element,
         &.active,
         &.focus {
             > label:not(.switch) {
-                font-size: rem(8);
                 top: -7px;
                 left: 10px;
-                padding: 0 4px;
-                background-color: var(--input-bg);
                 transition: all 200ms ease-in-out;
                 pointer-events: all;
-            }
-        }
-
-        &.invalid.dirty {
-            > label:not(.switch) {
-                color: red;
             }
         }
 
@@ -291,32 +117,10 @@ ser-form-element,
 
     [serErrors],
     .errors {
-        padding-left: 4px;
-        color: red;
         user-select: none;
 
         [hidden] {
             display: none;
-        }
-
-        * {
-            text-align: right;
-            margin-top: 2px;
-        }
-    }
-
-    input.ng-invalid.ng-dirty:not(.not-styled),
-    textarea.ng-invalid.ng-dirty:not(.not-styled),
-    select.ng-invalid.ng-dirty:not(.not-styled),
-    ser-select.ng-invalid.ng-dirty:not(.not-styled),
-    .mat-select.ng-invalid.ng-dirty:not(.not-styled),
-    .address-input.ng-invalid.ng-dirty:not(.not-styled) {
-        border: var(--input-error-border);
-    }
-
-    ser-select.ng-invalid.ng-dirty:not(.not-styled) {
-        .selected-list .controls .chevron {
-            color: red;
         }
     }
 
@@ -349,18 +153,6 @@ ser-select.disabled {
     .d-btn {
         cursor: not-allowed;
         user-select: none;
-    }
-}
-
-@keyframes dropdown-appear {
-    from {
-        transform: scaleY(0.8);
-        opacity: 0.8;
-    }
-
-    to {
-        transform: scaleY(1);
-        opacity: 1;
     }
 }
 

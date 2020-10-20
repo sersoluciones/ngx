@@ -12,7 +12,13 @@ $s3bucket: null !global;
 }
 
 @function urlS3($key) {
-  @return url('https://#{ $s3bucket }.s3.amazonaws.com/#{ $key }');
+    @if ($key) {
+        @return url('https://#{ $s3bucket }.s3.amazonaws.com/#{ $key }');
+    }
+    @else
+    {
+        @return '';
+    }
 }
 
 @mixin row{
