@@ -9,6 +9,7 @@ import { PinInputComponent } from './pin/pin-input.component';
 import { SerSelectModule } from './select/ser-select.module';
 import { AddressColComponent } from './address/address-col/address-col.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { SerFilterModule } from './filter/ser-filter.module';
 
 const dependencies = [
     SerFormElementComponent,
@@ -22,6 +23,6 @@ const dependencies = [
 @NgModule({
     imports: [CommonModule, BrowserModule, ReactiveFormsModule],
     declarations: [...dependencies],
-    exports: [...dependencies, SerSelectModule]
+    exports: [...dependencies, SerSelectModule, SerFilterModule]
 })
 export class SerFormModule { }

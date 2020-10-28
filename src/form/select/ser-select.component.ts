@@ -40,7 +40,7 @@ const noop = () => {
             multi: true,
         }
     ],
-    encapsulation: ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.None
 })
 export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChanges, Validator, AfterViewInit, OnDestroy {
 
@@ -170,12 +170,26 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     hasValue = hasValue;
 
-    constructor(public _elementRef: ElementRef, private cdr: ChangeDetectorRef, private ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any) {
+    constructor(public _elementRef: ElementRef, private cdr: ChangeDetectorRef, private ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any,
+                @Optional() @Attribute('simple') simple: any, @Optional() @Attribute('primaryKey') primaryKey: any, @Optional() @Attribute('labelKey') labelKey: any) {
 
         this.multiple = multipleAttr !== null;
 
         if (this.multiple) {
             this.defaultSettings.singleSelection = false;
+        }
+
+        if (simple !== null) {
+            this.defaultSettings.enableSearchFilter = false;
+            this.defaultSettings.clearAll = false;
+        }
+
+        if (primaryKey !== null) {
+            this.defaultSettings.primaryKey = primaryKey;
+        }
+
+        if (labelKey !== null) {
+            this.defaultSettings.labelKey = labelKey;
         }
 
         this.searchTerm$.asObservable().pipe(
@@ -298,7 +312,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                     throw Error('Array detected as input, please add "multiple" attribute in the select or set "singleSelection" setting in false');
                 }
 
-                const selectedObject = this.data.find(item => {
+                const selectedObject = this.data?.find(item => {
                     return item[this.settings.primaryKey] === value;
                 });
 
@@ -320,7 +334,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                     throw Error('Single value detected as input, please set "singleSelection" setting in true or remove "multiple" attribute in the select if you added');
                 }
 
-                const selectedObjects = this.data.filter(item => {
+                const selectedObjects = this.data?.filter(item => {
                     return inArray(item[this.settings.primaryKey], value);
                 });
 

@@ -1,6 +1,6 @@
 {
   "name": "@sersol/ngx",
-  "version": "0.13.1",
+  "version": "0.13.10",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --aot --ssl --ssl-key localhost.key  --ssl-cert localhost.crt",
