@@ -1,0 +1,24 @@
+{
+  "name": "@sersol/ngx",
+  "version": "0.15.19",
+  "peerDependencies": {
+    "@angular/common": "^9.0.6",
+    "@angular/core": "^9.0.6",
+    "@types/gapi": "0.0.39",
+    "@types/facebook-js-sdk": "^3.3.0",
+    "bowser": "^2.9.0",
+    "rxjs": "^6.5.4",
+    "rxjs-compat": "^6.5.4",
+    "tslib": "^1.10.0"
+  },
+  "main": "bundles/sersol-ngx.umd.js",
+  "module": "fesm5/sersol-ngx.js",
+  "es2015": "fesm2015/sersol-ngx.js",
+  "esm5": "esm5/sersol-ngx.js",
+  "esm2015": "esm2015/sersol-ngx.js",
+  "fesm5": "fesm5/sersol-ngx.js",
+  "fesm2015": "fesm2015/sersol-ngx.js",
+  "typings": "sersol-ngx.d.ts",
+  "metadata": "sersol-ngx.metadata.json",
+  "sideEffects": false
+}

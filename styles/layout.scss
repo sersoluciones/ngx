@@ -1,0 +1,419 @@
+﻿@import 'mixins.scss';
+
+$primary_color: #653182;
+$primary_color_dark: #00adff;
+
+:root {
+  --primary-color: #{$primary_color};
+  --primary-color-rgb: #{toRGB($primary_color)};
+  --grey-border: #f3f3f3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body{
+    position: relative;
+    cursor: default;
+}
+
+@for $i from 1 through 32{
+    .margin-#{$i}{
+        margin: 0px + $i;
+    }
+    .margin-b-#{$i} {
+        margin-bottom: 0px + $i;
+    }
+    .margin-t-#{$i} {
+        margin-top: 0px + $i;
+    }
+    .margin-l-#{$i} {
+        margin-left: 0px + $i;
+    }
+    .margin-r-#{$i} {
+        margin-right: 0px + $i;
+    }
+    .padding-#{$i}{
+        padding: 0px + $i;
+    }
+    .padding-b-#{$i} {
+        padding-bottom: 0px + $i;
+    }
+    .padding-t-#{$i} {
+        padding-top: 0px + $i;
+    }
+    .padding-l-#{$i} {
+        padding-left: 0px + $i;
+    }
+    .padding-r-#{$i} {
+        padding-right: 0px + $i;
+    }
+}
+
+.uppercase{
+    text-transform: uppercase;
+}
+
+.lowercase{
+    text-transform: lowercase;
+}
+
+.capitalize{
+    text-transform: capitalize;
+}
+
+small {
+    font-size: rem(12);
+}
+
+.site-wrapper{
+    @include row;
+    @include start-start;
+    height: 100%;
+}
+
+.white-box{
+    margin: 16px;
+    padding: 16px;
+    border-radius: 4px;
+    background: white;
+    @include md-shadow;
+}
+
+.main-view {
+    height: 100%;
+    overflow-x: auto;
+    position: relative;
+}
+
+.error{
+    color: red;
+    font-size: 13px;
+}
+
+.border {
+    border: 1px solid var(--grey-border);
+}
+
+.borderless{
+    border: 0;
+}
+
+.row{
+    @include row;
+}
+
+.row-wrap{
+    @include row-wrap;
+}
+
+.column{
+    @include column;
+}
+
+.start-start{
+    @include start-start;
+}
+
+.start-center {
+    @include start-center;
+}
+
+.start-end {
+    @include start-end;
+}
+
+.start-stretch {
+    @include start-stretch;
+}
+
+.center-start {
+    @include center-start;
+}
+
+.center-center{
+    @include center-center;
+}
+
+.center-end {
+    @include center-end;
+}
+
+.center-stretch {
+    @include center-stretch;
+}
+
+.end-start {
+    @include end-start;
+}
+
+.end-center {
+    @include end-center;
+}
+
+.end-end {
+    @include end-end;
+}
+
+.end-stretch {
+    @include end-stretch;
+}
+
+.space-around-start {
+    @include space-around-start;
+}
+
+.space-around-center {
+    @include space-around-center;
+}
+
+.space-around-end {
+    @include space-around-end;
+}
+
+.space-around-stretch {
+    @include space-around-stretch;
+}
+
+.space-between-start {
+    @include space-between-start;
+}
+
+.space-between-center {
+    @include space-between-center;
+}
+
+.space-between-end {
+    @include space-between-end;
+}
+
+.space-between-stretch {
+    @include space-between-stretch;
+}
+
+.center-margin {
+    margin: 0 auto;
+}
+
+.show-on-mb{
+    display: none;
+}
+
+.inline{
+    display: inline-block;
+}
+
+.flex,
+.s-flex {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+$sizes: 10, 20, 30, 33, 40, 45, 48, 50, 60, 63, 70, 85, 100;
+
+@for $i from 1 through 100{
+    .s-#{$i}{
+        -webkit-flex: 1 1 (0% + $i);
+        -ms-flex: 1 1 (0% + $i);
+        flex: 1 1 (0% + $i);
+        max-width: (0% + $i);
+        max-height: 100%;
+        box-sizing: border-box;
+    }
+}
+
+.s-field{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 33%;
+    flex: 1 1 33%;
+    max-width: 33%;
+    max-height: 100%;
+    box-sizing: border-box;
+}
+
+.s-auto {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+}
+
+@media (max-width: 1000px){
+    .s-field{
+        -webkit-flex: 1 1 50%;
+        flex: 1 1 50%;
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 800px){
+    .show-on-mb{
+        display: block;
+    }
+
+    .s-field{
+        -webkit-flex: 1 1 100%;
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    @for $i from 1 through 100{
+        .s-#{$i}{
+            -webkit-flex: 1 1 100%;
+            flex: 1 1 100%;
+            max-width: 100%;
+        }
+    }
+
+    .s-flex {
+        -webkit-flex: 1 1 100%;
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    @for $i from 0 through 32 {
+        .margin-mb-#{$i} {
+            margin: 0 !important;
+        }
+    }
+
+    .hide-on-mb{
+        display: none;
+    }
+}
+
+.backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.vs-hidden{
+    visibility: hidden;
+}
+
+i.red{
+    color: red;
+}
+
+i.blue{
+    color: var(--light-blue-font);
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.disabled-drop {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 10;
+    @include column;
+    @include center-center;
+}
+
+.scroll-mask {
+    position: absolute;
+    background-color: transparent;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+
+    > .scroll-mask-bar {
+        display: block;
+        position: absolute;
+        background-color: #fafafa;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 65;
+        box-shadow: inset 0 0 1px rgba(0,0,0,.3);
+    }
+}
+
+.divider {
+    border-top: 1px solid var(--grey-border);
+    margin: 16px 0;
+}
+
+.close-dialog {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+}
+
+.close-dialog i {
+    color: white;
+}
+
+button.print {
+    position: fixed;
+    bottom: 8px;
+    right: 8px;
+    width: 60px !important;
+    height: 60px !important;
+    z-index: 10;
+
+    .icon-print:before {
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+@media print {
+
+    button.print {
+        display: none;
+    }
+
+    md-backdrop {
+        background: white;
+    }
+
+}
+
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    text-align: left;
+}
+
+mat-icon {
+    color: var(--font-color-2);
+}
+
+.dp0 {
+    background-color: var(--bg-0dp);
+}
+
+.dp1 {
+    background-color: var(--bg-1dp);
+}
+
+.dp2 {
+    background-color: var(--bg-2dp);
+}

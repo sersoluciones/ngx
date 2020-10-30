@@ -1,0 +1,123 @@
+﻿@import 'mixins.scss';
+
+md-dialog-container .zoomContainer {
+    z-index: 1000;
+}
+
+.zoomContainer {
+    z-index: 1;
+}
+
+img-zoom{
+    position: relative;
+    overflow: hidden;
+
+    .controls {
+        position: absolute;
+        top: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.2s ease-in;
+        z-index: 3;
+        @include row;
+
+        > * {
+            margin: 0 8px;
+            background: white;
+        }
+    }
+
+
+    .target {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+img-zoom:hover .controls {
+    transition: opacity 0.2s ease-in;
+    opacity: 1;
+}
+
+@media print {
+    img-zoom .controls {
+        display: none;
+    }
+}
+
+.exif {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.23);
+    color: white;
+    width: 100%;
+    display: flex;
+
+    > * {
+        padding-right: 8px;
+    }
+}
+
+md-dialog.image-crop {
+    max-width: 95%;
+    max-height: 95%;
+}
+
+.image-crop {
+    form {
+        max-width: 100%;
+    }
+
+    .dropzone {
+        max-width: 1000px;
+        max-height: 100%;
+        margin: 24px auto;
+    }
+
+    .image-wrapper {
+        position: relative;
+        max-width: 100%;
+        max-height: 1080px;
+        margin: auto;
+    }
+
+    .error {
+        color: white;
+        font-size: 13px;
+        text-align: center;
+        margin: 8px;
+        background: var(--red-border);
+        padding: 8px;
+        border-radius: 4px;
+    }
+
+    form .box .loader-wrapper {
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+}
+
+img-crop {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden;
+
+    canvas {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        outline: none;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    }
+}

@@ -1,0 +1,29 @@
+@import 'mixins.scss';
+
+.rzslider {
+    .rz-pointer.rz-active:after {
+        background-color: black;
+    }
+
+    .rz-pointer:after {
+        top: 8px;
+        left: 8px;
+        width: 8px;
+        height: 8px;
+    }
+
+    .rz-pointer {
+        top: -10px;
+        width: 24px;
+        height: 24px;
+        -webkit-border-radius: 16px;
+        -moz-border-radius: 16px;
+        border-radius: 16px;
+        outline: none;
+    }
+
+    .rz-bubble {
+        color: rgba(black, 0.87);
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,78 @@
+@import 'mixins.scss';
+
+.chip {
+    padding: 4px 12px;
+    color: black;
+    background: var(--grey-hover);
+    margin-left: 8px;
+    border-radius: 6px;
+
+    &.blue {
+        background: var(--blue-background);
+    }
+    
+    &.light-blue {
+        background: var(--light-blue-background);
+    }
+    
+    &.green {
+        background: var(--green-background);
+    }
+    
+    &.yellow {
+        background: var(--yellow-background);
+    }
+    
+    &.orange {
+        background: var(--orange-background);
+    }
+    
+    &.red {
+        background: var(--red-border);
+    }
+}
+
+ser-chips {
+    @include row-wrap;
+    @include start-center;
+    position: relative;
+
+    input.chip-input {
+        border: none;
+        background: transparent;
+        outline: 0;
+        -webkit-appearance: none;
+    }
+
+    .chip {
+        @include row;
+        @include start-center;
+        color: #185698;
+        background-color: #84d0fd;
+        border-color: #3694f7;
+        font-weight: 300;
+        -webkit-border-radius: 3px;
+        border-radius: 10px;
+        color: white;
+        border: none;
+        padding: 1px 6px;
+        margin: 4px 4px 0 0;
+
+        .remove {
+            background: white;
+            border-radius: 12px;
+            font-size: 13px;
+            height: 13px;
+            width: 13px;
+            min-width: 13px;
+            min-height: 13px;
+            margin-left: 6px;
+        }
+    }
+}
+
+ser-chips.ng-focused {
+    border-color: #66dee9;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 222, 233, 0.6);
+}

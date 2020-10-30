@@ -1,0 +1,38 @@
+@import 'mixins.scss';
+
+.mat-dialog-container {
+    background-color: var(--bg-0dp);
+}
+
+.dialog-message {
+    @include row;
+    max-width: 500px;
+
+    .image {
+        width: 100px;
+        min-width: 100px;
+        @include row;
+        @include center-center;
+
+        img {
+            max-width: 100%;
+        }
+    }
+
+    .text {
+        margin-left: 24px;
+        text-align: right;
+        font-size: rem(16);
+
+        .form-errors {
+            margin: 0;
+            padding: 0;
+
+            li {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+        }
+    }
+}

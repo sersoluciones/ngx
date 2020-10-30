@@ -1,0 +1,13 @@
+/**
+ * @description Colección de Regex comunes
+ */
+export var Patterns;
+(function (Patterns) {
+    Patterns.PASSWORD = /^((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])).{6,}$/;
+    Patterns.DOMAIN = /^([a-zA-Z0-9\_\-\.]{2,63})\.([a-zA-Z0-9]{2,})$/;
+    Patterns.EMAIL = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+    Patterns.IMAGE = /^image\/([a-zA-Z].*)$/;
+    Patterns.NUMBER = /[-]{0,1}[\d]*[.]{0,1}[\d]+/g;
+    Patterns.CC = /((\d{8})|(\d{10})|(\d{11})|(\d{6}-\d{5}))?/g;
+})(Patterns || (Patterns = {}));
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGF0dGVybnMuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9Ac2Vyc29sL25neC8iLCJzb3VyY2VzIjpbInV0aWxzL3BhdHRlcm5zLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztHQUVHO0FBQ0gsTUFBTSxLQUFRLFFBQVEsQ0FPckI7QUFQRCxXQUFjLFFBQVE7SUFDUCxpQkFBUSxHQUFHLDRDQUE0QyxDQUFDO0lBQ3hELGVBQU0sR0FBRyxnREFBZ0QsQ0FBQztJQUMxRCxjQUFLLEdBQUcsOGFBQThhLENBQUM7SUFDdmIsY0FBSyxHQUFHLHVCQUF1QixDQUFDO0lBQ2hDLGVBQU0sR0FBRyw2QkFBNkIsQ0FBQztJQUN2QyxXQUFFLEdBQUcsNkNBQTZDLENBQUM7QUFDbEUsQ0FBQyxFQVBhLFFBQVEsS0FBUixRQUFRLFFBT3JCIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXHJcbiAqIEBkZXNjcmlwdGlvbiBDb2xlY2Npw7NuIGRlIFJlZ2V4IGNvbXVuZXNcclxuICovXHJcbmV4cG9ydCBtb2R1bGUgUGF0dGVybnMge1xyXG4gIGV4cG9ydCBjb25zdCBQQVNTV09SRCA9IC9eKCg/PS4qWzAtOV0pKD89LipbYS16XSkoPz0uKltBLVpdKSkuezYsfSQvO1xyXG4gIGV4cG9ydCBjb25zdCBET01BSU4gPSAvXihbYS16QS1aMC05XFxfXFwtXFwuXXsyLDYzfSlcXC4oW2EtekEtWjAtOV17Mix9KSQvO1xyXG4gIGV4cG9ydCBjb25zdCBFTUFJTCA9IC9eKD86W2EtejAtOSEjJCUmJyorLz0/Xl9ge3x9fi1dKyg/OlxcLlthLXowLTkhIyQlJicqKy89P15fYHt8fX4tXSspKnxcIig/OltcXHgwMS1cXHgwOFxceDBiXFx4MGNcXHgwZS1cXHgxZlxceDIxXFx4MjMtXFx4NWJcXHg1ZC1cXHg3Zl18XFxcXFtcXHgwMS1cXHgwOVxceDBiXFx4MGNcXHgwZS1cXHg3Zl0pKlwiKUAoPzooPzpbYS16MC05XSg/OlthLXowLTktXSpbYS16MC05XSk/XFwuKStbYS16MC05XSg/OlthLXowLTktXSpbYS16MC05XSk/fFxcWyg/Oig/OjI1WzAtNV18MlswLTRdWzAtOV18WzAxXT9bMC05XVswLTldPylcXC4pezN9KD86MjVbMC01XXwyWzAtNF1bMC05XXxbMDFdP1swLTldWzAtOV0/fFthLXowLTktXSpbYS16MC05XTooPzpbXFx4MDEtXFx4MDhcXHgwYlxceDBjXFx4MGUtXFx4MWZcXHgyMS1cXHg1YVxceDUzLVxceDdmXXxcXFxcW1xceDAxLVxceDA5XFx4MGJcXHgwY1xceDBlLVxceDdmXSkrKVxcXSkkLztcclxuICBleHBvcnQgY29uc3QgSU1BR0UgPSAvXmltYWdlXFwvKFthLXpBLVpdLiopJC87XHJcbiAgZXhwb3J0IGNvbnN0IE5VTUJFUiA9IC9bLV17MCwxfVtcXGRdKlsuXXswLDF9W1xcZF0rL2c7XHJcbiAgZXhwb3J0IGNvbnN0IENDID0gLygoXFxkezh9KXwoXFxkezEwfSl8KFxcZHsxMX0pfChcXGR7Nn0tXFxkezV9KSk/L2c7XHJcbn1cclxuIl19

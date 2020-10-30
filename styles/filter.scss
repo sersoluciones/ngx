@@ -1,0 +1,202 @@
+@import '~@sersol/ngx/styles/mixins';
+
+ser-filter {
+    display: block;
+    position: relative;
+    font-family: inherit;
+    transition: background-color 500ms;
+
+    .list-filter {
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        .label {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+            transition: all 200ms ease-in-out;
+
+            &.active {
+                transition: all 200ms ease-in-out;
+            }
+        }
+
+        input {
+            flex: 1;
+            border: 0px;
+            height: 100%;
+            width: 100%;
+            padding: 0px;
+            outline: none;
+            background-color: transparent;
+        }
+
+        .icon-clear {
+            cursor: pointer;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+
+            .chevron {
+                pointer-events: none;
+                transition: transform 300ms ease-in-out;
+
+                &.rotate {
+                    transition: transform 300ms ease-in-out;
+                }
+            }
+        }
+    }
+
+    button[type="button"] {
+        padding: 0;
+        background-image: none;
+        text-decoration: none;
+        white-space: nowrap;
+        background-color: transparent;
+        margin: 0;
+        border: none;
+        cursor: pointer;
+        box-sizing: border-box;
+        outline: none;
+        -webkit-user-filter: none;
+        -moz-user-filter: none;
+        -ms-user-filter: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .selected-list {
+        width: 100%;
+        display: flex;
+        outline: none;
+        position: relative;
+        align-items: center;
+
+        .values {
+            flex: 1;
+
+            .token-list {
+                width: 100%;
+
+                .token {
+                    display: inline-flex;
+                    position: relative;
+
+                    .remove {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .dropdown-list {
+        position: fixed;
+        z-index: 2;
+        transform-origin: 0 0;
+
+        .list {
+            overflow: auto;
+
+            .item {
+                display: flex;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .pure-checkbox {
+
+        input[type="checkbox"] {
+            display: none;
+
+            &:active {
+                + label:before {
+                    transition-duration: 0s;
+                }
+            }
+
+            + label {
+                position: relative;
+                vertical-align: middle;
+                cursor: pointer;
+
+                &:before {
+                    box-sizing: content-box;
+                    content: "";
+                    position: absolute;
+                    text-align: center;
+                    transition: all 0.4s ease;
+                }
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    box-sizing: content-box;
+                    transform-origin: 50%;
+                    transition: transform 200ms ease-out;
+                    background-color: transparent;
+                    border-image: none;
+                }
+            }
+
+            &:checked {
+                + label {
+                    &:after {
+                        transform: rotate(-45deg) scale(1);
+                    }
+                }
+            }
+        }
+
+        input[type="radio"] {
+            &:checked {
+                + label {
+
+                    &:after {
+                        transform: scale(1);
+                    }
+                }
+            }
+        }
+    }
+
+    .list-message {
+        text-align: center;
+        margin: 0px;
+        padding: 15px 0px;
+        font-size: initial;
+    }
+
+    .selected-item {
+        background-color: #e9f4ff;
+    }
+
+    .loading-icon {
+        width: 20px;
+        position: absolute;
+        right: 10px;
+        top: 23px;
+        z-index: 1;
+    }
+
+    .nodata-label {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0px 0px;
+    }
+
+    .btn-container {
+        text-align: center;
+        padding: 0px 5px 10px;
+    }
+
+}

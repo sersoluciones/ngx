@@ -1,0 +1,26 @@
+﻿@import 'mixins.scss';
+
+table {
+    border-collapse: collapse;
+}
+
+.cell-border {
+    border: 1px solid black;
+    padding: 7px;
+    box-sizing: border-box;
+}
+
+table.bordered {
+    border: 1px solid var(--grey-border);
+}
+
+table.bordered th,
+table.bordered td {
+    border: 1px solid var(--grey-border);
+    border-collapse: collapse;
+}
+
+table tbody.centered td{
+    text-align: center;
+    vertical-align: middle;
+}

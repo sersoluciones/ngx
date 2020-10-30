@@ -1,0 +1,36 @@
+@import 'mixins.scss';
+
+.week-day,
+week-day {
+    display: block;
+    padding: 16px;
+
+    .wrapper {
+        @include row;
+        @include space-around-center;
+
+        .day {
+            display: -webkit-flex;
+            display: flex;
+            @include center-center;
+            padding: 4px;
+            border: 1px solid var(--blue-border);
+            color: var(--blue-font);
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+            user-select: none;
+        }
+
+        .day:active {
+            -webkit-box-shadow: inset 0 0 7px 0 rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: inset 0 0 7px 0 rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 0 7px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .day.active {
+            background: var(--blue-background);
+            color: var(--blue-font);
+        }
+    }
+}
