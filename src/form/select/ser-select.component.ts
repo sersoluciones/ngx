@@ -50,7 +50,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     @Input() loading: boolean;
 
-    @Input() multiple: boolean;
+    @Input() multiple: boolean | string;
 
     @Output('onSelect')
     onSelect: EventEmitter<any> = new EventEmitter<any>();
@@ -551,7 +551,18 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     toggleSelectAll() {
         if (!this.isSelectAll) {
+
             this.selectedItems = [];
+            this.selectedItems = this.data.filter((individualData) => !individualData[this.settings.disabledKey]);
+            const selectedItems = this.selectedItems.map(element => element[this.settings.primaryKey]);
+
+            this.isSelectAll = true;
+            this.onChangeCallback(selectedItems);
+            this.onTouchedCallback(selectedItems);
+
+            this.onSelectAll.emit(this.selectedItems);
+
+            /* this.selectedItems = [];
             if (this.settings.groupBy) {
                 this.groupedData.forEach((obj) => {
                     obj.selected = !obj[this.settings.disabledKey];
@@ -566,9 +577,17 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.onChangeCallback(this.selectedItems);
             this.onTouchedCallback(this.selectedItems);
 
-            this.onSelectAll.emit(this.selectedItems);
+            this.onSelectAll.emit(this.selectedItems); */
         } else {
-            if (this.settings.groupBy) {
+
+            this.selectedItems = [];
+            this.isSelectAll = false;
+            this.onChangeCallback(this.selectedItems);
+            this.onTouchedCallback(this.selectedItems);
+
+            this.onDeSelectAll.emit(this.selectedItems);
+
+            /* if (this.settings.groupBy) {
                 this.groupedData.forEach((obj) => {
                     obj.selected = false;
                 });
@@ -581,16 +600,18 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.onChangeCallback(this.selectedItems);
             this.onTouchedCallback(this.selectedItems);
 
-            this.onDeSelectAll.emit(this.selectedItems);
+            this.onDeSelectAll.emit(this.selectedItems); */
         }
+
+        this.closeDropdown();
     }
 
-    filterFn(value: any) {
+    filterFn(ev: Event) {
 
         if (this.settings.groupBy && !this.settings.lazyLoading) {
             this.filterGroupedList();
         } else if (this.settings.lazyLoading) {
-            this.searchTerm$.next(value);
+            this.searchTerm$.next((ev.target as HTMLInputElement).value);
         }
 
     }

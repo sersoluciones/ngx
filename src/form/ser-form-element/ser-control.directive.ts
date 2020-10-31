@@ -38,7 +38,7 @@ export class SerControlDirective implements OnInit, OnDestroy {
         this.pending = this._ngControl?.control?.pending;
     }
 
-    ngOnInit(): void {
+    ngOnInit() {
         this.onChangeValue(this._ngControl?.control?.value);
 
         this.observer = this._ngControl?.control?.valueChanges.subscribe((value: any) => {
@@ -46,7 +46,7 @@ export class SerControlDirective implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy(): void {
+    ngOnDestroy() {
         this.observer?.unsubscribe();
     }
 

@@ -88,6 +88,9 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
     @Output('onGroupDeSelect')
     onGroupDeSelect: EventEmitter<any> = new EventEmitter<any>();
 
+    @Output() focus: EventEmitter<void> = new EventEmitter<void>();
+    @Output() blur: EventEmitter<void> = new EventEmitter<void>();
+
     @ContentChild(SDItemDirective, { static: true }) itemTempl: SDItemDirective;
     @ContentChild(SDBadgeDirective, { static: true }) badgeTempl: SDBadgeDirective;
 
@@ -332,6 +335,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
         this.isActive = true;
         this.labelActive = true;
+        this.focus.emit();
 
         this.dropdownSubs.push(
             fromEvent(window, 'click')
@@ -373,6 +377,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
         this.clearSearch();
         this.isActive = false;
         this.labelActive = false;
+        this.blur.emit();
 
         this.dropdownSubs.forEach(s => s.unsubscribe() );
         this.dropdownSubs = [];
@@ -413,7 +418,6 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
     toggleSelectAll() {
         if (!this.isSelectAll) {
             this.selectedItems = [];
-            // this.selectedItems = this.data.slice();
             this.selectedItems = this.data.filter((individualData) => !individualData[this.settings.disabledKey]);
             const selectedItems = this.selectedItems.map(element => element[this.settings.primaryKey]);
 

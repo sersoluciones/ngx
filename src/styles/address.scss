@@ -1,7 +1,11 @@
-address-co-input,
 address-col-input {
     display: flex;
     align-items: center;
+    cursor: text;
+
+    &.disabled {
+        cursor: not-allowed;
+    }
 
     .via {
         position: relative;
@@ -13,13 +17,13 @@ address-col-input {
                 min-width: 48px;
                 position: relative;
                 z-index: 1;
-                border-bottom: 2px solid var(--address-input-border);
-                // background-color: var(--address-via-options-bg);
             }
 
             &.hint {
                 left: 0;
                 position: absolute;
+                visibility: hidden;
+                pointer-events: none;
                 color: var(--address-color-placeholder);
             }
         }
@@ -27,7 +31,7 @@ address-col-input {
 
     .via-options {
         position: fixed;
-        z-index: 2;
+        z-index: 3;
         width: 140px;
         max-height: 200px;
         overflow: auto;
@@ -61,12 +65,6 @@ address-col-input {
         font-family: var(--address-font-family);
         background-color: transparent;
 
-        &.address1,
-        &.address2,
-        &.address3 {
-            border-bottom: 2px solid var(--address-input-border);
-        }
-
         &.address1 {
             min-width: 34px;
         }
@@ -78,13 +76,10 @@ address-col-input {
 
     }
 
-    input::placeholder {
-        color: var(--address-color-placeholder);
-    }
-
     .separator {
         font-size: 20px;
         font-weight: bold;
+        visibility: hidden;
 
         &.s1 {
             margin: 0 8px 0 16px;
@@ -97,85 +92,4 @@ address-col-input {
         }
     }
 
-}
-
-
-ser-form-element,
-.form-group {
-
-    .input-group {
-
-        > .address-input:not(.not-styled) {
-            width: 100%;
-            max-height: 50px;
-            min-height: 50px;
-        }
-
-        > .address-input:not(.not-styled):first-child {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        .addon:first-child {
-            border-right-width: 0;
-        }
-
-        > .address-input:not(.not-styled):last-child  {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        > .address-input:not(.not-styled):not(:last-child) {
-            border-radius: 0;
-        }
-
-        > .address-input:not(.not-styled):first-child:last-child:only-child {
-            border-radius: 6px;
-        }
-    }
-
-    > .address-input:not(.not-styled) {
-        position: relative;
-        -webkit-box-flex: 1;
-        -ms-flex: 1;
-        flex: 1;
-        margin: 0;
-        padding: 6px 12px;
-        font-family: inherit;
-        font-size: rem(10);
-        color: var(--font-color-1);
-        background-color: var(--input-bg);
-        border: 2px solid var(--input-border);
-        transition: background-color 500ms;
-        background-image: none;
-        background-clip: padding-box;
-        border-radius: 6px;
-        outline: none;
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        max-width: 100%;
-    }
-
-    > .address-input:not(.not-styled) {
-        input::placeholder {
-            color: var(--font-color-placeholder);
-        }
-    }
-
-    .address-input.disabled:not(.not-styled) {
-        background-color: var(--bg-disabled);
-        color: var(--font-color-disabled);
-    }
-
-    > .address-input:not(.not-styled) {
-        max-height: 50px;
-        min-height: 50px;
-    }
-
-    .address-input.ng-invalid.ng-dirty:not(.not-styled) {
-        border: var(--input-error-border);
-    }
 }

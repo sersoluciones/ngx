@@ -45,6 +45,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-localhost.key
-localhost.crt
 debug.log

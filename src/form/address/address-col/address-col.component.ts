@@ -1,5 +1,5 @@
 import { fromEvent, Subscription } from 'rxjs';
-import { Component, forwardRef, OnInit, ViewEncapsulation, OnDestroy, HostBinding, AfterViewInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component, forwardRef, OnInit, ViewEncapsulation, OnDestroy, HostBinding, AfterViewInit, ElementRef, ViewChild, Renderer2, Output, EventEmitter, HostListener } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { hasValue } from '../../../utils/check';
 import { inArray } from '../../..//utils/array';
@@ -19,12 +19,17 @@ import { filter } from 'rxjs/operators';
 })
 export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
 
-    @HostBinding('class.address-input') class = true;
     @ViewChild('viaOptionsEl') viaOptionsEl: ElementRef;
     @ViewChild('viaElCont') viaElCont: ElementRef;
     @ViewChild('viaEl') viaEl: ElementRef;
     @ViewChild('viaElHint') viaElHint: ElementRef;
     @ViewChild('address1') address1: ElementRef;
+    @ViewChild('address2') address2: ElementRef;
+    @ViewChild('address3') address3: ElementRef;
+    @HostBinding('class.disabled') isDisabled = false;
+    focused = false;
+    @Output() focus: EventEmitter<void> = new EventEmitter<void>();
+    @Output() blur: EventEmitter<void> = new EventEmitter<void>();
 
     modelSub: Subscription;
     modelForm = this._fb.group({
@@ -38,14 +43,21 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
     viaOptionsSubs: Subscription[] = [];
     viaRegex = /^Autopista|Avenida Calle|Avenida Carrera|Avenida|Calle|Carrera|Circunvalar|Circular|Diagonal|Kilometro|Manzana|Transversal$/i;
     viaOptions = [
-        'Autopista', 'Avenida', 'Avenida Calle', 'Avenida Carrera', 'Calle', 'Carrera' , 'Circunvalar', 'Circular', 'Diagonal', 'Kilometro', 'Manzana', 'Transversal', 'Via'
+        'Calle', 'Carrera', 'Autopista', 'Avenida', 'Avenida Calle', 'Avenida Carrera', 'Circunvalar', 'Circular', 'Diagonal', 'Kilometro', 'Manzana', 'Transversal', 'Via'
     ];
 
     viaOptionsOriginal = [
-        'Autopista', 'Avenida', 'Avenida Calle', 'Avenida Carrera', 'Calle', 'Carrera' , 'Circunvalar', 'Circular', 'Diagonal', 'Kilometro', 'Manzana', 'Transversal', 'Via'
+        'Calle', 'Carrera', 'Autopista', 'Avenida', 'Avenida Calle', 'Avenida Carrera', 'Circunvalar', 'Circular', 'Diagonal', 'Kilometro', 'Manzana', 'Transversal', 'Via'
     ];
 
     constructor(private _fb: FormBuilder, private _renderer: Renderer2, private _elementRef: ElementRef) { }
+
+    @HostListener('click')
+    click() {
+        if (!this.focused) {
+            this.viaEl.nativeElement.focus();
+        }
+    }
 
     writeValue(obj: any) {
 
@@ -105,6 +117,16 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
     }
     onTouch() { }
 
+    setDisabledState?(isDisabled: boolean): void {
+        this.isDisabled = isDisabled;
+
+        if (isDisabled) {
+            this.modelForm.disable();
+        } else {
+            this.modelForm.enable();
+        }
+    }
+
     ngOnInit() {
 
         this.modelSub = this.modelForm.valueChanges.subscribe(() => {
@@ -128,13 +150,15 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
     public openViaOptions() {
 
-        this.viaOptionsSubs.push(
-            fromEvent(window, 'click')
-            .pipe(filter((e: MouseEvent) => !this.viaElCont.nativeElement.contains(e.target) ))
-            .subscribe(() => {
-                this.setVia(this.viaOptions[0]);
-            })
-        );
+        setTimeout(() => {
+            this.viaOptionsSubs.push(
+                fromEvent(window, 'click')
+                .pipe(filter((e: MouseEvent) => !this.viaElCont.nativeElement.contains(e.target) ))
+                .subscribe(() => {
+                    this.setVia(this.viaOptions[0]);
+                })
+            );
+        });
 
         this.viaOptionsSubs.push(
             fromEvent(window, 'keyup')
@@ -146,6 +170,8 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
         this.filterViaOptions(this.modelForm.get('via').value);
         this.setPositionDropdown();
+
+        this.focus.emit();
 
         this._renderer.appendChild(this.viaElCont.nativeElement, this.viaOptionsEl.nativeElement);
     }
@@ -220,6 +246,22 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
         }
 
         this.closeDropdown();
+    }
+
+    setFocus() {
+        this.focused = true;
+        this.focus.emit();
+    }
+
+    setBlur() {
+        this.focused = false;
+        this.blur.emit();
+
+        if (!hasValue(this.address1.nativeElement.value)) {
+            this.viaEl.nativeElement.value = '';
+            this.viaElHint.nativeElement.value = 'Calle';
+            this.viaOptions = this.viaOptionsOriginal;
+        }
     }
 
     ngOnDestroy() {

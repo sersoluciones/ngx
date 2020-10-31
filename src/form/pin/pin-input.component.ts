@@ -25,7 +25,7 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
     @Input() onlyNumber = true;
     @Input() isCodeHidden = false;
 
-    codeInputs: number[] | string[];
+    codeInputs: any[];
     value = [];
     type: string;
     isDisabled = false;

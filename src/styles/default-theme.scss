@@ -44,6 +44,8 @@
     --bg-2dp: #e4e3e3;
     --bg-3dp: #dfdfdf;
 
+    --input-min-height: 40px;
+    --input-max-height: 40px;
     --input-border: #c3c3c3;
     --input-bg: white;
     --input-error-border: 2px solid #fd4e4e;
@@ -54,7 +56,10 @@
 
     --select-bg: white;
     --select-border: #c3c3c3;
+    --select-base-color: #0079FE;
     --select-check-color: #0079fe;
+    --select-token-text-color: white;
+    --select-hover-color: #f5f5f5;
 
     --filter-bg: white;
     --filter-icon-color: #888888;
@@ -161,7 +166,7 @@ ser-form-element,
         > input:not(.not-styled),
         > textarea:not(.not-styled),
         > select:not(.not-styled),
-        > .address-input:not(.not-styled) {
+        > address-col-input:not(.not-styled) {
             width: 100%;
             max-height: 50px;
             min-height: 50px;
@@ -178,7 +183,7 @@ ser-form-element,
         > select:not(.not-styled):first-child,
         > .selector-container:first-child .selector-input,
         > .addon:first-child,
-        > .address-input:not(.not-styled):first-child {
+        > address-col-input:not(.not-styled):first-child {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
         }
@@ -192,7 +197,7 @@ ser-form-element,
         > select:not(.not-styled):last-child,
         > .selector-container:last-child .selector-input,
         > .addon:last-child,
-        > .address-input:not(.not-styled):last-child  {
+        > address-col-input:not(.not-styled):last-child  {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
         }
@@ -206,7 +211,7 @@ ser-form-element,
         > select:not(:first-child):not(:last-child),
         > .selector-container:not(:first-child):not(:last-child) .selector-input,
         > .addon:not(:first-child):not(:last-child),
-        > .address-input:not(.not-styled):not(:last-child) {
+        > address-col-input:not(.not-styled):not(:last-child) {
             border-radius: 0;
         }
 
@@ -215,7 +220,7 @@ ser-form-element,
         > select:first-child:last-child:only-child,
         > .selector-container:first-child:last-child:only-child .selector-input,
         > .addon:first-child:last-child:only-child,
-        > .address-input:not(.not-styled):first-child:last-child:only-child {
+        > address-col-input:not(.not-styled):first-child:last-child:only-child {
             border-radius: 6px;
         }
     }
@@ -225,7 +230,7 @@ ser-form-element,
     select:not(.not-styled),
     ser-select:not(.not-styled),
     .mat-select:not(.not-styled),
-    .address-input:not(.not-styled) {
+    address-col-input:not(.not-styled) {
         margin: 0;
         padding: 6px 12px;
         font-family: inherit;
@@ -244,7 +249,7 @@ ser-form-element,
         color: var(--font-color-placeholder);
     }
 
-    > .address-input:not(.not-styled) {
+    > address-col-input:not(.not-styled) {
         input::placeholder {
             color: var(--font-color-placeholder);
         }
@@ -255,7 +260,7 @@ ser-form-element,
     select[disabled],
     ser-select.disabled,
     .mat-select[disabled],
-    .address-input.disabled:not(.not-styled) {
+    address-col-input.disabled:not(.not-styled) {
         background-color: var(--bg-disabled);
         color: var(--font-color-disabled);
     }
@@ -263,13 +268,14 @@ ser-form-element,
     > input:not(.not-styled),
     > select:not(.not-styled),
     > .mat-select:not(.not-styled),
-    > .address-input:not(.not-styled) {
-        max-height: 50px;
-        min-height: 50px;
+    > address-col-input:not(.not-styled) {
+        max-height: var(--input-min-height);
+        min-height: var(--input-max-height);
     }
 
     > ser-select:not(.not-styled) {
-        min-height: 50px;
+        min-height: var(--input-min-height);
+        padding: 4px 16px;
 
         &.active {
             border-radius: 12px 12px 0 0;
@@ -317,7 +323,7 @@ ser-form-element,
             }
         }
 
-        &.invalid {
+        &.invalid.dirty {
             > label:not(.switch) {
                 color: red;
             }
@@ -340,13 +346,60 @@ ser-form-element,
     select.ng-invalid.ng-dirty:not(.not-styled),
     ser-select.ng-invalid.ng-dirty:not(.not-styled),
     .mat-select.ng-invalid.ng-dirty:not(.not-styled),
-    .address-input.ng-invalid.ng-dirty:not(.not-styled) {
+    address-col-input.ng-invalid.ng-dirty:not(.not-styled) {
         border: var(--input-error-border);
     }
 
     ser-select.ng-invalid.ng-dirty:not(.not-styled) {
         .selected-list .controls .chevron {
             color: red;
+        }
+    }
+
+    &.focus,
+    &.active {
+
+        address-col-input {
+
+            .via {
+
+                input {
+
+                    &.via-input {
+                        border-bottom: 2px solid var(--address-input-border);
+                    }
+
+                    &.hint {
+                        visibility: visible;
+                    }
+                }
+            }
+
+            input {
+
+                &.address1,
+                &.address2,
+                &.address3 {
+                    border-bottom: 2px solid var(--address-input-border);
+                }
+
+            }
+
+            .separator {
+                visibility: visible;
+            }
+        }
+    }
+
+    &.active {
+        ser-select.multiple {
+            .selected-list {
+                .values {
+                    .token-list {
+                        margin: 8px 0;
+                    }
+                }
+            }
         }
     }
 }
@@ -370,6 +423,103 @@ ser-select.disabled,
     to {
         transform: scaleY(1);
         opacity: 1;
+    }
+}
+
+ser-select {
+
+    .selected-list {
+
+        .values {
+
+            .token-list {
+
+                .token {
+                    background-color: var(--select-base-color);
+
+                    .label{
+                       color: var(--select-token-text-color);
+                    }
+                }
+            }
+        }
+    }
+
+    &.active.multiple {
+        .selected-list {
+
+            .values {
+
+                .token-list {
+                    margin: 8px 0;
+                }
+            }
+        }
+    }
+
+    .dropdown-list{
+        ul {
+            li:hover {
+                background: var(--select-hover-color);
+            }
+        }
+    }
+
+    .pure-checkbox {
+
+        input[type="checkbox"] {
+
+            &:focus,
+            &:hover {
+                + label:before {
+                    border-color: var(--select-base-color);
+                    background-color: #f2f2f2;
+                }
+            }
+
+            &:checked {
+                + label:before {
+                    background: var(--select-base-color);
+                }
+            }
+
+            + label {
+                &:before {
+                    color: var(--select-base-color);
+                    border: 1px solid var(--select-base-color);
+                }
+
+                :after {
+                    background-color: var(--select-base-color);
+                }
+            }
+
+            &:disabled {
+                &:checked {
+                    + label:before {
+                        background-color: #cccccc;
+                    }
+                }
+
+                + label:before {
+                    border-color: #cccccc;
+                }
+            }
+
+            + label:after {
+                border-color: #ffffff;
+            }
+
+            input[type="radio"] {
+                &:checked {
+                    + label:before {
+                        background-color: white;
+                    }
+                }
+            }
+
+        }
+
     }
 }
 

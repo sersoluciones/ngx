@@ -90,8 +90,8 @@ ser-form-element,
         > label:not(.switch) {
             display: inline-block;
             position: absolute;
-            z-index: 1;
-            top: 17px;
+            z-index: 2;
+            top: 13px;
             left: 18px;
             text-overflow: ellipsis;
             white-space: nowrap;

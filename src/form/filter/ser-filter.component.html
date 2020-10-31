@@ -78,11 +78,11 @@
     </div>
 
     <div *ngIf="hasValue(itemTempl)" class="list lazyContainer" [style.maxHeight]="settings.maxHeight+'px'">
-        <div class="item pure-checkbox" *ngFor="let item of data | serFilterListFilter:filter : settings.searchBy; let i = index;" (click)="onItemClick(item, i, $event)">
-            <ng-container *ngIf="!isSelected(item)">
+        <ng-container *ngFor="let item of data | serFilterListFilter:filter : settings.searchBy; let i = index;">
+            <div class="item pure-checkbox" *ngIf="!isSelected(item)" (click)="onItemClick(item, i, $event)">
                 <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item}"></ng-container>
-            </ng-container>
-        </div>
+            </div>
+        </ng-container>
     </div>
 
     <h5 class="list-message" *ngIf="!hasValue(data)">{{ settings.noDataLabel }}</h5>

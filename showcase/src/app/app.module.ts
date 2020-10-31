@@ -1,3 +1,6 @@
+import { ReactiveFormsModule } from '@angular/forms';
+import { SerFormModule } from './../../../src/form/ser-form.module';
+import { SerUiModule } from './../../../src/ui/ser-ui.module';
 import { FacebookComponent } from './facebook/facebook.component';
 import { GoogleComponent } from './google/google.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -22,6 +25,9 @@ import { NG_FSDK_CONFIG } from '../../../src/facebook/facebook-sdk.service';
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    SerUiModule,
+    SerFormModule,
     HighlightModule.forRoot({
       languages() {
         return [

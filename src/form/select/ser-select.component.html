@@ -17,9 +17,9 @@
         <ng-container *ngIf="!settings.singleSelection && hasValue(selectedItems)">
 
             <div class="token-list">
-                <div class="token" *ngFor="let item of selectedItems;trackBy: trackByFn.bind(this);let k = index">
-                    <ng-container *ngIf="k < (settings.badgeShowLimit - 1)">
+                <ng-container *ngFor="let item of selectedItems;trackBy: trackByFn.bind(this);let k = index">
 
+                    <div *ngIf="k < (settings.badgeShowLimit - 1)" class="token">
                         <span *ngIf="!hasValue(badgeTempl)" class="label">{{ item[settings.labelKey] }}</span>
                         <span *ngIf="hasValue(badgeTempl)" class="label">
                             <ng-container *ngTemplateOutlet="badgeTempl.template; context:{item: item}"></ng-container>
@@ -28,8 +28,9 @@
                         <span class="remove" (click)="onItemClick(item, k, $event);$event.stopPropagation()">
                             <span class="material-icons">close</span>
                         </span>
-                    </ng-container>
-                </div>
+                    </div>
+
+                </ng-container>
             </div>
 
         </ng-container>
@@ -70,7 +71,7 @@
         </ng-template>
 
         <ng-template #searchDefault>
-            <input #searchInput class="c-input not-styled" type="text" [placeholder]="settings.searchPlaceholderText" [(ngModel)]="filter" (keyup)="filterFn($event.target.value)">
+            <input #searchInput class="c-input not-styled" type="text" [placeholder]="settings.searchPlaceholderText" [(ngModel)]="filter" (input)="filterFn($event)">
         </ng-template>
 
 
@@ -96,8 +97,8 @@
             </label>
         </div>
 
-        <label class="nodata-label" *ngIf="!settings.groupBy && filterLength == 0" [hidden]="filter == undefined || filter?.length == 0">{{settings.noDataLabel}}</label>
-        <label class="nodata-label" *ngIf="settings.groupBy && groupedData?.length == 0" [hidden]="filter == undefined || filter?.length == 0">{{settings.noDataLabel}}</label>
+        <!-- <label class="nodata-label" *ngIf="!settings.groupBy && filterLength == 0" [hidden]="filter == undefined || filter?.length == 0">{{settings.noDataLabel}}</label>
+        <label class="nodata-label" *ngIf="settings.groupBy && groupedData?.length == 0" [hidden]="filter == undefined || filter?.length == 0">{{settings.noDataLabel}}</label> -->
 
         <div class="btn-container" *ngIf="settings.addNewItemOnFilter && filterLength == 0" [hidden]="filter == undefined || filter?.length == 0">
             <button class="d-btn btn-iceblue" (click)="addFilterNewItem()">{{settings.addNewButtonText}}</button>

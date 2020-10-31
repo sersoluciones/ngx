@@ -70,9 +70,7 @@
             "styles": [
               "showcase/src/styles.scss"
             ],
-            "scripts": [
-              "./node_modules/jquery/dist/jquery.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -136,9 +134,7 @@
             "styles": [
               "showcase/src/styles.scss"
             ],
-            "scripts": [
-              "./node_modules/jquery/dist/jquery.min.js"
-            ]
+            "scripts": []
           }
         },
         "lint": {
@@ -165,6 +161,10 @@
               "devServerTarget": "showcase:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
     },
@@ -207,6 +207,7 @@
           }
         }
       }
-    }},
-    "defaultProject": "ngx"
+    }
+  },
+  "defaultProject": "showcase"
 }
