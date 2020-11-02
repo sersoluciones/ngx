@@ -40,6 +40,7 @@ export * from './utils/navigator';
 export * from './utils/random';
 export * from './utils/keyboard-keys';
 export * from './utils/patterns';
+export * from './utils/rx-utils';
 
 // Map
 export * from './map/types';

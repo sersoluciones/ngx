@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 // tslint:disable: no-use-before-declare
 // tslint:disable: no-host-metadata-property
 // tslint:disable: max-line-length
@@ -15,11 +16,12 @@ import { DropdownSettings } from './ser-select.interface';
 import { SerSelectListFilterPipe } from './ser-select-list-filter.pipe';
 import { SDItemDirective, SDBadgeDirective, SDSearchDirective } from './ser-select-menu-item.directive';
 import { DataService } from './ser-select.service';
-import { Subscription, Subject, fromEvent } from 'rxjs';
+import { Subscription, Subject, fromEvent, interval, forkJoin, merge } from 'rxjs';
 import { VirtualScrollerComponent } from './virtual-scroll/virtual-scroll';
 import { debounceTime, distinctUntilChanged, tap, filter } from 'rxjs/operators';
 import { hasValue } from '../../utils/check';
 import { inArray } from '../../utils/array';
+import { fromIntersectionObserver } from '../../utils/rx-utils';
 
 const noop = () => {
 };
@@ -44,6 +46,7 @@ const noop = () => {
 })
 export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChanges, Validator, AfterViewInit, OnDestroy {
 
+    //#region Properties
     @Input() data = [];
 
     @Input() settings: DropdownSettings;
@@ -131,7 +134,8 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     viewPortItems: any;
     item: any;
 
-    private dropdownSubs: Subscription[] = [];
+    private parents: Element[] = [];
+    private dropdownSubs$: Subscription[] = [];
     private subscription: Subscription;
     defaultSettings: DropdownSettings = {
         singleSelection: true,
@@ -167,6 +171,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     @ViewChild(VirtualScrollerComponent, { static: false })
     private virtualScroller: VirtualScrollerComponent;
     public isDisabledItemPresent = false;
+    //#endregion
 
     hasValue = hasValue;
 
@@ -229,6 +234,22 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         this.virtualScroollInit = false;
     }
 
+    ngAfterViewInit() {
+
+        let parent = this._elementRef.nativeElement.parentElement;
+
+        while (hasValue(parent)) {
+
+            if (inArray(getComputedStyle(parent).overflowY, ['auto', 'scroll', 'overlay']) || inArray(getComputedStyle(parent).overflowX, ['auto', 'scroll', 'overlay'])) {
+                this.parents.push(parent);
+            }
+
+            parent = parent.parentElement;
+        }
+
+        this._renderer.removeChild(this._elementRef.nativeElement, this.dropdownListElem.nativeElement);
+    }
+
     ngOnChanges(changes: SimpleChanges) {
 
         if (changes.data && !changes.data.firstChange) {
@@ -257,10 +278,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.virtualdata = changes.data.currentValue;
         }
 
-    }
-
-    ngAfterViewInit() {
-        this._renderer.removeChild(this._elementRef.nativeElement, this.dropdownListElem.nativeElement);
     }
 
     onItemClick(item: any, k: number, e: any) {
@@ -303,6 +320,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         return null;
     }
 
+    //#region ControlValueAccessor
     writeValue(value: any) {
 
         if (hasValue(value)) {
@@ -371,7 +389,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     }
 
 
-
     // tslint:disable-next-line: member-ordering
     private onTouchedCallback: (_: any) => void = noop;
     registerOnTouched(fn: any) {
@@ -381,6 +398,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     setDisabledState?(isDisabled: boolean): void {
         this.isDisabled = isDisabled;
     }
+    //#endregion
 
     trackByFn(item: any) {
         return item[this.settings.primaryKey];
@@ -472,27 +490,33 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         this.isActive = true;
 
-        this.dropdownSubs.push(
-            fromEvent(window, 'click')
-            .pipe(filter((e: MouseEvent) => !this._elementRef.nativeElement.contains(e.target) ))
-            .subscribe(() => this.closeDropdown())
-        );
-
-        this.dropdownSubs.push(
-            fromEvent(window, 'keyup')
-            .pipe(filter((e: KeyboardEvent) => e.key.toLowerCase() === 'escape' && this.settings.escapeToClose ))
-            .subscribe(() => this.closeDropdown() )
-        );
-
-        this.dropdownSubs.push(
-            fromEvent(this._elementRef.nativeElement, 'scroll').subscribe(() => console.log('scroll') )
-        );
-
-        this.dropdownSubs.push(
-            fromEvent(window, 'resize').subscribe(() => this.setPositionDropdown() )
-        );
-
         this.setPositionDropdown();
+
+        const parents$: Observable<any>[] = [
+            fromEvent(document, 'scroll'),
+            fromEvent(document, 'resize')
+        ];
+
+        this.parents.forEach((parent) => {
+            parents$.push(fromEvent(parent, 'scroll'));
+        });
+
+        this.dropdownSubs$.push(
+
+            merge(
+                fromEvent(window, 'click')
+                    .pipe(filter((e: MouseEvent) => !this._elementRef.nativeElement.contains(e.target) )),
+
+                fromEvent(window, 'keyup')
+                    .pipe(filter((e: KeyboardEvent) => e.key.toLowerCase() === 'escape' && this.settings.escapeToClose )),
+
+                fromIntersectionObserver(this.selectedListElem.nativeElement)
+                    .pipe(filter((ev) => !ev[0].isIntersecting))
+            )
+            .subscribe(() => this.closeDropdown()),
+
+            merge(...parents$).subscribe(() => this.setPositionDropdown())
+        );
 
         this._renderer.appendChild(this._elementRef.nativeElement, this.dropdownListElem.nativeElement);
 
@@ -514,8 +538,8 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         this.clearSearch();
         this.isActive = false;
 
-        this.dropdownSubs.forEach(s => s.unsubscribe() );
-        this.dropdownSubs = [];
+        this.dropdownSubs$.forEach(s => s.unsubscribe() );
+        this.dropdownSubs$ = [];
 
         this.onClose.emit(false);
         this._renderer.removeChild(this._elementRef.nativeElement, this.dropdownListElem.nativeElement);
@@ -535,12 +559,12 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             if (remainingHeight > 0) {
                 this._renderer.removeClass(el, 'ontop');
                 this._renderer.removeClass(dropdown, 'ontop');
-                this._elementRef.nativeElement.style.removeProperty('bottom');
+                this._renderer.removeStyle(dropdown, 'bottom');
                 this._renderer.setStyle(dropdown, 'top', el.getBoundingClientRect().bottom + 'px');
             } else {
                 this._renderer.addClass(el, 'ontop');
                 this._renderer.addClass(dropdown, 'ontop');
-                this._elementRef.nativeElement.style.removeProperty('top');
+                this._renderer.removeStyle(dropdown, 'top');
                 this._renderer.setStyle(dropdown, 'bottom', (document.documentElement.offsetHeight - el.getBoundingClientRect().top) + 'px');
             }
 
@@ -1009,12 +1033,16 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         return item;
     }
 
+    observePosition(ev: any) {
+        console.log(ev);
+    }
+
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
 
-        this.dropdownSubs.forEach(s => {
+        this.dropdownSubs$.forEach(s => {
             s.unsubscribe();
         });
 

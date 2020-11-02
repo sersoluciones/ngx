@@ -9,14 +9,14 @@
         </div>
     </div>
 
-    <input class="not-styled address1" #address1 formControlName="address1" [size]="address1?.value ? address1?.value?.length : 1" (focus)="setFocus()" (blur)="setBlur()" autocomplete="off" spellcheck="false" />
+    <input class="not-styled address1" #address1 formControlName="address1" [size]="address1?.value ? address1?.value?.length : 1" (focus)="setFocus('address1')" (blur)="setBlur()" (keydown)="onKeydown('address1', $event)" autocomplete="off" spellcheck="false" />
 
     <span class="separator s1">#</span>
 
-    <input class="not-styled address2" #address2 formControlName="address2" [size]="address2?.value ? address2?.value?.length : 1" (focus)="setFocus()" (blur)="setBlur()" autocomplete="off" spellcheck="false" />
+    <input class="not-styled address2" #address2 formControlName="address2" [size]="address2?.value ? address2?.value?.length : 1" (focus)="setFocus('address2')" (blur)="setBlur()" (keydown)="onKeydown('address2', $event)" autocomplete="off" spellcheck="false" />
 
     <span class="separator s2">-</span>
 
-    <input class="not-styled address3" #address3 formControlName="address3" [size]="address3?.value ? address3?.value?.length : 1" (focus)="setFocus()" (blur)="setBlur()" autocomplete="off" spellcheck="false" />
+    <input class="not-styled address3" #address3 formControlName="address3" [size]="address3?.value ? address3?.value?.length : 1" (focus)="setFocus('address3')" (blur)="setBlur()" (keydown)="onKeydown('address3', $event)" autocomplete="off" spellcheck="false" />
 
 </ng-container>
