@@ -127,12 +127,19 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
     }
 
     generateValue() {
-        const address = this.modelForm.get('via').value + ' ' +
-        this.modelForm.get('address1').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ') +
-        ' # ' +
-        this.modelForm.get('address2').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ') +
-        ' - ' +
-        this.modelForm.get('address3').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
+        let address = this.modelForm.get('via').value;
+
+        if (hasValue(this.modelForm.get('address1').value)) {
+            address += ' ' + this.modelForm.get('address1').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
+        }
+
+        if (hasValue(this.modelForm.get('address2').value)) {
+            address += ' # ' + this.modelForm.get('address2').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
+        }
+
+        if (hasValue(this.modelForm.get('address3').value)) {
+            address += ' - ' + this.modelForm.get('address3').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
+        }
 
         return address;
     }
@@ -163,7 +170,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
         this.modelSub = this.modelForm.valueChanges.subscribe(() => {
             if (this.modelForm.valid) {
                 this.onChange(this.generateValue());
-            } else {
+            } else if (!this.isDisabled) {
                 this.onChange(null);
             }
         });

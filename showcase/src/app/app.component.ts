@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     examples = examples;
 
     modelForm = this._fb.group({
-        text1: [null, Validators.required],
+        text1: ['null', Validators.required],
         address: ['calle    60a sur#125-123', Validators.required],
         selectDefault: [],
         selectSimple: [],

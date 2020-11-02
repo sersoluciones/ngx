@@ -160,6 +160,7 @@
                     <div>
                         <button class="bttn blue" type="button" (click)="toogleFormControlDisabled('address')" style="margin: 8px auto;">Habilitar / Deshabilitar</button>
 
+                        {{ modelForm.get('address').value }}
                         <ser-form-element style="min-width: 300px;">
                             <label>Dirección</label>
                             <address-col-input serControl formControlName="address"></address-col-input>
