@@ -11,7 +11,7 @@ export class SerSelectListFilterPipe implements PipeTransform {
 
     constructor(private ds: DataService) { }
 
-    transform(items: any[], filter: any, searchBy: any): any[] {
+    transform(items: any[], filter: any, searchBy: string[]): any[] {
         if (!hasValue(items) || !hasValue(filter)) {
             // this.ds.setData(items);
             return items;

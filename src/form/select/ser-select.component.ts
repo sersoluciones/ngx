@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 // tslint:disable: no-use-before-declare
 // tslint:disable: no-host-metadata-property
 // tslint:disable: max-line-length
@@ -11,14 +11,14 @@ import { Observable } from 'rxjs';
 
 import { Attribute, HostBinding, Optional, Renderer2 } from '@angular/core';
 import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef, ViewEncapsulation, ContentChild, ViewChild, forwardRef, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, Validator, FormControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, Validator, FormControl, FormBuilder } from '@angular/forms';
 import { DropdownSettings } from './ser-select.interface';
 import { SerSelectListFilterPipe } from './ser-select-list-filter.pipe';
-import { SDItemDirective, SDBadgeDirective, SDSearchDirective } from './ser-select-menu-item.directive';
+import { SDItemDirective, SDBadgeDirective } from './ser-select-menu-item.directive';
 import { DataService } from './ser-select.service';
-import { Subscription, Subject, fromEvent, interval, forkJoin, merge } from 'rxjs';
+import { Subscription, Subject, fromEvent, merge } from 'rxjs';
 import { VirtualScrollerComponent } from './virtual-scroll/virtual-scroll';
-import { debounceTime, distinctUntilChanged, tap, filter } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, tap, filter, takeUntil } from 'rxjs/operators';
 import { hasValue } from '../../utils/check';
 import { inArray } from '../../utils/array';
 import { fromIntersectionObserver } from '../../utils/rx-utils';
@@ -46,68 +46,50 @@ const noop = () => {
 })
 export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChanges, Validator, AfterViewInit, OnDestroy {
 
+    @HostBinding('class.disabled') isDisabled = false;
+    @HostBinding('class.active') isActive = false;
+    @HostBinding('class.multiple') multipleClass = false;
+
     //#region Properties
-    @Input() data = [];
+    private _data = [];
+
+    public get data() {
+        return this._data;
+    }
+
+    @Input()
+    public set data(value) {
+        this._data = value;
+        this.filterList();
+    }
 
     @Input() settings: DropdownSettings;
-
     @Input() loading: boolean;
-
     @Input() multiple: boolean | string;
 
-    @Output('onSelect')
-    onSelect: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onDeSelect')
-    onDeSelect: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onSelectAll')
-    onSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-
-    @Output('onDeSelectAll')
-    onDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-
-    @Output('onOpen')
-    onOpen: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onClose')
-    onClose: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onScrollToEnd')
-    onScrollToEnd: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onFilterSelectAll')
-    onFilterSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-
-    @Output('onFilterDeSelectAll')
-    onFilterDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-
-    @Output('onAddFilterNewItem')
-    onAddFilterNewItem: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onGroupSelect')
-    onGroupSelect: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onGroupDeSelect')
-    onGroupDeSelect: EventEmitter<any> = new EventEmitter<any>();
+    @Output('onSelect') onSelect: EventEmitter<any> = new EventEmitter<any>();
+    @Output('onDeSelect') onDeSelect: EventEmitter<any> = new EventEmitter<any>();
+    @Output('onSelectAll') onSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output('onDeSelectAll') onDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output('onOpen') onOpen: EventEmitter<any> = new EventEmitter<any>();
+    @Output('onClose') onClose: EventEmitter<any> = new EventEmitter<any>();
+    @Output('onScrollToEnd') onScrollToEnd: EventEmitter<any> = new EventEmitter<any>();
+    @Output('onFilterSelectAll') onFilterSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output('onFilterDeSelectAll') onFilterDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output('onAddFilterNewItem') onAddFilterNewItem: EventEmitter<any> = new EventEmitter<any>();
+    @Output('onGroupSelect') onGroupSelect: EventEmitter<any> = new EventEmitter<any>();
+    @Output('onGroupDeSelect') onGroupDeSelect: EventEmitter<any> = new EventEmitter<any>();
 
     @ContentChild(SDItemDirective, { static: true }) itemTempl: SDItemDirective;
     @ContentChild(SDBadgeDirective, { static: true }) badgeTempl: SDBadgeDirective;
-    @ContentChild(SDSearchDirective, { static: true }) searchTempl: SDSearchDirective;
-
 
     @ViewChild('searchInput') searchInput: ElementRef;
     @ViewChild('selectedList') selectedListElem: ElementRef;
     @ViewChild('dropdownList') dropdownListElem: ElementRef;
 
-    @HostBinding('class.disabled') isDisabled = false;
-    @HostBinding('class.active') isActive = false;
-    @HostBinding('class.multiple') multipleClass = false;
-
     virtualdata: any = [];
-    searchTerm$ = new Subject<string>();
+    notifierDestroySubs: ReplaySubject<any> = new ReplaySubject();
 
-    filterPipe: SerSelectListFilterPipe;
     selectedItems: any[] = [];
     isSelectAll = false;
     isFilterSelectAll = false;
@@ -133,6 +115,8 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     infiniteFilterLength: any = 0;
     viewPortItems: any;
     item: any;
+
+    search = this._fb.control('');
 
     private parents: Element[] = [];
     private dropdownSubs$: Subscription[] = [];
@@ -168,14 +152,13 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     public parseError: boolean;
     public filteredList: any = [];
     virtualScroollInit = false;
-    @ViewChild(VirtualScrollerComponent, { static: false })
-    private virtualScroller: VirtualScrollerComponent;
+    @ViewChild(VirtualScrollerComponent, { static: false }) private virtualScroller: VirtualScrollerComponent;
     public isDisabledItemPresent = false;
     //#endregion
 
     hasValue = hasValue;
 
-    constructor(public _elementRef: ElementRef, private cdr: ChangeDetectorRef, private ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any,
+    constructor(public _elementRef: ElementRef, private cdr: ChangeDetectorRef, private _fb: FormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any,
                 @Optional() @Attribute('simple') simple: any, @Optional() @Attribute('primaryKey') primaryKey: any, @Optional() @Attribute('labelKey') labelKey: any) {
 
         this.multiple = multipleAttr !== null;
@@ -197,13 +180,13 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.defaultSettings.labelKey = labelKey;
         }
 
-        this.searchTerm$.asObservable().pipe(
+        /* this.searchTerm$.asObservable().pipe(
             debounceTime(1000),
             distinctUntilChanged(),
             tap(term => term)
         ).subscribe(val => {
             this.filterInfiniteList(val);
-        });
+        }); */
     }
 
     ngOnInit() {
@@ -212,9 +195,22 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         this.multipleClass = !this.settings.singleSelection;
 
-        this.cachedItems = this.cloneArray(this.data);
+        this.search.valueChanges
+            .pipe(
+                debounceTime(500),
+                distinctUntilChanged((prev, curr) => {
+                    return JSON.stringify(prev) === JSON.stringify(curr);
+                }),
+                takeUntil(this.notifierDestroySubs)
+            )
+            .subscribe(() => {
+                this.filterList();
+            });
 
-        this.subscription = this.ds.getData().subscribe(data => {
+        this.cachedItems = this.cloneArray(this.data);
+        // this.cachedItems = this.cloneArray(this.data);
+
+        /* this.subscription = this._ds.getData().subscribe(data => {
             if (data) {
                 let len = 0;
                 data.forEach((obj: any) => {
@@ -229,7 +225,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                 this.onFilterChange(data);
             }
 
-        });
+        }); */
 
         this.virtualScroollInit = false;
     }
@@ -280,7 +276,11 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     }
 
-    onItemClick(item: any, k: number, e: any) {
+    filterList() {
+        this.filteredList =  this._ds.filterData(this.data, this.search.value, this.settings?.searchBy);
+    }
+
+    onItemClick(item: any) {
 
         if (this.isDisabled || item[this.settings.disabledKey]) {
             return false;
@@ -400,10 +400,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     }
     //#endregion
 
-    trackByFn(item: any) {
-        return item[this.settings.primaryKey];
-    }
-
     isSelected(clickedItem: any) {
 
         if (clickedItem[this.settings.disabledKey]) {
@@ -520,7 +516,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         this._renderer.appendChild(this._elementRef.nativeElement, this.dropdownListElem.nativeElement);
 
-        if (this.settings.enableSearchFilter && !this.searchTempl) {
+        if (this.settings.enableSearchFilter) {
             setTimeout(() => {
                 this.searchInput?.nativeElement.focus();
             }, 0);
@@ -635,7 +631,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         if (this.settings.groupBy && !this.settings.lazyLoading) {
             this.filterGroupedList();
         } else if (this.settings.lazyLoading) {
-            this.searchTerm$.next((ev.target as HTMLInputElement).value);
+            // this.searchTerm$.next((ev.target as HTMLInputElement).value);
         }
 
     }
@@ -687,21 +683,21 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
                                 }); */
 
-                this.ds.getFilteredData().forEach((el: any) => {
+                /* this._ds.getFilteredData().forEach((el: any) => {
                     if (!this.isSelected(el) && !el.hasOwnProperty('grpTitle')) {
                         this.addSelected(el);
                         added.push(el);
                     }
-                });
+                }); */
 
             } else {
-                this.ds.getFilteredData().forEach((item: any) => {
+                /* this._ds.getFilteredData().forEach((item: any) => {
                     if (!this.isSelected(item)) {
                         this.addSelected(item);
                         added.push(item);
                     }
 
-                });
+                }); */
             }
 
             this.isFilterSelectAll = true;
@@ -719,20 +715,20 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                                         });
                                     }
                                 }); */
-                this.ds.getFilteredData().forEach((el: any) => {
+                /* this._ds.getFilteredData().forEach((el: any) => {
                     if (this.isSelected(el)) {
                         this.removeSelected(el);
                         removed.push(el);
                     }
-                });
+                }); */
             } else {
-                this.ds.getFilteredData().forEach((item: any) => {
+                /* this._ds.getFilteredData().forEach((item: any) => {
                     if (this.isSelected(item)) {
                         this.removeSelected(item);
                         removed.push(item);
                     }
 
-                });
+                }); */
             }
             this.isFilterSelectAll = false;
             this.onFilterDeSelectAll.emit(removed);
@@ -760,7 +756,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     clearSearch() {
 
-        this.filter = '';
+        this.search.setValue('');
 
         if (this.settings.lazyLoading) {
 
@@ -785,32 +781,12 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     }
 
-    onFilterChange(data: any) {
-        if (this.filter && this.filter === '' || data.length === 0) {
-            this.isFilterSelectAll = false;
-        }
-        let cnt = 0;
-        data.forEach((item: any) => {
-
-            if (!item.hasOwnProperty('grpTitle') && this.isSelected(item)) {
-                cnt++;
-            }
-        });
-
-        if (cnt > 0 && this.filterLength === cnt) {
-            this.isFilterSelectAll = true;
-        } else if (cnt > 0 && this.filterLength !== cnt) {
-            this.isFilterSelectAll = false;
-        }
-        this.cdr.detectChanges();
-    }
-
     cloneArray(arr: any) {
 
         if (Array.isArray(arr)) {
             return JSON.parse(JSON.stringify(arr));
         } else if (typeof arr === 'object') {
-            throw 'Cannot clone array containing an object!';
+            throw new Error('Cannot clone array containing an object!');
         } else {
             return arr;
         }
@@ -1000,8 +976,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     addFilterNewItem() {
         this.onAddFilterNewItem.emit(this.filter);
-        this.filterPipe = new SerSelectListFilterPipe(this.ds);
-        this.filterPipe.transform(this.data, this.filter, this.settings.searchBy);
     }
 
     clearSelection(e: MouseEvent) {
@@ -1045,6 +1019,9 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         this.dropdownSubs$.forEach(s => {
             s.unsubscribe();
         });
+
+        this.notifierDestroySubs.next();
+        this.notifierDestroySubs.complete();
 
     }
 }

@@ -16,10 +16,3 @@ export class SDItemDirective {
 export class SDBadgeDirective {
     constructor(public template: TemplateRef<any>) { }
 }
-
-@Directive({
-  selector: '[sd-search]'
-})
-export class SDSearchDirective {
-    constructor(public template: TemplateRef<any>) { }
-}

@@ -1,31 +1,55 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-
+import { hasValue } from '../../utils/check';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DataService {
 
-    filteredData: any = [];
-    private subject = new Subject<any>();
+    filterData(data: any[], filter: any, searchBy: any) {
+        if (!hasValue(data) || !hasValue(filter)) {
+            return data;
+        }
 
-    setData(data: any) {
+        const filteredList = data.filter((item: any) => this.applyFilter(item, filter, searchBy));
 
-        this.filteredData = data;
-        this.subject.next(data);
-    }
-
-    getData(): Observable<any> {
-        return this.subject.asObservable();
-    }
-
-    getFilteredData() {
-        if (this.filteredData && this.filteredData.length > 0) {
-            return this.filteredData;
+        if (hasValue(filteredList)) {
+            return filteredList;
         } else {
             return [];
         }
+    }
+
+    applyFilter(item: any, filter: any, searchBy: any): boolean {
+        let found = false;
+        if (searchBy.length > 0) {
+            if (item.grpTitle) {
+                found = true;
+            } else {
+                for (let t = 0; t < searchBy.length; t++) {
+                    if (filter && item[searchBy[t]] && item[searchBy[t]] !== '') {
+                        if (item[searchBy[t]].toString().toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
+                            found = true;
+                        }
+                    }
+                }
+            }
+
+        } else {
+            if (item.grpTitle) {
+                found = true;
+            } else {
+                for (const prop in item) {
+                    if (filter && item[prop]) {
+                        if (item[prop].toString().toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
+                            found = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return found;
     }
 
 }

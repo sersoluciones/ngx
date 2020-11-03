@@ -120,18 +120,14 @@
                 <h3>Previsualización</h3>
 
                 <div class="body">
-                    <div>
-                        <button class="bttn blue" type="button" (click)="toogleFormControlDisabled('text1')" style="margin: 8px auto;">Habilitar / Deshabilitar</button>
+                    <ser-form-element style="width: 300px;">
+                        <label>Texto</label>
+                        <input type="text" serControl formControlName="text1">
 
-                        <ser-form-element style="width: 300px;">
-                            <label>Texto</label>
-                            <input type="text" serControl formControlName="text1">
-
-                            <div serErrors="text1">
-                                <div serError="required">Requerido</div>
-                            </div>
-                        </ser-form-element>
-                    </div>
+                        <div serErrors="text1">
+                            <div serError="required">Requerido</div>
+                        </div>
+                    </ser-form-element>
                 </div>
             </div>
 
@@ -158,9 +154,8 @@
 
                 <div class="body">
                     <div>
-                        <button class="bttn blue" type="button" (click)="toogleFormControlDisabled('address')" style="margin: 8px auto;">Habilitar / Deshabilitar</button>
+                        <button class="bttn" type="button" (click)="toogleFormControlDisabled('address')">Habilitar / Deshabilitar</button>
 
-                        {{ modelForm.get('address').value }}
                         <ser-form-element style="min-width: 300px;">
                             <label>Dirección</label>
                             <address-col-input serControl formControlName="address"></address-col-input>
@@ -256,10 +251,7 @@
 
                 <h3>Previsualización</h3>
 
-                <div class="body" style="max-height: 400px;overflow: auto;">
-                    <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                    </p>
+                <div class="body">
                     <ser-form-element style="min-width: 300px;">
                         <label>Multiple</label>
                         <ser-select serControl formControlName="selectMultiple" multiple [data]="options.dropdown"></ser-select>
@@ -268,16 +260,6 @@
                             <div serError="required">Requerido</div>
                         </div>
                     </ser-form-element>
-                    <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                    </p>
                 </div>
             </div>
 
