@@ -5,7 +5,7 @@
         <ng-container *ngIf="settings.singleSelection && hasValue(selectedItems)">
 
             <ng-container *ngIf="!hasValue(badgeTempl)">
-                {{ selectedItems[0][settings.labelKey] }}
+                {{ getLabelText(selectedItems[0]) }}
             </ng-container>
 
             <ng-container *ngIf="hasValue(badgeTempl)">
@@ -20,7 +20,7 @@
                 <ng-container *ngFor="let item of selectedItems;trackBy: trackByFn.bind(this);let k = index">
 
                     <div *ngIf="k < (settings.badgeShowLimit - 1)" class="token">
-                        <span *ngIf="!hasValue(badgeTempl)" class="label">{{ item[settings.labelKey] }}</span>
+                        <span *ngIf="!hasValue(badgeTempl)" class="label">{{ getLabelText(item) }}</span>
                         <span *ngIf="hasValue(badgeTempl)" class="label">
                             <ng-container *ngTemplateOutlet="badgeTempl.template; context:{item: item}"></ng-container>
                         </span>
@@ -113,7 +113,7 @@
                     <div class="list">
                         <div class="item pure-checkbox" *ngFor="let item of filteredList; let i = index;" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item) }">
                             <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
-                            <label>{{ item[settings.labelKey] }}</label>
+                            <label>{{ getLabelText(item) }}</label>
                         </div>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
                     <div virtualScroller #scroll [enableUnequalChildrenSizes]="randomSize" [items]="virtualdata" (vsStart)="onScrollEnd($event)" (vsEnd)="onScrollEnd($event)" [ngStyle]="{'height': settings.maxHeight+'px'}" class="list">
                         <div *ngFor="let item of scroll.viewPortItems; let i = index;" (click)="onItemClick(item)" class="pure-checkbox" [ngClass]="{'selected-item': isSelected(item) }">
                             <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
-                            <label>{{ item[settings.labelKey] }}</label>
+                            <label>{{ getLabelText(item) }}</label>
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                         <span *ngFor="let item of groupedData; let i = index;">
                             <div (click)="selectGroup(item)" [ngClass]="{'grp-title': item.grpTitle,'grp-item': !item.grpTitle && !settings.singleSelection}" class="pure-checkbox">
                                 <input *ngIf="settings.showCheckbox && !settings.singleSelection" type="checkbox" [checked]="item.selected" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
-                                <label>{{ item[settings.labelKey] }}</label>
+                                <label>{{ getLabelText(item) }}</label>
                                 <div class="list">
                                     <span *ngFor="let val of item.list ; let j = index;">
                                         <div (click)="onItemClick(val); $event.stopPropagation()" [ngClass]="{'grp-title': val.grpTitle,'grp-item': !val.grpTitle && !settings.singleSelection}" class="pure-checkbox">
@@ -184,7 +184,7 @@
                         <span *ngFor="let item of groupedData ; let i = index;">
                             <div (click)="selectGroup(item)" [ngClass]="{'grp-title': item.grpTitle,'grp-item': !item.grpTitle && !settings.singleSelection}" class="pure-checkbox">
                                 <input *ngIf="settings.showCheckbox && !settings.singleSelection" type="checkbox" [checked]="item.selected" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
-                                <label>{{ item[settings.labelKey] }}</label>
+                                <label>{{ getLabelText(item) }}</label>
                                 <div class="list">
                                     <span *ngFor="let val of item.list ; let j = index;">
                                         <div (click)="onItemClick(val); $event.stopPropagation()" [ngClass]="{'selected-item': isSelected(val) == true,'grp-title': val.grpTitle,'grp-item': !val.grpTitle && !settings.singleSelection}" class="pure-checkbox">
@@ -199,17 +199,17 @@
                         <div (click)="onItemClick(item,i,$event)" *ngIf="!item.grpTitle" [ngClass]="{'grp-title': item.grpTitle,'grp-item': !item.grpTitle}" class="pure-checkbox">
                         <input *ngIf="settings.showCheckbox && !item.grpTitle" type="checkbox" [checked]="isSelected(item)" [disabled]="settings.limitSelection == selectedItems?.length && !isSelected(item)"
                         />
-                        <label>{{item[settings.labelKey]}}</label>
+                        <label>{{getLabelText(item)}}</label>
                     </div>
                     <div *ngIf="item.grpTitle && !settings.selectGroup" [ngClass]="{'grp-title': item.grpTitle,'grp-item': !item.grpTitle}" class="pure-checkbox">
                         <input *ngIf="settings.showCheckbox && settings.selectGroup" type="checkbox" [checked]="isSelected(item)" [disabled]="settings.limitSelection == selectedItems?.length && !isSelected(item)"
                         />
-                        <label>{{item[settings.labelKey]}}</label>
+                        <label>{{getLabelText(item)}}</label>
                     </div>
                      <div  (click)="selectGroup(item)" *ngIf="item.grpTitle && settings.selectGroup" [ngClass]="{'grp-title': item.grpTitle,'grp-item': !item.grpTitle}" class="pure-checkbox">
                         <input *ngIf="settings.showCheckbox && settings.selectGroup" type="checkbox" [checked]="item.selected" [disabled]="settings.limitSelection == selectedItems?.length && !isSelected(item)"
                         />
-                        <label>{{item[settings.labelKey]}}</label>
+                        <label>{{getLabelText(item)}}</label>
                     </div>
                     </span> -->
                     </div>
@@ -242,11 +242,11 @@
                             <span *ngFor="let item of scroll4.viewPortItems; let i = index;">
                                 <div *ngIf="item.grpTitle" [ngClass]="{'grp-title': item.grpTitle,'grp-item': !item.grpTitle && !settings.singleSelection, 'selected-item': isSelected(item) }" class="pure-checkbox">
                                     <input *ngIf="settings.showCheckbox && !item.grpTitle && !settings.singleSelection" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
-                                    <label>{{item[settings.labelKey]}}</label>
+                                    <label>{{getLabelText(item)}}</label>
                                 </div>
                                 <div (click)="onItemClick(item)" *ngIf="!item.grpTitle" [ngClass]="{'grp-title': item.grpTitle,'grp-item': !item.grpTitle && !settings.singleSelection, 'selected-item': isSelected(item) }" class="pure-checkbox">
                                     <input *ngIf="settings.showCheckbox && !item.grpTitle" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
-                                    <label>{{item[settings.labelKey]}}</label>
+                                    <label>{{getLabelText(item)}}</label>
                                 </div>
                             </span>
                         </div>

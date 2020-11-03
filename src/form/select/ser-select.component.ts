@@ -225,7 +225,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                 this.groupCachedItems = this.cloneArray(this.groupedData);
             }
 
-            // this.cachedItems = this.cloneArray(this.data);
             this.filterList();
         }
 
@@ -239,46 +238,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         this.filteredList =  this._ds.filterData(this.data, this.search.value, this.settings?.searchBy);
     }
 
-    onItemClick(item: any) {
-
-        if (this.isDisabled || item[this.settings.disabledKey]) {
-            return false;
-        }
-
-        let found = this.isSelected(item);
-        let limit = this.selectedItems.length < this.settings.limitSelection ? true : false;
-
-        if (!found) {
-            if (this.settings.limitSelection) {
-                if (limit) {
-                    this.addSelected(item);
-                    this.onSelect.emit(item);
-                }
-            } else {
-                this.addSelected(item);
-                this.onSelect.emit(item);
-            }
-
-        } else {
-            this.removeSelected(item);
-            this.onDeSelect.emit(item);
-        }
-
-        if (this.isSelectAll || this.data.length > this.selectedItems.length) {
-            this.isSelectAll = false;
-        }
-
-        if (this.data.length === this.selectedItems.length) {
-            this.isSelectAll = true;
-        }
-
-        if (this.settings.groupBy) {
-            this.updateGroupInfo(item);
-        }
-
-        this.setPositionDropdown();
-    }
-
     //#region ControlValueAccessor
     writeValue(value: any) {
 
@@ -290,7 +249,13 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                 }
 
                 const selectedObject = this.data?.find(item => {
-                    return item[this.settings.primaryKey] === value;
+
+                    if (typeof item === 'object') {
+                        return item[this.settings.primaryKey] === value;
+                    }
+
+                    return item === value;
+
                 });
 
                 if (hasValue(selectedObject)) {
@@ -312,7 +277,13 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                 }
 
                 const selectedObjects = this.data?.filter(item => {
-                    return inArray(item[this.settings.primaryKey], value);
+
+                    if (typeof item === 'object') {
+                        return inArray(item[this.settings.primaryKey], value);
+                    }
+
+                    return inArray(item, value);
+
                 });
 
                 if (hasValue(selectedObjects)) {
@@ -359,17 +330,70 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     }
     //#endregion
 
-    isSelected(clickedItem: any) {
+    getLabelText(item: any) {
 
-        if (clickedItem[this.settings.disabledKey]) {
+        if (typeof item === 'object') {
+            return item[this.settings.labelKey];
+        }
+
+        return item;
+    }
+
+    onItemClick(item: any) {
+
+        if (this.isDisabled || item[this.settings.disabledKey]) {
             return false;
+        }
+
+        let found = this.isSelected(item);
+        let limit = this.selectedItems.length < this.settings.limitSelection ? true : false;
+
+        if (!found) {
+            if (this.settings.limitSelection) {
+                if (limit) {
+                    this.addSelected(item);
+                    this.onSelect.emit(item);
+                }
+            } else {
+                this.addSelected(item);
+                this.onSelect.emit(item);
+            }
+
+        } else {
+            this.removeSelected(item);
+            this.onDeSelect.emit(item);
+        }
+
+        if (this.isSelectAll || this.data.length > this.selectedItems.length) {
+            this.isSelectAll = false;
+        }
+
+        if (this.data.length === this.selectedItems.length) {
+            this.isSelectAll = true;
+        }
+
+        if (this.settings.groupBy) {
+            this.updateGroupInfo(item);
+        }
+
+        this.setPositionDropdown();
+    }
+
+    isSelected(item: any) {
+
+        if (item[this.settings.disabledKey]) {
+            return false;
+        }
+
+        if (typeof item !== 'object') {
+            return inArray(item, this.selectedItems);
         }
 
         let found = false;
 
         if (hasValue(this.selectedItems)) {
             for (const item of this.selectedItems) {
-                if (clickedItem[this.settings.primaryKey] === item[this.settings.primaryKey]) {
+                if (item[this.settings.primaryKey] === item[this.settings.primaryKey]) {
                     found = true;
                     break;
                 }
@@ -383,12 +407,28 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         if (this.settings.singleSelection) {
             this.selectedItems = [item];
-            this.onChangeCallback(item[this.settings.primaryKey]);
-            this.onTouchedCallback(item[this.settings.primaryKey]);
+
+            if (typeof item === 'object') {
+                this.onChangeCallback(item[this.settings.primaryKey]);
+                this.onTouchedCallback(item[this.settings.primaryKey]);
+            } else {
+                this.onChangeCallback(item);
+                this.onTouchedCallback(item);
+            }
+
             this.closeDropdown();
         } else {
             this.selectedItems.push(item);
-            const items = this.selectedItems.map(element => element[this.settings.primaryKey]);
+
+            const items = this.selectedItems.map(element => {
+
+                if (typeof item === 'object') {
+                    return element[this.settings.primaryKey];
+                }
+
+                return element;
+            });
+
             this.onChangeCallback(items);
             this.onTouchedCallback(items);
         }
@@ -398,9 +438,16 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         if (hasValue(this.selectedItems)) {
             this.selectedItems.forEach((item, index) => {
-                if (clickedItem[this.settings.primaryKey] === item[this.settings.primaryKey]) {
-                    this.selectedItems.splice(index, 1);
+                if (typeof item === 'object') {
+                    if (clickedItem[this.settings.primaryKey] === item[this.settings.primaryKey]) {
+                        this.selectedItems.splice(index, 1);
+                    }
+                } else {
+                    if (clickedItem === item) {
+                        this.selectedItems.splice(index, 1);
+                    }
                 }
+
             });
         }
 
