@@ -70,3 +70,67 @@ export const DropdownMultipleExample =
         <div serError="required">Requerido</div>
     </div>
 </ser-form-element>`;
+
+export const DropdownTemplateExample =
+`<ser-form-element style="min-width: 300px;">
+    <label>Single template</label>
+    <ser-select serControl formControlName="selectSingleTemplate" [data]="options.dropdown">
+
+        <ng-template sd-badge let-item="item">
+            <div class="select-template">
+                <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                <div>
+                    <div>{{ item.name }}</div>
+                    <strong>{{ item.desc }}</strong>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template sd-item let-item="item">
+            <div class="select-template">
+                <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                <div>
+                    <div>{{ item.name }}</div>
+                    <strong>{{ item.desc }}</strong>
+                </div>
+            </div>
+        </ng-template>
+
+    </ser-select>
+
+    <div serErrors="selectSingleTemplate">
+        <div serError="required">Requerido</div>
+    </div>
+</ser-form-element>`;
+
+export const DropdownTemplateMultipleExample =
+`<ser-form-element style="min-width: 300px;">
+    <label>Multiple with template</label>
+    <ser-select serControl formControlName="selectMultipleTemplate" mutiple [data]="options.dropdown">
+
+        <ng-template sd-badge let-item="item">
+            <div class="select-template">
+                <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                <div>
+                    <div>{{ item.name }}</div>
+                    <strong>{{ item.desc }}</strong>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template sd-item let-item="item">
+            <div class="select-template">
+                <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                <div>
+                    <div>{{ item.name }}</div>
+                    <strong>{{ item.desc }}</strong>
+                </div>
+            </div>
+        </ng-template>
+
+    </ser-select>
+
+    <div serErrors="selectMultipleTemplate">
+        <div serError="required">Requerido</div>
+    </div>
+</ser-form-element>`;

@@ -120,14 +120,18 @@
                 <h3>Previsualización</h3>
 
                 <div class="body">
-                    <ser-form-element style="width: 300px;">
-                        <label>Texto</label>
-                        <input type="text" serControl formControlName="text1">
+                    <div>
+                        <button class="bttn" type="button" (click)="toogleFormControlDisabled('text1')">Habilitar / Deshabilitar</button>
 
-                        <div serErrors="text1">
-                            <div serError="required">Requerido</div>
-                        </div>
-                    </ser-form-element>
+                        <ser-form-element style="width: 300px;">
+                            <label>Texto</label>
+                            <input type="text" serControl formControlName="text1">
+
+                            <div serErrors="text1">
+                                <div serError="required">Requerido</div>
+                            </div>
+                        </ser-form-element>
+                    </div>
                 </div>
             </div>
 
@@ -190,14 +194,18 @@
                 <h3>Previsualización</h3>
 
                 <div class="body">
-                    <ser-form-element style="min-width: 300px;">
-                        <label>Por defecto</label>
-                        <ser-select serControl formControlName="selectDefault" [data]="options.dropdown"></ser-select>
+                    <div>
+                        <button class="bttn" type="button" (click)="toogleFormControlDisabled('selectDefault')">Habilitar / Deshabilitar</button>
 
-                        <div serErrors="selectDefault">
-                            <div serError="required">Requerido</div>
-                        </div>
-                    </ser-form-element>
+                        <ser-form-element style="min-width: 300px;">
+                            <label>Por defecto</label>
+                            <ser-select serControl formControlName="selectDefault" [data]="options.dropdown"></ser-select>
+
+                            <div serErrors="selectDefault">
+                                <div serError="required">Requerido</div>
+                            </div>
+                        </ser-form-element>
+                    </div>
                 </div>
             </div>
 
@@ -221,14 +229,18 @@
                 <h3>Previsualización</h3>
 
                 <div class="body">
-                    <ser-form-element style="min-width: 300px;">
-                        <label>Simple</label>
-                        <ser-select serControl formControlName="selectSimple" simple [data]="options.dropdown"></ser-select>
+                    <div>
+                        <button class="bttn" type="button" (click)="toogleFormControlDisabled('selectSimple')">Habilitar / Deshabilitar</button>
 
-                        <div serErrors="selectSimple">
-                            <div serError="required">Requerido</div>
-                        </div>
-                    </ser-form-element>
+                        <ser-form-element style="min-width: 300px;">
+                            <label>Simple</label>
+                            <ser-select serControl formControlName="selectSimple" simple [data]="options.dropdown"></ser-select>
+
+                            <div serErrors="selectSimple">
+                                <div serError="required">Requerido</div>
+                            </div>
+                        </ser-form-element>
+                    </div>
                 </div>
             </div>
 
@@ -252,14 +264,18 @@
                 <h3>Previsualización</h3>
 
                 <div class="body">
-                    <ser-form-element style="min-width: 300px;">
-                        <label>Multiple</label>
-                        <ser-select serControl formControlName="selectMultiple" multiple [data]="options.dropdown"></ser-select>
+                    <div>
+                        <button class="bttn" type="button" (click)="toogleFormControlDisabled('selectMultiple')">Habilitar / Deshabilitar</button>
 
-                        <div serErrors="selectMultiple">
-                            <div serError="required">Requerido</div>
-                        </div>
-                    </ser-form-element>
+                        <ser-form-element style="min-width: 300px;">
+                            <label>Multiple</label>
+                            <ser-select serControl formControlName="selectMultiple" multiple [data]="options.dropdown"></ser-select>
+
+                            <div serErrors="selectMultiple">
+                                <div serError="required">Requerido</div>
+                            </div>
+                        </ser-form-element>
+                    </div>
                 </div>
             </div>
 
@@ -270,6 +286,120 @@
                 <div class="body">
                     <pre><code [highlight]="examples.DropdownMultipleExample"></code></pre>
                     <button class="bttn icon" type="button" [copyToClipboard]="examples.DropdownMultipleExample" (copied)="alert('Copiado al portapapeles')">
+                        <span class="material-icons">content_copy</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="example-snippet">
+            <div class="preview">
+
+                <h3>Previsualización</h3>
+
+                <div class="body">
+                    <div>
+                        <button class="bttn" type="button" (click)="toogleFormControlDisabled('selectSingleTemplate')">Habilitar / Deshabilitar</button>
+
+                        <ser-form-element style="min-width: 300px;">
+                            <label>Single with template</label>
+                            <ser-select serControl formControlName="selectSingleTemplate" [data]="options.dropdown">
+
+                                <ng-template sd-badge let-item="item">
+                                    <div class="select-template">
+                                        <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                                        <div>
+                                            <div>{{ item.name }}</div>
+                                            <strong>{{ item.desc }}</strong>
+                                        </div>
+                                    </div>
+                                </ng-template>
+
+                                <ng-template sd-item let-item="item">
+                                    <div class="select-template">
+                                        <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                                        <div>
+                                            <div>{{ item.name }}</div>
+                                            <strong>{{ item.desc }}</strong>
+                                        </div>
+                                    </div>
+                                </ng-template>
+
+                            </ser-select>
+
+                            <div serErrors="selectSingleTemplate">
+                                <div serError="required">Requerido</div>
+                            </div>
+                        </ser-form-element>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code">
+
+                <h3>Código</h3>
+
+                <div class="body">
+                    <pre><code [highlight]="examples.DropdownTemplateExample"></code></pre>
+                    <button class="bttn icon" type="button" [copyToClipboard]="examples.DropdownTemplateExample" (copied)="alert('Copiado al portapapeles')">
+                        <span class="material-icons">content_copy</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="example-snippet">
+            <div class="preview">
+
+                <h3>Previsualización</h3>
+
+                <div class="body">
+                    <div>
+                        <button class="bttn" type="button" (click)="toogleFormControlDisabled('selectMultipleTemplate')">Habilitar / Deshabilitar</button>
+
+                        <ser-form-element style="min-width: 300px;">
+                            <label>Multiple with template</label>
+                            <ser-select serControl formControlName="selectMultipleTemplate" multiple [data]="options.dropdown">
+
+                                <ng-template sd-badge let-item="item">
+                                    <div class="select-template">
+                                        <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                                        <div>
+                                            <div>{{ item.name }}</div>
+                                            <strong>{{ item.desc }}</strong>
+                                        </div>
+                                    </div>
+                                </ng-template>
+
+                                <ng-template sd-item let-item="item">
+                                    <div class="select-template">
+                                        <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                                        <div>
+                                            <div>{{ item.name }}</div>
+                                            <strong>{{ item.desc }}</strong>
+                                        </div>
+                                    </div>
+                                </ng-template>
+
+                            </ser-select>
+
+                            <div serErrors="selectMultipleTemplate">
+                                <div serError="required">Requerido</div>
+                            </div>
+                        </ser-form-element>
+                    </div>
+                </div>
+            </div>
+
+            <div class="code">
+
+                <h3>Código</h3>
+
+                <div class="body">
+                    <pre><code [highlight]="examples.DropdownTemplateMultipleExample"></code></pre>
+                    <button class="bttn icon" type="button" [copyToClipboard]="examples.DropdownTemplateMultipleExample" (copied)="alert('Copiado al portapapeles')">
                         <span class="material-icons">content_copy</span>
                     </button>
                 </div>

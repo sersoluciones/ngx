@@ -13,7 +13,6 @@ import { Attribute, HostBinding, Optional, Renderer2 } from '@angular/core';
 import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef, ViewEncapsulation, ContentChild, ViewChild, forwardRef, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, Validator, FormControl, FormBuilder } from '@angular/forms';
 import { DropdownSettings } from './ser-select.interface';
-import { SerSelectListFilterPipe } from './ser-select-list-filter.pipe';
 import { SDItemDirective, SDBadgeDirective } from './ser-select-menu-item.directive';
 import { DataService } from './ser-select.service';
 import { Subscription, Subject, fromEvent, merge } from 'rxjs';
@@ -35,16 +34,11 @@ const noop = () => {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => SerSelectComponent),
             multi: true
-        },
-        {
-            provide: NG_VALIDATORS,
-            useExisting: forwardRef(() => SerSelectComponent),
-            multi: true,
         }
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChanges, Validator, AfterViewInit, OnDestroy {
+export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChanges, AfterViewInit, OnDestroy {
 
     @HostBinding('class.disabled') isDisabled = false;
     @HostBinding('class.active') isActive = false;
@@ -151,7 +145,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     randomSize = true;
     public parseError: boolean;
     public filteredList: any = [];
-    virtualScroollInit = false;
     @ViewChild(VirtualScrollerComponent, { static: false }) private virtualScroller: VirtualScrollerComponent;
     public isDisabledItemPresent = false;
     //#endregion
@@ -179,14 +172,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         if (labelKey !== null) {
             this.defaultSettings.labelKey = labelKey;
         }
-
-        /* this.searchTerm$.asObservable().pipe(
-            debounceTime(1000),
-            distinctUntilChanged(),
-            tap(term => term)
-        ).subscribe(val => {
-            this.filterInfiniteList(val);
-        }); */
     }
 
     ngOnInit() {
@@ -208,26 +193,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             });
 
         this.cachedItems = this.cloneArray(this.data);
-        // this.cachedItems = this.cloneArray(this.data);
-
-        /* this.subscription = this._ds.getData().subscribe(data => {
-            if (data) {
-                let len = 0;
-                data.forEach((obj: any) => {
-                    if (obj[this.settings.disabledKey]) {
-                        this.isDisabledItemPresent = true;
-                    }
-                    if (!obj.hasOwnProperty('grpTitle')) {
-                        len++;
-                    }
-                });
-                this.filterLength = len;
-                this.onFilterChange(data);
-            }
-
-        }); */
-
-        this.virtualScroollInit = false;
     }
 
     ngAfterViewInit() {
@@ -260,18 +225,12 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                 this.groupCachedItems = this.cloneArray(this.groupedData);
             }
 
-            this.cachedItems = this.cloneArray(this.data);
+            // this.cachedItems = this.cloneArray(this.data);
+            this.filterList();
         }
 
         if (changes.settings && !changes.settings.firstChange) {
             this.settings = Object.assign(this.defaultSettings, this.settings);
-        }
-
-        if (changes.loading) {
-        }
-
-        if (this.settings?.lazyLoading && this.virtualScroollInit && changes.data) {
-            this.virtualdata = changes.data.currentValue;
         }
 
     }
@@ -304,6 +263,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.removeSelected(item);
             this.onDeSelect.emit(item);
         }
+
         if (this.isSelectAll || this.data.length > this.selectedItems.length) {
             this.isSelectAll = false;
         }
@@ -311,13 +271,12 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         if (this.data.length === this.selectedItems.length) {
             this.isSelectAll = true;
         }
+
         if (this.settings.groupBy) {
             this.updateGroupInfo(item);
         }
-    }
 
-    public validate(c: FormControl): any {
-        return null;
+        this.setPositionDropdown();
     }
 
     //#region ControlValueAccessor
@@ -470,11 +429,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.closeDropdown();
         }
 
-        if (this.settings.lazyLoading) {
-            this.virtualdata = this.data;
-            this.virtualScroollInit = true;
-        }
-
         evt.preventDefault();
     }
 
@@ -568,6 +522,10 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     }
 
     //#endregion
+
+    trackByFn(index: number, item: any) {
+        return item[this.settings.primaryKey];
+    }
 
     toggleSelectAll() {
         if (!this.isSelectAll) {
@@ -966,11 +924,11 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                 }
 
             });
+
             this.onGroupSelect.emit(item);
             this.updateGroupInfo(item);
 
         }
-
 
     }
 
@@ -1001,14 +959,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         this.onDeSelectAll.emit(this.selectedItems);
 
         e.stopPropagation();
-    }
-
-    getItemContext(item: any) {
-        return item;
-    }
-
-    observePosition(ev: any) {
-        console.log(ev);
     }
 
     ngOnDestroy() {

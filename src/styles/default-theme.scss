@@ -458,68 +458,96 @@ ser-select {
     }
 
     .dropdown-list{
-        ul {
-            li:hover {
-                background: var(--select-hover-color);
+        .list {
+            > .item {
+                &:hover {
+                    background: var(--select-hover-color);
+                }
             }
         }
-    }
 
-    .pure-checkbox {
+        &:not(.single-select-mode) {
+            .pure-checkbox {
 
-        input[type="checkbox"] {
+                input[type="checkbox"] {
 
-            &:focus,
-            &:hover {
-                + label:before {
-                    border-color: var(--select-base-color);
-                    background-color: #f2f2f2;
+                    &:focus,
+                    &:hover {
+                        + label {
+                            &:before {
+                                border-color: var(--select-base-color);
+                                background-color: #f2f2f2;
+                            }
+                        }
+                    }
+
+                    &:checked {
+                        + label {
+                            &:before {
+                                background: var(--select-base-color);
+                            }
+                        }
+                    }
+
+                    + label {
+                        &:before {
+                            border: 1px solid var(--select-base-color);
+                        }
+
+                        &:after {
+                            color: white;
+                        }
+                    }
+
+                    &:disabled {
+
+                        + label {
+                            color: #cccccc;
+
+                            &:before {
+                                border-color: #cccccc;
+                            }
+                        }
+
+                        &:checked {
+                            + label {
+                                &:before {
+                                    background-color: #cccccc;
+                                }
+                            }
+                        }
+                    }
+
                 }
-            }
 
-            &:checked {
-                + label:before {
-                    background: var(--select-base-color);
-                }
-            }
-
-            + label {
-                &:before {
-                    color: var(--select-base-color);
-                    border: 1px solid var(--select-base-color);
-                }
-
-                :after {
-                    background-color: var(--select-base-color);
-                }
-            }
-
-            &:disabled {
-                &:checked {
-                    + label:before {
-                        background-color: #cccccc;
+                input[type="radio"] {
+                    &:checked {
+                        + label {
+                            &:before {
+                                background-color: white;
+                            }
+                        }
                     }
                 }
 
-                + label:before {
-                    border-color: #cccccc;
-                }
             }
-
-            + label:after {
-                border-color: #ffffff;
-            }
-
-            input[type="radio"] {
-                &:checked {
-                    + label:before {
-                        background-color: white;
-                    }
-                }
-            }
-
         }
 
+        &.single-select-mode {
+            .pure-checkbox {
+                input[type="checkbox"] {
+
+                    &:checked {
+                        + label {
+                            &:after {
+                                color: var(--select-check-color);
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
     }
 }
 
