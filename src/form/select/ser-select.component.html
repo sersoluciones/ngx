@@ -4,12 +4,16 @@
 
         <ng-container *ngIf="settings.singleSelection && hasValue(selectedItems)">
 
-            <ng-container *ngIf="!hasValue(badgeTempl)">
+            <ng-container *ngIf="!hasValue(badgeTempl) && !hasValue(badgeItemTempl)">
                 {{ getLabelText(selectedItems[0]) }}
             </ng-container>
 
             <ng-container *ngIf="hasValue(badgeTempl)">
                 <ng-container *ngTemplateOutlet="badgeTempl.template; context:{item: selectedItems[0]}"></ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="hasValue(badgeItemTempl)">
+                <ng-container *ngTemplateOutlet="badgeItemTempl.template; context:{item: selectedItems[0]}"></ng-container>
             </ng-container>
 
         </ng-container>
@@ -20,9 +24,12 @@
                 <ng-container *ngFor="let item of selectedItems;trackBy: trackByFn.bind(this);let k = index">
 
                     <div *ngIf="k < (settings.badgeShowLimit - 1)" class="token">
-                        <span *ngIf="!hasValue(badgeTempl)" class="label">{{ getLabelText(item) }}</span>
+                        <span *ngIf="!hasValue(badgeTempl) && !hasValue(badgeItemTempl)" class="label">{{ getLabelText(item) }}</span>
                         <span *ngIf="hasValue(badgeTempl)" class="label">
                             <ng-container *ngTemplateOutlet="badgeTempl.template; context:{item: item}"></ng-container>
+                        </span>
+                        <span *ngIf="hasValue(badgeItemTempl)" class="label">
+                            <ng-container *ngTemplateOutlet="badgeItemTempl.template; context:{item: item}"></ng-container>
                         </span>
 
                         <span class="remove" (click)="onItemClick(item);$event.stopPropagation()">
@@ -109,7 +116,7 @@
 
             <ng-container *ngIf="!settings.lazyLoading">
 
-                <div *ngIf="!hasValue(itemTempl)">
+                <div *ngIf="!hasValue(itemTempl) && !hasValue(badgeItemTempl)">
                     <div class="list">
                         <div class="item pure-checkbox" *ngFor="let item of filteredList; let i = index;" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item) }">
                             <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
@@ -118,12 +125,17 @@
                     </div>
                 </div>
 
-                <div *ngIf="hasValue(itemTempl)">
+                <div *ngIf="hasValue(itemTempl) || hasValue(badgeItemTempl)">
                     <div class="list">
                         <div class="item pure-checkbox" *ngFor="let item of filteredList; let i = index;" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item) }">
                             <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
                             <label></label>
-                            <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item}"></ng-container>
+                            <ng-container *ngIf="hasValue(itemTempl)">
+                                <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item}"></ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="hasValue(badgeItemTempl)">
+                                <ng-container *ngTemplateOutlet="badgeItemTempl.template; context:{item: item}"></ng-container>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
@@ -132,7 +144,7 @@
 
             <ng-container *ngIf="settings.lazyLoading">
 
-                <div *ngIf="!hasValue(itemTempl)">
+                <div *ngIf="!hasValue(itemTempl) && !hasValue(badgeItemTempl)">
                     <div virtualScroller #scroll [enableUnequalChildrenSizes]="randomSize" [items]="virtualdata" (vsStart)="onScrollEnd($event)" (vsEnd)="onScrollEnd($event)" [ngStyle]="{'height': settings.maxHeight+'px'}" class="list">
                         <div *ngFor="let item of scroll.viewPortItems; let i = index;" (click)="onItemClick(item)" class="pure-checkbox" [ngClass]="{'selected-item': isSelected(item) }">
                             <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
@@ -141,12 +153,17 @@
                     </div>
                 </div>
 
-                <div *ngIf="hasValue(itemTempl)">
+                <div *ngIf="hasValue(itemTempl) || hasValue(badgeItemTempl)">
                     <div virtualScroller #scroll2 [enableUnequalChildrenSizes]="randomSize" [items]="virtualdata" (vsStart)="onScrollEnd($event)" (vsEnd)="onScrollEnd($event)" class="list" [ngStyle]="{'height': settings.maxHeight+'px'}">
                         <div *ngFor="let item of scroll2.viewPortItems;" (click)="onItemClick(item)" class="pure-checkbox" [ngClass]="{'selected-item': isSelected(item) }">
                             <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]"  />
                             <label></label>
-                            <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item}"></ng-container>
+                            <ng-container *ngIf="hasValue(itemTempl)">
+                                <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item}"></ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="hasValue(badgeItemTempl)">
+                                <ng-container *ngTemplateOutlet="badgeItemTempl.template; context:{item: item}"></ng-container>
+                            </ng-container>
                         </div>
                     </div>
                 </div>

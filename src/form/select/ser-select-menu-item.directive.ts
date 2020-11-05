@@ -16,3 +16,10 @@ export class SDItemDirective {
 export class SDBadgeDirective {
     constructor(public template: TemplateRef<any>) { }
 }
+
+@Directive({
+  selector: '[sd-badge-item]'
+})
+export class SDBadgeItemDirective {
+    constructor(public template: TemplateRef<any>) { }
+}

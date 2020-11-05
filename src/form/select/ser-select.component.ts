@@ -11,13 +11,13 @@ import { Observable, ReplaySubject } from 'rxjs';
 
 import { Attribute, HostBinding, Optional, Renderer2 } from '@angular/core';
 import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef, ViewEncapsulation, ContentChild, ViewChild, forwardRef, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, Validator, FormControl, FormBuilder } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder } from '@angular/forms';
 import { DropdownSettings } from './ser-select.interface';
-import { SDItemDirective, SDBadgeDirective } from './ser-select-menu-item.directive';
+import { SDItemDirective, SDBadgeDirective, SDBadgeItemDirective } from './ser-select-menu-item.directive';
 import { DataService } from './ser-select.service';
-import { Subscription, Subject, fromEvent, merge } from 'rxjs';
+import { Subscription, fromEvent, merge } from 'rxjs';
 import { VirtualScrollerComponent } from './virtual-scroll/virtual-scroll';
-import { debounceTime, distinctUntilChanged, tap, filter, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { hasValue } from '../../utils/check';
 import { inArray } from '../../utils/array';
 import { fromIntersectionObserver } from '../../utils/rx-utils';
@@ -61,21 +61,22 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     @Input() loading: boolean;
     @Input() multiple: boolean | string;
 
-    @Output('onSelect') onSelect: EventEmitter<any> = new EventEmitter<any>();
-    @Output('onDeSelect') onDeSelect: EventEmitter<any> = new EventEmitter<any>();
-    @Output('onSelectAll') onSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-    @Output('onDeSelectAll') onDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-    @Output('onOpen') onOpen: EventEmitter<any> = new EventEmitter<any>();
-    @Output('onClose') onClose: EventEmitter<any> = new EventEmitter<any>();
-    @Output('onScrollToEnd') onScrollToEnd: EventEmitter<any> = new EventEmitter<any>();
-    @Output('onFilterSelectAll') onFilterSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-    @Output('onFilterDeSelectAll') onFilterDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-    @Output('onAddFilterNewItem') onAddFilterNewItem: EventEmitter<any> = new EventEmitter<any>();
-    @Output('onGroupSelect') onGroupSelect: EventEmitter<any> = new EventEmitter<any>();
-    @Output('onGroupDeSelect') onGroupDeSelect: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onDeSelect: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output() onDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output() onOpen: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onClose: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onScrollToEnd: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onFilterSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output() onFilterDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output() onAddFilterNewItem: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onGroupSelect: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onGroupDeSelect: EventEmitter<any> = new EventEmitter<any>();
 
     @ContentChild(SDItemDirective, { static: true }) itemTempl: SDItemDirective;
     @ContentChild(SDBadgeDirective, { static: true }) badgeTempl: SDBadgeDirective;
+    @ContentChild(SDBadgeItemDirective, { static: true }) badgeItemTempl: SDBadgeItemDirective;
 
     @ViewChild('searchInput') searchInput: ElementRef;
     @ViewChild('selectedList') selectedListElem: ElementRef;
@@ -151,7 +152,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     hasValue = hasValue;
 
-    constructor(public _elementRef: ElementRef, private cdr: ChangeDetectorRef, private _fb: FormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any,
+    constructor(public _elementRef: ElementRef, private _fb: FormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any,
                 @Optional() @Attribute('simple') simple: any, @Optional() @Attribute('primaryKey') primaryKey: any, @Optional() @Attribute('labelKey') labelKey: any) {
 
         this.multiple = multipleAttr !== null;
@@ -381,19 +382,19 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     isSelected(item: any) {
 
-        if (item[this.settings.disabledKey]) {
-            return false;
-        }
-
         if (typeof item !== 'object') {
             return inArray(item, this.selectedItems);
+        }
+
+        if (item[this.settings.disabledKey]) {
+            return false;
         }
 
         let found = false;
 
         if (hasValue(this.selectedItems)) {
-            for (const item of this.selectedItems) {
-                if (item[this.settings.primaryKey] === item[this.settings.primaryKey]) {
+            for (const selectdItem of this.selectedItems) {
+                if (selectdItem[this.settings.primaryKey] === item[this.settings.primaryKey]) {
                     found = true;
                     break;
                 }
@@ -417,6 +418,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             }
 
             this.closeDropdown();
+
         } else {
             this.selectedItems.push(item);
 
@@ -570,8 +572,12 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     //#endregion
 
-    trackByFn(index: number, item: any) {
-        return item[this.settings.primaryKey];
+    trackByFn(item: any) {
+        if (typeof item === 'object') {
+            return item[this.settings.primaryKey];
+        }
+
+        return item;
     }
 
     toggleSelectAll() {
@@ -579,7 +585,13 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
             this.selectedItems = [];
             this.selectedItems = this.data.filter((individualData) => !individualData[this.settings.disabledKey]);
-            const selectedItems = this.selectedItems.map(element => element[this.settings.primaryKey]);
+            const selectedItems = this.selectedItems.map(element => {
+                if (typeof element === 'object') {
+                    return element[this.settings.primaryKey];
+                }
+
+                return element;
+            });
 
             this.isSelectAll = true;
             this.onChangeCallback(selectedItems);
@@ -631,7 +643,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         this.closeDropdown();
     }
 
-    filterFn(ev: Event) {
+    filterFn() {
 
         if (this.settings.groupBy && !this.settings.lazyLoading) {
             this.filterGroupedList();
@@ -779,6 +791,8 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
             this.isFilterSelectAll = false;
         }
+
+        this.setPositionDropdown();
 
         setTimeout(() => {
             this.searchInput?.nativeElement.focus();

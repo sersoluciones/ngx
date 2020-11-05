@@ -64,7 +64,6 @@ export * from './form/ser-form.module';
 // Select
 export * from './form/select/ser-select.interface';
 export * from './form/select/ser-select.service';
-export * from './form/select/ser-select-list-filter.pipe';
 export * from './form/select/ser-select-menu-item.directive';
 export * from './form/select/virtual-scroll/virtual-scroll';
 export * from './form/select/ser-select.component';
@@ -72,7 +71,6 @@ export * from './form/select/ser-select.module';
 
 // Filter
 export * from './form/filter/ser-filter.interface';
-export * from './form/filter/ser-filter-list-filter.pipe';
 export * from './form/filter/ser-filter.component';
 export * from './form/filter/ser-filter.module';
 

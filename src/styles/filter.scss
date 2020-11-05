@@ -1,4 +1,4 @@
-@import '~@sersol/ngx/styles/mixins';
+@import 'mixins.scss';
 
 ser-filter {
     display: block;
@@ -47,6 +47,15 @@ ser-filter {
                 &.rotate {
                     transition: transform 300ms ease-in-out;
                 }
+            }
+        }
+    }
+
+    &.disabled {
+        .list-filter {
+            input {
+                cursor: not-allowed;
+                pointer-events: none;
             }
         }
     }

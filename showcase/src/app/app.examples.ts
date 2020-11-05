@@ -76,17 +76,7 @@ export const DropdownTemplateExample =
     <label>Single template</label>
     <ser-select serControl formControlName="selectSingleTemplate" [data]="options.dropdown">
 
-        <ng-template sd-badge let-item="item">
-            <div class="select-template">
-                <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
-                <div>
-                    <div>{{ item.name }}</div>
-                    <strong>{{ item.desc }}</strong>
-                </div>
-            </div>
-        </ng-template>
-
-        <ng-template sd-item let-item="item">
+        <ng-template sd-badge-item let-item="item">
             <div class="select-template">
                 <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
                 <div>
@@ -134,3 +124,6 @@ export const DropdownTemplateMultipleExample =
         <div serError="required">Requerido</div>
     </div>
 </ser-form-element>`;
+
+export const FilterTemplateExample =
+`<ser-filter formControlName="filter1" [data]="options.dropdown" label="Filtros"></ser-filter>`;

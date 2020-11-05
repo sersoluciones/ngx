@@ -2,9 +2,6 @@ export interface FilterSettings {
     enableCheckAll?: boolean;
     selectAllText?: string;
     unSelectAllText?: string;
-    filterSelectAllText?: string;
-    filterUnSelectAllText?: string;
-    enableFilterSelectAll?: boolean;
     searchBy?: string[];
     maxHeight?: number;
     classes?: string;

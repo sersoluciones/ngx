@@ -408,6 +408,7 @@ input[disabled],
 textarea[disabled],
 select[disabled],
 ser-select.disabled,
+ser-filter.disabled,
 .mat-select[disabled] {
     opacity: 0.8;
     cursor: not-allowed;
@@ -638,6 +639,7 @@ ser-filter {
                     padding: 4px 8px;
                     border-radius: 16px;
                     margin: 8px 8px 0 0;
+                    color: white;
                     background-color: var(--filter-token-color);
 
                     .remove {
@@ -799,8 +801,7 @@ ser-filter {
     }
 
     &.disabled {
-        background-color: var(--bg-disabled);
-        color: var(--font-color-disabled);
+        // color: var(--font-color-disabled);
     }
 
     &.active {

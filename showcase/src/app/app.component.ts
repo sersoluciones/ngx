@@ -22,7 +22,8 @@ export class AppComponent implements OnInit {
         selectSimple: [['Batman'], Validators.required],
         selectMultiple: [null, Validators.required],
         selectSingleTemplate: [null, Validators.required],
-        selectMultipleTemplate: [null, Validators.required]
+        selectMultipleTemplate: [null, Validators.required],
+        filter1: [null, Validators.required]
     });
 
     options = {

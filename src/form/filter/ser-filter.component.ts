@@ -10,14 +10,15 @@
 
 import { Attribute, HostBinding, Optional, Renderer2 } from '@angular/core';
 import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef, ViewEncapsulation, ContentChild, ViewChild, forwardRef, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, Validator, FormControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder } from '@angular/forms';
 import { FilterSettings } from './ser-filter.interface';
-import { Subscription, Subject, fromEvent } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { SerFilterListFilterPipe } from './ser-filter-list-filter.pipe';
+import { Subscription, fromEvent, Observable, merge, ReplaySubject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { hasValue } from '../../utils/check';
 import { SDBadgeDirective, SDItemDirective } from '../select/ser-select-menu-item.directive';
 import { inArray } from '../../utils/array';
+import { DataService } from '../select/ser-select.service';
+import { fromIntersectionObserver } from '../../utils/rx-utils';
 
 const noop = () => {
 };
@@ -31,80 +32,58 @@ const noop = () => {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => SerFilterComponent),
             multi: true
-        },
-        {
-            provide: NG_VALIDATORS,
-            useExisting: forwardRef(() => SerFilterComponent),
-            multi: true,
         }
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChanges, Validator, AfterViewInit, OnDestroy {
+export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChanges, AfterViewInit, OnDestroy {
 
-    @Input() data = [];
+    @HostBinding('class.disabled') isDisabled = false;
+    @HostBinding('class.active') isActive = false;
+
+    //#region Properties
+    private _data = [];
+
+    public get data() {
+        return this._data;
+    }
+
+    @Input()
+    public set data(value) {
+        this._data = value;
+        this.filterList();
+    }
 
     @Input() settings: FilterSettings;
-
     @Input() loading: boolean;
-
-    @Input() multiple: boolean;
-
     @Input() label: string;
 
-    @Output('onSelect')
-    onSelect: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onDeSelect')
-    onDeSelect: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onSelectAll')
-    onSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-
-    @Output('onDeSelectAll')
-    onDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-
-    @Output('onOpen')
-    onOpen: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onClose')
-    onClose: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onScrollToEnd')
-    onScrollToEnd: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onFilterSelectAll')
-    onFilterSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-
-    @Output('onFilterDeSelectAll')
-    onFilterDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-
-    @Output('onAddFilterNewItem')
-    onAddFilterNewItem: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onGroupSelect')
-    onGroupSelect: EventEmitter<any> = new EventEmitter<any>();
-
-    @Output('onGroupDeSelect')
-    onGroupDeSelect: EventEmitter<any> = new EventEmitter<any>();
-
+    @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onDeSelect: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output() onDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output() onOpen: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onClose: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onScrollToEnd: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onFilterSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output() onFilterDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output() onAddFilterNewItem: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onGroupSelect: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onGroupDeSelect: EventEmitter<any> = new EventEmitter<any>();
     @Output() focus: EventEmitter<void> = new EventEmitter<void>();
     @Output() blur: EventEmitter<void> = new EventEmitter<void>();
 
     @ContentChild(SDItemDirective, { static: true }) itemTempl: SDItemDirective;
     @ContentChild(SDBadgeDirective, { static: true }) badgeTempl: SDBadgeDirective;
 
-
     @ViewChild('searchInput') searchInput: ElementRef;
     @ViewChild('selectedList') selectedListElem: ElementRef;
     @ViewChild('dropdownList') dropdownListElem: ElementRef;
 
-    @HostBinding('class.disabled') isDisabled = false;
-    @HostBinding('class.active') isActive = false;
+    private parents: Element[] = [];
+    notifierDestroySubs: ReplaySubject<any> = new ReplaySubject();
+    search = this._fb.control('');
 
-    searchTerm$ = new Subject<string>();
-
-    filterPipe: SerFilterListFilterPipe;
     selectedItems: any[] = [];
     isSelectAll = false;
     isFilterSelectAll = false;
@@ -113,7 +92,6 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
     chunkArray: any[];
     scrollTop: any;
     chunkIndex: any[] = [];
-    cachedItems: any[] = [];
     groupCachedItems: any[] = [];
     totalRows: any;
     itemHeight: any = 41.6;
@@ -126,14 +104,12 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
     labelActive = false;
     item: any;
 
-    private dropdownSubs: Subscription[] = [];
+    private dropdownSubs$: Subscription[] = [];
     private subscription: Subscription;
     defaultSettings: FilterSettings = {
         enableCheckAll: true,
         selectAllText: 'Seleccionar todo',
         unSelectAllText: 'Deseleccionar todo',
-        filterSelectAllText: 'Seleccionar todos los resultados filtrados',
-        filterUnSelectAllText: 'Deseleccionar todos los resultados filtrados',
         searchBy: ['name'],
         maxHeight: 300,
         classes: '',
@@ -142,7 +118,6 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
         labelKey: 'name',
         primaryKey: 'id',
         disabledKey: 'disabled',
-        enableFilterSelectAll: true,
         clearAll: true
     };
 
@@ -150,10 +125,11 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
     public parseError: boolean;
     public filteredList: any = [];
     public isDisabledItemPresent = false;
+    //#endregion
 
     hasValue = hasValue;
 
-    constructor(public _elementRef: ElementRef, private cdr: ChangeDetectorRef, private _renderer: Renderer2, @Optional() @Attribute('primaryKey') primaryKey: any,
+    constructor(public _elementRef: ElementRef, private cdr: ChangeDetectorRef, private _fb: FormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('primaryKey') primaryKey: any,
                 @Optional() @Attribute('labelKey') labelKey: any) {
 
         if (primaryKey !== null) {
@@ -167,30 +143,50 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
     ngOnInit() {
         this.settings = Object.assign(this.defaultSettings, this.settings);
-        this.cachedItems = this.cloneArray(this.data);
+
+        this.search.valueChanges
+            .pipe(
+                debounceTime(500),
+                distinctUntilChanged((prev, curr) => {
+                    return JSON.stringify(prev) === JSON.stringify(curr);
+                }),
+                takeUntil(this.notifierDestroySubs)
+            )
+            .subscribe(() => {
+                this.filterList();
+            });
     }
 
     ngOnChanges(changes: SimpleChanges) {
 
         if (changes.data && !changes.data.firstChange) {
 
-            this.cachedItems = this.cloneArray(this.data);
+            this.filterList();
         }
 
         if (changes.settings && !changes.settings.firstChange) {
             this.settings = Object.assign(this.defaultSettings, this.settings);
         }
 
-        if (changes.loading) {
-        }
-
     }
 
     ngAfterViewInit() {
+
+        let parent = this._elementRef.nativeElement.parentElement;
+
+        while (hasValue(parent)) {
+
+            if (inArray(getComputedStyle(parent).overflowY, ['auto', 'scroll', 'overlay']) || inArray(getComputedStyle(parent).overflowX, ['auto', 'scroll', 'overlay'])) {
+                this.parents.push(parent);
+            }
+
+            parent = parent.parentElement;
+        }
+
         this._renderer.removeChild(this._elementRef.nativeElement, this.dropdownListElem.nativeElement);
     }
 
-    onItemClick(item: any, k: number, e: any) {
+    onItemClick(item: any) {
 
         if (this.isDisabled || item[this.settings.disabledKey]) {
             return false;
@@ -216,8 +212,8 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
         }
     }
 
-    public validate(c: FormControl): any {
-        return null;
+    filterList() {
+        this.filteredList =  this._ds.filterData(this.data, this.search.value, this.settings?.searchBy);
     }
 
     writeValue(value: any) {
@@ -264,10 +260,28 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
     }
 
     trackByFn(item: any) {
-        return item[this.settings.primaryKey];
+
+        if (typeof item === 'object') {
+            return item[this.settings.primaryKey];
+        }
+
+        return item;
+    }
+
+    getLabelText(item: any) {
+
+        if (typeof item === 'object') {
+            return item[this.settings.labelKey];
+        }
+
+        return item;
     }
 
     isSelected(clickedItem: any) {
+
+        if (typeof clickedItem !== 'object') {
+            return inArray(clickedItem, this.selectedItems);
+        }
 
         if (clickedItem[this.settings.disabledKey]) {
             return false;
@@ -289,7 +303,16 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
     addSelected(item: any) {
         this.selectedItems.push(item);
-        const items = this.selectedItems.map(element => element[this.settings.primaryKey]);
+
+        const items = this.selectedItems.map(element => {
+
+            if (typeof item === 'object') {
+                return element[this.settings.primaryKey];
+            }
+
+            return element;
+        });
+
         this.onChangeCallback(items);
         this.onTouchedCallback(items);
     }
@@ -298,8 +321,14 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
         if (hasValue(this.selectedItems)) {
             this.selectedItems.forEach((item, index) => {
-                if (clickedItem[this.settings.primaryKey] === item[this.settings.primaryKey]) {
-                    this.selectedItems.splice(index, 1);
+                if (typeof item === 'object') {
+                    if (clickedItem[this.settings.primaryKey] === item[this.settings.primaryKey]) {
+                        this.selectedItems.splice(index, 1);
+                    }
+                } else {
+                    if (clickedItem === item) {
+                        this.selectedItems.splice(index, 1);
+                    }
                 }
             });
         }
@@ -337,27 +366,33 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
         this.labelActive = true;
         this.focus.emit();
 
-        this.dropdownSubs.push(
-            fromEvent(window, 'click')
-            .pipe(filter((e: MouseEvent) => !this._elementRef.nativeElement.contains(e.target) ))
-            .subscribe(() => this.closeDropdown())
-        );
-
-        this.dropdownSubs.push(
-            fromEvent(window, 'keyup')
-            .pipe(filter((e: KeyboardEvent) => e.key.toLowerCase() === 'escape' ))
-            .subscribe(() => this.closeDropdown() )
-        );
-
-        this.dropdownSubs.push(
-            fromEvent(this._elementRef.nativeElement, 'scroll').subscribe(() => console.log('scroll') )
-        );
-
-        this.dropdownSubs.push(
-            fromEvent(window, 'resize').subscribe(() => this.setPositionDropdown() )
-        );
-
         this.setPositionDropdown();
+
+        const parents$: Observable<any>[] = [
+            fromEvent(document, 'scroll'),
+            fromEvent(document, 'resize')
+        ];
+
+        this.parents.forEach((parent) => {
+            parents$.push(fromEvent(parent, 'scroll'));
+        });
+
+        this.dropdownSubs$.push(
+
+            merge(
+                fromEvent(window, 'click')
+                    .pipe(filter((e: MouseEvent) => !this._elementRef.nativeElement.contains(e.target) )),
+
+                fromEvent(window, 'keyup')
+                    .pipe(filter((e: KeyboardEvent) => e.key.toLowerCase() === 'escape' )),
+
+                fromIntersectionObserver(this.selectedListElem.nativeElement)
+                    .pipe(filter((ev) => !ev[0].isIntersecting))
+            )
+            .subscribe(() => this.closeDropdown()),
+
+            merge(...parents$).subscribe(() => this.setPositionDropdown())
+        );
 
         this._renderer.appendChild(this._elementRef.nativeElement, this.dropdownListElem.nativeElement);
 
@@ -379,8 +414,8 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
         this.labelActive = false;
         this.blur.emit();
 
-        this.dropdownSubs.forEach(s => s.unsubscribe() );
-        this.dropdownSubs = [];
+        this.dropdownSubs$.forEach(s => s.unsubscribe() );
+        this.dropdownSubs$ = [];
 
         this.onClose.emit(false);
         this._renderer.removeChild(this._elementRef.nativeElement, this.dropdownListElem.nativeElement);
@@ -391,7 +426,6 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
         setTimeout(() => {
 
             const dropdown = (this.dropdownListElem.nativeElement as HTMLDivElement);
-            // const el = (this._elementRef.nativeElement as HTMLElement);
             const el = (this.searchInput.nativeElement as HTMLElement);
             const remainingHeight = document.documentElement.offsetHeight - (dropdown.offsetHeight + el.getBoundingClientRect().top + el.offsetHeight);
 
@@ -401,12 +435,12 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
             if (remainingHeight > 0) {
                 this._renderer.removeClass(el, 'ontop');
                 this._renderer.removeClass(dropdown, 'ontop');
-                this._elementRef.nativeElement.style.removeProperty('bottom');
+                this._renderer.removeStyle(dropdown, 'bottom');
                 this._renderer.setStyle(dropdown, 'top', el.getBoundingClientRect().bottom + 'px');
             } else {
                 this._renderer.addClass(el, 'ontop');
                 this._renderer.addClass(dropdown, 'ontop');
-                this._elementRef.nativeElement.style.removeProperty('top');
+                this._renderer.removeStyle(dropdown, 'top');
                 this._renderer.setStyle(dropdown, 'bottom', (document.documentElement.offsetHeight - el.getBoundingClientRect().top) + 'px');
             }
 
@@ -419,7 +453,14 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
         if (!this.isSelectAll) {
             this.selectedItems = [];
             this.selectedItems = this.data.filter((individualData) => !individualData[this.settings.disabledKey]);
-            const selectedItems = this.selectedItems.map(element => element[this.settings.primaryKey]);
+            this.selectedItems = this.data.filter((individualData) => !individualData[this.settings.disabledKey]);
+            const selectedItems = this.selectedItems.map(element => {
+                if (typeof element === 'object') {
+                    return element[this.settings.primaryKey];
+                }
+
+                return element;
+            });
 
             this.isSelectAll = true;
             this.onChangeCallback(selectedItems);
@@ -438,20 +479,6 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
         this.closeDropdown();
     }
 
-    toggleFilterSelectAll() {
-        if (!this.isFilterSelectAll) {
-            let added = [];
-            this.isFilterSelectAll = true;
-            this.onFilterSelectAll.emit(added);
-        } else {
-            let removed = [];
-            this.isFilterSelectAll = false;
-            this.onFilterDeSelectAll.emit(removed);
-        }
-
-        this.closeDropdown();
-    }
-
     clearSearch() {
 
         this.filter = '';
@@ -461,45 +488,6 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
             this.searchInput?.nativeElement.focus();
         }, 0);
 
-    }
-
-    onFilterChange(data: any) {
-        if (this.filter && this.filter === '' || data.length === 0) {
-            this.isFilterSelectAll = false;
-        }
-        let cnt = 0;
-        data.forEach((item: any) => {
-
-            if (!item.hasOwnProperty('grpTitle') && this.isSelected(item)) {
-                cnt++;
-            }
-        });
-
-        if (cnt > 0 && this.filterLength === cnt) {
-            this.isFilterSelectAll = true;
-        } else if (cnt > 0 && this.filterLength !== cnt) {
-            this.isFilterSelectAll = false;
-        }
-        this.cdr.detectChanges();
-    }
-
-    cloneArray(arr: any) {
-
-        if (Array.isArray(arr)) {
-            return JSON.parse(JSON.stringify(arr));
-        } else if (typeof arr === 'object') {
-            throw Error('Cannot clone array containing an object!');
-        } else {
-            return arr;
-        }
-    }
-
-    onScrollEnd(e: any) {
-        if (e.endIndex === this.data.length - 1 || e.startIndex === 0) {
-
-        }
-
-        this.onScrollToEnd.emit(e);
     }
 
     clearSelection(e: MouseEvent) {
@@ -516,18 +504,17 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
         e.stopPropagation();
     }
 
-    getItemContext(item: any) {
-        return item;
-    }
-
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
 
-        this.dropdownSubs.forEach(s => {
+        this.dropdownSubs$.forEach(s => {
             s.unsubscribe();
         });
+
+        this.notifierDestroySubs.next();
+        this.notifierDestroySubs.complete();
 
     }
 }

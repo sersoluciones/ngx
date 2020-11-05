@@ -4,7 +4,7 @@
 
     <div class="label" [ngClass]="{active: labelActive}">{{ label }}</div>
 
-    <input class="c-input not-styled" type="text" [(ngModel)]="filter">
+    <input class="c-input not-styled" type="text" [formControl]="search">
 
     <span [hidden]="!hasValue(filter)" (click)="clearSearch()" class="material-icons icon-clear">cancel</span>
 
@@ -34,7 +34,7 @@
                             <ng-container *ngTemplateOutlet="badgeTempl.template; context:{item: item}"></ng-container>
                         </span>
 
-                        <span class="remove" (click)="onItemClick(item, k, $event);$event.stopPropagation()">
+                        <span class="remove" (click)="onItemClick(item);$event.stopPropagation()">
                             <span class="material-icons">close</span>
                         </span>
                     </ng-container>
@@ -55,34 +55,24 @@
         </label>
     </div>
 
-    <div class="filter-select-all" *ngIf="settings.enableFilterSelectAll && !isDisabledItemPresent">
+    <div class="list" [style.maxHeight]="settings.maxHeight+'px'">
 
-        <div class="pure-checkbox select-all" *ngIf="filter?.length > 0 && filterLength > 0" (click)="toggleFilterSelectAll()">
-            <input type="checkbox" [checked]="isFilterSelectAll" />
-            <label>
-                <span [hidden]="isFilterSelectAll">{{settings.filterSelectAllText}}</span>
-                <span [hidden]="!isFilterSelectAll">{{settings.filterUnSelectAllText}}</span>
-            </label>
-        </div>
-
-        <!-- <div class="nodata-label" *ngIf="filterLength == 0" [hidden]="filter == undefined || filter?.length == 0">{{ settings.noDataLabel }}</div> -->
-
-    </div>
-
-    <div *ngIf="!hasValue(itemTempl)" class="list lazyContainer" [style.maxHeight]="settings.maxHeight+'px'">
-        <ng-container *ngFor="let item of data | serFilterListFilter:filter : settings.searchBy; let i = index;">
-            <div class="item pure-checkbox"  *ngIf="!isSelected(item)" (click)="onItemClick(item, i, $event)">
-                {{ item[settings.labelKey] }}
-            </div>
+        <ng-container *ngIf="!hasValue(itemTempl)">
+            <ng-container *ngFor="let item of filteredList; let i = index;">
+                <div class="item pure-checkbox"  *ngIf="!isSelected(item)" (click)="onItemClick(item)">
+                    {{ item[settings.labelKey] }}
+                </div>
+            </ng-container>
         </ng-container>
-    </div>
 
-    <div *ngIf="hasValue(itemTempl)" class="list lazyContainer" [style.maxHeight]="settings.maxHeight+'px'">
-        <ng-container *ngFor="let item of data | serFilterListFilter:filter : settings.searchBy; let i = index;">
-            <div class="item pure-checkbox" *ngIf="!isSelected(item)" (click)="onItemClick(item, i, $event)">
-                <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item}"></ng-container>
-            </div>
+        <ng-container *ngIf="hasValue(itemTempl)">
+            <ng-container *ngFor="let item of filteredList; let i = index;">
+                <div class="item pure-checkbox" *ngIf="!isSelected(item)" (click)="onItemClick(item)">
+                    <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item}"></ng-container>
+                </div>
+            </ng-container>
         </ng-container>
+
     </div>
 
     <h5 class="list-message" *ngIf="!hasValue(data)">{{ settings.noDataLabel }}</h5>
