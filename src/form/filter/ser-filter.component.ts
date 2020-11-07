@@ -15,7 +15,7 @@ import { FilterSettings } from './ser-filter.interface';
 import { Subscription, fromEvent, Observable, merge, ReplaySubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { hasValue } from '../../utils/check';
-import { SDBadgeDirective, SDItemDirective } from '../select/ser-select-menu-item.directive';
+import { SDBadgeDirective, SDBadgeItemDirective, SDItemDirective } from '../select/ser-select-menu-item.directive';
 import { inArray } from '../../utils/array';
 import { DataService } from '../select/ser-select.service';
 import { fromIntersectionObserver } from '../../utils/rx-utils';
@@ -75,6 +75,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
     @ContentChild(SDItemDirective, { static: true }) itemTempl: SDItemDirective;
     @ContentChild(SDBadgeDirective, { static: true }) badgeTempl: SDBadgeDirective;
+    @ContentChild(SDBadgeItemDirective, { static: true }) badgeItemTempl: SDBadgeItemDirective;
 
     @ViewChild('searchInput') searchInput: ElementRef;
     @ViewChild('selectedList') selectedListElem: ElementRef;
@@ -325,16 +326,23 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
                     if (clickedItem[this.settings.primaryKey] === item[this.settings.primaryKey]) {
                         this.selectedItems.splice(index, 1);
                     }
-                } else {
-                    if (clickedItem === item) {
-                        this.selectedItems.splice(index, 1);
-                    }
+                } else if (clickedItem === item) {
+                    this.selectedItems.splice(index, 1);
                 }
             });
         }
 
-        this.onChangeCallback(this.selectedItems);
-        this.onTouchedCallback(this.selectedItems);
+        const items = this.selectedItems.map(element => {
+
+            if (typeof clickedItem === 'object') {
+                return element[this.settings.primaryKey];
+            }
+
+            return element;
+        });
+
+        this.onChangeCallback(items);
+        this.onTouchedCallback(items);
     }
 
     //#region dropdown status

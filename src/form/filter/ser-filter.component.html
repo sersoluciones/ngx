@@ -9,11 +9,6 @@
     <span [hidden]="!hasValue(filter)" (click)="clearSearch()" class="material-icons icon-clear">cancel</span>
 
     <div class="controls">
-
-        <!-- <button type="button" *ngIf="settings.clearAll && !isDisabled && selectedItems?.length > 0" class="clear-all" (click)="clearSelection($event);">
-            <span class="material-icons">close</span>
-        </button> -->
-
         <span class="material-icons chevron" [ngClass]="{'rotate': isActive}">keyboard_arrow_down</span>
     </div>
 
@@ -29,9 +24,12 @@
                 <div class="token" *ngFor="let item of selectedItems;trackBy: trackByFn.bind(this);let k = index">
                     <ng-container>
 
-                        <span *ngIf="!hasValue(badgeTempl)" class="label">{{ item[settings.labelKey] }}</span>
+                        <span *ngIf="!hasValue(badgeTempl) && !hasValue(badgeItemTempl)" class="label">{{ item[settings.labelKey] }}</span>
                         <span *ngIf="hasValue(badgeTempl)" class="label">
                             <ng-container *ngTemplateOutlet="badgeTempl.template; context:{item: item}"></ng-container>
+                        </span>
+                        <span *ngIf="hasValue(badgeItemTempl)" class="label">
+                            <ng-container *ngTemplateOutlet="badgeItemTempl.template; context:{item: item}"></ng-container>
                         </span>
 
                         <span class="remove" (click)="onItemClick(item);$event.stopPropagation()">
@@ -57,7 +55,7 @@
 
     <div class="list" [style.maxHeight]="settings.maxHeight+'px'">
 
-        <ng-container *ngIf="!hasValue(itemTempl)">
+        <ng-container *ngIf="!hasValue(itemTempl) && !hasValue(badgeItemTempl)">
             <ng-container *ngFor="let item of filteredList; let i = index;">
                 <div class="item pure-checkbox"  *ngIf="!isSelected(item)" (click)="onItemClick(item)">
                     {{ item[settings.labelKey] }}
@@ -65,10 +63,15 @@
             </ng-container>
         </ng-container>
 
-        <ng-container *ngIf="hasValue(itemTempl)">
+        <ng-container *ngIf="hasValue(itemTempl) || hasValue(badgeItemTempl)">
             <ng-container *ngFor="let item of filteredList; let i = index;">
                 <div class="item pure-checkbox" *ngIf="!isSelected(item)" (click)="onItemClick(item)">
-                    <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item}"></ng-container>
+                    <ng-container *ngIf="hasValue(itemTempl)">
+                        <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item}"></ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="hasValue(badgeItemTempl)">
+                        <ng-container *ngTemplateOutlet="badgeItemTempl.template; context:{item: item}"></ng-container>
+                    </ng-container>
                 </div>
             </ng-container>
         </ng-container>

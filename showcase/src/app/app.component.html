@@ -408,7 +408,19 @@
                     <div>
                         <button class="bttn" type="button" (click)="toogleFormControlDisabled('filter1')">Habilitar / Deshabilitar</button>
 
-                        <ser-filter formControlName="filter1" [data]="options.dropdown" label="Filtros" style="min-width: 300px;"></ser-filter>
+                        <ser-filter formControlName="filter1" [data]="options.dropdown" label="Filtros" style="min-width: 300px;">
+
+                            <ng-template sd-badge-item let-item="item">
+                                <div class="select-template">
+                                    <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                                    <div>
+                                        <div>{{ item.name }}</div>
+                                        <strong>{{ item.desc }}</strong>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+                        </ser-filter>
                     </div>
                 </div>
             </div>

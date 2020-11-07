@@ -11,7 +11,7 @@ export class WhenScrolledDirective implements OnDestroy {
 
     constructor(private _elementRef: ElementRef, rendered: Renderer2) {
         this.listener = rendered.listen(this._elementRef.nativeElement, 'scroll', (ev: any) => {
-            if (ev.target.scrollTop + ev.target.offsetHeight >= ev.target.scrollHeight) {
+            if (Math.round(ev.target.scrollTop + ev.target.clientHeight) >= ev.target.scrollHeight) {
                 this.callback.emit();
             }
         });

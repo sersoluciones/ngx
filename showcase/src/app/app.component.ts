@@ -2,9 +2,10 @@ import { DropdownSettings } from './../../../src/form/select/ser-select.interfac
 import { FormBuilder, Validator, Validators } from '@angular/forms';
 import { FullscreenService } from './../../../src/fullscreen/fullscreen.service';
 import { PrefersColorSchemeService } from './../../../src/prefers-color-scheme/prefers-color-scheme.service';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild } from '@angular/core';
 import * as examples from 'src/app/app.examples';
 import { GoogleSDKModule } from '../../../src/google/google-sdk.module';
+import { WhenScrolledDirective } from '../../../src/ui/when-scrolled.directive';
 
 @Component({
     selector: 'app-root',
@@ -12,7 +13,7 @@ import { GoogleSDKModule } from '../../../src/google/google-sdk.module';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
     examples = examples;
 
     modelForm = this._fb.group({
@@ -143,5 +144,9 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         // this.colorscheme.init();
         // this.colorscheme.watch();
+    }
+
+    ngAfterViewInit(): void {
+        
     }
 }

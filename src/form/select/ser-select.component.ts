@@ -457,8 +457,18 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.onChangeCallback(null);
             this.onTouchedCallback(null);
         } else {
-            this.onChangeCallback(this.selectedItems);
-            this.onTouchedCallback(this.selectedItems);
+
+            const items = this.selectedItems.map(element => {
+
+                if (typeof clickedItem === 'object') {
+                    return element[this.settings.primaryKey];
+                }
+
+                return element;
+            });
+
+            this.onChangeCallback(items);
+            this.onTouchedCallback(items);
         }
     }
 

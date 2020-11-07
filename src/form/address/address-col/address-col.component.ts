@@ -118,6 +118,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
                 if (!this.viewInitialized) {
                     this.lateInstance.via = _via;
                 } else {
+                    this.modelForm.get('via').setValue(_via);
                     this.viaEl.nativeElement.value = _via;
                     this.viaElHint.nativeElement.value = _via;
                 }
