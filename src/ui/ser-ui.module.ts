@@ -3,12 +3,14 @@ import { WhenScrolledDirective } from './when-scrolled.directive';
 import { FinishTypingDirective } from './finish-typing.directive';
 import { BgImageDirective } from './bg-image.directive';
 import { CopyToClipboardDirective } from './copy-to-clipboard.directive';
+import { ToggleClassDirective } from './toggle-class.directive';
 
 const dependencies = [
   WhenScrolledDirective,
   FinishTypingDirective,
   BgImageDirective,
-  CopyToClipboardDirective
+  CopyToClipboardDirective,
+  ToggleClassDirective
 ];
 
 @NgModule({
