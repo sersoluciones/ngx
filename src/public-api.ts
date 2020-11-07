@@ -84,4 +84,5 @@ export * from './form/address/address-col/address-col.component';
 export * from './ui/when-scrolled.directive';
 export * from './ui/finish-typing.directive';
 export * from './ui/copy-to-clipboard.directive';
+export * from './ui/download.service';
 export * from './ui/ser-ui.module';

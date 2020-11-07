@@ -6,6 +6,7 @@ import { Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild } from '
 import * as examples from 'src/app/app.examples';
 import { GoogleSDKModule } from '../../../src/google/google-sdk.module';
 import { WhenScrolledDirective } from '../../../src/ui/when-scrolled.directive';
+import { DownloadService } from '../../../src/ui/download.service';
 
 @Component({
     selector: 'app-root',
@@ -127,7 +128,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     };
 
-    constructor(public colorscheme: PrefersColorSchemeService, public fullscreen: FullscreenService, googleService: GoogleSDKModule, private _fb: FormBuilder) { }
+    constructor(public colorscheme: PrefersColorSchemeService, public fullscreen: FullscreenService, googleService: GoogleSDKModule, private _fb: FormBuilder, private downloadService: DownloadService) { }
 
     alert(text: string) {
         alert(text);
@@ -147,6 +148,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        
+        this.downloadService.get('https://localhost:4200/assets/dark-mac.png');
     }
 }
