@@ -1,0 +1,50 @@
+:host {
+    width: 100%;
+
+    .title {
+        text-align: center;
+        margin-bottom: 64px;
+    }
+
+    .install {
+        background-color: #434343;
+        color: white;
+        padding: 16px;
+        border-radius: 16px;
+        display: inline-flex;
+        align-items: center;
+        margin: 42px auto 88px;
+        font-family: monospace;
+
+        .bttn {
+            margin-left: 32px;
+
+            span {
+                color: white;
+            }
+        }
+    }
+
+    .routes {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: flex-start;
+
+        .route {
+            cursor: pointer;
+            display: block;
+            outline: none;
+            background-color: var(--bg-2dp);
+            padding: 32px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: inherit;
+
+            h3 {
+                font-weight: bold;
+            }
+        }
+    }
+
+}

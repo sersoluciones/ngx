@@ -1,0 +1,49 @@
+<h1 class="title">Libreria Angular de uso general</h1>
+
+<div class="row center-center">
+    <div class="install">
+        npm install --save @sersol/ngx
+        <button class="bttn icon" type="button" [copyToClipboard]="examples.InstallExample" (copied)="alert('Copiado al portapapeles')">
+            <span class="material-icons">content_copy</span>
+        </button>
+    </div>
+</div>
+
+<div class="routes">
+    <a class="route" routerLink="/utils" style="width: 240px;">
+        <h3>Utilidades</h3>
+        <ul>
+            <li>Tema Claro/Oscuro</li>
+            <li>Fullscreen</li>
+            <li>Cookies</li>
+        </ul>
+    </a>
+
+    <a class="route" routerLink="/forms" style="width: 240px;">
+        <h3>Formularios</h3>
+        <ul>
+            <li>Texto</li>
+            <li>Direcciones</li>
+            <li>NIT</li>
+            <li>Cédula</li>
+        </ul>
+    </a>
+
+    <a class="route" routerLink="/select" style="width: 300px;">
+        <h3>Selectores</h3>
+        <ul>
+            <li>Default</li>
+            <li>Simple</li>
+            <li>Multiple</li>
+            <li>Selección unica con plantilla</li>
+            <li>Selección multiple con plantilla</li>
+        </ul>
+    </a>
+
+    <a class="route" routerLink="/filters" style="width: 240px;">
+        <h3>Filtros</h3>
+        <ul>
+            <li>Multiple</li>
+        </ul>
+    </a>
+</div>

@@ -1,0 +1,45 @@
+<form class="form-example" [formGroup]="modelForm">
+
+    <h2>Filtro</h2>
+
+    <div class="example-snippet">
+        <div class="preview">
+
+            <h3>Previsualización</h3>
+
+            <div class="body">
+                <div>
+                    <button class="bttn" type="button" (click)="toogleFormControlDisabled('filter1')">Habilitar / Deshabilitar</button>
+
+                    <ser-filter formControlName="filter1" [data]="options.dropdown" label="Filtros" style="min-width: 300px;">
+
+                        <ng-template sd-badge-item let-item="item">
+                            <div class="select-template">
+                                <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                                <div>
+                                    <div>{{ item.name }}</div>
+                                    <strong>{{ item.desc }}</strong>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                    </ser-filter>
+                </div>
+            </div>
+        </div>
+
+        <div class="code">
+
+            <h3>Código</h3>
+
+            <div class="body">
+                <pre><code [highlight]="examples.FilterTemplateExample"></code></pre>
+                <button class="bttn icon" type="button" [copyToClipboard]="examples.FilterTemplateExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</form>

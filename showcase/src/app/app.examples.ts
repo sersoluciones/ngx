@@ -1,3 +1,5 @@
+export const InstallExample = `npm install --save @sersol/ngx`;
+
 export const PrefersColorSchemeExample =
 `import { PrefersColorScheme } from 'src/prefers-color-scheme';
 
