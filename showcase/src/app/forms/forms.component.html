@@ -1,13 +1,6 @@
-<h2>
-    <a class="bttn icon " href="#forms">
-        <span class="material-icons">link</span>
-    </a>
-    Formularios
-</h2>
-
 <form class="form-example" [formGroup]="modelForm">
 
-    <h2>Texto</h2>
+    <h1>Formularios básicos</h1>
 
     <div class="example-snippet">
         <div class="preview">
@@ -16,7 +9,7 @@
 
             <div class="body">
                 <div>
-                    <button class="bttn" type="button" (click)="toogleFormControlDisabled('text1')">Habilitar / Deshabilitar</button>
+                    <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('text1')">Habilitar / Deshabilitar</button>
 
                     <ser-form-element style="width: 300px;">
                         <label>Texto</label>
@@ -44,8 +37,6 @@
 
     </div>
 
-    <h2>Dirección</h2>
-
     <div class="example-snippet">
         <div class="preview">
 
@@ -53,7 +44,7 @@
 
             <div class="body">
                 <div>
-                    <button class="bttn" type="button" (click)="toogleFormControlDisabled('address')">Habilitar / Deshabilitar</button>
+                    <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('address')">Habilitar / Deshabilitar</button>
 
                     <ser-form-element style="min-width: 300px;">
                         <label>Dirección</label>
