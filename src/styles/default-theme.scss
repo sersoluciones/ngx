@@ -168,14 +168,14 @@ ser-form-element,
         > select:not(.not-styled),
         > address-col-input:not(.not-styled) {
             width: 100%;
-            max-height: 50px;
-            min-height: 50px;
+            max-height: 40px;
+            min-height: 40px;
             outline: none;
         }
 
         > ser-select:not(.not-styled) {
             width: 100%;
-            min-height: 50px;
+            min-height: 40px;
         }
 
         > input:not(.not-styled):first-child,
