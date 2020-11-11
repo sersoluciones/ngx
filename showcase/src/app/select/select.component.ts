@@ -12,7 +12,7 @@ export class SelectComponent implements OnInit {
 
     modelForm = this._fb.group({
         selectDefault: [null, Validators.required],
-        selectSimple: [['Batman'], Validators.required],
+        selectSimple: [null, Validators.required],
         selectMultiple: [null, Validators.required],
         selectSingleTemplate: [null, Validators.required],
         selectMultipleTemplate: [null, Validators.required],

@@ -9,7 +9,6 @@ address-col-input {
 
     .via {
         position: relative;
-        margin-right: 16px;
 
         input {
 
@@ -24,7 +23,6 @@ address-col-input {
                 position: absolute;
                 visibility: hidden;
                 pointer-events: none;
-                color: var(--address-color-placeholder);
             }
         }
     }
@@ -35,25 +33,14 @@ address-col-input {
         width: 140px;
         max-height: 200px;
         overflow: auto;
-        border-radius: 0 0 6px 6px;
-        background-color: var(--address-via-options-bg);
         margin: 0px;
-        box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.1), -2px 3px 4px 0px rgba(0, 0, 0, 0.1);
         transform-origin: 0 0;
         animation: dropdown-appear 150ms ease-in-out;
 
-        &.ontop {
-            border-radius: 6px 6px 0 0;
-            box-shadow: 0px -3px 5px #959595;
-        }
-
         .via-item {
-            font-size: 14px;
-            padding: 8px;
 
             &:hover {
                 cursor: pointer;
-                background-color: var(--address-via-options-hover);
             }
         }
     }
@@ -62,7 +49,6 @@ address-col-input {
         border: none;
         outline: none;
         border-radius: 0;
-        font-family: var(--address-font-family);
         background-color: transparent;
 
         &.address1 {

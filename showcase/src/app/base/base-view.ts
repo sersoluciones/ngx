@@ -1,5 +1,5 @@
 import * as examples from '../app.examples';
-import { Component, OnInit, ViewEncapsulation, AfterViewInit, ViewChild, Injector } from '@angular/core';
+import { OnInit, AfterViewInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DownloadService } from '../../../../src/ui/download.service';
 
@@ -7,8 +7,6 @@ export class BaseView implements OnInit, AfterViewInit {
     examples = examples;
 
     modelForm: FormGroup;
-    private _fb: FormBuilder;
-    private _downloadService: DownloadService;
 
     options = {
         simpleDropdown: ['Kratos', 'Batman', 'Leon Kennedy', 'Big Daddy', 'War (Horseman)', 'Aloy', 'Price', 'Dante', 'Agent 47', 'Prince of persia', 'Ryu', 'Master Chief', 'Solid Snake', 'Gordon Freeman', 'Dovahkiin'],
@@ -106,10 +104,7 @@ export class BaseView implements OnInit, AfterViewInit {
         ]
     };
 
-    constructor(protected injectorObj: Injector) {
-        this._fb = this.injectorObj.get(FormBuilder);
-        this._downloadService = this.injectorObj.get(DownloadService);
-    }
+    constructor(protected injectorObj: Injector) { }
 
     alert(text: string) {
         alert(text);

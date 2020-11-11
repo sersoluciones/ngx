@@ -1,35 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import * as examples from 'src/app/app.examples';
 import { Validators, FormBuilder } from '@angular/forms';
+import { BaseView } from '../base/base-view';
 
 @Component({
-  selector: 'showcase-forms',
-  templateUrl: './forms.component.html',
-  styleUrls: ['./forms.component.scss']
+    selector: 'showcase-forms',
+    templateUrl: './forms.component.html',
+    styleUrls: ['./forms.component.scss']
 })
-export class FormsComponent implements OnInit {
+export class FormsComponent extends BaseView {
     examples = examples;
 
     modelForm = this._fb.group({
-        text1: ['', Validators.required],
+        text1: ['Prueba', Validators.required],
         address: ['', Validators.required]
     });
 
-  constructor(private _fb: FormBuilder) { }
-
-  alert(text: string) {
-      alert(text);
-  }
-
-  toogleFormControlDisabled(name: string) {
-      if (this.modelForm.get(name).enabled) {
-          this.modelForm.get(name).disable();
-      } else {
-          this.modelForm.get(name).enable();
-      }
-  }
-
-  ngOnInit(): void {
-  }
+    constructor(protected injectorObj: Injector, private _fb: FormBuilder) {
+        super(injectorObj);
+    }
 
 }

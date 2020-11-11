@@ -138,17 +138,6 @@ ser-form-element,
     padding-bottom: 0;
 }
 
-input[disabled],
-textarea[disabled],
-select[disabled],
-ser-select.disabled,
-.mat-select[disabled] {
-    opacity: 0.8;
-    cursor: not-allowed;
-    user-select: none;
-    background-color: var(--bg-disabled);
-}
-
 ser-select.disabled {
     .d-btn {
         cursor: not-allowed;
