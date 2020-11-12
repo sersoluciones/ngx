@@ -17,6 +17,8 @@ export class LongPressDirective {
     private pressing: boolean;
     private longPressing: boolean;
     private timeout: any;
+    private mouseX: number;
+    private mouseY: number;
 
     @HostBinding('class.press')
     get press() { return this.pressing; }
@@ -29,7 +31,15 @@ export class LongPressDirective {
     onMouseDown(event: MouseEvent | TouchEvent) {
 
         // don't do right/middle clicks
-        if ((event as MouseEvent).button !== 0) { return; }
+        if (event instanceof MouseEvent && event.button !== 0) { return; }
+
+        if (event instanceof MouseEvent) {
+            this.mouseX = event.clientX;
+            this.mouseY = event.clientY;
+        } else if (event instanceof TouchEvent) {
+            this.mouseX = event.touches[0].clientX;
+            this.mouseY = event.touches[0].clientY;
+        }
 
         this.pressing = true;
         this.longPressing = false;
@@ -38,6 +48,7 @@ export class LongPressDirective {
             this.longPressing = true;
             this.onLongPress.emit(event);
             this.loop(event);
+            event.preventDefault();
         }, this.pressDuration);
 
         this.loop(event);
@@ -50,6 +61,12 @@ export class LongPressDirective {
                 this.loop(event);
             }, 50);
         }
+    }
+
+    dismiss() {
+        clearTimeout(this.timeout);
+        this.longPressing = false;
+        this.pressing = false;
     }
 
     endPress() {
@@ -72,6 +89,28 @@ export class LongPressDirective {
         if ((event as MouseEvent).button !== 0) { return; }
 
         this.endPress();
+    }
+
+    @HostListener('mousemove', ['$event'])
+    @HostListener('touchmove', ['$event'])
+    onMouseMove(event: MouseEvent | TouchEvent) {
+
+        if (this.pressing && !this.longPressing) {
+            let xThres = false;
+            let yThres = false;
+
+            if (event instanceof MouseEvent) {
+                xThres = (event.clientX - this.mouseX) > 10;
+                yThres = (event.clientY - this.mouseY) > 10;
+            } else if (event instanceof TouchEvent) {
+                xThres = (event.touches[0].clientX - this.mouseX) > 10;
+                yThres = (event.touches[0].clientY - this.mouseY) > 10;
+            }
+
+            if (xThres || yThres) {
+                this.dismiss();
+            }
+        }
     }
 
 }

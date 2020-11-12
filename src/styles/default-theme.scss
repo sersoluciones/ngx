@@ -904,6 +904,10 @@ ser-filter {
     }
 }
 
+.longpress {
+    user-select: none;
+}
+
 .scheme-dark {
     select:-webkit-autofill,
     textarea:-webkit-autofill,

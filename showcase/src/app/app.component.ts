@@ -1,11 +1,12 @@
 import { PrefersColorSchemeService } from './../../../src/prefers-color-scheme/prefers-color-scheme.service';
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, ViewEncapsulation } from '@angular/core';
 import { BaseView } from './base/base-view';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class AppComponent extends BaseView {
 
