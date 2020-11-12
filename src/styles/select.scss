@@ -140,6 +140,7 @@ ser-select {
 
     .dropdown-list {
         position: fixed;
+        overflow: hidden;
         z-index: 3;
         margin: 0px;
         transform-origin: 0 0;

@@ -1,45 +1,45 @@
-﻿@import 'mixins.scss';
+﻿@import "mixins.scss";
 
 .content-placeholder-container {
-  width: 100%;
-  display: flex;
-  overflow: hidden;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
 }
 
 .content-placeholder-checkbox-space::before {
-  animation: content-placeholder 2s linear infinite;
-  background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
-  background-size: 1000px 100%;
+    animation: content-placeholder 2s linear infinite;
+    background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
+    background-size: 1000px 100%;
 }
 
 .content-placeholder {
-  animation : content-placeholder 2s linear infinite;
-  background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
-  background-size: 1000px 100%;
+    animation: content-placeholder 2s linear infinite;
+    background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
+    background-size: 1000px 100%;
 
-  &.input {
-      height: 29px;
-      margin-top: 39px;
-      border-radius: 6px;
-  }
+    &.input {
+        height: 29px;
+        margin-top: 39px;
+        border-radius: 6px;
+    }
 
-  &.text {
-      height: 16px;
-      width: 100%;
-      border-radius: 4px;
-  }
+    &.text {
+        height: 16px;
+        width: 100%;
+        border-radius: 4px;
+    }
 }
 
 @keyframes content-placeholder {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
 }
 
-.loader-wrapper{
+.loader-wrapper {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -52,11 +52,11 @@
     @include column;
     @include center-center;
 
-    .logo{
+    .logo {
         width: 60px;
     }
 
-    .message{
+    .message {
         margin-top: 16px;
         text-transform: uppercase;
         letter-spacing: 2px;
@@ -64,35 +64,34 @@
     }
 
     .message:after {
-      overflow: hidden;
-      position: absolute;
-      -webkit-animation: ellipsis steps(4,end) 4s infinite;
-      animation: ellipsis steps(4,end) 4s infinite;
-      content: "...";
-      width: 0px;
+        overflow: hidden;
+        position: absolute;
+        -webkit-animation: ellipsis steps(4, end) 4s infinite;
+        animation: ellipsis steps(4, end) 4s infinite;
+        content: "...";
+        width: 0px;
     }
-
 }
 
-.loader-wrapper.fixed{
+.loader-wrapper.fixed {
     position: fixed;
     top: initial;
     left: initial;
 }
 
 @keyframes ellipsis {
-  to {
-    width: 20px;
-  }
+    to {
+        width: 20px;
+    }
 }
 
 @-webkit-keyframes ellipsis {
-  to {
-    width: 20px;
-  }
+    to {
+        width: 20px;
+    }
 }
 
-.loader{
+.loader {
     position: absolute;
     top: 0;
     left: 0;
@@ -104,77 +103,90 @@
     @include center-center;
 }
 
-@media (min-width: 1000px){
-    main .loader-wrapper.fixed{
+@media (min-width: 1000px) {
+    main .loader-wrapper.fixed {
         width: calc(100% - 250px);
     }
 }
 
 @keyframes cssload-rotate {
-	100% {
-		transform: rotate(360deg);
-	}
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @-o-keyframes cssload-rotate {
-	100% {
-		-o-transform: rotate(360deg);
-	}
+    100% {
+        -o-transform: rotate(360deg);
+    }
 }
 
 @-ms-keyframes cssload-rotate {
-	100% {
-		-ms-transform: rotate(360deg);
-	}
+    100% {
+        -ms-transform: rotate(360deg);
+    }
 }
 
 @-webkit-keyframes cssload-rotate {
-	100% {
-		-webkit-transform: rotate(360deg);
-	}
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @-moz-keyframes cssload-rotate {
-	100% {
-		-moz-transform: rotate(360deg);
-	}
+    100% {
+        -moz-transform: rotate(360deg);
+    }
 }
 
 .line-loader {
-  height: 4px;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  background-color: #ddd;
+    height: 4px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #ddd;
 }
 
-.line-loader:before{
-  display: block;
-  position: absolute;
-  content: "";
-  left: -200px;
-  width: 200px;
-  height: 4px;
-  background-color: #2980b9;
-  animation: line-loader-animation 2s linear infinite;
+.line-loader:before {
+    display: block;
+    position: absolute;
+    content: "";
+    left: -200px;
+    width: 200px;
+    height: 4px;
+    background-color: #2980b9;
+    animation: line-loader-animation 2s linear infinite;
 }
 
 @keyframes line-loader-animation {
-    from {left: -200px; width: 30%;}
-    50% {width: 30%;}
-    70% {width: 70%;}
-    80% { left: 50%;}
-    95% {left: 120%;}
-    to {left: 100%;}
+    from {
+        left: -200px;
+        width: 30%;
+    }
+    50% {
+        width: 30%;
+    }
+    70% {
+        width: 70%;
+    }
+    80% {
+        left: 50%;
+    }
+    95% {
+        left: 120%;
+    }
+    to {
+        left: 100%;
+    }
 }
 
 .dots:after {
-  overflow: hidden;
-  position: absolute;
-  -webkit-animation: ellipsis steps(4,end) 4s infinite;
-  animation: ellipsis steps(4,end) 4s infinite;
-  content: "...";
-  width: 0px;
+    overflow: hidden;
+    position: absolute;
+    -webkit-animation: ellipsis steps(4, end) 4s infinite;
+    animation: ellipsis steps(4, end) 4s infinite;
+    content: "...";
+    width: 0px;
 }
 
 loader-backdrop {
@@ -191,11 +203,11 @@ loader-backdrop {
     align-items: center;
     color: white;
 
-    img{
+    img {
         width: 100px;
     }
 
-    .text{
+    .text {
         font-size: 20px;
         text-align: center;
     }
@@ -213,8 +225,8 @@ loader-backdrop {
     @include center-center;
 }
 
-.loader-wrapper{
-    .logo.dark{
+.loader-wrapper {
+    .logo.dark {
         display: none;
     }
 }
@@ -224,14 +236,14 @@ loader-backdrop {
         background-color: rgba(#1e1e1e, 0.95);
     }
 
-    .loader-wrapper{
+    .loader-wrapper {
         background-color: var(--dark-grey-0dp);
 
-        .logo.light{
+        .logo.light {
             display: none;
         }
 
-        .logo.dark{
+        .logo.dark {
             display: block;
         }
     }

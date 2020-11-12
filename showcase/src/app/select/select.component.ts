@@ -12,15 +12,15 @@ export class SelectComponent implements OnInit {
 
     modelForm = this._fb.group({
         selectDefault: [null, Validators.required],
-        selectSimple: [null, Validators.required],
+        selectSimple: ['Batman', Validators.required],
         selectMultiple: [null, Validators.required],
         selectSingleTemplate: [null, Validators.required],
         selectMultipleTemplate: [null, Validators.required],
         filter1: [null, Validators.required]
     });
 
-    options = {
-        simpleDropdown: ['Kratos', 'Batman', 'Leon Kennedy', 'Big Daddy', 'War (Horseman)', 'Aloy', 'Price', 'Dante', 'Agent 47', 'Prince of persia', 'Ryu', 'Master Chief', 'Solid Snake', 'Gordon Freeman', 'Dovahkiin'],
+    options: any = {
+        // simpleDropdown: ['Kratos', 'Batman', 'Leon Kennedy', 'Big Daddy', 'War (Horseman)', 'Aloy', 'Price', 'Dante', 'Agent 47', 'Prince of persia', 'Ryu', 'Master Chief', 'Solid Snake', 'Gordon Freeman', 'Dovahkiin'],
         dropdown: [
             {
                 id: 1,
@@ -130,6 +130,9 @@ export class SelectComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        setTimeout(() => {
+            this.options.simpleDropdown = ['Kratos', 'Batman', 'Leon Kennedy', 'Big Daddy', 'War (Horseman)', 'Aloy', 'Price', 'Dante', 'Agent 47', 'Prince of persia', 'Ryu', 'Master Chief', 'Solid Snake', 'Gordon Freeman', 'Dovahkiin'];
+        });
     }
 
 }

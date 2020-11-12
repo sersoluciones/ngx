@@ -54,6 +54,11 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     @Input()
     public set data(value) {
         this._data = value;
+
+        if (hasValue(this.value)) {
+            this.writeValue(this.value);
+        }
+
         this.filterList();
     }
 
@@ -85,6 +90,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     virtualdata: any = [];
     notifierDestroySubs: ReplaySubject<any> = new ReplaySubject();
 
+    value: any = null;
     selectedItems: any[] = [];
     isSelectAll = false;
     isFilterSelectAll = false;
@@ -242,11 +248,18 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     //#region ControlValueAccessor
     writeValue(value: any) {
 
+        this.value = value;
+
         if (hasValue(value)) {
-            if (this.settings.singleSelection) {
+
+            if (!hasValue(this.data)) {
+
+                console.warn('ser-select: Data is empty at the write value');
+
+            } else if (this.settings.singleSelection) {
 
                 if (Array.isArray(value)) {
-                    throw Error('Array detected as input, please add "multiple" attribute in the select or set "singleSelection" setting in false');
+                    console.warn('ser-select: Array detected as input, please add "multiple" attribute in the select or set "singleSelection" setting in false');
                 }
 
                 const selectedObject = this.data?.find(item => {
@@ -263,7 +276,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                     this.selectedItems = [selectedObject];
                 } else {
                     this.selectedItems = [];
-                    throw Error('No primaryKey finded in options, please set "primaryKey" setting with the correct value');
+                    console.warn('No value finded in data, please set "primaryKey" setting with the correct value or pass a existing value in data');
                 }
 
                 if (this.settings.groupBy) {
@@ -274,7 +287,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             } else {
 
                 if (!Array.isArray(value)) {
-                    throw Error('Single value detected as input, please set "singleSelection" setting in true or remove "multiple" attribute in the select if you added');
+                    console.warn('Single value detected as input, please set "singleSelection" setting in true or remove "multiple" attribute in the select if you added');
                 }
 
                 const selectedObjects = this.data?.filter(item => {
@@ -295,7 +308,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                     }
                 } else {
                     this.selectedItems = [];
-                    throw Error('No primaryKey finded in options, please set "primaryKey" setting with the correct value');
+                    console.warn('No value finded in data, please set "primaryKey" setting with the correct value or pass a existing value in data');
                 }
 
                 if (this.selectedItems.length === this.data.length && this.data.length > 0) {
@@ -307,6 +320,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                     this.groupCachedItems = this.cloneArray(this.groupedData);
                 }
             }
+
         } else {
             this.selectedItems = [];
         }

@@ -65,6 +65,26 @@
 <div class="separator"></div>
 
 <h2>
+    <a class="bttn icon " href="#cookies">
+        <span class="material-icons">link</span>
+    </a>
+    Clic / Touch Prolongado
+</h2>
+
+<p class="description">
+    (<a href="https://sersoluciones.github.io/ngx-ui-doc/classes/_cookie_.cookies.html" target="_blank" rel="noopener noreferrer">Cookies</a>)
+    Clase abstracta para obtener, actualizar y borrar cookies en el navegador web
+</p>
+
+<div class="long-click" longPress (onLongPress)="longClick($event)" (onShortPress)="singleClick()">
+    {{ messageTypeClick }}
+</div>
+
+<pre><code [highlight]="examples.LongClickExample"></code></pre>
+
+<div class="separator"></div>
+
+<h2>
     <a class="bttn icon " href="#fullscreen">
         <span class="material-icons">link</span>
     </a>

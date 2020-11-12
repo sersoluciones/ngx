@@ -10,8 +10,26 @@ import { BaseView } from '../base/base-view';
 })
 export class UtilsComponent extends BaseView {
 
+    messageTypeClick = 'Clic aquí para probar';
+
     constructor(public colorscheme: PrefersColorSchemeService, public fullscreen: FullscreenService, protected injectorObj: Injector) {
         super(injectorObj);
+    }
+
+    singleClick() {
+        this.messageTypeClick = 'Clic corto';
+        this.clearMessageTypeClick();
+    }
+
+    longClick(ev: Event) {
+        this.messageTypeClick = 'Clic prolongado';
+        this.clearMessageTypeClick();
+    }
+
+    clearMessageTypeClick() {
+        setTimeout(() => {
+            this.messageTypeClick = 'Clic aquí para probar';
+        }, 2000);
     }
 
 }

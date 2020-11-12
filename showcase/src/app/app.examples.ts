@@ -15,6 +15,9 @@ Cookies.set('Test', '123'); // Setea valor de una cookie
 Cookies.delete('Test'); // Elimina una cookie
 Cookies.deleteAll(); // Elimina todas las cookies`;
 
+export const LongClickExample =
+`<div longPress (onLongPress)="longClick()" (onShortPress)="singleClick()"></div>`;
+
 export const FullscreenExample =
 `import { Fullscreen } from 'src/typescript/fullscreen';
 

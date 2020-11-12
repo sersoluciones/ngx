@@ -288,7 +288,7 @@ ser-form-element,
 
             &.ontop {
                 border-radius: 12px 12px 0 0;
-                box-shadow: 0px -3px 5px #959595;
+                box-shadow: 0px -3px 5px var(--select-shadow-color);
             }
 
             .via-item {
@@ -533,11 +533,11 @@ ser-select {
     .dropdown-list {
         border-radius: 0 0 12px 12px;
         background-color: var(--select-bg);
-        box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.1), -2px 3px 4px 0px rgba(0, 0, 0, 0.1);
+        box-shadow: 2px 3px 4px 0px var(--select-shadow-color), -2px 3px 4px 0px var(--select-shadow-color);
 
         &.ontop {
             border-radius: 12px 12px 0 0;
-            box-shadow: 0px -3px 5px var(--select-shadow-color);
+            box-shadow: -2px -1px 5px var(--select-shadow-color), 2px -1px 5px var(--select-shadow-color);
         }
 
         .select-all {

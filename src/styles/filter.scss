@@ -109,6 +109,7 @@ ser-filter {
 
     .dropdown-list {
         position: fixed;
+        overflow: hidden;
         z-index: 2;
         transform-origin: 0 0;
 
