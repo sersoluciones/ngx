@@ -29,7 +29,7 @@ export class LongPressDirective {
     onMouseDown(event: MouseEvent | TouchEvent) {
 
         // don't do right/middle clicks
-        if (event instanceof MouseEvent && event.button !== 0) { return; }
+        if ((event as MouseEvent).button !== 0) { return; }
 
         this.pressing = true;
         this.longPressing = false;
@@ -64,8 +64,14 @@ export class LongPressDirective {
         this.onLongPressEnd.emit(true);
     }
 
-    @HostListener('mouseup')
-    @HostListener('touchend')
-    onMouseUp() { this.endPress(); }
+    @HostListener('mouseup', ['$event'])
+    @HostListener('touchend', ['$event'])
+    onMouseUp(event: MouseEvent | TouchEvent) {
+
+        // don't do right/middle clicks
+        if ((event as MouseEvent).button !== 0) { return; }
+
+        this.endPress();
+    }
 
 }
