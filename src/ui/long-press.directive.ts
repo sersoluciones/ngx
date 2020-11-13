@@ -7,7 +7,7 @@ import { Directive, EventEmitter, HostBinding, HostListener, Input, Output } fro
 })
 export class LongPressDirective {
 
-    @Input() pressDuration = 700;
+    @Input() pressDuration = 500;
 
     @Output() onShortPress: EventEmitter<any> = new EventEmitter();
     @Output() onLongPress: EventEmitter<any> = new EventEmitter();

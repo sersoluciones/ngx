@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SerFormElementComponent } from './ser-form-element/ser-form-element.component';
@@ -21,7 +21,7 @@ const dependencies = [
 ];
 
 @NgModule({
-    imports: [CommonModule, BrowserModule, ReactiveFormsModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule],
     declarations: [...dependencies],
     exports: [...dependencies, SerSelectModule, SerFilterModule]
 })

@@ -12,7 +12,7 @@ const dependencies = [
 ];
 
 @NgModule({
-    imports: [CommonModule, BrowserModule, FormsModule, ReactiveFormsModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule],
     declarations: [...dependencies],
     exports: [...dependencies],
     providers: []

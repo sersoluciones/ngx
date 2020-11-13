@@ -18,7 +18,7 @@ const dependencies = [
 ];
 
 @NgModule({
-    imports: [CommonModule, BrowserModule, FormsModule, ReactiveFormsModule, VirtualScrollerModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, VirtualScrollerModule],
     declarations: [...dependencies],
     exports: [...dependencies],
     providers: [DataService]
