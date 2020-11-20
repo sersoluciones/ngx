@@ -124,6 +124,13 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
                 }
             }
 
+        } else {
+            this.modelForm.reset();
+
+            if (this.viewInitialized) {
+                this.viaEl.nativeElement.value = '';
+                this.viaElHint.nativeElement.value = '';
+            }
         }
     }
 

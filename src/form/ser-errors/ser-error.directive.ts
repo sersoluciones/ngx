@@ -1,3 +1,4 @@
+// tslint:disable: no-bitwise
 import { Directive, Input, OnInit, OnDestroy, DoCheck, Inject, HostBinding, forwardRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -33,9 +34,7 @@ export class SerErrorDirective implements OnInit, OnDestroy, DoCheck {
     _states: Subject<string[]>;
     states: Observable<string[]>;
 
-    constructor(
-        @Inject(forwardRef(() => SerErrorsDirective)) private _serErrors: SerErrorsDirective
-    ) { }
+    constructor(@Inject(forwardRef(() => SerErrorsDirective)) private _serErrors: SerErrorsDirective) { }
 
     ngOnInit() {
 
@@ -44,11 +43,9 @@ export class SerErrorDirective implements OnInit, OnDestroy, DoCheck {
 
         const errors = this._serErrors.subject
             .filter(Boolean)
-            // tslint:disable-next-line: no-bitwise
             .filter((obj: any) => !!~this.errorNames.indexOf(obj.errorName));
 
         const states = this.states
-            // tslint:disable-next-line: no-bitwise
             .map(states => this.rules.every(rule => !!~states.indexOf(rule)));
 
         this.subscription = Observable.combineLatest([states, errors])

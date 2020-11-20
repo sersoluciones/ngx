@@ -1,10 +1,7 @@
-import { ValidationErrors, ValidatorFn, FormGroup, FormControl, AsyncValidatorFn } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { catchError, delay, map, switchMap } from 'rxjs/operators';
-import { hasValue } from '../../utils/check';
+import { ValidatorFn, AsyncValidatorFn, AbstractControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { greaterOrEqualThan, greaterThan, lowerOrEqualThan, lowerThan } from './comparison';
-import { match } from './match';
+import { match, verifyNIT } from './match';
 import { maxFileSize, minFileSize, requiredFileType } from './file';
 import { alreadyExist, BaseValidationModel } from './remote';
 
@@ -21,6 +18,15 @@ export class CustomValidators {
      */
     static match(originalPathField: string, duplicatePathField: string): ValidatorFn {
         return match(originalPathField, duplicatePathField);
+    }
+
+    /**
+     * Verifica si los campos proveidos son iguales
+     * @param originalPathField Path del campo original
+     * @param duplicatePathField Path del campo que deberia ser igual al original
+     */
+    static verifyNIT(control: AbstractControl): { [key: string]: any } | null {
+        return verifyNIT(control);
     }
 
     /**

@@ -1,3 +1,4 @@
+import { CustomValidators } from './../../../../src/form/validations/custom-validators';
 import { Component, Injector } from '@angular/core';
 import * as examples from 'src/app/app.examples';
 import { Validators, FormBuilder } from '@angular/forms';
@@ -12,9 +13,14 @@ export class FormsComponent extends BaseView {
     examples = examples;
 
     modelForm = this._fb.group({
-        text1: ['Prueba', Validators.required],
+        text1: ['', [Validators.required, CustomValidators.verifyNIT]],
+        text2: ['', Validators.required],
         address: ['', Validators.required]
     });
+
+    reset() {
+        this.modelForm.reset();
+    }
 
     constructor(protected injectorObj: Injector, private _fb: FormBuilder) {
         super(injectorObj);

@@ -6,7 +6,11 @@
 export function mergeObjs(target: any, source: any) {
     const isObject = (obj: any) => obj && typeof obj === 'object';
 
-    if (!isObject(target) || !isObject(source)) {
+    if (!isObject(source)) {
+        return target;
+    }
+
+    if (!isObject(target)) {
         return source;
     }
 

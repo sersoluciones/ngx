@@ -51,6 +51,9 @@
     --input-bg-disabled: #f3f3f3;
     --input-font-color-disabled: #141414;
     --input-error-border: 2px solid #fd4e4e;
+    --input-error-shadow-color: rgba(204, 52, 52, 0.19);
+    --input-focus-color: #3490cc;
+    --input-focus-shadow-color: rgb(52, 144, 204, 0.19);
 
     --dark-grey-4dp: #272727;
     --dark-grey-6dp: #2c2c2c;
@@ -335,6 +338,8 @@ ser-form-element,
 
         &.active {
             border-radius: 12px 12px 0 0;
+            box-shadow: 0 0 0 4px var(--input-focus-shadow-color) ;
+            border: 2px solid var(--input-focus-color);
 
             &.ontop {
                 border-radius: 0 0 12px 12px;
@@ -356,6 +361,29 @@ ser-form-element,
         ser-select:not(.not-styled) {
             padding: 5px 11px;
         }
+    }
+
+    &.focus {
+
+        input:not(.not-styled),
+        textarea:not(.not-styled),
+        select:not(.not-styled),
+        ser-select:not(.not-styled),
+        .mat-select:not(.not-styled),
+        address-col-input:not(.not-styled) {
+            box-shadow: 0 0 0 4px var(--input-focus-shadow-color);
+            border: 2px solid var(--input-focus-color);
+        }
+
+        input.ng-invalid.ng-dirty:not(.not-styled),
+        textarea.ng-invalid.ng-dirty:not(.not-styled),
+        select.ng-invalid.ng-dirty:not(.not-styled),
+        ser-select.ng-invalid.ng-dirty:not(.not-styled),
+        .mat-select.ng-invalid.ng-dirty:not(.not-styled),
+        address-col-input.ng-invalid.ng-dirty:not(.not-styled) {
+            box-shadow: 0 0 0 4px var(--input-error-shadow-color);
+        }
+
     }
 
     &:not([plain]) {
@@ -896,6 +924,8 @@ ser-filter {
     &.active {
         .list-filter {
             border-radius: 12px 12px 0 0;
+            box-shadow: 0 0 0 4px var(--input-focus-shadow-color) ;
+            border: 2px solid var(--input-focus-color);
 
             &.ontop {
                 border-radius: 0 0 12px 12px;

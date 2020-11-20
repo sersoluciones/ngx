@@ -8,8 +8,8 @@ import { SerErrorsDirective } from './ser-errors/ser-errors.directive';
 import { PinInputComponent } from './pin/pin-input.component';
 import { SerSelectModule } from './select/ser-select.module';
 import { AddressColComponent } from './address/address-col/address-col.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { SerFilterModule } from './filter/ser-filter.module';
+import { GrowOnInputDirective } from './grow-on-input.directive';
 
 const dependencies = [
     SerFormElementComponent,
@@ -17,7 +17,8 @@ const dependencies = [
     SerErrorsDirective,
     SerErrorDirective,
     PinInputComponent,
-    AddressColComponent
+    AddressColComponent,
+    GrowOnInputDirective
 ];
 
 @NgModule({

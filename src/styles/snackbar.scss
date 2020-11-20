@@ -1,0 +1,107 @@
+@import 'mixins.scss';
+
+.snackbar {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    color: white;
+    background-color: dimgray;
+    border-radius: 100px;
+    padding: 16px;
+    max-width: 62px;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: Snackbar 400ms ease-in-out forwards;
+
+    .icon {
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 30px;
+        min-height: 30px;
+        border-radius: 50%;
+        animation: SnackbarIcon 300ms ease-in-out 400ms forwards;
+
+        &.green {
+            background-color: limegreen;
+        }
+
+        &.red {
+            background-color: red;
+        }
+
+        .material-icons {
+            color: white;
+            font-size: 16px;
+        }
+    }
+
+    .msj {
+        opacity: 0;
+        padding: 0 12px;
+    }
+
+    &.show-text {
+        transform: translate(-50%, -32px);
+        animation: SnackbarMsj 700ms ease-in-out forwards;
+
+        .msj {
+            opacity: 1;
+        }
+    }
+
+    &.hide {
+        max-width: 100%;
+        transform: translate(-50%, -32px);
+        animation: SnackbarHide 400ms ease-in-out forwards;
+
+        .msj {
+            opacity: 1;
+        }
+    }
+}
+
+@keyframes Snackbar {
+    from {
+        transform: translate(-50%, 110%);
+    }
+
+    to {
+        transform: translate(-50%, -32px);
+    }
+}
+
+@keyframes SnackbarIcon {
+    from {
+        opacity: 0;
+        transform: rotate(-45deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: rotate(0);
+    }
+}
+
+@keyframes SnackbarMsj {
+    from {
+        max-width: 70px;
+    }
+
+    to {
+        max-width: 100%;
+    }
+}
+
+@keyframes SnackbarHide {
+    from {
+        transform: translate(-50%, -32px);
+    }
+
+    to {
+        transform: translate(-50%, 110%);
+    }
+}

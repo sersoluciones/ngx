@@ -85,5 +85,6 @@ export * from './ui/when-scrolled.directive';
 export * from './ui/finish-typing.directive';
 export * from './ui/copy-to-clipboard.directive';
 export * from './ui/download.service';
+export * from './ui/snackbar.service';
 export * from './ui/toggle-class.directive';
 export * from './ui/ser-ui.module';
