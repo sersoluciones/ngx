@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { mergeObjs } from '../utils/object';
 import { timer } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 export interface SnackbarOpts {
     msj: string;
@@ -14,13 +15,9 @@ export interface SnackbarOpts {
 })
 export class SnackbarService {
 
-
-    constructor() {
-    }
-
     open(opts: SnackbarOpts) {
 
-        const _html = document.createElement('div');
+        let _html = document.createElement('div');
         _html.className = 'snackbar';
 
         const defaultOpts: SnackbarOpts = mergeObjs({
@@ -37,15 +34,21 @@ export class SnackbarService {
 
         document.body.append(_html);
 
-        setTimeout(() => {
+        timer(1000)
+        .pipe(take(1)).subscribe(() => {
             _html.className = 'snackbar show-text';
 
             setTimeout(() => {
                 setTimeout(() => {
                     _html.className = 'snackbar hide';
+
+                    setTimeout(() => {
+                        document.body.removeChild(_html);
+                        _html = null;
+                    }, 1000);
                 }, 1500);
             }, defaultOpts.duration);
-        }, 1000);
+        });
 
     }
 }

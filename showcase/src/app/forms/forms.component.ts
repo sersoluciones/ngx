@@ -22,8 +22,4 @@ export class FormsComponent extends BaseView {
         this.modelForm.reset();
     }
 
-    constructor(protected injectorObj: Injector, private _fb: FormBuilder) {
-        super(injectorObj);
-    }
-
 }

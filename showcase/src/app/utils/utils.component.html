@@ -102,3 +102,47 @@
 </div>
 
 <pre><code [highlight]="examples.FullscreenExample"></code></pre>
+
+<div class="separator"></div>
+
+<h2>
+    <a class="bttn icon " href="#snackbar">
+        <span class="material-icons">link</span>
+    </a>
+    Snackbar
+</h2>
+
+<p class="description">
+    (<a href="https://sersoluciones.github.io/ngx-ui-doc/classes/_fullscreen_.fullscreen.html" target="_blank" rel="noopener noreferrer">Fullscreen</a>)
+    Servicio para mostrar un snackbar temporal con un mensaje
+</p>
+
+<div class="row-wrap start-center" [formGroup]="snackbarForm">
+    <ser-form-element>
+        <label>Mensaje</label>
+        <input serControl formControlName="msj">
+    </ser-form-element>
+
+    <ser-form-element>
+        <label>Color</label>
+        <ser-select serControl formControlName="class" [data]="snackbarDataClass" simple></ser-select>
+    </ser-form-element>
+
+    <ser-form-element style="min-width: 200px;">
+        <label>Material Icon</label>
+        <ser-select serControl formControlName="icon" [data]="snackbarDataIcon">
+
+            <ng-template sd-badge-item let-item="item">
+                <div class="select-template">
+                    <span class="material-icons">{{ item }}</span>
+                    <div style="margin-left: 16px;">{{ item }}</div>
+                </div>
+            </ng-template>
+
+        </ser-select>
+    </ser-form-element>
+
+    <button type="button" class="bttn green" (click)="openSnackbar()">Mostrar</button>
+</div>
+
+<pre><code [highlight]="examples.FullscreenExample"></code></pre>

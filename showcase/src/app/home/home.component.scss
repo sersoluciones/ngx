@@ -6,22 +6,31 @@
         margin-bottom: 64px;
     }
 
-    .install {
+    .install,
+    .doc {
         background-color: #434343;
         color: white;
         padding: 16px;
         border-radius: 16px;
         display: inline-flex;
         align-items: center;
-        margin: 42px auto 88px;
+        margin: 42px 32px 88px;
         font-family: monospace;
+    }
 
+    .install {
         .bttn {
             margin-left: 32px;
 
             span {
                 color: white;
             }
+        }
+    }
+
+    .doc {
+        a {
+            color: white;
         }
     }
 

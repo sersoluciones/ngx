@@ -6,6 +6,7 @@ import { DownloadService } from '../../../../src/ui/download.service';
 export class BaseView implements OnInit, AfterViewInit {
     examples = examples;
 
+    _fb: FormBuilder;
     modelForm: FormGroup;
 
     options = {
@@ -104,7 +105,9 @@ export class BaseView implements OnInit, AfterViewInit {
         ]
     };
 
-    constructor(protected injectorObj: Injector) { }
+    constructor(protected injectorObj: Injector) {
+        this._fb = this.injectorObj.get(FormBuilder);
+    }
 
     alert(text: string) {
         alert(text);

@@ -7,7 +7,7 @@
     bottom: 0;
     left: 50%;
     color: white;
-    background-color: dimgray;
+    background-color: var(--snackbar-bg);
     border-radius: 100px;
     padding: 16px;
     max-width: 62px;
@@ -26,15 +26,15 @@
         animation: SnackbarIcon 300ms ease-in-out 400ms forwards;
 
         &.green {
-            background-color: limegreen;
+            background-color: var(--snackbar-bg-green);
         }
 
         &.red {
-            background-color: red;
+            background-color: var(--snackbar-bg-red);
         }
 
         .material-icons {
-            color: white;
+            color: var(--snackbar-icon-color);
             font-size: 16px;
         }
     }

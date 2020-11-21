@@ -5,9 +5,9 @@
     "ng": "ng",
     "start": "ng serve --aot --ssl --ssl-key localhost.key  --ssl-cert localhost.crt",
     "build": "ng build ngx --prod",
-    "publish": "npm run build && npm publish ./dist --access public",
+    "publish-lib": "npm run build && npm publish ./dist --access public && npm run publish-doc",
+    "publish-doc": "npx compodoc -p tsconfig.json -d ../ngx-doc --theme vagrant --language es-ES src",
     "publish-showcase": "ng deploy showcase --base-href=/ngx/",
-    "publish-all": "npm run publish && npm run publish-showcase",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
