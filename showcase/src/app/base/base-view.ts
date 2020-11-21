@@ -1,3 +1,4 @@
+import { SnackbarService } from './../../../../src/ui/snackbar.service';
 import * as examples from '../app.examples';
 import { OnInit, AfterViewInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -7,6 +8,7 @@ export class BaseView implements OnInit, AfterViewInit {
     examples = examples;
 
     _fb: FormBuilder;
+    _msj: SnackbarService;
     modelForm: FormGroup;
 
     options = {
@@ -107,10 +109,13 @@ export class BaseView implements OnInit, AfterViewInit {
 
     constructor(protected injectorObj: Injector) {
         this._fb = this.injectorObj.get(FormBuilder);
+        this._msj = this.injectorObj.get(SnackbarService);
     }
 
     alert(text: string) {
-        alert(text);
+        this._msj.open({
+            msj: text
+        });
     }
 
     toogleFormControlDisabled(name: string) {
