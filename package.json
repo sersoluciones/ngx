@@ -28,7 +28,7 @@
     "@tweenjs/tween.js": "^17.4.0",
     "angular-cli-ghpages": "^0.6.2",
     "bowser": "^2.9.0",
-    "highlight.js": "^9.18.1",
+    "highlight.js": "^10.1.2",
     "leaflet": "^1.6.0",
     "leaflet.markercluster": "^1.4.1",
     "ngx-highlightjs": "^3.0.3",
