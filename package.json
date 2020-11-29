@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --aot --ssl --ssl-key localhost.key  --ssl-cert localhost.crt",
+    "start": "ng serve -o --aot --ssl --ssl-key localhost.key  --ssl-cert localhost.crt",
     "build": "ng build ngx --prod",
     "publish-lib": "npm run build && npm publish ./dist --access public && npm run publish-doc",
     "publish-doc": "npx compodoc -p tsconfig.json -d ../ngx-doc --theme vagrant --language es-ES src",
+    "commit": "git --C=../../ngx-doc commit -m 'Auto publish' && git --C=../../ngx-doc push",
     "publish-showcase": "ng deploy showcase --base-href=/ngx/",
     "test": "ng test",
     "lint": "ng lint",
