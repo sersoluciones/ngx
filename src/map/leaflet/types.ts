@@ -14,13 +14,11 @@ export interface LeafletMapOptions {
         config?: L.MarkerClusterGroupOptions;
     };
     layers?: any;
-    mapOptions?: {
-        positionControl?: boolean;
-        layers?: any[];
-        zoomControl: any
-    };
+    mapOptions?: L.MapOptions;
     fullscreen?: L.Control.FullscreenOptions;
+    zoomControl?: boolean;
     zoom?: L.Control.ZoomOptions;
+    layersControl?: boolean;
     layersOptions?: L.Control.LayersOptions;
     mousePositionOptions?: L.Control.MousePositionOptions;
 }

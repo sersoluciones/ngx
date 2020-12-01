@@ -22,7 +22,7 @@
     "@angular/platform-browser": "^9.0.6",
     "@angular/platform-browser-dynamic": "^9.0.6",
     "@angular/router": "^9.0.6",
-    "@sersol/leaflet-plugins": "0.1.0",
+    "@sersol/leaflet-plugins": "0.1.1",
     "@types/facebook-js-sdk": "^3.3.0",
     "@types/gapi": "0.0.39",
     "@types/gapi.auth2": "0.0.51",

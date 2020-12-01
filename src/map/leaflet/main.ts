@@ -24,15 +24,23 @@ export class LeafletMap {
             enable: true,
             config: {}
         },
+        mousePositionOptions: {
+            enable: true
+        },
+        fullscreen: {
+            enable: true
+        },
+        layersControl: true,
         layers: LEAFLET_MAP_LAYERS,
         mapOptions: {
-            positionControl: true,
+            attributionControl: false,
             layers: [LEAFLET_MAP_LAYERS['Mapbox Street']],
             zoomControl: false
         },
         layersOptions: {
             position: 'topright'
-        }
+        },
+        zoomControl: true
     };
 
     constructor(options: LeafletMapOptions) {
@@ -41,11 +49,22 @@ export class LeafletMap {
 
         this.map = new L.Map(this.options.container, this.options.mapOptions);
 
-        this.layerControl = new L.Control.Layers(this.options.layers, null, this.options.layersOptions);
-        this.map.addControl(new L.Control.MousePosition(this.options.mousePositionOptions));
-        this.map.addControl(this.layerControl);
-        this.map.addControl(new L.Control.Fullscreen(this.options.fullscreen));
-        this.map.addControl(new L.Control.Zoom(this.options.zoom));
+        if (this.options.mousePositionOptions.enable) {
+            this.map.addControl(new L.Control.MousePosition(this.options.mousePositionOptions));
+        }
+
+        if (this.options.fullscreen.enable) {
+            this.map.addControl(new L.Control.Fullscreen(this.options.fullscreen));
+        }
+
+        if (this.options.layersControl) {
+            this.layerControl = new L.Control.Layers(this.options.layers, null, this.options.layersOptions);
+            this.map.addControl(this.layerControl);
+        }
+
+        if (this.options.zoomControl) {
+            this.map.addControl(new L.Control.Zoom(this.options.zoom));
+        }
 
         this.map.setView([this.options.initialView.lat, this.options.initialView.lng], this.options.initialView.zoom);
 
