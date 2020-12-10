@@ -14,6 +14,7 @@
     white-space: nowrap;
     overflow: hidden;
     animation: Snackbar 400ms ease-in-out forwards;
+    z-index: 10;
 
     .icon {
         opacity: 0;
