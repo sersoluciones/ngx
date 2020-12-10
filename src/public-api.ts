@@ -87,4 +87,6 @@ export * from './ui/copy-to-clipboard.directive';
 export * from './ui/download.service';
 export * from './ui/snackbar.service';
 export * from './ui/toggle-class.directive';
+export * from './ui/date.pipe';
+export * from './ui/filter.pipe';
 export * from './ui/ser-ui.module';

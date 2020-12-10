@@ -5,6 +5,8 @@ import { BgImageDirective } from './bg-image.directive';
 import { CopyToClipboardDirective } from './copy-to-clipboard.directive';
 import { ToggleClassDirective } from './toggle-class.directive';
 import { LongPressDirective } from './long-press.directive';
+import { DateUTCPipe } from './date.pipe';
+import { FilterList } from './filter.pipe';
 
 const dependencies = [
   WhenScrolledDirective,
@@ -12,7 +14,9 @@ const dependencies = [
   BgImageDirective,
   CopyToClipboardDirective,
   ToggleClassDirective,
-  LongPressDirective
+  LongPressDirective,
+  DateUTCPipe,
+  FilterList
 ];
 
 @NgModule({

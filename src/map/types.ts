@@ -24,4 +24,5 @@ export interface CenterPoint {
     offset_x?: number;
     offset_y?: number;
     preserve_zoom?: boolean;
+    zoom?: number;
 }

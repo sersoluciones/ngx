@@ -166,7 +166,16 @@ export class LeafletMap {
     }
 
     centerPoint(options: CenterPoint) {
-        this.map.flyTo([options.lat, options.lng], options.preserve_zoom ? this.map.getZoom() : 19, {
+
+        let zoom = 19;
+
+        if (options.preserve_zoom) {
+            zoom = this.map.getZoom();
+        } else if (hasValue(options.zoom)) {
+            zoom = options.zoom;
+        }
+
+        this.map.flyTo([options.lat, options.lng], zoom, {
             duration: 0.5
         });
     }
