@@ -15,8 +15,11 @@ export class FormsComponent extends BaseView {
     modelForm = this._fb.group({
         text1: ['', [Validators.required, CustomValidators.verifyNIT]],
         text2: ['', Validators.required],
+        text3: ['', Validators.required],
         address: ['', Validators.required]
     });
+
+    text3Regex = '[0-9\s]';
 
     reset() {
         this.modelForm.reset();

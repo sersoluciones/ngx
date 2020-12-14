@@ -59,6 +59,8 @@ export * from './form/ser-form-element/ser-control.directive';
 export * from './form/ser-errors/ser-errors';
 export * from './form/ser-errors/ser-errors.directive';
 export * from './form/ser-errors/ser-error.directive';
+export * from './form/grow-on-input.directive';
+export * from './form/input-regex.directive';
 export * from './form/ser-form.module';
 
 // Select

@@ -10,6 +10,7 @@ import { SerSelectModule } from './select/ser-select.module';
 import { AddressColComponent } from './address/address-col/address-col.component';
 import { SerFilterModule } from './filter/ser-filter.module';
 import { GrowOnInputDirective } from './grow-on-input.directive';
+import { InputRegexDirective } from './input-regex.directive';
 
 const dependencies = [
     SerFormElementComponent,
@@ -18,7 +19,8 @@ const dependencies = [
     SerErrorDirective,
     PinInputComponent,
     AddressColComponent,
-    GrowOnInputDirective
+    GrowOnInputDirective,
+    InputRegexDirective
 ];
 
 @NgModule({

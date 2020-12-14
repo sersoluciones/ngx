@@ -40,8 +40,8 @@
 <p class="description">Ó puedes controlar de manera manual el esquema de color independiente del sistema operativo</p>
 
 <div class="bttn-group">
-    <button type="button" class="bttn" (click)="colorscheme.enableLight()">Claro</button>
-    <button type="button" class="bttn" (click)="colorscheme.enableDark()">Oscuro</button>
+    <button type="button" class="bttn" (click)="colorscheme.enableLight()" [ngClass]="{blue: !colorscheme.dark}">Claro</button>
+    <button type="button" class="bttn" (click)="colorscheme.enableDark()" [ngClass]="{blue: colorscheme.dark}">Oscuro</button>
 </div>
 
 <pre><code [highlight]="examples.PrefersColorSchemeExample"></code></pre>

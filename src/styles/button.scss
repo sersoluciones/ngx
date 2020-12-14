@@ -15,7 +15,7 @@
     text-decoration: none;
     white-space: nowrap;
     background-color: transparent;
-    border-radius: 8px;
+    border-radius: 24px;
     margin: 0 4px;
     border: none;
     cursor: pointer;
@@ -172,34 +172,12 @@
 
 .bttn-group,
 .fc-button-group {
-    display: flex;
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--bttn-group-bg);
+    border-radius: 24px;
 
-    .bttn:first-child,
-    button:first-child {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        margin-right: 0;
-        border-right-width: 0;
-    }
-
-    .bttn:last-child,
-    button:last-child {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        margin-left: 0;
-    }
-
-    .bttn:not(:first-child):not(:last-child),
-    button:not(:first-child):not(:last-child) {
-        border-radius: 0;
+    .bttn {
         margin: 0;
-        border-right-width: 0;
-    }
-
-    .bttn.active,
-    button.active {
-        -webkit-box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.3);
-        -moz-box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.3);
-        box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.3);
     }
 }
