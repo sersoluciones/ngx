@@ -17,7 +17,7 @@ export function hasValue(variable: any | any[]): boolean {
         return JSON.stringify(variable) !== '{}';
 
     } else {
-        console.log('entra');
+
         return ['', null, undefined, NaN].indexOf(variable) === -1;
 
     }
