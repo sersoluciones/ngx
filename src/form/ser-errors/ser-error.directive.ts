@@ -62,7 +62,9 @@ export class SerErrorDirective implements OnInit, OnDestroy, DoCheck {
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        if (!this.subscription.closed){
+            this.subscription.unsubscribe();
+        }
     }
 
 }

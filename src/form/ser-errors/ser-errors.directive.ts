@@ -87,7 +87,9 @@ export class SerErrorsDirective implements OnChanges, OnDestroy, AfterViewInit {
     }
 
     ngOnDestroy() {
-        this.subject.unsubscribe();
+        if (!this.subject.closed){
+            this.subject.unsubscribe();
+        }
     }
 
 }

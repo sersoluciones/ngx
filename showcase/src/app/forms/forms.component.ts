@@ -16,7 +16,12 @@ export class FormsComponent extends BaseView {
         text1: ['', [Validators.required, CustomValidators.verifyNIT]],
         text2: ['', Validators.required],
         text3: ['', Validators.required],
-        address: ['', Validators.required]
+        address: ['', Validators.required],
+        num: [2],
+        num1: [],
+        num2: []
+    }, {
+        validators: [CustomValidators.betweenRange('num', 'num1', 'num2')]
     });
 
     text3Regex = '[0-9\s]';

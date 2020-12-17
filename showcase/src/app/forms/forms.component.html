@@ -1,4 +1,20 @@
 <form class="form-example" [formGroup]="modelForm">
+    <input type="number" serControl formControlName="num1">
+    <input type="number" serControl formControlName="num2">
+
+    <ser-form-element style="width: 300px;">
+        <label>Prueba</label>
+        <input type="text" serControl formControlName="num">
+
+        {{ modelForm.get('num').errors | json }}
+        <div serErrors="num">
+            <div serError="lowerThan">lowerThan</div>
+            <div serError="lowerOrEqualThan">lowerOrEqualThan</div>
+            <div serError="greaterThan">greaterThan</div>
+            <div serError="greaterOrEqualThan">greaterOrEqualThan</div>
+            <div serError="betweenRange">betweenRange</div>
+        </div>
+    </ser-form-element>
 
     <h1>Formularios básicos</h1>
 

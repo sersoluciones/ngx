@@ -97,8 +97,8 @@
 </p>
 
 <div class="bttn-group">
-    <button type="button" class="bttn" (click)="fullscreen.toggle()" [disabled]="fullscreen.isEnabled">Entrar a pantalla completa</button>
-    <button type="button" class="bttn" (click)="fullscreen.disable()" [disabled]="!fullscreen.isEnabled">Salir de pantalla completa</button>
+    <button type="button" class="bttn" (click)="fullscreen.toggle()" [disabled]="fullscreen.isEnabled" [ngClass]="{blue: fullscreen.isEnabled}">Entrar a pantalla completa</button>
+    <button type="button" class="bttn" (click)="fullscreen.disable()" [disabled]="!fullscreen.isEnabled" [ngClass]="{blue: !fullscreen.isEnabled}">Salir de pantalla completa</button>
 </div>
 
 <pre><code [highlight]="examples.FullscreenExample"></code></pre>

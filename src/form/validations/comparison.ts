@@ -1,35 +1,47 @@
-import { FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { hasValue } from '../../utils/check';
 
-export function lowerThan(BasePathField: string, TargetPathField: string): ValidatorFn {
+function clearError(target: AbstractControl, name: string) {
+    if (hasValue(target.errors)) {
+        delete target.errors[name];
+
+        if (hasValue(target.errors)) {
+            target.setErrors(target.errors);
+        } else {
+            target.setErrors(null);
+        }
+    } else {
+        console.log('entra');
+        target.setErrors(null);
+    }
+}
+
+function setError(target: AbstractControl, name: string) {
+    if (hasValue(target.errors)) {
+        target.errors[name] = true;
+        target.setErrors(target.errors);
+    } else {
+        const obj = {};
+        obj[name] = true;
+        target.setErrors(obj);
+    }
+}
+
+export function lowerThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
     return (fg: FormGroup): ValidationErrors | null => {
 
-        const base = fg.get(BasePathField);
+        const lower = fg.get(LowerPathField);
         const target = fg.get(TargetPathField);
 
-        if (base.value < target.value) {
-            if (hasValue(target.errors)) {
-                delete base.errors.lowerThan;
+        if (!hasValue(lower.value) || !hasValue(target.value)) {
+            clearError(target, 'lowerThan');
+            return null;
+        }
 
-                if (hasValue(base.errors)) {
-                    base.setErrors(base.errors);
-                } else {
-                    base.setErrors(null);
-                }
-            } else {
-                base.setErrors(null);
-            }
-
+        if (lower.value > target.value) {
+            clearError(target, 'lowerThan');
         } else {
-
-            if (hasValue(base.errors)) {
-                base.errors.lowerThan = true;
-                base.setErrors(base.errors);
-            } else {
-                base.setErrors({
-                    lowerThan: true
-                });
-            }
+            setError(target, 'lowerThan');
         }
 
         return null;
@@ -37,105 +49,85 @@ export function lowerThan(BasePathField: string, TargetPathField: string): Valid
 
 }
 
-export function lowerOrEqualThan(BasePathField: string, TargetPathField: string): ValidatorFn {
+export function lowerOrEqualThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
     return (fg: FormGroup): ValidationErrors | null => {
 
-        const base = fg.get(BasePathField);
+        const lower = fg.get(LowerPathField);
         const target = fg.get(TargetPathField);
 
-        if (base.value <= target.value) {
-            if (hasValue(target.errors)) {
-                delete base.errors.lowerOrEqualThan;
+        if (!hasValue(lower.value) || !hasValue(target.value)) {
+            clearError(target, 'lowerOrEqualThan');
+            return null;
+        }
 
-                if (hasValue(base.errors)) {
-                    base.setErrors(base.errors);
-                } else {
-                    base.setErrors(null);
-                }
-            } else {
-                base.setErrors(null);
-            }
-
+        if (lower.value >= target.value) {
+            clearError(target, 'lowerOrEqualThan');
         } else {
-
-            if (hasValue(base.errors)) {
-                base.errors.lowerOrEqualThan = true;
-                base.setErrors(base.errors);
-            } else {
-                base.setErrors({
-                    lowerOrEqualThan: true
-                });
-            }
+            setError(target, 'lowerOrEqualThan');
         }
 
         return null;
     };
 }
 
-export function greaterThan(BasePathField: string, TargetPathField: string): ValidatorFn {
+export function greaterThan(TargetPathField: string, GreaterPathField: string): ValidatorFn {
     return (fg: FormGroup): ValidationErrors | null => {
 
-        const base = fg.get(BasePathField);
+        const greater = fg.get(GreaterPathField);
         const target = fg.get(TargetPathField);
 
-        if (base.value > target.value) {
-            if (hasValue(target.errors)) {
-                delete base.errors.greaterThan;
+        if (!hasValue(greater.value) || !hasValue(target.value)) {
+            clearError(target, 'greaterThan');
+            return null;
+        }
 
-                if (hasValue(base.errors)) {
-                    base.setErrors(base.errors);
-                } else {
-                    base.setErrors(null);
-                }
-            } else {
-                base.setErrors(null);
-            }
-
+        if (greater.value < target.value) {
+            clearError(target, 'greaterThan');
         } else {
-
-            if (hasValue(base.errors)) {
-                base.errors.greaterThan = true;
-                base.setErrors(base.errors);
-            } else {
-                base.setErrors({
-                    greaterThan: true
-                });
-            }
+            setError(target, 'greaterThan');
         }
 
         return null;
     };
 }
 
-export function greaterOrEqualThan(BasePathField: string, TargetPathField: string): ValidatorFn {
+export function greaterOrEqualThan(TargetPathField: string, GreaterPathField: string): ValidatorFn {
     return (fg: FormGroup): ValidationErrors | null => {
 
-        const base = fg.get(BasePathField);
+        const greater = fg.get(GreaterPathField);
         const target = fg.get(TargetPathField);
 
-        if (base.value >= target.value) {
-            if (hasValue(target.errors)) {
-                delete base.errors.greaterOrEqualThan;
+        if (!hasValue(greater.value) || !hasValue(target.value)) {
+            clearError(target, 'greaterOrEqualThan');
+            return null;
+        }
 
-                if (hasValue(base.errors)) {
-                    base.setErrors(base.errors);
-                } else {
-                    base.setErrors(null);
-                }
-            } else {
-                base.setErrors(null);
-            }
-
+        if (greater.value <= target.value) {
+            clearError(target, 'greaterOrEqualThan');
         } else {
+            setError(target, 'greaterOrEqualThan');
+        }
 
-            if (hasValue(base.errors)) {
-                base.errors.greaterOrEqualThan = true;
-                base.setErrors(base.errors);
-            } else {
-                base.setErrors({
-                    greaterOrEqualThan: true
-                });
-            }
+        return null;
+    };
+}
+
+export function betweenRange(TargetPathField: string, LowerPathField: string, GreaterPathField: string): ValidatorFn {
+    return (fg: FormGroup): ValidationErrors | null => {
+
+        const target = fg.get(TargetPathField);
+        const lower = fg.get(LowerPathField);
+        const greater = fg.get(GreaterPathField);
+
+        if (!hasValue(lower.value) || !hasValue(greater.value) || !hasValue(target.value)) {
+            clearError(target, 'betweenRange');
+            return null;
+        }
+
+        if (target.value >= lower.value && target.value <= greater.value) {
+            clearError(target, 'betweenRange');
+        } else {
+            setError(target, 'betweenRange');
         }
 
         return null;

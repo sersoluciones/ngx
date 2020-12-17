@@ -7,10 +7,20 @@
  * @returns {boolean}
  */
 export function hasValue(variable: any | any[]): boolean {
+    console.log(typeof variable);
+    console.log(variable);
   if (Array.isArray(variable)) {
+
     return 0 < variable.length;
+
+  } else if ([null, undefined].indexOf(variable) === -1 && typeof variable === 'object') {
+
+    return Object.keys(variable).length > 0;
+
   } else {
+
     return ['', null, undefined, NaN].indexOf(variable) === -1;
+
   }
 }
 
