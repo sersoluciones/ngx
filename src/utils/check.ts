@@ -8,8 +8,6 @@
  */
 export function hasValue(variable: any | any[]): boolean {
 
-    console.log(variable, [null, undefined].indexOf(variable) === -1, typeof variable === 'object');
-
     if (Array.isArray(variable)) {
 
         return 0 < variable.length;
