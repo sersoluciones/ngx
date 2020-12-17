@@ -7,21 +7,19 @@
  * @returns {boolean}
  */
 export function hasValue(variable: any | any[]): boolean {
-    console.log(typeof variable);
-    console.log(variable);
-  if (Array.isArray(variable)) {
+    if (Array.isArray(variable)) {
 
-    return 0 < variable.length;
+        return 0 < variable.length;
 
-  } else if ([null, undefined].indexOf(variable) === -1 && typeof variable === 'object') {
+    } else if ([null, undefined].indexOf(variable) === -1 && typeof variable === 'object') {
 
-    return Object.keys(variable).length > 0;
+        return Object.keys(variable).length > 0;
 
-  } else {
+    } else {
 
-    return ['', null, undefined, NaN].indexOf(variable) === -1;
+        return ['', null, undefined, NaN].indexOf(variable) === -1;
 
-  }
+    }
 }
 
 /**
@@ -31,5 +29,5 @@ export function hasValue(variable: any | any[]): boolean {
  * @returns {boolean}
  */
 export function objHasValue(value: any): boolean {
-  return Object.keys(value).length > 0;
+    return Object.keys(value).length > 0;
 }
