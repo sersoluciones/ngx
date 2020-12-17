@@ -3,6 +3,7 @@ import { Component, Injector } from '@angular/core';
 import * as examples from 'src/app/app.examples';
 import { Validators, FormBuilder } from '@angular/forms';
 import { BaseView } from '../base/base-view';
+import { hasValue } from '../../../../src/utils/check';
 
 @Component({
     selector: 'showcase-forms',
@@ -25,6 +26,10 @@ export class FormsComponent extends BaseView {
     });
 
     text3Regex = '[0-9\s]';
+
+    fix() {
+        hasValue({});
+    }
 
     reset() {
         this.modelForm.reset();

@@ -7,16 +7,19 @@
  * @returns {boolean}
  */
 export function hasValue(variable: any | any[]): boolean {
+
+    console.log(variable, [null, undefined].indexOf(variable) === -1, typeof variable === 'object');
+
     if (Array.isArray(variable)) {
 
         return 0 < variable.length;
 
     } else if ([null, undefined].indexOf(variable) === -1 && typeof variable === 'object') {
 
-        return Object.keys(variable).length > 0;
+        return JSON.stringify(variable) !== '{}';
 
     } else {
-
+        console.log('entra');
         return ['', null, undefined, NaN].indexOf(variable) === -1;
 
     }
