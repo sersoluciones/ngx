@@ -12,10 +12,6 @@ export function hasValue(variable: any | any[]): boolean {
 
         return 0 < variable.length;
 
-    } else if ([null, undefined].indexOf(variable) === -1 && typeof variable === 'object') {
-
-        return JSON.stringify(variable) !== '{}';
-
     } else {
 
         return ['', null, undefined, NaN].indexOf(variable) === -1;
@@ -30,5 +26,9 @@ export function hasValue(variable: any | any[]): boolean {
  * @returns {boolean}
  */
 export function objHasValue(value: any): boolean {
-    return Object.keys(value).length > 0;
+    if ([null, undefined].indexOf(value) === -1 && typeof value === 'object') {
+        return Object.keys(value).length > 0;
+    } else {
+        return false;
+    }
 }

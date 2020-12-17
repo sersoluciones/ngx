@@ -1,11 +1,11 @@
 import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { hasValue } from '../../utils/check';
+import { hasValue, objHasValue } from '../../utils/check';
 
 function clearError(target: AbstractControl, name: string) {
-    if (hasValue(target.errors)) {
+    if (objHasValue(target.errors)) {
         delete target.errors[name];
 
-        if (hasValue(target.errors)) {
+        if (objHasValue(target.errors)) {
             target.setErrors(target.errors);
         } else {
             target.setErrors(null);
@@ -16,7 +16,7 @@ function clearError(target: AbstractControl, name: string) {
 }
 
 function setError(target: AbstractControl, name: string) {
-    if (hasValue(target.errors)) {
+    if (objHasValue(target.errors)) {
         target.errors[name] = true;
         target.setErrors(target.errors);
     } else {
