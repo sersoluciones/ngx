@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
-import { hasValue } from 'src/utils/check';
+import { hasValue } from '../utils/check';
 
 @Pipe({
     name: 'dateUTC',
