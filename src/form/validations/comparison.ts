@@ -11,7 +11,6 @@ function clearError(target: AbstractControl, name: string) {
             target.setErrors(null);
         }
     } else {
-        console.log('entra');
         target.setErrors(null);
     }
 }
