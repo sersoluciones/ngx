@@ -68,6 +68,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
     @Output() onDeSelect: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
     @Output() onSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
     @Output() onDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
     @Output() onOpen: EventEmitter<any> = new EventEmitter<any>();
@@ -1023,6 +1024,8 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     clearSelection(e: MouseEvent) {
 
+        this.onClear.emit(this.selectedItems);
+
         if (this.settings.groupBy) {
             this.groupCachedItems.forEach((obj) => {
                 obj.selected = false;
@@ -1040,8 +1043,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.onChangeCallback(this.selectedItems);
             this.onTouchedCallback(this.selectedItems);
         }
-
-        this.onDeSelectAll.emit(this.selectedItems);
 
         e.stopPropagation();
     }

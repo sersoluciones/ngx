@@ -86,7 +86,11 @@ export class LongPressDirective {
     onMouseUp(event: MouseEvent | TouchEvent) {
 
         // don't do right/middle clicks
-        if ((event as MouseEvent).button !== 0) { return; }
+        // if (event.type === 'mouseup' && (event as MouseEvent).button !== 0) { return; }
+        event.preventDefault();
+        event.stopPropagation();
+        event.cancelBubble = true;
+        event.returnValue = false;
 
         this.endPress();
     }

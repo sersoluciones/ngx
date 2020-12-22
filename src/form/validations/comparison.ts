@@ -26,18 +26,18 @@ function setError(target: AbstractControl, name: string) {
     }
 }
 
-export function lowerThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
+export function lowerThan(TargetPathField: string, GreaterPathField: string): ValidatorFn {
     return (fg: FormGroup): ValidationErrors | null => {
 
-        const lower = fg.get(LowerPathField);
+        const greater = fg.get(GreaterPathField);
         const target = fg.get(TargetPathField);
 
-        if (!hasValue(lower.value) || !hasValue(target.value)) {
+        if (!hasValue(greater.value) || !hasValue(target.value)) {
             clearError(target, 'lowerThan');
             return null;
         }
 
-        if (lower.value > target.value) {
+        if (greater.value > target.value) {
             clearError(target, 'lowerThan');
         } else {
             setError(target, 'lowerThan');
@@ -69,18 +69,18 @@ export function lowerOrEqualThan(TargetPathField: string, LowerPathField: string
     };
 }
 
-export function greaterThan(TargetPathField: string, GreaterPathField: string): ValidatorFn {
+export function greaterThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
     return (fg: FormGroup): ValidationErrors | null => {
 
-        const greater = fg.get(GreaterPathField);
+        const lower = fg.get(LowerPathField);
         const target = fg.get(TargetPathField);
 
-        if (!hasValue(greater.value) || !hasValue(target.value)) {
+        if (!hasValue(lower.value) || !hasValue(target.value)) {
             clearError(target, 'greaterThan');
             return null;
         }
 
-        if (greater.value < target.value) {
+        if (lower.value < target.value) {
             clearError(target, 'greaterThan');
         } else {
             setError(target, 'greaterThan');
@@ -90,18 +90,18 @@ export function greaterThan(TargetPathField: string, GreaterPathField: string): 
     };
 }
 
-export function greaterOrEqualThan(TargetPathField: string, GreaterPathField: string): ValidatorFn {
+export function greaterOrEqualThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
     return (fg: FormGroup): ValidationErrors | null => {
 
-        const greater = fg.get(GreaterPathField);
+        const lower = fg.get(LowerPathField);
         const target = fg.get(TargetPathField);
 
-        if (!hasValue(greater.value) || !hasValue(target.value)) {
+        if (!hasValue(lower.value) || !hasValue(target.value)) {
             clearError(target, 'greaterOrEqualThan');
             return null;
         }
 
-        if (greater.value <= target.value) {
+        if (lower.value <= target.value) {
             clearError(target, 'greaterOrEqualThan');
         } else {
             setError(target, 'greaterOrEqualThan');

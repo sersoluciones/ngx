@@ -1,7 +1,7 @@
 import { CustomValidators } from './../../../../src/form/validations/custom-validators';
-import { Component, Injector } from '@angular/core';
+import { Component } from '@angular/core';
 import * as examples from 'src/app/app.examples';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { BaseView } from '../base/base-view';
 import { hasValue } from '../../../../src/utils/check';
 

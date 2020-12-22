@@ -31,38 +31,38 @@ export class CustomValidators {
 
     /**
      * Verifica si un campo es menor a otro
-     * @param TargetPathField Path del campo que deberia ser mayor
-     * @param LowerPathField Path del campo que debe ser menor
+     * @param TargetPathField Path del campo que deberia ser menor
+     * @param GreaterPathField Path del campo que debe ser mayor
      */
-    static lowerThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
-        return lowerThan(TargetPathField, LowerPathField);
+    static lowerThan(TargetPathField: string, GreaterPathField: string): ValidatorFn {
+        return lowerThan(TargetPathField, GreaterPathField);
     }
 
     /**
      * Verifica si un campo es menor o igual a otro
-     * @param TargetPathField Path del campo que deberia ser mayor o igual
-     * @param LowerPathField Path del campo que debe ser menor o igual
+     * @param TargetPathField Path del campo que deberia ser menor o igual
+     * @param GreaterPathField Path del campo que debe ser mayor o igual
      */
-    static lowerOrEqualThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
-        return lowerOrEqualThan(TargetPathField, LowerPathField);
+    static lowerOrEqualThan(TargetPathField: string, GreaterPathField: string): ValidatorFn {
+        return lowerOrEqualThan(TargetPathField, GreaterPathField);
     }
 
     /**
      * Verifica si un campo es mayor a otro
-     * @param TargetPathField Path del campo que deberia ser menor
-     * @param GreaterPathField Path del campo que debe ser mayor
+     * @param TargetPathField Path del campo que deberia ser mayor
+     * @param LowerPathField Path del campo que debe ser menor
      */
-    static greaterThan(TargetPathField: string, GreaterPathField: string): ValidatorFn {
-        return greaterThan(TargetPathField, GreaterPathField);
+    static greaterThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
+        return greaterThan(TargetPathField, LowerPathField);
     }
 
     /**
      * Verifica si un campo es mayor o igual a otro
-     * @param TargetPathField Path del campo que deberia ser menor o igual
-     * @param GreaterPathField Path del campo que debe ser mayor o igual
+     * @param TargetPathField Path del campo que deberia ser mayor
+     * @param LowerPathField Path del campo que debe ser menor
      */
-    static greaterOrEqualThan(TargetPathField: string, GreaterPathField: string): ValidatorFn {
-        return greaterOrEqualThan(TargetPathField, GreaterPathField);
+    static greaterOrEqualThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
+        return greaterOrEqualThan(TargetPathField, LowerPathField);
     }
 
     /**
