@@ -1,12 +1,12 @@
-<div class="list-filter" #searchInput (click)="toggleDropdown($event)">
+<div class="list-filter" #searchInputCont (click)="toggleDropdown($event)">
 
     <span class="material-icons icon-search">search</span>
 
     <div class="label" [ngClass]="{active: labelActive}">{{ label }}</div>
 
-    <input class="c-input not-styled" type="text" [formControl]="search">
+    <input #searchInput class="c-input not-styled" type="text" [formControl]="search">
 
-    <span [hidden]="!hasValue(filter)" (click)="clearSearch()" class="material-icons icon-clear">cancel</span>
+    <span [hidden]="!hasValue(search.value)" (click)="clearSearch()" class="material-icons icon-clear">cancel</span>
 
     <div class="controls">
         <span class="material-icons chevron" [ngClass]="{'rotate': isActive}">keyboard_arrow_down</span>

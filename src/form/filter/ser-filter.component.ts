@@ -77,6 +77,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
     @ContentChild(SDBadgeDirective, { static: true }) badgeTempl: SDBadgeDirective;
     @ContentChild(SDBadgeItemDirective, { static: true }) badgeItemTempl: SDBadgeItemDirective;
 
+    @ViewChild('searchInputCont') searchInputCont: ElementRef;
     @ViewChild('searchInput') searchInput: ElementRef;
     @ViewChild('selectedList') selectedListElem: ElementRef;
     @ViewChild('dropdownList') dropdownListElem: ElementRef;
@@ -89,7 +90,6 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
     isSelectAll = false;
     isFilterSelectAll = false;
     groupedData: any[];
-    filter: any;
     chunkArray: any[];
     scrollTop: any;
     chunkIndex: any[] = [];
@@ -304,6 +304,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
     addSelected(item: any) {
         this.selectedItems.push(item);
+        this.search.setValue(null);
 
         const items = this.selectedItems.map(element => {
 
@@ -413,9 +414,12 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
     public closeDropdown() {
 
+        /* console.log(this.searchInput);
+
         if (this.searchInput) {
+            console.log('this.searchInput');
             this.searchInput.nativeElement.value = '';
-        }
+        } */
 
         this.clearSearch();
         this.isActive = false;
@@ -434,7 +438,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
         setTimeout(() => {
 
             const dropdown = (this.dropdownListElem.nativeElement as HTMLDivElement);
-            const el = (this.searchInput.nativeElement as HTMLElement);
+            const el = (this.searchInputCont.nativeElement as HTMLElement);
             const remainingHeight = document.documentElement.offsetHeight - (dropdown.offsetHeight + el.getBoundingClientRect().top + el.offsetHeight);
 
             this._renderer.setStyle(dropdown, 'width', (el.offsetWidth) + 'px');
@@ -489,11 +493,11 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
     clearSearch() {
 
-        this.filter = '';
+        this.search.setValue('');
         this.isFilterSelectAll = false;
 
         setTimeout(() => {
-            this.searchInput?.nativeElement.focus();
+            this.searchInput?.nativeElement.blur();
         }, 0);
 
     }

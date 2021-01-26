@@ -34,6 +34,7 @@ export * from './graphql/utils';
 // Utils
 export * from './utils/object';
 export * from './utils/array';
+export * from './utils/date';
 export * from './utils/bowser';
 export * from './utils/check';
 export * from './utils/navigator';

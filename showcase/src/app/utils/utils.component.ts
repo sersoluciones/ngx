@@ -5,6 +5,7 @@ import { PrefersColorSchemeService } from '../../../../src/prefers-color-scheme/
 import { SnackbarService } from '../../../../src/ui/snackbar.service';
 import { BaseView } from '../base/base-view';
 import { MaterialIcons } from './material-icons-type';
+import { getDateRange } from '../../../../src/utils/date';
 
 @Component({
     selector: 'showcase-utils',
