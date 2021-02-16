@@ -77,9 +77,6 @@ export function getFileType(arrayBuffer: ArrayBuffer) {
         case 'ffd8ffe8':
             return 'jpeg';
 
-        case '25504446':
-            return 'ia';
-
         case '504b34':
             return 'xlsx';
 
