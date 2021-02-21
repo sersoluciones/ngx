@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SerFormModule } from './../../../src/form/ser-form.module';
 import { SerUiModule } from './../../../src/ui/ser-ui.module';
 import { FacebookComponent } from './facebook/facebook.component';
@@ -44,6 +44,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     SerUiModule,
     SerFormModule,

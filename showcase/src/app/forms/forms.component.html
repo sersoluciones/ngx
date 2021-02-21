@@ -1,28 +1,22 @@
 <form class="form-example" [formGroup]="modelForm">
-    <button (click)="fix()">test</button>
 
     <h1>Formularios básicos</h1>
 
     <div class="example-snippet">
         <div class="preview">
 
-            <h3>Previsualización</h3>
-
             <div class="body">
-                <div>
-                    <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('text1')">Habilitar / Deshabilitar</button>
+                <div class="desc">Entrada de texto básico (Texto, Números, Area de texto etc)</div>
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('text1')">Habilitar / Deshabilitar</button>
 
-                    <ser-form-element style="width: 300px;">
-                        <label>Texto</label>
-                        <input type="text" serControl formControlName="text1">
+                <ser-form-element style="width: 300px;">
+                    <label>Texto</label>
+                    <input type="text" serControl formControlName="text1">
 
-                        <div serErrors="text1">
-                            <div serError="required">Requerido</div>
-                            <div serError="verifyNIT">Formato: xxxxxxxxx-x</div>
-                            <div serError="verifyNITIntegrity">NIT inválido</div>
-                        </div>
-                    </ser-form-element>
-                </div>
+                    <div serErrors="text1">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
             </div>
         </div>
 
@@ -43,21 +37,20 @@
     <div class="example-snippet">
         <div class="preview">
 
-            <h3>Previsualización</h3>
-
             <div class="body">
-                <div>
-                    <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('text3')">Habilitar / Deshabilitar</button>
+                <div class="desc">Entrada de texto para validar formato e integridad de NIT Colombiano</div>
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('nit')">Habilitar / Deshabilitar</button>
 
-                    <ser-form-element style="width: 300px;">
-                        <label>Texto filtrado</label>
-                        <input type="text" serControl formControlName="text3" [inputRegex]="text3Regex">
+                <ser-form-element style="width: 300px;">
+                    <label>NIT</label>
+                    <input type="text" serControl formControlName="nit" placeholder="XXXXXXXXX-X">
 
-                        <div serErrors="text3">
-                            <div serError="required">Requerido</div>
-                        </div>
-                    </ser-form-element>
-                </div>
+                    <div serErrors="nit">
+                        <div serError="required">Requerido</div>
+                        <div serError="verifyNIT">Formato: xxxxxxxxx-x</div>
+                        <div serError="verifyNITIntegrity">NIT inválido</div>
+                    </div>
+                </ser-form-element>
             </div>
         </div>
 
@@ -66,8 +59,11 @@
             <h3>Código</h3>
 
             <div class="body">
-                <pre><code [highlight]="examples.InputTextExample"></code></pre>
-                <button class="bttn icon" type="button" [copyToClipboard]="examples.InputTextExample" (copied)="alert('Copiado al portapapeles')">
+                <div>
+                    <pre><code [highlight]="examples.NITTSExample"></code></pre>
+                    <pre><code [highlight]="examples.NITExample"></code></pre>
+                </div>
+                <button class="bttn icon" type="button" [copyToClipboard]="examples.NITExample" (copied)="alert('Copiado al portapapeles')">
                     <span class="material-icons">content_copy</span>
                 </button>
             </div>
@@ -78,21 +74,18 @@
     <div class="example-snippet">
         <div class="preview">
 
-            <h3>Previsualización</h3>
-
             <div class="body">
-                <div>
-                    <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('text2')">Habilitar / Deshabilitar</button>
+                <div class="desc">Directiva para que un area de texto aumente o disminuya su altura según el contenido</div>
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('text2')">Habilitar / Deshabilitar</button>
 
-                    <ser-form-element style="width: 300px;">
-                        <label>Area de texto</label>
-                        <textarea serControl growOnInput formControlName="text2"></textarea>
+                <ser-form-element style="width: 300px;">
+                    <label>Area de texto</label>
+                    <textarea serControl growOnInput formControlName="text2"></textarea>
 
-                        <div serErrors="text2">
-                            <div serError="required">Requerido</div>
-                        </div>
-                    </ser-form-element>
-                </div>
+                    <div serErrors="text2">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
             </div>
         </div>
 
@@ -101,8 +94,8 @@
             <h3>Código</h3>
 
             <div class="body">
-                <pre><code [highlight]="examples.InputTextExample"></code></pre>
-                <button class="bttn icon" type="button" [copyToClipboard]="examples.InputTextExample" (copied)="alert('Copiado al portapapeles')">
+                <pre><code [highlight]="examples.TextAreaExample"></code></pre>
+                <button class="bttn icon" type="button" [copyToClipboard]="examples.TextAreaExample" (copied)="alert('Copiado al portapapeles')">
                     <span class="material-icons">content_copy</span>
                 </button>
             </div>
@@ -113,22 +106,18 @@
     <div class="example-snippet">
         <div class="preview">
 
-            <h3>Previsualización</h3>
-
             <div class="body">
-                <div>
-                    <button class="bttn center-margin" type="button" (click)="reset()">Reset</button>
-                    <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('address')">Habilitar / Deshabilitar</button>
+                <div class="desc">Directiva para ingresar una dirección guiada en formato colombiano</div>
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('address')">Habilitar / Deshabilitar</button>
 
-                    <ser-form-element style="min-width: 300px;">
-                        <label>Dirección</label>
-                        <address-col-input serControl formControlName="address"></address-col-input>
+                <ser-form-element style="min-width: 300px;">
+                    <label>Dirección</label>
+                    <address-col-input serControl formControlName="address"></address-col-input>
 
-                        <div serErrors="address">
-                            <div serError="required">Requerido</div>
-                        </div>
-                    </ser-form-element>
-                </div>
+                    <div serErrors="address">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
             </div>
         </div>
 
@@ -139,6 +128,61 @@
             <div class="body">
                 <pre><code [highlight]="examples.InputAddressExample"></code></pre>
                 <button class="bttn icon" type="button" [copyToClipboard]="examples.InputAddressExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="example-snippet">
+        <div class="preview">
+
+            <div class="body">
+                <div class="desc">Directiva para ingresar un PIN alfanúmerico de logitud variable</div>
+
+                <div [formGroup]="modelForm.get('pinForm')">
+
+                    <ser-form-element>
+                        <label>Tamaño</label>
+                        <input serControl type="number" formControlName="codeLength">
+                    </ser-form-element>
+
+                    <div class="checkbox">
+                        <label>
+                            <input serControl type="checkbox" formControlName="onlyNumber">
+                            Solo números
+                        </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            <input serControl type="checkbox" formControlName="isCodeHidden">
+                            Ocultar escritura
+                        </label>
+                    </div>
+
+                </div>
+
+                <ng-container *ngIf="pinShow">
+                    <ser-form-element>
+                        <pin-input serControl formControlName="pin" [codeLength]="modelForm.value.pinForm.codeLength" [onlyNumber]="modelForm.value.pinForm.onlyNumber" [isCodeHidden]="modelForm.value.pinForm.isCodeHidden"></pin-input>
+
+                        <div serErrors="pin">
+                            <div serError="required">Requerido</div>
+                        </div>
+                    </ser-form-element>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="code">
+
+            <h3>Código</h3>
+
+            <div class="body">
+                <pre><code [highlight]="examples.PINExample"></code></pre>
+                <button class="bttn icon" type="button" [copyToClipboard]="examples.PINExample" (copied)="alert('Copiado al portapapeles')">
                     <span class="material-icons">content_copy</span>
                 </button>
             </div>

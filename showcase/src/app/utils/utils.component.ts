@@ -1,11 +1,10 @@
-import { FormControl } from '@angular/forms';
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { FullscreenService } from '../../../../src/fullscreen/fullscreen.service';
 import { PrefersColorSchemeService } from '../../../../src/prefers-color-scheme/prefers-color-scheme.service';
 import { SnackbarService } from '../../../../src/ui/snackbar.service';
+import { generatePassword } from '../../../../src/utils/random';
 import { BaseView } from '../base/base-view';
 import { MaterialIcons } from './material-icons-type';
-import { getDateRange } from '../../../../src/utils/date';
 
 @Component({
     selector: 'showcase-utils',
@@ -15,14 +14,23 @@ import { getDateRange } from '../../../../src/utils/date';
 export class UtilsComponent extends BaseView {
 
     messageTypeClick = 'Clic aquí para probar';
+
     snackbarForm = this._fb.group({
         msj: ['Actualizado exitosamente'],
         class: ['green'],
         icon: ['done']
     });
 
-    snackbarDataClass = ['green', 'red'];
+    newPassword = '';
+    passwordForm = this._fb.group({
+        length: [8],
+        numbers: [true],
+        lettersLowerCase: [true],
+        lettersUpperCase: [true],
+        specialChars: [false]
+    });
 
+    snackbarDataClass = ['green', 'red'];
     snackbarDataIcon = MaterialIcons;
 
     constructor(public colorscheme: PrefersColorSchemeService, public fullscreen: FullscreenService, protected injectorObj: Injector, private _snackbar: SnackbarService) {
@@ -34,7 +42,7 @@ export class UtilsComponent extends BaseView {
         this.clearMessageTypeClick();
     }
 
-    longClick(ev: Event) {
+    longClick() {
         this.messageTypeClick = 'Clic prolongado';
         this.clearMessageTypeClick();
     }
@@ -50,6 +58,16 @@ export class UtilsComponent extends BaseView {
             msj: this.snackbarForm.value.msj,
             iconClass: this.snackbarForm.value.class,
             iconName: this.snackbarForm.value.icon
+        });
+    }
+
+    getPassword() {
+        this.newPassword = generatePassword({
+            length: this.passwordForm.value.length,
+            numbers: this.passwordForm.value.numbers,
+            lettersLowerCase: this.passwordForm.value.lettersLowerCase,
+            lettersUpperCase: this.passwordForm.value.lettersUpperCase,
+            specialChars: this.passwordForm.value.specialChars
         });
     }
 

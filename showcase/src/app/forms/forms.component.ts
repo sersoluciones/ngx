@@ -17,22 +17,31 @@ export class FormsComponent extends BaseView {
         text1: ['', [Validators.required, CustomValidators.verifyNIT]],
         text2: ['', Validators.required],
         text3: ['', Validators.required],
+        nit: ['', [Validators.required, CustomValidators.verifyNIT]],
         address: ['', Validators.required],
         num: [2],
         num1: [],
-        num2: []
+        num2: [],
+        pin: ['', Validators.required],
+        pinForm: this._fb.group({
+            codeLength: [4, Validators.required],
+            onlyNumber: [true, Validators.required],
+            isCodeHidden: [false, Validators.required]
+        })
     }, {
         validators: [CustomValidators.betweenRange('num', 'num1', 'num2')]
     });
 
     text3Regex = '[0-9\s]';
+    pinShow = true;
 
-    fix() {
-        hasValue({});
-    }
-
-    reset() {
-        this.modelForm.reset();
+    init() {
+        this.modelForm.get('pinForm').valueChanges.subscribe(() => {
+            this.pinShow = false;
+            setTimeout(() => {
+                this.pinShow = true;
+            }, 500);
+        });
     }
 
 }

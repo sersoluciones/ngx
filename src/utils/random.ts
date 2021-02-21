@@ -81,28 +81,39 @@ export function generatePassword(options?: RandomPasswordOps) {
     mergeObjs(defaultOptions, options);
 
     let charset = '';
+    let regex = '^';
 
     if (defaultOptions?.numbers) {
         charset += '0123456789';
+        regex += '(?=.*[0-9])';
     }
 
     if (defaultOptions?.lettersLowerCase) {
         charset += 'abcdefghijklmnopqrstuvwxyz';
+        regex += '(?=.*[a-z])';
     }
 
     if (defaultOptions?.lettersUpperCase) {
         charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        regex += '(?=.*[A-Z])';
     }
 
     if (defaultOptions?.specialChars) {
         charset += '!#$%&\()*+,-./:;<=>?@^[\\]^_`{|}~';
+        regex += '(?=.*[!#$%&\()*+,-./:;<=>?@^[\\]^_`{|}~])';
     }
 
-    let retVal = '';
+    let password: string;
+    const regexFn = new RegExp(regex);
 
-    for (let i = 0, n = charset.length; i < defaultOptions.length; ++i) {
-        retVal += charset.charAt(Math.floor(Math.random() * n));
-    }
+    do {
+        password = '';
 
-    return retVal;
+        for (let i = 0, n = charset.length; i < defaultOptions.length; ++i) {
+            password += charset.charAt(Math.floor(Math.random() * n));
+        }
+
+    } while (!regexFn.test(password));
+
+    return password;
 }

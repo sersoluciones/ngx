@@ -1,14 +1,14 @@
 export const InstallExample = `npm install --save @sersol/ngx`;
 
 export const PrefersColorSchemeExample =
-`import { PrefersColorScheme } from 'src/prefers-color-scheme';
+`import { PrefersColorScheme } from '@sersol/ngx';
 
 const colorscheme = new PrefersColorScheme();
 colorscheme.init();
 colorscheme.watch();`;
 
 export const CookiesExample =
-`import { Cookies } from 'src/typescript/cookie';
+`import { Cookies } from '@sersol/ngx';
 
 Cookies.get('Test'); // Obtiene el valor de una cookie
 Cookies.set('Test', '123'); // Setea valor de una cookie
@@ -19,7 +19,7 @@ export const LongClickExample =
 `<div longPress (onLongPress)="longClick()" (onShortPress)="singleClick()"></div>`;
 
 export const FullscreenExample =
-`import { Fullscreen } from 'src/typescript/fullscreen';
+`import { Fullscreen } from '@sersol/ngx';
 
 const fullscreen = new Fullscreen();
 fullscreen.enable(); // Habilita el modo pantalla completa
@@ -36,12 +36,62 @@ export const InputTextExample =
     </div>
 </ser-form-element>`;
 
+export const NITTSExample =
+`modelForm = this._fb.group({
+    nit: ['', [Validators.required, CustomValidators.verifyNIT]]
+});`;
+
+export const NITExample =
+`<ser-form-element>
+    <label>NIT</label>
+    <input type="text" serControl formControlName="nit">
+
+    <div serErrors="bit">
+        <div serError="required">Requerido</div>
+    </div>
+</ser-form-element>`;
+
 export const InputAddressExample =
 `<ser-form-element>
     <label>Dirección</label>
     <address-col-input serControl formControlName="address"></address-col-input>
 
     <div serErrors="address">
+        <div serError="required">Requerido</div>
+    </div>
+</ser-form-element>`;
+
+export const PINExample =
+`<!-- Opciones por defecto: CodeLength: 4, onlyNumber: true, isCodeHidden: false -->
+
+<ser-form-element>
+<pin-input serControl formControlName="pin"></pin-input>
+
+    <div serErrors="pin">
+        <div serError="required">Requerido</div>
+    </div>
+</ser-form-element>
+
+<!-- Personalizando opciones -->
+
+<ser-form-element>
+    <pin-input serControl formControlName="pin"
+        [codeLength]="codeLength"
+        [onlyNumber]="onlyNumber"
+        [isCodeHidden]="isCodeHidden">
+    </pin-input>
+
+    <div serErrors="pin">
+        <div serError="required">Requerido</div>
+    </div>
+</ser-form-element>`;
+
+export const TextAreaExample =
+`<ser-form-element>
+    <label>Area de texto</label>
+    <textarea serControl growOnInput formControlName="text2"></textarea>
+
+    <div serErrors="text2">
         <div serError="required">Requerido</div>
     </div>
 </ser-form-element>`;
@@ -132,3 +182,14 @@ export const DropdownTemplateMultipleExample =
 
 export const FilterTemplateExample =
 `<ser-filter formControlName="filter1" [data]="options.dropdown" label="Filtros"></ser-filter>`;
+
+export const GeneratePasswordExample =
+`import { generatePassword } from '@sersol/ngx';
+
+const newPassword = generatePassword({
+    length: 8, // Tamaño de contraseña
+    numbers: true, // Incluir números en la contraseña
+    specialChars: false, // Incluir caracteres especiales
+    lettersUpperCase: true, // Incluir letras mayusculas
+    lettersLowerCase: true // Incluir letras minusculas
+});`;

@@ -72,8 +72,8 @@
 </h2>
 
 <p class="description">
-    (<a href="https://sersoluciones.github.io/ngx-ui-doc/classes/_cookie_.cookies.html" target="_blank" rel="noopener noreferrer">Cookies</a>)
-    Clase abstracta para obtener, actualizar y borrar cookies en el navegador web
+    (<a href="https://sersoluciones.github.io/ngx-doc/directives/LongPressDirective.html" target="_blank" rel="noopener noreferrer">longPress</a>)
+    Directiva para detectar click cortos ó prolongados para eventos de mouse o pantallas tactiles
 </p>
 
 <div class="long-click" longPress (onLongPress)="longClick($event)" (onShortPress)="singleClick()">
@@ -113,7 +113,7 @@
 </h2>
 
 <p class="description">
-    (<a href="https://sersoluciones.github.io/ngx-ui-doc/classes/_fullscreen_.fullscreen.html" target="_blank" rel="noopener noreferrer">Fullscreen</a>)
+    (<a href="https://sersoluciones.github.io/ngx-doc/injectables/SnackbarService.html" target="_blank" rel="noopener noreferrer">Snackbar</a>)
     Servicio para mostrar un snackbar temporal con un mensaje
 </p>
 
@@ -146,3 +146,65 @@
 </div>
 
 <pre><code [highlight]="examples.FullscreenExample"></code></pre>
+
+
+<div class="separator"></div>
+
+<h2>
+    <a class="bttn icon " href="#random-password">
+        <span class="material-icons">link</span>
+    </a>
+    Contraseña aleatoria
+</h2>
+
+<p class="description">
+    (<a href="https://sersoluciones.github.io/ngx-doc/miscellaneous/functions.html#generatePassword" target="_blank" rel="noopener noreferrer">generatePassword</a>)
+    Función para generar una contraseña aleatoria
+</p>
+
+<div class="row-wrap start-center" [formGroup]="passwordForm">
+
+    <ser-form-element>
+        <label>Tamaño</label>
+        <input serControl formControlName="length">
+    </ser-form-element>
+
+    <div>
+        <div class="checkbox">
+            <label>
+                <input serControl type="checkbox" formControlName="numbers">
+                Números
+            </label>
+        </div>
+
+        <div class="checkbox">
+            <label>
+                <input serControl type="checkbox" formControlName="lettersLowerCase">
+                Letras minusculas
+            </label>
+        </div>
+    </div>
+
+    <div>
+        <div class="checkbox">
+            <label>
+                <input serControl type="checkbox" formControlName="lettersUpperCase">
+                Letras mayusculas
+            </label>
+        </div>
+
+        <div class="checkbox">
+            <label>
+                <input serControl type="checkbox" formControlName="specialChars">
+                Caracteres especiales
+            </label>
+        </div>
+    </div>
+
+    <button type="button" class="bttn green" (click)="getPassword()">Generar</button>
+    <div class="new-password">
+        {{ newPassword }}
+    </div>
+</div>
+
+<pre><code [highlight]="examples.GeneratePasswordExample"></code></pre>
