@@ -17,6 +17,7 @@ export class FormsComponent extends BaseView {
         text1: ['', [Validators.required, CustomValidators.verifyNIT]],
         text2: ['', Validators.required],
         text3: ['', Validators.required],
+        regexInput: ['[\\s]', Validators.required],
         nit: ['', [Validators.required, CustomValidators.verifyNIT]],
         address: ['', Validators.required],
         num: [2],

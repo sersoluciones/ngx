@@ -44,9 +44,21 @@ export const NITTSExample =
 export const NITExample =
 `<ser-form-element>
     <label>NIT</label>
-    <input type="text" serControl formControlName="nit">
+    <input type="text" serControl formControlName="nit" placeholder="XXXXXXXXX-X">
 
-    <div serErrors="bit">
+    <div serErrors="nit">
+        <div serError="required">Requerido</div>
+        <div serError="verifyNIT">Formato: xxxxxxxxx-x</div>
+        <div serError="verifyNITIntegrity">NIT inválido</div>
+    </div>
+</ser-form-element>`;
+
+export const InputRegexExample =
+`<ser-form-element>
+    <label>Texto</label>
+    <input serControl formControlName="text" inputRegex="[\\s]">
+
+    <div serErrors="text">
         <div serError="required">Requerido</div>
     </div>
 </ser-form-element>`;
@@ -65,7 +77,7 @@ export const PINExample =
 `<!-- Opciones por defecto: CodeLength: 4, onlyNumber: true, isCodeHidden: false -->
 
 <ser-form-element>
-<pin-input serControl formControlName="pin"></pin-input>
+    <pin-input serControl formControlName="pin"></pin-input>
 
     <div serErrors="pin">
         <div serError="required">Requerido</div>
