@@ -215,28 +215,30 @@
             <div class="body">
                 <div class="desc">Directiva para ingresar un PIN alfanumérico de longitud variable</div>
 
-                <div class="row start-center" [formGroup]="modelForm.get('pinForm')">
+                <ng-container formGroupName="pinForm">
+                    <div class="row start-center">
 
-                    <ser-form-element>
-                        <label>Tamaño</label>
-                        <input serControl type="number" formControlName="codeLength">
-                    </ser-form-element>
+                        <ser-form-element>
+                            <label>Tamaño</label>
+                            <input serControl type="number" formControlName="codeLength">
+                        </ser-form-element>
 
-                    <div class="checkbox">
-                        <label>
-                            <input serControl type="checkbox" formControlName="onlyNumber">
-                            Solo números
-                        </label>
+                        <div class="checkbox">
+                            <label>
+                                <input serControl type="checkbox" formControlName="onlyNumber">
+                                Solo números
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input serControl type="checkbox" formControlName="isCodeHidden">
+                                Ocultar escritura
+                            </label>
+                        </div>
+
                     </div>
-
-                    <div class="checkbox">
-                        <label>
-                            <input serControl type="checkbox" formControlName="isCodeHidden">
-                            Ocultar escritura
-                        </label>
-                    </div>
-
-                </div>
+                </ng-container>
 
                 <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('pin')">Habilitar / Deshabilitar</button>
 

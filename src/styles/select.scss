@@ -152,7 +152,8 @@ ser-select {
             overflow: auto;
             margin: 0px;
 
-            > .item {
+            > .item,
+            > .scrollable-content > .item {
                 display: flex;
                 padding: 10px 10px;
                 cursor: pointer;
@@ -169,6 +170,12 @@ ser-select {
                 &:hover {
                     background-color: rgba(131, 131, 131, 0.13);
                 }
+            }
+        }
+
+        &.lazy-loading {
+            .list {
+                height: 300px;
             }
         }
 

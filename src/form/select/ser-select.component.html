@@ -54,7 +54,7 @@
     </div>
 </div>
 
-<div #dropdownList class="dropdown-list" [ngClass]="{'single-select-mode': settings.singleSelection }">
+<div #dropdownList class="dropdown-list" [ngClass]="{'single-select-mode': settings.singleSelection, 'lazy-loading': settings.lazyLoading }">
     <div class="pure-checkbox select-all" *ngIf="settings.enableCheckAll && !settings.singleSelection && !settings.limitSelection && !isDisabledItemPresent" (click)="toggleSelectAll()">
 
         <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelectAll" [disabled]="settings.limitSelection == selectedItems?.length" id="selectAll"/>
@@ -145,18 +145,23 @@
             <ng-container *ngIf="settings.lazyLoading">
 
                 <div *ngIf="!hasValue(itemTempl) && !hasValue(badgeItemTempl)">
-                    <div virtualScroller #scroll [enableUnequalChildrenSizes]="randomSize" [items]="virtualdata" (vsStart)="onScrollEnd($event)" (vsEnd)="onScrollEnd($event)" [ngStyle]="{'height': settings.maxHeight+'px'}" class="list">
-                        <div *ngFor="let item of scroll.viewPortItems; let i = index;" (click)="onItemClick(item)" class="pure-checkbox" [ngClass]="{'selected-item': isSelected(item) }">
+                    <div class="list" virtualScroller #scroll [enableUnequalChildrenSizes]="randomSize" [items]="filteredList">
+                        <div class="item pure-checkbox" *ngFor="let item of scroll.viewPortItems; let i = index;" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item) }">
                             <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
                             <label>{{ getLabelText(item) }}</label>
                         </div>
                     </div>
                 </div>
 
+                <!--
+                    <div (vsStart)="onScrollEnd($event)" (vsEnd)="onScrollEnd($event)">
+                        <div *ngFor="let item of scroll.viewPortItems; let i = index;" (click)="onItemClick(item)" class="pure-checkbox" [ngClass]="{'selected-item': isSelected(item) }"></div>
+                    </div> -->
+
                 <div *ngIf="hasValue(itemTempl) || hasValue(badgeItemTempl)">
-                    <div virtualScroller #scroll2 [enableUnequalChildrenSizes]="randomSize" [items]="virtualdata" (vsStart)="onScrollEnd($event)" (vsEnd)="onScrollEnd($event)" class="list" [ngStyle]="{'height': settings.maxHeight+'px'}">
-                        <div *ngFor="let item of scroll2.viewPortItems;" (click)="onItemClick(item)" class="pure-checkbox" [ngClass]="{'selected-item': isSelected(item) }">
-                            <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]"  />
+                    <div class="list" virtualScroller #scroll [enableUnequalChildrenSizes]="randomSize" [items]="filteredList">
+                        <div class="item pure-checkbox" *ngFor="let item of scroll.viewPortItems; let i = index;" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item) }">
+                            <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
                             <label></label>
                             <ng-container *ngIf="hasValue(itemTempl)">
                                 <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item}"></ng-container>

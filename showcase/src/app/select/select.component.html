@@ -13,7 +13,7 @@
 
                     <ser-form-element style="min-width: 300px;">
                         <label>Por defecto</label>
-                        <ser-select serControl formControlName="selectDefault" [data]="options.dropdown"></ser-select>
+                        <ser-select serControl formControlName="selectDefault" [data]="options.dropdown" [settings]="settings"></ser-select>
 
                         <div serErrors="selectDefault">
                             <div serError="required">Requerido</div>
@@ -118,7 +118,7 @@
 
                     <ser-form-element style="min-width: 300px;">
                         <label>Single with template</label>
-                        <ser-select serControl formControlName="selectSingleTemplate" [data]="options.dropdown">
+                        <ser-select serControl formControlName="selectSingleTemplate" [data]="options.dropdown" [settings]="settings">
 
                             <ng-template sd-badge-item let-item="item">
                                 <div class="select-template">

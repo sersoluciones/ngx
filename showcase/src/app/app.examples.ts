@@ -74,7 +74,10 @@ export const InputAddressExample =
 </ser-form-element>`;
 
 export const PINExample =
-`<!-- Opciones por defecto: CodeLength: 4, onlyNumber: true, isCodeHidden: false -->
+`<!-- Opciones por defecto:
+    CodeLength: 4,
+    onlyNumber: true,
+    isCodeHidden: false -->
 
 <ser-form-element>
     <pin-input serControl formControlName="pin"></pin-input>

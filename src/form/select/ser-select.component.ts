@@ -16,11 +16,11 @@ import { DropdownSettings } from './ser-select.interface';
 import { SDItemDirective, SDBadgeDirective, SDBadgeItemDirective } from './ser-select-menu-item.directive';
 import { DataService } from './ser-select.service';
 import { Subscription, fromEvent, merge } from 'rxjs';
-import { VirtualScrollerComponent } from './virtual-scroll/virtual-scroll';
 import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { hasValue } from '../../utils/check';
 import { inArray } from '../../utils/array';
 import { fromIntersectionObserver } from '../../utils/rx-utils';
+import { VirtualScrollerComponent } from 'ngx-virtual-scroller';
 
 const noop = () => {
 };
