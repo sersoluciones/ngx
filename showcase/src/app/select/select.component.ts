@@ -20,10 +20,6 @@ export class SelectComponent implements OnInit {
         filter1: [null, Validators.required]
     });
 
-    settings: DropdownSettings = {
-        lazyLoading: true
-    };
-
     options: any = {
         // simpleDropdown: ['Kratos', 'Batman', 'Leon Kennedy', 'Big Daddy', 'War (Horseman)', 'Aloy', 'Price', 'Dante', 'Agent 47', 'Prince of persia', 'Ryu', 'Master Chief', 'Solid Snake', 'Gordon Freeman', 'Dovahkiin'],
         dropdown: [

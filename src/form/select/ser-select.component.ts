@@ -160,7 +160,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     hasValue = hasValue;
 
     constructor(public _elementRef: ElementRef, private _fb: FormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any,
-                @Optional() @Attribute('simple') simple: any, @Optional() @Attribute('primaryKey') primaryKey: any, @Optional() @Attribute('labelKey') labelKey: any) {
+                @Optional() @Attribute('simple') simple: any, @Optional() @Attribute('primaryKey') primaryKey: any, @Optional() @Attribute('labelKey') labelKey: any, @Optional() @Attribute('lazyLoading') lazyLoading: any) {
 
         this.multiple = multipleAttr !== null;
 
@@ -179,6 +179,10 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         if (labelKey !== null) {
             this.defaultSettings.labelKey = labelKey;
+        }
+
+        if (lazyLoading !== null) {
+            this.defaultSettings.lazyLoading = true;
         }
     }
 
