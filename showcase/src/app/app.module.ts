@@ -5,7 +5,7 @@ import { FacebookComponent } from './facebook/facebook.component';
 import { SelectComponent } from './select/select.component'
 import { GoogleComponent } from './google/google.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { HighlightModule } from 'ngx-highlightjs';
 
 import xml from 'highlight.js/lib/languages/xml';
@@ -22,6 +22,10 @@ import { UtilsComponent } from './utils/utils.component';
 import { FormsComponent } from './forms/forms.component';
 import { HomeComponent } from './home/home.component';
 import { FilterComponent } from './filter/filter.component';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es-CO';
+
+registerLocaleData(localeEs, 'es-CO');
 
 const appRoutes: Routes = [
     { path: 'utils', component: UtilsComponent },
@@ -78,7 +82,9 @@ const appRoutes: Routes = [
       }
     })
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es-CO' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

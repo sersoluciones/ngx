@@ -7,6 +7,7 @@ import { ToggleClassDirective } from './toggle-class.directive';
 import { LongPressDirective } from './long-press.directive';
 import { DateUTCPipe } from './date.pipe';
 import { FilterList } from './filter.pipe';
+import { CurrencyCOPPipe } from './currency.pipe';
 
 const dependencies = [
   WhenScrolledDirective,
@@ -16,6 +17,7 @@ const dependencies = [
   ToggleClassDirective,
   LongPressDirective,
   DateUTCPipe,
+  CurrencyCOPPipe,
   FilterList
 ];
 
