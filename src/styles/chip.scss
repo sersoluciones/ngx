@@ -3,8 +3,8 @@
 .chip {
     display: inline-flex;
     padding: 4px 12px;
-    color: black;
-    background: var(--bg-2dp);
+    color: var(--chip-font-color);
+    background: var(--chip-bg);
     margin-left: 8px;
     border-radius: 24px;
     white-space: nowrap;
