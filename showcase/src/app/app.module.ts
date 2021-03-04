@@ -24,6 +24,7 @@ import { HomeComponent } from './home/home.component';
 import { FilterComponent } from './filter/filter.component';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es-CO';
+import { DateComponent } from './date/date.component';
 
 registerLocaleData(localeEs, 'es-CO');
 
@@ -44,7 +45,8 @@ const appRoutes: Routes = [
     UtilsComponent,
     FormsComponent,
     HomeComponent,
-    FilterComponent
+    FilterComponent,
+    DateComponent
   ],
   imports: [
     BrowserModule,
