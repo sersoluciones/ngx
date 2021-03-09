@@ -4,10 +4,10 @@
 @import '../../src/styles/breadcrumb.scss';
 @import '../../src/styles/button.scss';
 @import '../../src/styles/chip.scss';
-@import '../../src/styles/daterangepicker.scss';
 @import '../../src/styles/dialog.scss';
 @import '../../src/styles/dropzone.scss';
 @import '../../src/styles/address.scss';
+@import '../../src/styles/date.scss';
 @import '../../src/styles/form.scss';
 @import '../../src/styles/image.scss';
 @import '../../src/styles/layout.scss';
@@ -34,15 +34,11 @@
 
 @import './styles/main.scss';
 
-/* @font-face {
-  font-family: Segoe UI;
-  src: local('Segoe UI'), url('assets/segoeui.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-} */
+:root {
+    --font-family-primary: 'Segoe UI', sans-serif;
+}
 
 body {
-  font-family: 'Segoe UI', sans-serif;
   background-color: var(--bg-1dp);
 }
 

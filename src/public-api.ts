@@ -71,6 +71,13 @@ export * from './form/select/ser-select-menu-item.directive';
 export * from './form/select/ser-select.component';
 export * from './form/select/ser-select.module';
 
+// Date
+export * from './form/date/base/interfaces';
+export * from './form/date/ser-date.interface';
+export * from './form/date/single/ser-date.component';
+export * from './form/date/range/ser-date-range.component';
+export * from './form/date/ser-date.module';
+
 // Filter
 export * from './form/filter/ser-filter.interface';
 export * from './form/filter/ser-filter.component';

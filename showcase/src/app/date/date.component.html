@@ -1,1 +1,135 @@
-<p>date works!</p>
+<form class="form-example" [formGroup]="modelForm">
+
+    <button (click)="setDate()">Cambiar fecha</button>
+
+    <h1>Selector de fecha</h1>
+
+    <div class="example-snippet">
+        <div class="preview">
+
+            <div class="body">
+                <div class="desc">Entrada de fecha</div>
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('date1')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Fecha</label>
+                    <ser-date serControl formControlName="date1"></ser-date>
+
+                    <div serErrors="date1">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
+            </div>
+        </div>
+
+        <div class="code">
+
+            <h3>Código</h3>
+
+            <div class="body">
+                <pre><code [highlight]="examples.DateExample"></code></pre>
+                <button class="bttn icon" type="button" [copyToClipboard]="examples.DateExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="example-snippet">
+        <div class="preview">
+
+            <div class="body">
+                <div class="desc">Entrada de fecha</div>
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('date2')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Fecha - Hora</label>
+                    <ser-date serControl time formControlName="date2"></ser-date>
+
+                    <div serErrors="date2">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
+            </div>
+        </div>
+
+        <div class="code">
+
+            <h3>Código</h3>
+
+            <div class="body">
+                <pre><code [highlight]="examples.DateTimeExample"></code></pre>
+                <button class="bttn icon" type="button" [copyToClipboard]="examples.DateTimeExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="example-snippet">
+        <div class="preview">
+
+            <div class="body">
+                <div class="desc">Entrada de fecha</div>
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('date3')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 350px;">
+                    <label>Rango de fecha</label>
+                    <ser-date-range serControl formControlName="date3"></ser-date-range>
+
+                    <div serErrors="date3">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
+            </div>
+        </div>
+
+        <div class="code">
+
+            <h3>Código</h3>
+
+            <div class="body">
+                <pre><code [highlight]="examples.DateRangeExample"></code></pre>
+                <button class="bttn icon" type="button" [copyToClipboard]="examples.DateRangeExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="example-snippet">
+        <div class="preview">
+
+            <div class="body">
+                <div class="desc">Entrada de fecha</div>
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('date4')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 350px;">
+                    <label>Rango de fecha - hora</label>
+                    <ser-date-range serControl time formControlName="date4"></ser-date-range>
+
+                    <div serErrors="date4">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
+            </div>
+        </div>
+
+        <div class="code">
+
+            <h3>Código</h3>
+
+            <div class="body">
+                <pre><code [highlight]="examples.DateRangeTimeExample"></code></pre>
+                <button class="bttn icon" type="button" [copyToClipboard]="examples.DateRangeTimeExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</form>

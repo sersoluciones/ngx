@@ -9,6 +9,7 @@ import { PinInputComponent } from './pin/pin-input.component';
 import { SerSelectModule } from './select/ser-select.module';
 import { AddressColComponent } from './address/address-col/address-col.component';
 import { SerFilterModule } from './filter/ser-filter.module';
+import { SerDateModule } from './date/ser-date.module';
 import { GrowOnInputDirective } from './grow-on-input.directive';
 import { InputRegexDirective } from './input-regex.directive';
 
@@ -26,6 +27,6 @@ const dependencies = [
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule],
     declarations: [...dependencies],
-    exports: [...dependencies, SerSelectModule, SerFilterModule]
+    exports: [...dependencies, SerSelectModule, SerFilterModule, SerDateModule]
 })
 export class SerFormModule { }

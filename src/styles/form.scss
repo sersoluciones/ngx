@@ -65,6 +65,7 @@ ser-form-element,
     > select:not(.not-styled),
     > ser-select:not(.not-styled),
     .mat-select:not(.not-styled),
+    > ser-date:not(.not-styled),
     > .address-input:not(.not-styled) {
         position: relative;
         -webkit-box-flex: 1;

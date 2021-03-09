@@ -1,9 +1,7 @@
 import { CustomValidators } from './../../../../src/form/validations/custom-validators';
 import { Component } from '@angular/core';
-import * as examples from 'src/app/app.examples';
 import { Validators } from '@angular/forms';
 import { BaseView } from '../base/base-view';
-import { hasValue } from '../../../../src/utils/check';
 
 @Component({
     selector: 'showcase-forms',
@@ -11,7 +9,6 @@ import { hasValue } from '../../../../src/utils/check';
     styleUrls: ['./forms.component.scss']
 })
 export class FormsComponent extends BaseView {
-    examples = examples;
 
     modelForm = this._fb.group({
         text1: ['', [Validators.required, CustomValidators.verifyNIT]],

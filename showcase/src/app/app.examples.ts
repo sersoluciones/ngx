@@ -208,3 +208,43 @@ const newPassword = generatePassword({
     lettersUpperCase: true, // Incluir letras mayusculas
     lettersLowerCase: true // Incluir letras minusculas
 });`;
+
+export const DateExample =
+`<ser-form-element>
+    <label>Fecha</label>
+    <ser-date serControl formControlName="date1"></ser-date>
+
+    <div serErrors="date1">
+        <div serError="required">Requerido</div>
+    </div>
+</ser-form-element>`;
+
+export const DateTimeExample =
+`<ser-form-element>
+    <label>Fecha - Hora</label>
+    <ser-date serControl time formControlName="date2"></ser-date>
+
+    <div serErrors="date2">
+        <div serError="required">Requerido</div>
+    </div>
+</ser-form-element>`;
+
+export const DateRangeExample =
+`<ser-form-element>
+    <label>Rango de Fechas</label>
+    <ser-date-range serControl formControlName="date3"></ser-date-range>
+
+    <div serErrors="date3">
+        <div serError="required">Requerido</div>
+    </div>
+</ser-form-element>`;
+
+export const DateRangeTimeExample =
+`<ser-form-element>
+    <label>Rango de Fecha - Hora</label>
+    <ser-date-range serControl time formControlName="date4"></ser-date-range>
+
+    <div serErrors="date4">
+        <div serError="required">Requerido</div>
+    </div>
+</ser-form-element>`;

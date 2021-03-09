@@ -1,0 +1,14 @@
+
+<div *ngIf="hasValue(selectedDateRange)" class="range">
+    {{ selectedDateRange[settings.startDateField] | date: settings.inputFormat }}
+
+    <span class="divider-range">-</span>
+
+    {{ selectedDateRange[settings.endDateField] | date: settings.inputFormat }}
+</div>
+
+<div class="controls">
+    <button type="button" *ngIf="settings.clear && !isDisabled && hasValue(selectedDateRange)" class="clear-all" (click)="clearSelection($event)">
+        <span class="material-icons">close</span>
+    </button>
+</div>

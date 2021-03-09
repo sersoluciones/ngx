@@ -1,4 +1,3 @@
-import { Observable, ReplaySubject } from 'rxjs';
 // tslint:disable: no-use-before-declare
 // tslint:disable: no-host-metadata-property
 // tslint:disable: max-line-length
@@ -15,7 +14,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder } from '@angular/f
 import { DropdownSettings } from './ser-select.interface';
 import { SDItemDirective, SDBadgeDirective, SDBadgeItemDirective } from './ser-select-menu-item.directive';
 import { DataService } from './ser-select.service';
-import { Subscription, fromEvent, merge } from 'rxjs';
+import { Subscription, fromEvent, merge, Observable, ReplaySubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { hasValue } from '../../utils/check';
 import { inArray } from '../../utils/array';

@@ -29,3 +29,5 @@ export function mergeObjs(target: any, source: any) {
 
     return target;
 }
+
+export const noop = () => {};

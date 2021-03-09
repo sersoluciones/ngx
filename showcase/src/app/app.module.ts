@@ -33,6 +33,7 @@ const appRoutes: Routes = [
     { path: 'select', component: SelectComponent },
     { path: 'filters', component: FilterComponent },
     { path: 'forms', component: FormsComponent },
+    { path: 'date', component: DateComponent },
     { path: '', component: HomeComponent }
 ];
 
