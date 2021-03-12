@@ -1,120 +1,129 @@
-// tslint:disable: no-output-on-prefix
-
-import { Directive, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
+import { takeUntil, debounceTime, filter, map, debounce, switchMap, distinctUntilChanged } from 'rxjs/operators';
+import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, OnDestroy } from '@angular/core';
+import { fromEvent, merge, of, ReplaySubject, Subject, Subscription, timer } from 'rxjs';
 
 @Directive({
     selector: '[longPress]'
 })
-export class LongPressDirective {
+export class LongPressDirective implements OnDestroy {
 
-    @Input() pressDuration = 500;
+    @Input() tresshold = 1000;
 
     @Output() onShortPress: EventEmitter<any> = new EventEmitter();
     @Output() onLongPress: EventEmitter<any> = new EventEmitter();
     @Output() onLongPressing: EventEmitter<any> = new EventEmitter();
     @Output() onLongPressEnd: EventEmitter<any> = new EventEmitter();
+    notifierDestroySubs: ReplaySubject<any> = new ReplaySubject();
 
-    private pressing: boolean;
-    private longPressing: boolean;
-    private timeout: any;
-    private mouseX: number;
-    private mouseY: number;
+    private move = false;
+    @HostBinding('class.longpress') private longPressing = false;
+    private _mouseX: number;
+    private _mouseY: number;
 
-    @HostBinding('class.press')
-    get press() { return this.pressing; }
+    constructor(elementRef: ElementRef) {
 
-    @HostBinding('class.longpress')
-    get longPress() { return this.longPressing; }
+        // Mouse events
+        const mousedown = fromEvent<MouseEvent>(elementRef.nativeElement, 'mousedown').pipe(
+            filter(event => this.isLeftClick(event)),
+            map((event) => {
+                return {
+                    state: 'up',
+                    event
+                };
+            })
+        );
 
-    @HostListener('mousedown', ['$event'])
-    @HostListener('touchstart', ['$event'])
-    onMouseDown(event: MouseEvent | TouchEvent) {
+        const mouseup = fromEvent<MouseEvent>(elementRef.nativeElement, 'mouseup').pipe(map((event: MouseEvent) => {
+            return {
+                state: 'down',
+                event
+            };
+        }));
 
-        // don't do right/middle clicks
-        if (event instanceof MouseEvent && event.button !== 0) { return; }
+        // Touch events
+        const touchstart = fromEvent(elementRef.nativeElement, 'touchstart').pipe(map((event: TouchEvent) => {
+            return {
+                state: 'up',
+                event
+            };
+        }));
 
-        if (event instanceof MouseEvent) {
-            this.mouseX = event.clientX;
-            this.mouseY = event.clientY;
-        } else if (event instanceof TouchEvent) {
-            this.mouseX = event.touches[0].clientX;
-            this.mouseY = event.touches[0].clientY;
-        }
+        const touchEnd = fromEvent(elementRef.nativeElement, 'touchend').pipe(map((event: TouchEvent) => {
 
-        this.pressing = true;
-        this.longPressing = false;
-
-        this.timeout = setTimeout(() => {
-            this.longPressing = true;
-            this.onLongPress.emit(event);
-            this.loop(event);
-            event.preventDefault();
-        }, this.pressDuration);
-
-        this.loop(event);
-    }
-
-    loop(event) {
-        if (this.longPressing) {
-            this.timeout = setTimeout(() => {
-                this.onLongPressing.emit(event);
-                this.loop(event);
-            }, 50);
-        }
-    }
-
-    dismiss() {
-        clearTimeout(this.timeout);
-        this.longPressing = false;
-        this.pressing = false;
-    }
-
-    endPress() {
-        clearTimeout(this.timeout);
-
-        if (!this.longPressing) {
-            this.onShortPress.emit();
-        }
-
-        this.longPressing = false;
-        this.pressing = false;
-        this.onLongPressEnd.emit(true);
-    }
-
-    @HostListener('mouseup', ['$event'])
-    @HostListener('touchend', ['$event'])
-    onMouseUp(event: MouseEvent | TouchEvent) {
-
-        // don't do right/middle clicks
-        // if (event.type === 'mouseup' && (event as MouseEvent).button !== 0) { return; }
-        event.preventDefault();
-        event.stopPropagation();
-        event.cancelBubble = true;
-        event.returnValue = false;
-
-        this.endPress();
-    }
-
-    @HostListener('mousemove', ['$event'])
-    @HostListener('touchmove', ['$event'])
-    onMouseMove(event: MouseEvent | TouchEvent) {
-
-        if (this.pressing && !this.longPressing) {
-            let xThres = false;
-            let yThres = false;
-
-            if (event instanceof MouseEvent) {
-                xThres = (event.clientX - this.mouseX) > 10;
-                yThres = (event.clientY - this.mouseY) > 10;
-            } else if (event instanceof TouchEvent) {
-                xThres = (event.touches[0].clientX - this.mouseX) > 10;
-                yThres = (event.touches[0].clientY - this.mouseY) > 10;
+            if (!this.move) {
+                event.preventDefault();
+                event.stopPropagation();
+                event.cancelBubble = true;
+                event.returnValue = false;
             }
 
-            if (xThres || yThres) {
-                this.dismiss();
-            }
+            return {
+                state: 'down',
+                event
+            };
+        }));
+
+        const touchMove = fromEvent(elementRef.nativeElement, 'touchmove').pipe(
+            map((event) => {
+
+                this.move = true;
+
+                return {
+                    state: 'move',
+                    event
+                };
+            }));
+
+        merge(mousedown, mouseup, touchstart, touchEnd, touchMove)
+            .pipe(
+                takeUntil(this.notifierDestroySubs),
+                switchMap(e => {
+                    return e.state === 'up' ? timer(this.tresshold).map(() => e) : of(e);
+                })
+            )
+            .subscribe((e) => {
+
+                switch (e.state) {
+                    case 'up':
+
+                        this.longPressing = true;
+                        this.onLongPressing.emit(e.event);
+                        this.onLongPress.emit(e.event);
+
+                        break;
+
+                    case 'down':
+
+                        if (this.move) {
+                            this.move = false;
+                        } else if (this.longPressing) {
+                            this.longPressing = false;
+                            this.onLongPressEnd.emit(e.event);
+                        } else {
+                            this.onShortPress.emit(e.event);
+                        }
+
+                        break;
+
+                }
+            });
+    }
+
+    isLeftClick(event: MouseEvent) {
+        if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) {
+            return false;
+        } else if ('buttons' in event) {
+            return event.buttons === 1;
+        } else if ('which' in event) {
+            return (event as MouseEvent).which === 1;
+        } else {
+            return ((event as MouseEvent).button === 1 || (event as MouseEvent).type === 'click');
         }
+    }
+
+    ngOnDestroy() {
+        this.notifierDestroySubs.next();
+        this.notifierDestroySubs.complete();
     }
 
 }

@@ -11,7 +11,7 @@ export interface DateRangeOptions {
  * @description
  * Función para obtener el inicio y fin de un rango de dias ó actual mes
  */
-export function getDateRange(options: DateRangeOptions): {start: Date, end: Date} {
+export function getDateRange(options: DateRangeOptions): { start: Date, end: Date } {
 
     let start = new Date();
     let end = new Date();
@@ -44,7 +44,7 @@ export function getDateRange(options: DateRangeOptions): {start: Date, end: Date
  * @description
  * Función para obtener el inicio y fin del dia actual
  */
-export function getToday(): {start: Date, end: Date} {
+export function getToday(): { start: Date, end: Date } {
 
     const start = new Date();
     start.setHours(0, 0, 0, 0);
@@ -62,7 +62,7 @@ export function getToday(): {start: Date, end: Date} {
  * Función para obtener el inicio y fin del día de mañana
  * @returns {Date}
  */
-export function getTomorrow(): {start: Date, end: Date} {
+export function getTomorrow(): { start: Date, end: Date } {
 
     const today = new Date();
     const tomorrow = new Date(today);
@@ -84,7 +84,7 @@ export function getTomorrow(): {start: Date, end: Date} {
  * Función para obtener el inicio y fin del mes actual
  * @returns {Date}
  */
-export function getMonth(): {start: Date, end: Date} {
+export function getMonth(): { start: Date, end: Date } {
 
     const date = new Date();
 
@@ -97,4 +97,20 @@ export function getMonth(): {start: Date, end: Date} {
     return {
         start, end
     };
+}
+
+/**
+     * @param f1 Fecha inicial
+     * @param f2 Fecha final
+     * @param t Unidad de tiempo (hours, days)
+     */
+export function diffDate(f1: Date, f2: Date, t: string) {
+    const diff = f2.getTime() - f1.getTime();
+    switch (t) {
+        case 'hours':
+            return (diff / (1000 * 60 * 60));
+
+        case 'days':
+            return (diff / (1000 * 60 * 60 * 24));
+    }
 }
