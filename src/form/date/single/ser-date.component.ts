@@ -155,6 +155,7 @@ export class SerDateComponent implements OnInit, ControlValueAccessor, OnChanges
 
         setTimeout(() => {
             this.selectedDate = this._picker.getDate().toJSDate();
+            this.onSelect.emit(this.selectedDate);
         });
     }
 

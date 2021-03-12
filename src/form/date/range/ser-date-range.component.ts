@@ -193,6 +193,7 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
             dates[this.settings.startDateField] = this._picker.getStartDate().toJSDate();
             dates[this.settings.endDateField] = this._picker.getEndDate().toJSDate();
             this.selectedDateRange = dates;
+            this.onSelect.emit(this.selectedDateRange);
         });
     }
 
