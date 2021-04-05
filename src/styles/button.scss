@@ -1,21 +1,19 @@
-﻿@import 'mixins.scss';
+﻿@import "mixins.scss";
 
 .fc button,
 .bttn {
-    height: 38px;
-    padding: 0 20px;
+    padding: 11px 20px;
     color: var(--font-color-2);
     font-family: var(--font-family-primary);
     background-image: none;
     font-size: rem(10);
     font-weight: 600;
-    line-height: 38px;
     letter-spacing: 1px;
     text-transform: uppercase;
     text-decoration: none;
-    white-space: nowrap;
+    // white-space: nowrap;
     background-color: transparent;
-    border-radius: 24px;
+    border-radius: 150px;
     margin: 0 4px;
     border: none;
     cursor: pointer;
@@ -26,11 +24,24 @@
     align-items: center;
     justify-content: center;
 
-    &.icon{
+    &.icon {
         border-radius: 50%;
         padding: 5px;
         height: 35px;
         width: 35px;
+    }
+
+    &:not(.text-collapse) {
+
+        > i:first-child,
+        > .mat-icon:first-child {
+            margin-right: 8px;
+        }
+
+        > i:last-child,
+        > .mat-icon:last-child {
+            margin-left: 8px;
+        }
     }
 
     &:active,
@@ -41,68 +52,183 @@
         text-shadow: none;
     }
 
-    &.white{
-        background-color: white;
-    }
+    &:not(.bordered) {
 
-    &.blue{
-        color: var(--blue-font);
-        background-color: var(--blue-background);
-
-        i,
-        .mat-icon {
-            color: var(--blue-font);
+        &.primary {
+            color: var(--primary-color-font);
+            background-color: var(--primary-color);
         }
-    }
 
-    &.light-blue{
-        color: var(--light-blue-font);
-        background-color: var(--light-blue-background);
+        &.white {
+            background-color: white;
+        }
 
-        i,
-        .mat-icon {
+        &.blue {
+            color: var(--button-blue-font);
+            background-color: var(--button-blue-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-blue-font);
+            }
+        }
+
+        &.light-blue {
             color: var(--light-blue-font);
+            background-color: var(--light-blue-bg);
+
+            i,
+            .mat-icon {
+                color: var(--light-blue-font);
+            }
         }
+
+        &.red {
+            color: var(--button-red-font);
+            background-color: var(--button-red-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-red-font);
+            }
+        }
+
+        &.yellow {
+            color: var(--button-yellow-font);
+            background-color: var(--button-yellow-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-yellow-font);
+            }
+        }
+
+        &.orange {
+            color: var(--button-orange-font);
+            background-color: var(--button-orange-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-orange-font);
+            }
+        }
+
+        &.orangered {
+            color: var(--button-orangered-font);
+            background-color: var(--button-orangered-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-orangered-font);
+            }
+        }
+
+        &.green {
+            color: var(--button-green-font);
+            background-color: var(--button-green-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-green-font);
+            }
+        }
+
+        &.violet {
+            color: var(--button-violet-font);
+            background-color: var(--button-violet-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-violet-font);
+            }
+        }
+
     }
 
-    &.red{
-        color: var(--red-font);
-        background-color: var(--red-background);
+    &.bordered {
+        border: var(--button-border-width) solid;
 
-        i,
-        .mat-icon {
-            color: var(--red-font);
+        &.primary {
+            border-color: var(--primary-color);
         }
-    }
 
-    &.yellow{
-        color: var(--yellow-font);
-        background-color: var(--yellow-background);
-
-        i,
-        .mat-icon {
-            color: var(--yellow-font);
+        &.white {
+            border-color: white;
         }
-    }
 
-    &.orange{
-        color: var(--orange-font);
-        background-color: var(--orange-background);
+        &.blue {
+            border-color: var(--button-blue-bg);
 
-        i,
-        .mat-icon {
-            color: var(--orange-font);
+            i,
+            .mat-icon {
+                color: var(--button-blue-bg);
+            }
         }
-    }
 
-    &.green{
-        color: var(--green-font);
-        background-color: var(--green-background);
+        &.light-blue {
+            border-color: var(--light-blue-bg);
 
-        i,
-        .mat-icon {
-            color: var(--green-font);
+            i,
+            .mat-icon {
+                color: var(--light-blue-bg);
+            }
         }
+
+        &.red {
+            border-color: var(--button-red-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-red-bg);
+            }
+        }
+
+        &.yellow {
+            color: var(--button-yellow-font);
+            border-color: var(--button-yellow-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-yellow-font);
+            }
+        }
+
+        &.orange {
+            border-color: var(--button-orange-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-orange-bg);
+            }
+        }
+
+        &.orangered {
+            border-color: var(--button-orangered-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-orangered-bg);
+            }
+        }
+
+        &.green {
+            border-color: var(--button-green-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-green-bg);
+            }
+        }
+
+        &.violet {
+            border-color: var(--button-violet-bg);
+
+            i,
+            .mat-icon {
+                color: var(--button-violet-bg);
+            }
+        }
+
     }
 
     &.text-collapse {
@@ -136,7 +262,7 @@
 
             .text {
                 max-width: 1000px;
-                padding: 0 8px 0 16px;
+                padding: 11px 8px 11px 16px;
                 transition: max-width 1s;
 
                 &:nth-child(1) {
@@ -149,10 +275,9 @@
             }
         }
     }
-
 }
 
-.bttn i{
+.bttn i {
     line-height: 0;
 }
 

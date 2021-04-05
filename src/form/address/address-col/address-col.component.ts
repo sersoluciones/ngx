@@ -260,8 +260,6 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
             );
         });
 
-        this.filterViaOptions(this.modelForm.get('via').value);
-
         this.focus.emit();
 
         this._renderer.appendChild(this.viaElCont.nativeElement, this.viaOptionsEl.nativeElement);
@@ -326,6 +324,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
             this.modelForm.get('via').setValue(value);
             this.viaEl.nativeElement.value = value;
             this.viaElHint.nativeElement.value = value;
+            this.viaOptions = this.viaOptionsOriginal;
         } else {
             this.modelForm.get('via').setValue('');
             this.viaEl.nativeElement.value = '';

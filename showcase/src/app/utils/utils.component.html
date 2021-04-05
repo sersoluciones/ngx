@@ -130,7 +130,7 @@
 
     <ser-form-element style="min-width: 200px;">
         <label>Material Icon</label>
-        <ser-select serControl formControlName="icon" [data]="snackbarDataIcon">
+        <ser-select serControl formControlName="icon" [data]="snackbarDataIcon" lazyLoading>
 
             <ng-template sd-badge-item let-item="item">
                 <div class="select-template">

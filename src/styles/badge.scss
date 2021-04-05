@@ -14,26 +14,26 @@
     font-size: 14px;
 
     &.light-blue {
-        background: var(--light-blue-background);
+        background: var(--light-blue-bg);
     }
-    
+
     &.blue {
-        background: var(--blue-background);
+        background: var(--button-blue-bg);
     }
-    
+
     &.green {
-        background: var(--green-background);
+        background: var(--button-green-bg);
     }
-    
+
     &.yellow {
-        background: var(--yellow-background);
+        background: var(--button-yellow-bg);
     }
-    
+
     &.orange {
-        background: var(--orange-border);
+        background: var(--button-orange-border);
         color: white;
     }
-    
+
     &.red {
         background: red;
         color: white;

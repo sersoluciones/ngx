@@ -33,12 +33,15 @@ export class LongPressDirective implements OnDestroy {
             })
         );
 
-        const mouseup = fromEvent<MouseEvent>(elementRef.nativeElement, 'mouseup').pipe(map((event: MouseEvent) => {
-            return {
-                state: 'down',
-                event
-            };
-        }));
+        const mouseup = fromEvent<MouseEvent>(elementRef.nativeElement, 'mouseup').pipe(
+            filter(event => this.isLeftClick(event)),
+            map((event: MouseEvent) => {
+                return {
+                    state: 'down',
+                    event
+                };
+            })
+        );
 
         // Touch events
         const touchstart = fromEvent(elementRef.nativeElement, 'touchstart').pipe(map((event: TouchEvent) => {
@@ -112,12 +115,12 @@ export class LongPressDirective implements OnDestroy {
     isLeftClick(event: MouseEvent) {
         if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) {
             return false;
-        } else if ('buttons' in event) {
-            return event.buttons === 1;
+        } else if ('buttons' in event && 'button' in event) {
+            return event.button === 0;
         } else if ('which' in event) {
             return (event as MouseEvent).which === 1;
         } else {
-            return ((event as MouseEvent).button === 1 || (event as MouseEvent).type === 'click');
+            return ((event as MouseEvent).button === 0 || (event as MouseEvent).type === 'click');
         }
     }
 

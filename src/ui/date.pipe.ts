@@ -18,7 +18,7 @@ export class DateUTCPipe extends DatePipe implements PipeTransform {
         }
 
         if (!(/^z/.test(value))) {
-            value = value + 'z';
+            value = value + 'Z';
         }
 
         return super.transform(value, format, timezone, locale);

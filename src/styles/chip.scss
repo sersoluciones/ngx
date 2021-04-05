@@ -13,27 +13,27 @@
     max-width: 100%;
 
     &.blue {
-        background: var(--blue-background);
+        background: var(--button-blue-bg);
     }
 
     &.light-blue {
-        background: var(--light-blue-background);
+        background: var(--light-blue-bg);
     }
 
     &.green {
-        background: var(--green-background);
+        background: var(--button-green-bg);
     }
 
     &.yellow {
-        background: var(--yellow-background);
+        background: var(--button-yellow-bg);
     }
 
     &.orange {
-        background: var(--orange-background);
+        background: var(--button-orange-bg);
     }
 
     &.red {
-        background: var(--red-border);
+        background: var(--button-red-border);
     }
 }
 

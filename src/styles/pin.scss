@@ -25,7 +25,7 @@ pin-input {
         width: 100%;
         height: var(--pin-item-height, 4.375em);
         color: inherit;
-        background: var(--pin-item-background, transparent);
+        background: var(--pin-item-bg, transparent);
         text-align: center;
         font-size: inherit;
         border: var(--pin-item-border, 1px solid #dddddd);

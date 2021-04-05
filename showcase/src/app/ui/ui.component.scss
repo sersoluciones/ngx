@@ -1,0 +1,15 @@
+
+:host {
+    width: 100%;
+
+    .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        > .bttn,
+        > .bttn-group {
+            margin: 24px;
+        }
+    }
+}

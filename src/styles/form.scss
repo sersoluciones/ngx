@@ -35,6 +35,10 @@ input:-webkit-autofill {
     -webkit-animation-delay: 1s; /* Safari support - any positive time runs instantly */
     -webkit-animation-name: autofill-fix;
     -webkit-animation-fill-mode: both;
+
+    animation-delay: 1s; /* Safari support - any positive time runs instantly */
+    animation-name: autofill-fix;
+    animation-fill-mode: both;
 }
 
 ser-form-element {
@@ -80,14 +84,6 @@ ser-form-element,
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         max-width: 100%;
-
-        &:not(:focus) {
-            &::-webkit-input-placeholder { opacity: 0; } /* Chrome <=56, Safari < 10 */
-            &:-moz-placeholder { opacity: 0; } /* FF 4-18 */
-            &::-moz-placeholder { opacity: 0; } /* FF 19-50 */
-            &:-ms-input-placeholder { opacity: 0; } /* IE 10+ */
-            &::placeholder { opacity: 0; } /* Modern Browsers */
-        }
     }
 
     > label:not(.switch) {
@@ -106,6 +102,23 @@ ser-form-element,
             white-space: nowrap;
             overflow: hidden;
             transition: all 200ms ease-in-out;
+
+            & + input:not(.not-styled),
+            & + textarea:not(.not-styled),
+            & + select:not(.not-styled),
+            & + ser-select:not(.not-styled),
+            & + .mat-select:not(.not-styled),
+            & + ser-date:not(.not-styled),
+            & + .address-input:not(.not-styled) {
+
+                &:not(:focus) {
+                    &::-webkit-input-placeholder { opacity: 0; } /* Chrome <=56, Safari < 10 */
+                    &:-moz-placeholder { opacity: 0; } /* FF 4-18 */
+                    &::-moz-placeholder { opacity: 0; } /* FF 19-50 */
+                    &:-ms-input-placeholder { opacity: 0; } /* IE 10+ */
+                    &::placeholder { opacity: 0; } /* Modern Browsers */
+                }
+            }
         }
 
         &.active,
@@ -160,6 +173,7 @@ ser-select.disabled {
     textarea:-webkit-autofill,
     input:-webkit-autofill {
         -webkit-animation-name: autofill-fix-dark;
+        animation-name: autofill-fix-dark;
     }
 
     fieldset {

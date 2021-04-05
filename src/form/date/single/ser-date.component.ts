@@ -132,6 +132,7 @@ export class SerDateComponent implements OnInit, ControlValueAccessor, OnChanges
         this._picker.on('selected', (date1) => {
             if (!this._noReadEvent) {
                 this.selectedDate = date1.dateInstance;
+                this.onSelect.emit(this.selectedDate);
                 this.onChangeCallback(date1.dateInstance);
             } else {
                this._noReadEvent = false;
@@ -155,7 +156,6 @@ export class SerDateComponent implements OnInit, ControlValueAccessor, OnChanges
 
         setTimeout(() => {
             this.selectedDate = this._picker.getDate().toJSDate();
-            this.onSelect.emit(this.selectedDate);
         });
     }
 

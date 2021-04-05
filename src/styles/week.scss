@@ -14,8 +14,8 @@ week-day {
             display: flex;
             @include center-center;
             padding: 4px;
-            border: 1px solid var(--blue-border);
-            color: var(--blue-font);
+            border: 1px solid var(--button-blue-border);
+            color: var(--button-blue-font);
             border-radius: 50%;
             height: 40px;
             width: 40px;
@@ -29,8 +29,8 @@ week-day {
         }
 
         .day.active {
-            background: var(--blue-background);
-            color: var(--blue-font);
+            background: var(--button-blue-bg);
+            color: var(--button-blue-font);
         }
     }
 }

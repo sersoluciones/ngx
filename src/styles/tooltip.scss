@@ -333,39 +333,39 @@ corresponds to the arrow we want to display */
     width: 20px;
 }
 
-/* common rules between .tooltipster-arrow-background and .tooltipster-arrow-border */
+/* common rules between .tooltipster-arrow-bg and .tooltipster-arrow-border */
 
-.tooltipster-sidetip .tooltipster-arrow-background, .tooltipster-sidetip .tooltipster-arrow-border {
+.tooltipster-sidetip .tooltipster-arrow-bg, .tooltipster-sidetip .tooltipster-arrow-border {
     height: 0;
     position: absolute;
     width: 0;
 }
 
-/* .tooltipster-arrow-background */
+/* .tooltipster-arrow-bg */
 
-.tooltipster-sidetip .tooltipster-arrow-background {
+.tooltipster-sidetip .tooltipster-arrow-bg {
     border: 10px solid transparent;
 }
 
-.tooltipster-sidetip.tooltipster-bottom .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-bottom .tooltipster-arrow-bg {
     border-bottom-color: #565656;
     left: 0px;
     top: 3px;
 }
 
-.tooltipster-sidetip.tooltipster-left .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-left .tooltipster-arrow-bg {
     border-left-color: #565656;
     left: -3px;
     top: 0px;
 }
 
-.tooltipster-sidetip.tooltipster-right .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-right .tooltipster-arrow-bg {
     border-right-color: #565656;
     left: 3px;
     top: 0px;
 }
 
-.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-bg {
     border-top-color: #565656;
     left: 0px;
     top: -3px;
@@ -444,7 +444,7 @@ corresponds to the arrow we want to display */
     width: 8px
 }
 
-.tooltipster-sidetip.tooltipster-borderless .tooltipster-arrow-background {
+.tooltipster-sidetip.tooltipster-borderless .tooltipster-arrow-bg {
     display: none
 }
 
