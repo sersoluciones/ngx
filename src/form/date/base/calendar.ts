@@ -89,6 +89,10 @@ export class Calendar extends LPCore {
                 .appendChild(resetButton);
         }
 
+        if (this.options.shortcuts) {
+            mainBlock.appendChild(this.renderShortcuts());
+        }
+
         this.ui.appendChild(mainBlock);
 
         if (this.options.timePicker) {
@@ -450,13 +454,184 @@ export class Calendar extends LPCore {
         return day;
     }
 
+    protected setShortcutValue(from: Date, to: Date) { }
+
+    protected renderShortcuts() {
+
+        const shortcuts = document.createElement('div');
+        shortcuts.className = style.containerShortcuts;
+
+        const title =  document.createElement('div');
+        title.className = style.shortcutsTitle;
+        title.innerText = this.options.shortcutsText;
+        shortcuts.appendChild(title);
+
+        const todayButton = document.createElement('button');
+        todayButton.type = 'button';
+        todayButton.className = style.buttonToday;
+        todayButton.innerText = this.options.buttonText.today;
+
+        todayButton.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const from = new Date();
+            from.setHours(0);
+            from.setMinutes(0);
+            from.setSeconds(0);
+
+            const to = new Date();
+            to.setHours(23);
+            to.setMinutes(59);
+            to.setSeconds(59);
+
+            this.setShortcutValue(from, to);
+        });
+
+        shortcuts.appendChild(todayButton);
+
+        const yesterdayButton = document.createElement('button');
+        yesterdayButton.type = 'button';
+        yesterdayButton.className = style.buttonYesterday;
+        yesterdayButton.innerText = this.options.buttonText.yesterday;
+
+        yesterdayButton.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const from = new Date();
+            from.setDate(from.getDate() - 1);
+            from.setHours(0);
+            from.setMinutes(0);
+            from.setSeconds(0);
+
+            const to = new Date();
+            to.setDate(to.getDate() - 1);
+            to.setHours(23);
+            to.setMinutes(59);
+            to.setSeconds(59);
+
+            this.setShortcutValue(from, to);
+        });
+
+        shortcuts.appendChild(yesterdayButton);
+
+        const weekButton = document.createElement('button');
+        weekButton.type = 'button';
+        weekButton.className = style.buttonActualWeek;
+        weekButton.innerText = this.options.buttonText.week;
+
+        weekButton.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const from = new Date();
+
+            const day = from.getDay(),
+            diff = from.getDate() - day + (day === 0 ? -6 : 1);
+            from.setDate(diff);
+
+            from.setHours(0);
+            from.setMinutes(0);
+            from.setSeconds(0);
+
+            const to = new Date();
+            to.setDate(diff + 6);
+            to.setHours(23);
+            to.setMinutes(59);
+            to.setSeconds(59);
+
+            this.setShortcutValue(from, to);
+        });
+
+        shortcuts.appendChild(weekButton);
+
+        const lastWeekButton = document.createElement('button');
+        lastWeekButton.type = 'button';
+        lastWeekButton.className = style.buttonLastWeek;
+        lastWeekButton.innerText = this.options.buttonText.lastWeek;
+
+        lastWeekButton.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const from = new Date();
+
+            const day = from.getDay(),
+            diff = (from.getDate() - day + (day === 0 ? -6 : 1) - 7);
+            from.setDate(diff);
+
+            from.setHours(0);
+            from.setMinutes(0);
+            from.setSeconds(0);
+
+            const to = new Date();
+            to.setDate(diff + 6);
+            to.setHours(23);
+            to.setMinutes(59);
+            to.setSeconds(59);
+
+            this.setShortcutValue(from, to);
+        });
+
+        shortcuts.appendChild(lastWeekButton);
+
+        const monthButton = document.createElement('button');
+        monthButton.type = 'button';
+        monthButton.className = style.buttonActualMonth;
+        monthButton.innerText = this.options.buttonText.month;
+
+        monthButton.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const d = new Date();
+
+            const from = new Date(d.getFullYear(), d.getMonth(), 1);
+            from.setHours(0);
+            from.setMinutes(0);
+            from.setSeconds(0);
+
+            const to = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+            to.setHours(23);
+            to.setMinutes(59);
+            to.setSeconds(59);
+
+            this.setShortcutValue(from, to);
+        });
+
+        shortcuts.appendChild(monthButton);
+
+        const lastMonthButton = document.createElement('button');
+        lastMonthButton.type = 'button';
+        lastMonthButton.className = style.buttonLastMonth;
+        lastMonthButton.innerText = this.options.buttonText.lastMonth;
+
+        lastMonthButton.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const d = new Date();
+
+            const from = new Date(d.getFullYear(), d.getMonth() - 1, 1);
+            from.setHours(0);
+            from.setMinutes(0);
+            from.setSeconds(0);
+
+            const to = new Date(d.getFullYear(), d.getMonth(), 0);
+            to.setHours(23);
+            to.setMinutes(59);
+            to.setSeconds(59);
+
+            this.setShortcutValue(from, to);
+        });
+
+        shortcuts.appendChild(lastMonthButton);
+
+        return shortcuts;
+    }
+
     protected renderTimePicker() {
 
         const times = document.createElement('div');
         times.className = style.containerTime;
 
         const divider = document.createElement('span');
-        divider.className = 'divider';
+        divider.className = 'time-divider';
         divider.innerText = ' : ';
 
         (this.options.singleMode ? [0] : [0, 1]).forEach((item) => {
@@ -469,7 +644,7 @@ export class Calendar extends LPCore {
             } else if (0 === item) {
                 time.innerHTML = `<span>${this.options.timePickerText.labelStart}: </span>`;
             } else {
-                time.innerHTML = `<span>${this.options.timePickerText.labelEnd}: </span>`;
+                time.innerHTML = `<span style="min-width: 62px;">${this.options.timePickerText.labelEnd}: </span>`;
             }
 
             const hours = document.createElement('select');

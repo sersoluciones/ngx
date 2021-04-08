@@ -48,10 +48,11 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
         inputFormat: 'dd/MM/y',
         clear: true,
         calendarOptions: {
+            shortcuts: true,
             singleMode: false,
             splitView: true,
-            numberOfMonths: 2,
-            numberOfColumns: 2
+            numberOfMonths: 1,
+            numberOfColumns: 1
         }
     };
 

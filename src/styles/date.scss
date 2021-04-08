@@ -298,10 +298,24 @@
             }
         }
 
+        &__shortcuts {
+            padding: 16px;
+            border-left: 1px solid var(--datepicker-shortcut-border-color);
+
+            .shortcuts-title {
+                margin-bottom: 8px;
+            }
+
+            button {
+                display: block;
+            }
+        }
+
         &__time {
-            display: flex;
+            /* display: flex;
             align-items: center;
-            flex-wrap: wrap;
+            flex-wrap: wrap; */
+            margin-top: 12px;
 
             .time-item {
                 display: flex;

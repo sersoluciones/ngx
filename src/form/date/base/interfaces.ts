@@ -9,11 +9,17 @@ interface ILPOptionDropdowns {
 }
 
 interface ILPOptionButtonText {
-    apply: string;
-    cancel: string;
-    previousMonth: string;
-    nextMonth: string;
-    reset: string;
+    apply?: string;
+    cancel?: string;
+    previousMonth?: string;
+    nextMonth?: string;
+    reset?: string;
+    today?: string;
+    yesterday?: string;
+    week?: string;
+    lastWeek?: string;
+    month?: string;
+    lastMonth?: string;
 }
 
 interface ILPOptionTooltip {
@@ -51,6 +57,7 @@ export interface ILPConfiguration {
     splitView?: boolean;
     inlineMode?: boolean;
     singleMode?: boolean;
+    shortcuts?: boolean;
     timePicker?: boolean;
     timePickerText?: ILPTimePicker;
     autoApply?: boolean;
@@ -69,6 +76,7 @@ export interface ILPConfiguration {
     highlightedDaysFormat?: string;
     highlightedDays?: any[];
     dropdowns?: ILPOptionDropdowns;
+    shortcutsText?: string;
     buttonText?: ILPOptionButtonText;
     tooltipText?: ILPOptionTooltip;
     tooltipPluralSelector?: (arg: number) => string;

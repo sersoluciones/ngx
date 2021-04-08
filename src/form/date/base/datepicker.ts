@@ -241,6 +241,11 @@ export class Datepicker extends Calendar {
         }
     }
 
+    protected setShortcutValue(from: Date, to: Date) {
+        this.setDateRange(from, to, true);
+        this.hide();
+    }
+
     setStartDate(date: any) {
         if (!date) { return; }
 
@@ -277,8 +282,6 @@ export class Datepicker extends Calendar {
     setDateRange(date1: any, date2: any, force: boolean = false) {
         // stop repicking by resetting the trigger element
         this.triggerElement = undefined;
-
-        // console.log(date1, date2);
 
         const d1 = new DateTime(
             date1,

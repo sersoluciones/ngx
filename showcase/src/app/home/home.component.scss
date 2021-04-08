@@ -46,10 +46,11 @@
             outline: none;
             background-color: var(--bg-2dp);
             padding: 32px;
-            margin: 32px;
+            margin: 16px;
             border-radius: 16px;
             text-decoration: none;
             color: inherit;
+            min-width: 300px;
 
             h3 {
                 font-weight: bold;
