@@ -11,7 +11,9 @@ import { BaseView } from '../base/base-view';
 export class FormsComponent extends BaseView {
 
     modelForm = this._fb.group({
-        text1: ['', [Validators.required, CustomValidators.verifyNIT]],
+        text1: ['', [Validators.required]],
+        text10: ['', [Validators.required]],
+        text11: ['', [Validators.required]],
         text2: ['', Validators.required],
         text3: ['', Validators.required],
         regexInput: ['[\\s]', Validators.required],

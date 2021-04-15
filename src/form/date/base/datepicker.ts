@@ -13,6 +13,7 @@ export class Datepicker extends Calendar {
         super(options);
         this.bindEvents();
     }
+
     protected scrollToDate(el) {
         if (this.options.scrollToDate) {
             const startDate = this.options.startDate instanceof DateTime ? this.options.startDate.clone() : null;
@@ -247,6 +248,7 @@ export class Datepicker extends Calendar {
     }
 
     setStartDate(date: any) {
+        console.log(date);
         if (!date) { return; }
 
         this.options.startDate = new DateTime(
@@ -255,10 +257,17 @@ export class Datepicker extends Calendar {
             this.options.lang,
         );
 
+        if (!this.options.timePicker) {
+            this.options.startDate.setHours(0);
+            this.options.startDate.setMinutes(0);
+            this.options.startDate.setSeconds(0);
+        }
+
         this.updateInput();
     }
 
     setEndDate(date: any) {
+
         if (!date) { return; }
 
         this.options.endDate = new DateTime(
@@ -266,6 +275,12 @@ export class Datepicker extends Calendar {
             this.options.format,
             this.options.lang,
         );
+
+        if (!this.options.timePicker) {
+            this.options.endDate.setHours(23);
+            this.options.endDate.setMinutes(59);
+            this.options.endDate.setSeconds(59);
+        }
 
         if ((this.options.startDate as DateTime).getTime() > this.options.endDate.getTime()) {
             this.options.endDate = (this.options.startDate as DateTime).clone();

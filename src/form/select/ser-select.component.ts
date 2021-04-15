@@ -79,6 +79,9 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     @Output() onGroupSelect: EventEmitter<any> = new EventEmitter<any>();
     @Output() onGroupDeSelect: EventEmitter<any> = new EventEmitter<any>();
 
+    @Output() focus: EventEmitter<void> = new EventEmitter<void>();
+    @Output() blur: EventEmitter<void> = new EventEmitter<void>();
+
     @ContentChild(SDItemDirective, { static: true }) itemTempl: SDItemDirective;
     @ContentChild(SDBadgeDirective, { static: true }) badgeTempl: SDBadgeDirective;
     @ContentChild(SDBadgeItemDirective, { static: true }) badgeItemTempl: SDBadgeItemDirective;
@@ -516,6 +519,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         }
 
         this.isActive = true;
+        this.focus.emit();
 
         this.setPositionDropdown();
 
@@ -564,6 +568,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         this.clearSearch();
         this.isActive = false;
+        this.blur.emit();
 
         this.dropdownSubs$.forEach(s => s.unsubscribe() );
         this.dropdownSubs$ = [];

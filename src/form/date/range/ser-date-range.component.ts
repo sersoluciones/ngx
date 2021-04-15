@@ -32,6 +32,9 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
     @Output() onOpen: EventEmitter<any> = new EventEmitter<any>();
     @Output() onClose: EventEmitter<any> = new EventEmitter<any>();
 
+    @Output() focus: EventEmitter<void> = new EventEmitter<void>();
+    @Output() blur: EventEmitter<void> = new EventEmitter<void>();
+
     private _viewInitialized = false;
     private _noReadEvent = false;
     private _value: any;
@@ -99,11 +102,11 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
             return;
         }
 
-        if (typeof (tempValue[this.settings.startDateField]) === 'string' && !(/^z/.test(tempValue[this.settings.startDateField]))) {
+        if (typeof (tempValue[this.settings.startDateField]) === 'string' && !(/[zZ]/.test(tempValue[this.settings.startDateField]))) {
             tempValue[this.settings.startDateField] = tempValue[this.settings.startDateField] + 'Z';
         }
 
-        if (typeof (tempValue[this.settings.endDateField]) === 'string' && !(/^z/.test(tempValue[this.settings.endDateField]))) {
+        if (typeof (tempValue[this.settings.endDateField]) === 'string' && !(/[zZ]/.test(tempValue[this.settings.endDateField]))) {
             tempValue[this.settings.endDateField] = tempValue[this.settings.endDateField] + 'Z';
         }
 
@@ -162,6 +165,8 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
         this._picker.on('selected', (date1, date2) => {
             if (!this._noReadEvent) {
 
+                console.log(date1.dateInstance, date2.dateInstance);
+
                 const dates = {};
                 dates[this.settings.startDateField] = date1.dateInstance;
                 dates[this.settings.endDateField] = date2.dateInstance;
@@ -177,10 +182,12 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
 
         this._picker.on('show', () => {
             this.isActive = true;
+            this.focus.emit();
         });
 
         this._picker.on('hide', () => {
             this.isActive = false;
+            this.blur.emit();
         });
 
         this._viewInitialized = true;

@@ -11,23 +11,12 @@ export class GrowOnInputDirective implements OnInit, OnDestroy {
 
     constructor(private _elementRef: ElementRef, private _renderer: Renderer2) { }
 
-    getScrollHeight(elm: any) {
-        const savedValue = elm.value;
-        elm.value = '';
-        elm._baseScrollHeight = elm.scrollHeight;
-        elm.value = savedValue;
-    }
-
     ngOnInit() {
-        this.listener = this._renderer?.listen(this._elementRef.nativeElement, 'keyup', () => {
 
-            if (this._elementRef.nativeElement.nodeName !== 'TEXTAREA') {
-                return;
-            }
+        this._renderer.setAttribute(this._elementRef.nativeElement, "style", "min-height:" + (this._elementRef.nativeElement.scrollHeight) + "px;overflow-y:hidden;");
 
-            const rows = Math.ceil(this._elementRef.nativeElement.scrollHeight / 16);
-            this._elementRef.nativeElement.rows = 1 + rows;
-
+        this.listener = this._renderer?.listen(this._elementRef.nativeElement, 'input', () => {
+            this._renderer.setAttribute(this._elementRef.nativeElement, "style", "min-height:" + (this._elementRef.nativeElement.scrollHeight) + "px;overflow-y:hidden;");
         });
     }
 

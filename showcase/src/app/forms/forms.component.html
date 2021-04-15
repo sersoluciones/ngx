@@ -10,40 +10,12 @@
                 <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('text1')">Habilitar / Deshabilitar</button>
 
                 <ser-form-element style="width: 300px;">
-                    <label>Texto</label>
-                    <input type="text" serControl formControlName="text1">
-
-                    <div serErrors="text1">
-                        <div serError="required">Requerido</div>
+                    <label class="tr">Texto</label>
+                    <div class="input-group">
+                        <span class="addon"><span class="material-icons">account_circle</span></span>
+                        <input type="text" serControl formControlName="text1">
+                        <span class="addon"><span class="material-icons">account_circle</span></span>
                     </div>
-                </ser-form-element>
-            </div>
-        </div>
-
-        <div class="code">
-
-            <h3>Código</h3>
-
-            <div class="body">
-                <pre><code [highlight]="examples.InputTextExample"></code></pre>
-                <button class="bttn icon" type="button" [copyToClipboard]="examples.InputTextExample" (copied)="alert('Copiado al portapapeles')">
-                    <span class="material-icons">content_copy</span>
-                </button>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="example-snippet">
-        <div class="preview">
-
-            <div class="body">
-                <div class="desc">Entrada de texto básico (Texto, Números, Area de texto etc)</div>
-                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('text1')">Habilitar / Deshabilitar</button>
-
-                <ser-form-element style="width: 300px;">
-                    <label>Texto</label>
-                    <input type="text" serControl formControlName="text1">
 
                     <div serErrors="text1">
                         <div serError="required">Requerido</div>

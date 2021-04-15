@@ -26,6 +26,7 @@ export class DateComponent extends BaseView {
     }
 
     setDate() {
+        console.log((new Date()).toISOString());
         this.modelForm.get('date1').setValue( (new Date()).toISOString() );
         this.modelForm.get('date2').setValue( (new Date()).toISOString() );
 

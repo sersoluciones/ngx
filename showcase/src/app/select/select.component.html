@@ -12,8 +12,12 @@
                     <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('selectDefault')">Habilitar / Deshabilitar</button>
 
                     <ser-form-element style="min-width: 300px;">
-                        <label>Por defecto</label>
-                        <ser-select serControl formControlName="selectDefault" [data]="options.dropdown" lazyLoading></ser-select>
+                        <label class="tr">Por defecto</label>
+                        <div class="input-group">
+                            <span class="addon"><span class="material-icons">account_circle</span></span>
+                            <ser-select serControl formControlName="selectDefault" [data]="options.dropdown" lazyLoading></ser-select>
+                            <span class="addon"><span class="material-icons">account_circle</span></span>
+                        </div>
 
                         <div serErrors="selectDefault">
                             <div serError="required">Requerido</div>

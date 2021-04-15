@@ -32,6 +32,9 @@ export class SerDateComponent implements OnInit, ControlValueAccessor, OnChanges
     @Output() onOpen: EventEmitter<any> = new EventEmitter<any>();
     @Output() onClose: EventEmitter<any> = new EventEmitter<any>();
 
+    @Output() focus: EventEmitter<void> = new EventEmitter<void>();
+    @Output() blur: EventEmitter<void> = new EventEmitter<void>();
+
     private _viewInitialized = false;
     private _noReadEvent = false;
     private _value: any;
@@ -73,7 +76,7 @@ export class SerDateComponent implements OnInit, ControlValueAccessor, OnChanges
     //#region ControlValueAccessor
     writeValue(value: any) {
 
-        if (typeof (value) === 'string' && !(/^z/.test(value))) {
+        if (typeof (value) === 'string' && !(/[zZ]/.test(value))) {
             value = value + 'Z';
         }
 
@@ -141,10 +144,12 @@ export class SerDateComponent implements OnInit, ControlValueAccessor, OnChanges
 
         this._picker.on('show', () => {
             this.isActive = true;
+            this.focus.emit();
         });
 
         this._picker.on('hide', () => {
             this.isActive = false;
+            this.blur.emit();
         });
 
         this._viewInitialized = true;

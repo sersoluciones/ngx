@@ -62,14 +62,17 @@
 
     --input-min-height: 40px;
     --input-max-height: 40px;
+    --input-border-radius: 12px;
     --input-border: #c3c3c3;
     --input-bg: white;
     --input-bg-disabled: #f3f3f3;
     --input-font-color-disabled: #141414;
-    --input-error-border: 2px solid #fd4e4e;
-    --input-error-shadow-color: rgba(204, 52, 52, 0.19);
+    --input-error-border-color: #fd4e4e;
+    --input-error-border: 2px solid var(--input-error-border-color);
+    --input-error-shadow-color: #f8dddd;
     --input-focus-color: #3490cc;
-    --input-focus-shadow-color: rgb(52, 144, 204, 0.19);
+    --input-focus-shadow-color: #d1edff;
+    --input-icon-color: #7d7d7d;
 
     --dark-grey-4dp: #272727;
     --dark-grey-6dp: #2c2c2c;
@@ -100,14 +103,14 @@
     --pin-font-size: 20px;
     --pin-item-spacing: 4px;
     --pin-item-height: 50px;
-    --pin-item-border: 1px solid #dddddd;
-    --pin-item-border-bottom: 1px solid #dddddd;
-    --pin-item-border-has-value: 1px solid #dddddd;
-    --pin-item-border-bottom-has-value: 1px solid #dddddd;
-    --pin-item-border-focused: 1px solid #dddddd;
-    --pin-item-border-bottom-focused: 1px solid #dddddd;
-    --pin-item-border-radius: 5px;
-    --pin-item-bg: var(--bg-2dp);
+    --pin-item-border: 2px solid var(--input-border);
+    --pin-item-border-bottom: 2px solid var(--input-border);
+    --pin-item-border-has-value: 2px solid var(--input-border);
+    --pin-item-border-bottom-has-value: 2px solid var(--input-border);
+    --pin-item-border-focused: 2px solid var(--input-border);
+    --pin-item-border-bottom-focused: 2px solid var(--input-border);
+    --pin-item-border-radius: 8px;
+    --pin-item-bg: var(--input-bg);
     --pin-color: #171516;
 
     --snackbar-bg: #474747;
@@ -223,14 +226,15 @@ fieldset {
     }
 }
 
-select,
-textarea,
-input {
-    background-color: var(--bg-2dp);
-    color: var(--font-color-1);
+@-webkit-keyframes autofill-fix {
+    0%,
+    100% {
+        color: black;
+        background: var(--bg-2dp);
+    }
 }
 
-@-webkit-keyframes autofill-fix {
+@keyframes autofill-fix {
     0%,
     100% {
         color: black;
@@ -246,116 +250,99 @@ input {
     }
 }
 
-ser-form-element,
-.form-group {
+@keyframes autofill-fix-dark {
+    0%,
+    100% {
+        color: white;
+        background: var(--bg-2dp);
+    }
+}
+
+$inputs: "input, textarea, select, ser-select, ser-date, ser-date-range, address-col-input";
+$inputsMaxH: "input, select, ser-date, ser-date-range, address-col-input";
+
+ser-form-element {
+    $parent: &;
     padding: 0 4px 8px;
     margin-top: 16px;
 
-    .input-group {
-        .addon {
-            padding: 3px 12px;
-            margin-bottom: 0;
-            font-weight: normal;
-            text-align: center;
-            color: var(--font-color-1);
-            background-color: var(--bg-3dp);
-            transition: background-color 500ms;
-            border-radius: 6px;
-            justify-content: center;
-            align-items: center;
-        }
-
-        > input:not(.not-styled),
-        > textarea:not(.not-styled),
-        > select:not(.not-styled),
-        > ser-date:not(.not-styled),
-        > ser-date-range:not(.not-styled),
-        > address-col-input:not(.not-styled) {
-            width: 100%;
-            max-height: var(--input-min-height);
-            min-height: var(--input-max-height);
-            outline: none;
-        }
-
-        > ser-select:not(.not-styled) {
-            width: 100%;
-            min-height: var(--input-min-height);
-        }
-
-        > input:not(.not-styled):first-child,
-        > textarea:not(.not-styled):first-child,
-        > select:not(.not-styled):first-child,
-        > .selector-container:first-child .selector-input,
-        > .addon:first-child,
-        > address-col-input:not(.not-styled):first-child {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        .addon:first-child {
-            border-right-width: 0;
-        }
-
-        > input:not(.not-styled):last-child,
-        > textarea:not(.not-styled):last-child,
-        > select:not(.not-styled):last-child,
-        > .selector-container:last-child .selector-input,
-        > .addon:last-child,
-        > address-col-input:not(.not-styled):last-child {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        .addon:last-child {
-            border-left-width: 0;
-        }
-
-        > input:not(:first-child):not(:last-child),
-        > textarea:not(:first-child):not(:last-child),
-        > select:not(:first-child):not(:last-child),
-        > .selector-container:not(:first-child):not(:last-child) .selector-input,
-        > .addon:not(:first-child):not(:last-child),
-        > address-col-input:not(.not-styled):not(:last-child) {
-            border-radius: 0;
-        }
-
-        > input:first-child:last-child:only-child,
-        > textarea:first-child:last-child:only-child,
-        > select:first-child:last-child:only-child,
-        > .selector-container:first-child:last-child:only-child .selector-input,
-        > .addon:first-child:last-child:only-child,
-        > address-col-input:not(.not-styled):first-child:last-child:only-child {
-            border-radius: 6px;
-        }
-    }
-
-    input:not(.not-styled),
-    textarea:not(.not-styled),
-    select:not(.not-styled),
-    ser-select:not(.not-styled),
-    ser-date:not(.not-styled),
-    ser-date-range:not(.not-styled),
-    .mat-select:not(.not-styled),
-    address-col-input:not(.not-styled) {
-        margin: 0;
-        padding: 6px 12px;
-        font-family: inherit;
+    > label:not(.switch) {
         font-size: rem(10);
-        color: var(--font-color-1);
-        background-color: var(--input-bg);
-        border: 2px solid var(--input-border);
-        transition: background-color 500ms;
-        border-radius: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 8px;
     }
 
-    input:not(.not-styled)::placeholder,
-    textarea:not(.not-styled)::placeholder,
-    select:not(.not-styled)::placeholder,
-    .mat-select:not(.not-styled)::placeholder {
+    &:not([plain]) {
+        margin-top: 24px;
+
+        > label:not(.switch) {
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0;
+            max-width: calc(100% - 36px);
+
+            &.tr {
+                left: 58px;
+            }
+        }
+
+        &.active,
+        &.focus {
+            > label:not(.switch) {
+                font-size: rem(8);
+                letter-spacing: 1px;
+                padding: 0 8px;
+                background-color: var(--input-bg);
+            }
+        }
+
+        &.invalid.dirty {
+            > label:not(.switch) {
+                color: red;
+            }
+        }
+
+        &.disabled {
+            > label:not(.switch) {
+                background-color: var(--input-bg-disabled);
+                color: var(--input-font-color-disabled);
+            }
+        }
+    }
+
+    #{$inputs} {
+        margin: 0;
+        position: relative;
+        font-family: inherit;
+        color: var(--font-color-1);
+        transition: background-color 500ms;
+        outline: none;
+    }
+
+    > {
+        #{$inputs} {
+            font-size: rem(10);
+            padding: 6px 12px;
+            background-color: var(--input-bg);
+            min-height: var(--input-min-height);
+            border: 2px solid var(--input-border);
+            border-radius: var(--input-border-radius);
+        }
+
+        #{$inputsMaxH} {
+            max-height: var(--input-max-height);
+        }
+    }
+
+    input::placeholder,
+    textarea::placeholder,
+    select::placeholder,
+    .mat-select::placeholder {
         color: var(--font-color-placeholder);
     }
 
-    > address-col-input:not(.not-styled) {
+    > address-col-input {
 
         .via {
             margin-right: 16px;
@@ -398,162 +385,152 @@ ser-form-element,
         }
     }
 
-    input[disabled],
-    textarea[disabled],
-    select[disabled],
-    ser-select.disabled,
-    ser-date.disabled,
-    ser-date-range.disabled,
-    .mat-select[disabled],
-    address-col-input.disabled:not(.not-styled) {
-        background-color: var(--input-bg-disabled);
-        color: var(--input-font-color-disabled);
-    }
-
-    > input:not(.not-styled),
-    > select:not(.not-styled),
-    > .mat-select:not(.not-styled),
-    > ser-date:not(.not-styled),
-    > ser-date-range:not(.not-styled),
-    > address-col-input:not(.not-styled) {
-        max-height: var(--input-min-height);
-        min-height: var(--input-max-height);
-    }
-
-    > ser-date:not(.not-styled),
-    > ser-date-range:not(.not-styled) {
+    > ser-date,
+    > ser-date-range {
         &.active {
             border-radius: 12px 12px 0 0;
-            box-shadow: 0 0 0 4px var(--input-focus-shadow-color) ;
-            border: 2px solid var(--input-focus-color);
         }
     }
 
-    > ser-select:not(.not-styled) {
-        min-height: var(--input-min-height);
+    > ser-select {
         padding: 4px 16px;
 
         &.active {
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 0 0 4px var(--input-focus-shadow-color) ;
-            border: 2px solid var(--input-focus-color);
+            border-radius: var(--input-border-radius) var(--input-border-radius) 0 0;
 
             &.ontop {
-                border-radius: 0 0 12px 12px;
+                border-radius: 0 0 var(--input-border-radius) var(--input-border-radius);
             }
         }
     }
 
-    > label:not(.switch) {
-        font-size: rem(10);
-        font-weight: 600;
-        text-transform: uppercase;
-        margin-bottom: 8px;
+    .input-group {
+        background-color: var(--input-bg);
+        border: 2px solid var(--input-border);
+        border-radius: var(--input-border-radius);
+        transition: background-color 500ms;
+
+        .addon {
+            position: relative;
+            margin-bottom: 0;
+            font-weight: normal;
+            text-align: center;
+            padding: 6px 12px;
+            font-family: inherit;
+            font-size: rem(10);
+            color: var(--font-color-1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .mat-icon,
+            .material-icons,
+            i {
+                color: var(--input-icon-color);
+            }
+        }
+
+        > {
+            #{$inputs} {
+                flex: 1;
+                font-size: rem(10);
+                padding: 6px;
+                min-height: var(--input-min-height);
+                border-radius: var(--input-border-radius);
+            }
+
+            #{$inputsMaxH} {
+                max-height: var(--input-max-height);
+            }
+        }
     }
 
-    &.invalid {
-        input:not(.not-styled),
-        textarea:not(.not-styled),
-        select:not(.not-styled),
-        ser-date:not(.not-styled),
-        ser-date-range:not(.not-styled),
-        ser-select:not(.not-styled) {
-            padding: 5px 11px;
+    &.disabled {
+        cursor: not-allowed;
+
+        > label:not(.switch) {
+            border-radius: 8px;
+        }
+
+        > {
+            #{$inputs} {
+                background-color: var(--input-bg-disabled);
+                color: var(--input-font-color-disabled);
+            }
+        }
+
+        .input-group {
+            background-color: var(--input-bg-disabled);
         }
     }
 
     &.focus {
 
-        input:not(.not-styled),
-        textarea:not(.not-styled),
-        select:not(.not-styled),
-        ser-select:not(.not-styled),
-        .mat-select:not(.not-styled),
-        ser-date:not(.not-styled),
-        ser-date-range:not(.not-styled),
-        address-col-input:not(.not-styled) {
+        > {
+            #{$inputs} {
+                box-shadow: 0 0 0 4px var(--input-focus-shadow-color);
+                border-color: var(--input-focus-color);
+            }
+        }
+
+        .input-group {
             box-shadow: 0 0 0 4px var(--input-focus-shadow-color);
-            border: 2px solid var(--input-focus-color);
-        }
-
-        input.ng-invalid.ng-dirty:not(.not-styled),
-        textarea.ng-invalid.ng-dirty:not(.not-styled),
-        select.ng-invalid.ng-dirty:not(.not-styled),
-        ser-select.ng-invalid.ng-dirty:not(.not-styled),
-        .mat-select.ng-invalid.ng-dirty:not(.not-styled),
-        ser-date.ng-invalid.ng-dirty:not(.not-styled),
-        ser-date-range.ng-invalid.ng-dirty:not(.not-styled),
-        address-col-input.ng-invalid.ng-dirty:not(.not-styled) {
-            box-shadow: 0 0 0 4px var(--input-error-shadow-color);
+            border-color: var(--input-focus-color);
         }
 
     }
 
-    &:not([plain]) {
-        margin-top: 24px;
+    &.invalid {
+        &.dirty {
+            > {
+                #{$inputs} {
+                    border-color: var(--input-error-border-color);
 
-        > label:not(.switch) {
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 0;
-            max-width: calc(100% - 36px);
-        }
-
-        &.active,
-        &.focus {
-            > label:not(.switch) {
-                font-size: rem(8);
-                letter-spacing: 1px;
-                padding: 0 8px;
-                border-radius: 8px;
-                background-color: var(--input-bg);
+                    .selected-list .controls .chevron {
+                        color: red;
+                    }
+                }
             }
-        }
 
-        &.invalid.dirty {
-            > label:not(.switch) {
-                color: red;
+            .input-group {
+                border-color: var(--input-error-border-color);
+
+                .addon {
+                    .mat-icon,
+                    .material-icons,
+                    i {
+                        color: var(--input-error-border-color);
+                    }
+                }
             }
-        }
-
-        &.disabled {
-            > label:not(.switch) {
-                background-color: var(--input-bg-disabled);
-                color: var(--input-font-color-disabled);
-            }
-        }
-    }
-
-    [serErrors],
-    .errors {
-        padding-left: 4px;
-        color: red;
-
-        * {
-            text-align: right;
-            margin-top: 2px;
-        }
-    }
-
-    input.ng-invalid.ng-dirty:not(.not-styled),
-    textarea.ng-invalid.ng-dirty:not(.not-styled),
-    select.ng-invalid.ng-dirty:not(.not-styled),
-    ser-select.ng-invalid.ng-dirty:not(.not-styled),
-    .mat-select.ng-invalid.ng-dirty:not(.not-styled),
-    ser-date.ng-invalid.ng-dirty:not(.not-styled),
-    ser-date-range.ng-invalid.ng-dirty:not(.not-styled),
-    address-col-input.ng-invalid.ng-dirty:not(.not-styled) {
-        border: var(--input-error-border);
-    }
-
-    ser-select.ng-invalid.ng-dirty:not(.not-styled) {
-        .selected-list .controls .chevron {
-            color: red;
         }
     }
 
     &.focus,
     &.active {
+
+        > label:not(.switch) {
+
+            &.tr {
+                left: 16px;
+            }
+        }
+
+        &.invalid {
+            &.dirty {
+
+                > {
+                    #{$inputs} {
+                        box-shadow: 0 0 0 4px var(--input-error-shadow-color);
+                    }
+                }
+
+                .input-group {
+                    box-shadow: 0 0 0 4px var(--input-error-shadow-color);
+                }
+            }
+        }
+
         address-col-input {
             .via {
                 input {
@@ -593,19 +570,18 @@ ser-form-element,
             }
         }
     }
-}
 
-input[disabled],
-textarea[disabled],
-select[disabled],
-ser-select.disabled,
-ser-date.disabled,
-ser-date-range.disabled,
-ser-filter.disabled,
-.mat-select[disabled] {
-    // opacity: 0.8;
-    cursor: not-allowed;
-    background-color: var(--input-bg-disabled);
+    [serErrors],
+    .errors {
+        padding-left: 4px;
+        color: red;
+        font-size: rem(10);
+
+        * {
+            text-align: right;
+            margin-top: 2px;
+        }
+    }
 }
 
 @keyframes dropdown-appear {
@@ -1024,9 +1000,9 @@ ser-filter {
         }
     }
 
-    &.disabled {
-        // color: var(--font-color-disabled);
-    }
+    /* &.disabled {
+        color: var(--font-color-disabled);
+    } */
 
     &.active {
         .list-filter {
@@ -1075,6 +1051,7 @@ ser-date-range {
     textarea:-webkit-autofill,
     input:-webkit-autofill {
         -webkit-animation-name: autofill-fix-dark;
+        animation-name: autofill-fix-dark;
     }
 
     fieldset {

@@ -42,13 +42,13 @@ export class Calendar extends LPCore {
             dateIterator.setDate(1);
             dateIterator.setSeconds(0);
 
-            if (this.options.timePicker) {
+            /* if (this.options.timePicker) {
                 dateIterator.setHours(0);
                 dateIterator.setMinutes(0);
             } else {
                 dateIterator.setHours(today.getHours());
                 dateIterator.setMinutes(today.getMinutes());
-            }
+            } */
 
             if (this.options.splitView) {
                 dateIterator = this.calendars[calendarIdx].clone();
@@ -759,7 +759,7 @@ export class Calendar extends LPCore {
         return t;
     }
 
-    private weekdayName(day, representation = 'short') {
+    private weekdayName(day, representation: 'short' | 'long' | 'narrow' = 'short') {
         return new Date(1970, 0, day, 12, 0, 0, 0)
             .toLocaleString(this.options.lang, { weekday: representation });
     }
