@@ -1,0 +1,35 @@
+<input type="file" #file [multiple]="multiple" (change)="setFile($event)" [disabled]="isDisabled">
+
+<div class="files">
+    <div class="file" *ngFor="let file of files; let i = index;">
+
+        <ng-container *ngIf="!hasValue(itemTempl)">
+            <div class="name" [title]="file.name">{{ file.name }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="hasValue(itemTempl)">
+            <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: file}"></ng-container>
+        </ng-container>
+
+        <span class="delete" (click)="remove(i)" [title]="settings.removeText">
+            <span class="material-icons">close</span>
+        </span>
+    </div>
+
+    <div class="file" *ngFor="let name of filesInstance; let i = index;">
+
+        <ng-container *ngIf="!hasValue(itemTempl)">
+            <a class="name" [title]="name" [href]="name" target="_blank" [title]="settings.fileInstanceTitle">{{ getFilenameFromUrl(name) }}</a>
+        </ng-container>
+
+        <ng-container *ngIf="hasValue(itemTempl)">
+            <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: name}"></ng-container>
+        </ng-container>
+
+        <span class="delete" (click)="removeName(i)" [title]="settings.removeText">
+            <span class="material-icons">close</span>
+        </span>
+    </div>
+</div>
+
+<div class="upload" (click)="onClick()" [title]="multiple ? settings.uploadMultipleText : settings.uploadText" [innerHTML]="settings.uploadIconHTML"></div>

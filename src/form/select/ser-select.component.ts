@@ -27,6 +27,7 @@ const noop = () => {
 @Component({
     selector: 'ser-select',
     templateUrl: './ser-select.component.html',
+    encapsulation: ViewEncapsulation.None,
     host: { '[class]': 'defaultSettings.classes' },
     providers: [
         {
@@ -34,8 +35,7 @@ const noop = () => {
             useExisting: forwardRef(() => SerSelectComponent),
             multi: true
         }
-    ],
-    encapsulation: ViewEncapsulation.None
+    ]
 })
 export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChanges, AfterViewInit, OnDestroy {
 

@@ -61,6 +61,11 @@ export class SerErrorsDirective implements OnChanges, OnDestroy, AfterViewInit {
 
     private checkStatus() {
         const control = this.control;
+
+        if (control === null) {
+            throw new Error(`SerErrorsDirective: FormControl not finded: ${this.controlName}`);
+        }
+
         const errors = control.errors;
         this.ready = true;
 
@@ -87,7 +92,7 @@ export class SerErrorsDirective implements OnChanges, OnDestroy, AfterViewInit {
     }
 
     ngOnDestroy() {
-        if (!this.subject.closed){
+        if (!this.subject.closed) {
             this.subject.unsubscribe();
         }
     }

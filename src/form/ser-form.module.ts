@@ -12,6 +12,8 @@ import { SerFilterModule } from './filter/ser-filter.module';
 import { SerDateModule } from './date/ser-date.module';
 import { GrowOnInputDirective } from './grow-on-input.directive';
 import { InputRegexDirective } from './input-regex.directive';
+import { InputFileComponent } from './input-file/input-file.component';
+import { SerInputFileModule } from './input-file/input-file.module';
 
 const dependencies = [
     SerFormElementComponent,
@@ -27,6 +29,6 @@ const dependencies = [
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule],
     declarations: [...dependencies],
-    exports: [...dependencies, SerSelectModule, SerFilterModule, SerDateModule]
+    exports: [...dependencies, SerSelectModule, SerFilterModule, SerDateModule, SerInputFileModule]
 })
 export class SerFormModule { }

@@ -4,6 +4,11 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+#map {
+    height: 500px;
+    width: 100%;
+}
+
 .toolbar {
     height: 60px;
     padding: 0 32px;
@@ -43,5 +48,22 @@
     > * {
         display: block;
         max-width: 100%;
+    }
+}
+
+.leaflet-container {
+
+    .leaflet-control-fullscreen {
+        a {
+            background-image: url('/assets/images/fullscreen.png');
+        }
+    }
+
+    @media
+    (-webkit-min-device-pixel-ratio:2),
+    (min-resolution:192dpi) {
+        .leaflet-control-fullscreen a {
+            background-image: url('/assets/images/fullscreen2x.png');
+        }
     }
 }

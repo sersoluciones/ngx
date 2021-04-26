@@ -9,3 +9,51 @@ export module Patterns {
   export const NUMBER = /[-]{0,1}[0-9]*[.]{0,1}[0-9]+/g;
   export const CC = /((\d{8})|(\d{10})|(\d{11})|(\d{6}-\d{5}))?/g;
 }
+
+export interface FullName {
+    name?: string;
+    lastName?: string;
+    firstLastName?: string;
+    secondLastName?: string;
+    joined?: string;
+}
+
+export function parseName(input: string): FullName {
+
+    const fullName = input.trim().toLowerCase().split(/\s+/).map(val => {
+
+        if (!val.match(/\b(de|del|la|el)\b/g)) {
+            return val.charAt(0).toUpperCase() + val.slice(1);
+        }
+
+        return val;
+
+    }).join(' ');
+
+    const result: FullName = {
+        secondLastName: '',
+        joined: ''
+    };
+
+    if (fullName.length > 0) {
+        const nameTokens = fullName.match(/[A-ZÁ-ÚÑÜ][a-zá-úñü]+|([aeodlsz]+\s+)+[A-ZÁ-ÚÑÜ][a-zá-úñü]+/g) || [];
+
+        if (nameTokens.length > 3) {
+            result.name = nameTokens.slice(0, 2).join(' ');
+        } else {
+            result.name = nameTokens.slice(0, 1).join(' ');
+        }
+
+        if (nameTokens.length > 2) {
+            result.firstLastName = nameTokens.slice(-2, -1).join(' ');
+            result.secondLastName = nameTokens.slice(-1).join(' ');
+        } else {
+            result.firstLastName = nameTokens.slice(-1).join(' ');
+        }
+
+        result.lastName = [result.firstLastName, result.secondLastName].join(' ').trim();
+        result.joined = [result.name, result.lastName, result.secondLastName].join(' ').trim();
+    }
+
+    return result;
+}

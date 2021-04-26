@@ -71,6 +71,12 @@ export * from './form/select/ser-select-menu-item.directive';
 export * from './form/select/ser-select.component';
 export * from './form/select/ser-select.module';
 
+// Files
+export * from './form/input-file/input-file.interface';
+export * from './form/input-file/input-file-item.directive';
+export * from './form/input-file/input-file.component';
+export * from './form/input-file/input-file.module';
+
 // Date
 export * from './form/date/base/interfaces';
 export * from './form/date/ser-date.interface';

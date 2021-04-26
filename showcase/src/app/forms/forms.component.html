@@ -10,17 +10,32 @@
                 <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('text1')">Habilitar / Deshabilitar</button>
 
                 <ser-form-element style="width: 300px;">
-                    <label class="tr">Texto</label>
                     <div class="input-group">
                         <span class="addon"><span class="material-icons">account_circle</span></span>
-                        <input type="text" serControl formControlName="text1">
+                        <input type="text" serControl formControlName="username" name="username">
                         <span class="addon"><span class="material-icons">account_circle</span></span>
                     </div>
 
-                    <div serErrors="text1">
+                    <div serErrors="username">
                         <div serError="required">Requerido</div>
                     </div>
                 </ser-form-element>
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('file')">Habilitar / Deshabilitar</button>
+
+                <button type="button" (click)="test()">Test</button>
+
+                <ng-container *ngIf="testL">
+                    <ser-form-element style="width: 300px;">
+                        <label>Archivo</label>
+                        <ser-input-file serControl formControlName="file" (onClearInstance)="clearFile('file_id')"></ser-input-file>
+
+                        <div serErrors="file">
+                            <div serError="required">Requerido</div>
+                        </div>
+                    </ser-form-element>
+                </ng-container>
+
             </div>
         </div>
 

@@ -3,6 +3,7 @@ import * as examples from '../app.examples';
 import { OnInit, AfterViewInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DownloadService } from '../../../../src/ui/download.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export class BaseView implements OnInit, AfterViewInit {
     examples = examples;
@@ -10,6 +11,7 @@ export class BaseView implements OnInit, AfterViewInit {
     _fb: FormBuilder;
     _msj: SnackbarService;
     modelForm: FormGroup;
+    sanitized: DomSanitizer;
 
     options = {
         simpleDropdown: ['Kratos', 'Batman', 'Leon Kennedy', 'Big Daddy', 'War (Horseman)', 'Aloy', 'Price', 'Dante', 'Agent 47', 'Prince of persia', 'Ryu', 'Master Chief', 'Solid Snake', 'Gordon Freeman', 'Dovahkiin'],
@@ -110,6 +112,7 @@ export class BaseView implements OnInit, AfterViewInit {
     constructor(protected injectorObj: Injector) {
         this._fb = this.injectorObj.get(FormBuilder);
         this._msj = this.injectorObj.get(SnackbarService);
+        this.sanitized = this.injectorObj.get(DomSanitizer);
     }
 
     alert(text: string) {

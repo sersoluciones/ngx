@@ -1,7 +1,8 @@
 import { CustomValidators } from './../../../../src/form/validations/custom-validators';
-import { Component } from '@angular/core';
+import { Component, SecurityContext } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { BaseView } from '../base/base-view';
+import { InputFileSettings } from '../../../../src/form/input-file/input-file.interface';
 
 @Component({
     selector: 'showcase-forms',
@@ -11,12 +12,15 @@ import { BaseView } from '../base/base-view';
 export class FormsComponent extends BaseView {
 
     modelForm = this._fb.group({
-        text1: ['', [Validators.required]],
+        username: ['', [Validators.required]],
+        password: ['', [Validators.required]],
         text10: ['', [Validators.required]],
         text11: ['', [Validators.required]],
         text2: ['', Validators.required],
         text3: ['', Validators.required],
-        regexInput: ['[\\s]', Validators.required],
+        file: [null, Validators.required],
+        file_id: [''],
+        regexInput: ['[0-9]', Validators.required],
         nit: ['', [Validators.required, CustomValidators.verifyNIT]],
         address: ['', Validators.required],
         num: [2],
@@ -34,6 +38,7 @@ export class FormsComponent extends BaseView {
 
     text3Regex = '[0-9\s]';
     pinShow = true;
+    testL = true;
 
     init() {
         this.modelForm.get('pinForm').valueChanges.subscribe(() => {
@@ -42,6 +47,22 @@ export class FormsComponent extends BaseView {
                 this.pinShow = true;
             }, 500);
         });
+
+        this.modelForm.patchValue({
+            file: 'https://kimed.s3.amazonaws.com/upload/attachments/ips/file_4db4df75-f984-419e-abf2-a6806dbe0b9c.jpg'
+        });
+    }
+
+    clearFile(field: string) {
+        console.log(field);
+        this.modelForm.get(field).setValue(null, { onlySelf: true });
+    }
+
+    test() {
+        this.testL = false;
+        setTimeout(() => {
+            this.testL = true;
+        }, 2000);
     }
 
 }

@@ -248,7 +248,7 @@ export class Datepicker extends Calendar {
     }
 
     setStartDate(date: any) {
-        console.log(date);
+
         if (!date) { return; }
 
         this.options.startDate = new DateTime(

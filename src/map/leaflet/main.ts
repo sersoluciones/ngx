@@ -34,7 +34,7 @@ export class LeafletMap {
         layers: LEAFLET_MAP_LAYERS,
         mapOptions: {
             attributionControl: false,
-            layers: [LEAFLET_MAP_LAYERS['Mapbox Street']],
+            layers: [LEAFLET_MAP_LAYERS.Mapa],
             zoomControl: false
         },
         layersOptions: {
@@ -46,6 +46,14 @@ export class LeafletMap {
     constructor(options: LeafletMapOptions) {
 
         mergeObjs(this.options, options);
+
+        if (options.layers) {
+            this.options.layers = options.layers;
+        }
+
+        if (options.mapOptions?.layers) {
+            this.options.mapOptions.layers = options.mapOptions?.layers;
+        }
 
         this.map = new L.Map(this.options.container, this.options.mapOptions);
 

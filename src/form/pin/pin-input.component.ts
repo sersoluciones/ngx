@@ -1,5 +1,5 @@
 // tslint:disable: component-selector
-import { AfterViewInit, Component, ElementRef, forwardRef, HostBinding, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { hasValue } from '../../utils/check';
 
@@ -24,6 +24,9 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
     @Input() codeLength = 4;
     @Input() onlyNumber = true;
     @Input() isCodeHidden = false;
+
+    @Output() focus: EventEmitter<void> = new EventEmitter<void>();
+    @Output() blur: EventEmitter<void> = new EventEmitter<void>();
 
     codeInputs: any[];
     value = [];
@@ -155,6 +158,14 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
         if (hasValue(index)) {
             this.inputs[index].focus();
         }
+    }
+
+    onFocus() {
+        this.focus.emit();
+    }
+
+    onBlur() {
+        this.blur.emit();
     }
 
     registerOnChange(fn: any): void {

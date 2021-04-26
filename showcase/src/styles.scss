@@ -1,3 +1,6 @@
+
+@import "~leaflet/dist/leaflet.css";
+
 /* You can add global styles to this file, and also import other style files */
 @import '../../src/styles/autocomplete.scss';
 @import '../../src/styles/badge.scss';
@@ -27,6 +30,8 @@
 @import '../../src/styles/treeview.scss';
 @import '../../src/styles/typography.scss';
 @import '../../src/styles/week.scss';
+@import '~@sersol/leaflet-plugins/leaflet-fullscreen/main';
+@import '~@sersol/leaflet-plugins/leaflet-mouseposition/main';
 @import '../../src/styles/default-theme.scss';
 
 @import '~highlight.js/styles/gruvbox-dark.css';

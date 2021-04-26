@@ -60,6 +60,7 @@
     --chip-font-color: black;
     --chip-bg: #e4e3e3;
 
+    --input-font-size: 12px;
     --input-min-height: 40px;
     --input-max-height: 40px;
     --input-border-radius: 12px;
@@ -73,6 +74,10 @@
     --input-focus-color: #3490cc;
     --input-focus-shadow-color: #d1edff;
     --input-icon-color: #7d7d7d;
+
+    --input-file-item-bg: #e6e6e6;
+    --input-file-item-delete-bg: #bbbbbb;
+    --input-file-item-delete-color: #5a5a5a;
 
     --dark-grey-4dp: #272727;
     --dark-grey-6dp: #2c2c2c;
@@ -177,6 +182,7 @@ body.scheme-dark {
     --input-bg-disabled: #131313;
     --input-font-color-disabled: #6b6b6b;
     --input-error-border: 2px solid #fd4e4e;
+    --input-label-radius: 4px;
 
     --select-bg: #272727;
     --select-border: #616161;
@@ -258,8 +264,18 @@ fieldset {
     }
 }
 
-$inputs: "input, textarea, select, ser-select, ser-date, ser-date-range, address-col-input";
+$inputs: "input, textarea, select, .form-control, ser-select, ser-date, ser-date-range, address-col-input, ser-input-file";
 $inputsMaxH: "input, select, ser-date, ser-date-range, address-col-input";
+
+input:-webkit-autofill {
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        box-shadow: 0 0 0 1000px var(--input-bg) inset !important;
+        -webkit-text-fill-color: var(--font-color-1) !important;
+    }
+}
 
 ser-form-element {
     $parent: &;
@@ -281,6 +297,7 @@ ser-form-element {
             text-transform: uppercase;
             margin-bottom: 0;
             max-width: calc(100% - 36px);
+            border-radius: var(--input-label-radius);
 
             &.tr {
                 left: 58px;
@@ -293,6 +310,7 @@ ser-form-element {
                 font-size: rem(8);
                 letter-spacing: 1px;
                 padding: 0 8px;
+                border-radius: 8px;
                 background-color: var(--input-bg);
             }
         }
@@ -318,11 +336,21 @@ ser-form-element {
         color: var(--font-color-1);
         transition: background-color 500ms;
         outline: none;
+
+        :-webkit-autofill {
+            &,
+            &:hover,
+            &:focus,
+            &:active {
+                // box-shadow: 0 0 0 1000px var(--input-bg) inset !important;
+                -webkit-text-fill-color: var(--font-color-1) !important;
+            }
+        }
     }
 
     > {
         #{$inputs} {
-            font-size: rem(10);
+            font-size: var(--input-font-size);
             padding: 6px 12px;
             background-color: var(--input-bg);
             min-height: var(--input-min-height);
@@ -332,6 +360,15 @@ ser-form-element {
 
         #{$inputsMaxH} {
             max-height: var(--input-max-height);
+        }
+
+        pin-input {
+
+            input {
+                background-color: var(--input-bg);
+                border: 2px solid var(--input-border);
+                border-radius: var(--input-border-radius);
+            }
         }
     }
 
@@ -433,7 +470,8 @@ ser-form-element {
         > {
             #{$inputs} {
                 flex: 1;
-                font-size: rem(10);
+                min-width: 0;
+                font-size: var(--input-font-size);
                 padding: 6px;
                 min-height: var(--input-min-height);
                 border-radius: var(--input-border-radius);
@@ -470,12 +508,36 @@ ser-form-element {
             #{$inputs} {
                 box-shadow: 0 0 0 4px var(--input-focus-shadow-color);
                 border-color: var(--input-focus-color);
+
+                &:-webkit-autofill {
+                    // box-shadow: 0 0 0 4px var(--input-focus-shadow-color), 0 0 0 1000px var(--input-bg) inset !important;
+                    -webkit-text-fill-color: var(--font-color-1) !important;
+                }
+            }
+        }
+
+        pin-input {
+            input {
+                border-color: var(--input-focus-color);
+
+                &:focus {
+                    box-shadow: 0 0 0 4px var(--input-focus-shadow-color);
+                }
             }
         }
 
         .input-group {
             box-shadow: 0 0 0 4px var(--input-focus-shadow-color);
             border-color: var(--input-focus-color);
+
+            & {
+                #{$inputs} {
+                    &:-webkit-autofill {
+                        // box-shadow: 0 0 0 1000px var(--input-bg) inset !important;
+                        -webkit-text-fill-color: var(--font-color-1) !important;
+                    }
+                }
+            }
         }
 
     }
@@ -487,7 +549,25 @@ ser-form-element {
                     border-color: var(--input-error-border-color);
 
                     .selected-list .controls .chevron {
-                        color: red;
+                        color: var(--input-error-border-color);
+                    }
+                }
+
+                ser-input-file {
+                    .upload {
+                        .material-icons {
+                            color: var(--input-error-border-color);
+                        }
+                    }
+                }
+            }
+
+            pin-input {
+                input {
+                    border-color: var(--input-error-border-color);
+
+                    &:focus {
+                        box-shadow: 0 0 0 4px var(--input-focus-shadow-color);
                     }
                 }
             }
@@ -522,6 +602,11 @@ ser-form-element {
                 > {
                     #{$inputs} {
                         box-shadow: 0 0 0 4px var(--input-error-shadow-color);
+
+                        &:-webkit-autofill {
+                            box-shadow: 0 0 0 4px var(--input-error-shadow-color), 0 0 0 1000px var(--input-bg) inset !important;
+                            -webkit-text-fill-color: var(--font-color-1) !important;
+                        }
                     }
                 }
 
@@ -1040,6 +1125,73 @@ ser-date-range {
         }
     }
 
+}
+
+ser-input-file {
+    display: flex;
+
+    .files {
+        flex: 1;
+        min-width: 0;
+
+        .file {
+            display: inline-flex;
+            gap: 8px;
+            padding: 4px 4px 4px 8px;
+            border-radius: 240px;
+            margin: 4px;
+            max-width: 100%;
+            background-color: var(--input-file-item-bg);
+
+            .name {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                flex: 1;
+                color: inherit;
+            }
+
+            .delete {
+                background-color: var(--input-file-item-delete-bg);
+                border-radius: 50%;
+                padding: 3px;
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+
+                .material-icons {
+                    font-size: 13px;
+                    font-weight: bold;
+                    color: var(--input-file-item-delete-color);
+                }
+            }
+        }
+    }
+
+    .upload {
+        cursor: pointer;
+        margin-left: 8px;
+        padding: 6px 0 0;
+        color: var(--input-icon-color);
+
+        .mat-icon {
+            color: var(--input-icon-color);
+        }
+    }
+
+    &[multiple] {
+        .files {
+
+            .file {
+
+                .delete {
+                    align-items: flex-start;
+                }
+            }
+        }
+    }
 }
 
 .longpress {

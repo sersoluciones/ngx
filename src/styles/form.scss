@@ -29,18 +29,6 @@ input {
     border: none;
 }
 
-select:-webkit-autofill,
-textarea:-webkit-autofill,
-input:-webkit-autofill {
-    -webkit-animation-delay: 1s; /* Safari support - any positive time runs instantly */
-    -webkit-animation-name: autofill-fix;
-    -webkit-animation-fill-mode: both;
-
-    animation-delay: 1s; /* Safari support - any positive time runs instantly */
-    animation-name: autofill-fix;
-    animation-fill-mode: both;
-}
-
 ser-form-element {
     > label:not(.switch) {
         pointer-events: none;
@@ -68,6 +56,16 @@ ser-form-element,
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         max-width: 100%;
+    }
+
+    .radio-group {
+        display: flex;
+        align-items: center;
+
+        .radio-input {
+            display: flex;
+            align-items: center;
+        }
     }
 
     > label:not(.switch) {
@@ -153,6 +151,12 @@ ser-select.disabled {
     .d-btn {
         cursor: not-allowed;
         user-select: none;
+    }
+}
+
+ser-input-file {
+    input {
+        display: none;
     }
 }
 

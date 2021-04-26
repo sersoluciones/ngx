@@ -76,15 +76,21 @@ export class SerDateComponent implements OnInit, ControlValueAccessor, OnChanges
     //#region ControlValueAccessor
     writeValue(value: any) {
 
-        if (typeof (value) === 'string' && !(/[zZ]/.test(value))) {
-            value = value + 'Z';
-        }
+        if (hasValue(this._value)) {
 
-        this._value = value;
+            if (typeof (value) === 'string' && !(/[zZ]/.test(value))) {
+                value = value + 'Z';
+            }
 
-        if (this._viewInitialized) {
-            this._noReadEvent = true;
-            this.setValue();
+            this._value = value;
+
+            if (this._viewInitialized) {
+                this._noReadEvent = true;
+                this.setValue();
+            }
+
+        } else {
+            this._value = value;
         }
     }
 
