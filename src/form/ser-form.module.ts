@@ -12,8 +12,10 @@ import { SerFilterModule } from './filter/ser-filter.module';
 import { SerDateModule } from './date/ser-date.module';
 import { GrowOnInputDirective } from './grow-on-input.directive';
 import { InputRegexDirective } from './input-regex.directive';
-import { InputFileComponent } from './input-file/input-file.component';
+import { InputRegexOnlyDirective } from './input-regex-only.directive';
 import { SerInputFileModule } from './input-file/input-file.module';
+import { InputLowerCaseDirective } from './input-lower-case.directive';
+import { InputNameCaseDirective } from './input-name-case.directive';
 
 const dependencies = [
     SerFormElementComponent,
@@ -23,7 +25,10 @@ const dependencies = [
     PinInputComponent,
     AddressColComponent,
     GrowOnInputDirective,
-    InputRegexDirective
+    InputRegexDirective,
+    InputRegexOnlyDirective,
+    InputLowerCaseDirective,
+    InputNameCaseDirective
 ];
 
 @NgModule({

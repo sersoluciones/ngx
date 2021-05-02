@@ -47,6 +47,10 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
     ngAfterViewInit() {
         this.inputsList.forEach((item, i) => {
 
+            if (this.onlyNumber) {
+                item.nativeElement.setAttribute('inputmode', 'numeric');
+            }
+
             if (hasValue(this.value[i])) {
                 (item.nativeElement as HTMLInputElement).value = this.value[i];
             }

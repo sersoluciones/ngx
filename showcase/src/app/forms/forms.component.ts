@@ -20,7 +20,7 @@ export class FormsComponent extends BaseView {
         text3: ['', Validators.required],
         file: [null, Validators.required],
         file_id: [''],
-        regexInput: ['[0-9]', Validators.required],
+        regexInput: ['\\d+', Validators.required],
         nit: ['', [Validators.required, CustomValidators.verifyNIT]],
         address: ['', Validators.required],
         num: [2],
@@ -36,7 +36,7 @@ export class FormsComponent extends BaseView {
         validators: [CustomValidators.betweenRange('num', 'num1', 'num2')]
     });
 
-    text3Regex = '[0-9\s]';
+    text3Regex = '\\d+';
     pinShow = true;
     testL = true;
 

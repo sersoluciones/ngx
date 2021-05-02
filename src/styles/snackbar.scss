@@ -34,6 +34,14 @@
             background-color: var(--snackbar-bg-red);
         }
 
+        &.orange {
+            background-color: var(--snackbar-bg-orange);
+        }
+
+        &.orangered {
+            background-color: var(--snackbar-bg-orange-red);
+        }
+
         .material-icons {
             color: var(--snackbar-icon-color);
             font-size: 16px;

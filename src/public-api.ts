@@ -62,6 +62,9 @@ export * from './form/ser-errors/ser-errors.directive';
 export * from './form/ser-errors/ser-error.directive';
 export * from './form/grow-on-input.directive';
 export * from './form/input-regex.directive';
+export * from './form/input-regex-only.directive';
+export * from './form/input-lower-case.directive';
+export * from './form/input-name-case.directive';
 export * from './form/ser-form.module';
 
 // Select
