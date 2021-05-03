@@ -266,8 +266,8 @@ fieldset {
     }
 }
 
-$inputs: "input, textarea, select, .form-control, ser-select, ser-date, ser-date-range, address-col-input, ser-input-file";
-$inputsMaxH: "input, select, ser-date, ser-date-range, address-col-input";
+$inputs: "input, textarea, select, .form-control, ser-select, ser-date, ser-date-range, address-col-input, ser-input-file, ser-input-number, ser-input-currency";
+$inputsMaxH: "input, select, ser-date, ser-date-range, address-col-input, ser-input-number, ser-input-currency";
 
 input:-webkit-autofill {
     &,

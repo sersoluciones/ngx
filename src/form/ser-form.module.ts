@@ -1,3 +1,4 @@
+import { InputFloatDirective } from './input-float.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,10 @@ import { InputRegexOnlyDirective } from './input-regex-only.directive';
 import { SerInputFileModule } from './input-file/input-file.module';
 import { InputLowerCaseDirective } from './input-lower-case.directive';
 import { InputNameCaseDirective } from './input-name-case.directive';
+import { InputIntegerDirective } from './input-integer.directive';
+import { InputNumberComponent } from './input-number/input-number.component';
+import { SerMaskModule } from './mask/ser-mask.module';
+import { InputCurrencyComponent } from './input-currency/input-currency.component';
 
 const dependencies = [
     SerFormElementComponent,
@@ -24,16 +29,20 @@ const dependencies = [
     SerErrorDirective,
     PinInputComponent,
     AddressColComponent,
+    InputNumberComponent,
+    InputCurrencyComponent,
     GrowOnInputDirective,
     InputRegexDirective,
     InputRegexOnlyDirective,
     InputLowerCaseDirective,
-    InputNameCaseDirective
+    InputNameCaseDirective,
+    InputIntegerDirective,
+    InputFloatDirective
 ];
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, SerMaskModule.forChild()],
     declarations: [...dependencies],
-    exports: [...dependencies, SerSelectModule, SerFilterModule, SerDateModule, SerInputFileModule]
+    exports: [...dependencies, SerSelectModule, SerFilterModule, SerDateModule, SerInputFileModule, SerMaskModule]
 })
 export class SerFormModule { }

@@ -13,7 +13,7 @@ p {
     .code {
         flex: 1;
         padding: 16px;
-        border: 2px solid gray;
+        border: 2px solid #282828;
 
         h3 {
             text-align: center;
@@ -29,12 +29,13 @@ p {
     }
 
     .preview {
-        border-radius: 12px 0 0 12px;
+        border-radius: 0 12px 12px 0;
+        border-left: none;
     }
 
     .code {
-        border-radius: 0 12px 12px 0;
-        border-left: none;
+        border-radius: 12px 0 0 12px;
+        background-color: #282828;
 
         .body {
             flex-direction: row;
@@ -42,6 +43,30 @@ p {
 
         .bttn {
             margin-left: 32px;
+        }
+    }
+}
+
+.code {
+    position: relative;
+    border-radius: 12px;
+    background-color: #282828;
+
+    .body {
+        flex-direction: row;
+    }
+
+    .bttn {
+        margin-left: 32px;
+    }
+
+    .copy {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+
+        .material-icons {
+            color: white;
         }
     }
 }
@@ -83,6 +108,14 @@ h2 {
 
 .spacer {
     flex: 1;
+}
+
+.example-name {
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    gap: 20px;
+    color: initial;
 }
 
 .separator {

@@ -1,19 +1,18 @@
-import * as L from 'leaflet';
 import { MapService } from './../../../src/map/map.service';
 import { LeafletMap } from './../../../src/map/leaflet/main';
 import { PrefersColorSchemeService } from './../../../src/prefers-color-scheme/prefers-color-scheme.service';
-import { Component, Injector, ViewEncapsulation } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { BaseView } from './base/base-view';
-import { LEAFLET_MAP_LAYERS } from '../../../src/map/leaflet/providers';
+import * as examples from './app.examples';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent extends BaseView {
 
+    examples = examples;
     leafletInstance: LeafletMap;
 
     constructor(protected injectorObj: Injector, public colorScheme: PrefersColorSchemeService, private _map: MapService) {
@@ -31,22 +30,5 @@ export class AppComponent extends BaseView {
 
     afterInit() {
         super.afterInit();
-
-        this.leafletInstance = new LeafletMap({
-            container: 'map',
-            layersOptions: {
-                position: 'bottomright'
-            },
-            zoom: {
-                position: 'bottomright'
-            },
-            fullscreen: {
-                title: {
-                    false: 'view_fullscreen',
-                    true: 'exit_fullscreen'
-                },
-                position: 'bottomright'
-            }
-        });
     }
 }

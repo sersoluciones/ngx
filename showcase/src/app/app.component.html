@@ -15,8 +15,84 @@
     </a>
 </div>
 
-<div class="content" role="main">
-    <router-outlet></router-outlet>
-</div>
+<div class="site">
+    <div class="sidebar" role="menu">
 
-<div id="map"></div>
+        <div class="item" role="menuitem">
+            <h3>UI</h3>
+            <div class="subitems">
+                <a routerLinkActive="active" routerLink="/ui/buttons">Botones</a>
+                <a routerLinkActive="active" routerLink="/ui/buttons-group">Grupo botones</a>
+            </div>
+        </div>
+
+        <div class="item" role="menuitem">
+            <h3>Formularios</h3>
+            <div class="subitems">
+                <a routerLinkActive="active" routerLink="/forms/basic">Basicos</a>
+                <a routerLinkActive="active" routerLink="/forms/extras">Extras</a>
+                <a routerLinkActive="active" routerLink="/forms/select">Selectores</a>
+            </div>
+        </div>
+
+        <div class="item" role="menuitem">
+            <h3>Utilidades</h3>
+            <div class="subitems">
+                <a routerLinkActive="active" routerLink="/utils/theme">Tema Claro/Oscuro</a>
+                <a routerLinkActive="active" routerLink="/utils/cookies">Cookies</a>
+                <a routerLinkActive="active" routerLink="/utils/click">Clic ó Toque prolongado</a>
+                <a routerLinkActive="active" routerLink="/utils/fullscreen">Pantalla completa</a>
+                <a routerLinkActive="active" routerLink="/utils/snackbar">Snackbar</a>
+                <a routerLinkActive="active" routerLink="/utils/password">Contraseña aleatoria</a>
+            </div>
+        </div>
+
+        <!-- <div class="routes">
+
+            <a class="route" routerLink="/forms">
+                <h3>Formularios</h3>
+                <ul>
+                    <li>Básico</li>
+                    <li>Expresión regular</li>
+                    <li>NIT</li>
+                    <li>Area de texto</li>
+                    <li>Direcciones</li>
+                    <li>PIN</li>
+                </ul>
+            </a>
+
+            <a class="route" routerLink="/select" style="width: 300px;">
+                <h3>Selectores</h3>
+                <ul>
+                    <li>Default</li>
+                    <li>Simple</li>
+                    <li>Multiple</li>
+                    <li>Selección unica con plantilla</li>
+                    <li>Selección multiple con plantilla</li>
+                </ul>
+            </a>
+
+            <a class="route" routerLink="/date">
+                <h3>Fechas</h3>
+                <ul>
+                    <li>Fecha</li>
+                    <li>Fecha - Hora</li>
+                    <li>Rango de Fecha</li>
+                    <li>Rango de Fecha - Hora</li>
+                </ul>
+            </a>
+
+            <a class="route" routerLink="/filters">
+                <h3>Filtros</h3>
+                <ul>
+                    <li>Multiple</li>
+                </ul>
+            </a>
+        </div>
+ -->
+    </div>
+
+    <div class="content" role="main">
+        <router-outlet></router-outlet>
+    </div>
+</div>

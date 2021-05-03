@@ -1,0 +1,50 @@
+
+<a class="example-name" href="#bttn-bordered">
+    <span class="material-icons">link</span>
+    <h1 id="bttn-icon">Grupo de botones</h1>
+</a>
+
+<div class="buttons">
+    <div class="bttn-group">
+        <button type="button" class="bttn">Opción 1</button>
+        <button type="button" class="bttn primary">Opción 2</button>
+        <button type="button" class="bttn">Opción 3</button>
+    </div>
+    <div class="bttn-group">
+        <button type="button" class="bttn">Opción 1</button>
+        <button type="button" class="bttn">Opción 2</button>
+        <button type="button" class="bttn primary">Opción 3</button>
+    </div>
+</div>
+
+<div class="code">
+    <pre><code [highlight]="examples.ButtonGroup"></code></pre>
+    <button class="bttn icon copy" type="button" [copyToClipboard]="examples.ButtonGroup" (copied)="alert('Copiado al portapapeles')">
+        <span class="material-icons">content_copy</span>
+    </button>
+</div>
+
+
+
+<div class="separator"></div>
+
+
+
+<a class="example-name" href="#bttn-bordered">
+    <span class="material-icons">link</span>
+    <h1 id="bttn-icon">Boton con texto oculto</h1>
+</a>
+
+<div class="buttons">
+    <button type="button" class="bttn primary text-collapse">
+        <div class="text">Opciones</div>
+        <i class="material-icons">settings</i>
+    </button>
+</div>
+
+<div class="code">
+    <pre><code [highlight]="examples.ButtonCollapse"></code></pre>
+    <button class="bttn icon copy" type="button" [copyToClipboard]="examples.ButtonCollapse" (copied)="alert('Copiado al portapapeles')">
+        <span class="material-icons">content_copy</span>
+    </button>
+</div>

@@ -160,6 +160,13 @@ ser-input-file {
     }
 }
 
+ser-input-number,
+ser-input-currency {
+    input {
+        width: 100%;
+    }
+}
+
 .scheme-dark {
 
     select:-webkit-autofill,

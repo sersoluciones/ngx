@@ -1,13 +1,10 @@
 import { SnackbarService } from './../../../../src/ui/snackbar.service';
-import * as examples from '../app.examples';
 import { OnInit, AfterViewInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DownloadService } from '../../../../src/ui/download.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
 export class BaseView implements OnInit, AfterViewInit {
-    examples = examples;
-
     _fb: FormBuilder;
     _msj: SnackbarService;
     modelForm: FormGroup;

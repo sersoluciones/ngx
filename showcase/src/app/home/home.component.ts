@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BaseView } from '../base/base-view';
+import * as examples from './examples';
 
 @Component({
   selector: 'showcase-home',
@@ -7,5 +8,5 @@ import { BaseView } from '../base/base-view';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent extends BaseView {
-
+    examples = examples;
 }

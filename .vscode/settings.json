@@ -1,0 +1,5 @@
+{
+    "cssVariables.lookupFiles": [
+        "src/styles/default-theme.scss"
+    ]
+}

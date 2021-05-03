@@ -1,0 +1,79 @@
+<form class="form-example" [formGroup]="modelForm">
+
+    <a class="example-name" href="#bttn-bordered">
+        <span class="material-icons">link</span>
+        <h1 id="bttn-icon">Entrada númerica mejorada</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.InputTextExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.InputTextExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('number1')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Númerico mejorada</label>
+                    <ser-input-number serControl formControlName="number1"></ser-input-number>
+
+                    <div serErrors="number1">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="separator"></div>
+
+    <a class="example-name" href="#bttn-bordered">
+        <span class="material-icons">link</span>
+        <h1 id="bttn-icon">Entrada tipo moneda</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.InputTextExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.InputTextExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('number2')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Moneda</label>
+                    <ser-input-currency serControl formControlName="number2"></ser-input-currency>
+
+                    <div serErrors="number2">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+</form>

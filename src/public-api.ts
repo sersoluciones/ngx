@@ -98,6 +98,18 @@ export * from './form/pin/pin-input.component';
 // Address
 export * from './form/address/address-col/address-col.component';
 
+// Number
+export * from './form/input-number/input-number.component';
+
+// Mask
+export * from './form/mask/config';
+export * from './form/mask/custom-keyboard-event';
+export * from './form/mask/mask-applier.service';
+export * from './form/mask/mask.directive';
+export * from './form/mask/mask.pipe';
+export * from './form/mask/mask.service';
+export * from './form/mask/ser-mask.module';
+
 // UI
 export * from './ui/when-scrolled.directive';
 export * from './ui/finish-typing.directive';

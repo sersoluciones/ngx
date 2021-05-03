@@ -1,8 +1,6 @@
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SerFormModule } from './../../../src/form/ser-form.module';
 import { SerUiModule } from './../../../src/ui/ser-ui.module';
 import { FacebookComponent } from './facebook/facebook.component';
-import { SelectComponent } from './select/select.component'
 import { GoogleComponent } from './google/google.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule } from '@angular/core';
@@ -17,51 +15,29 @@ import { GoogleSDKModule } from '../../../src/google/google-sdk.module';
 import { NG_GAPI_CONFIG } from '../../../src/google/google-sdk.service';
 import { FacebookSDKModule } from '../../../src/facebook/facebook-sdk.module';
 import { NG_FSDK_CONFIG } from '../../../src/facebook/facebook-sdk.service';
-import { RouterModule, Routes } from '@angular/router';
-import { UtilsComponent } from './utils/utils.component';
-import { FormsComponent } from './forms/forms.component';
-import { HomeComponent } from './home/home.component';
-import { FilterComponent } from './filter/filter.component';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es-CO';
-import { DateComponent } from './date/date.component';
-import { UiComponent } from './ui/ui.component';
+
+import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
+import { HomeComponent } from './home/home.component';
+import { SerMaskModule } from '../../../src/form/mask/ser-mask.module';
 
 registerLocaleData(localeEs, 'es-CO');
-
-const appRoutes: Routes = [
-    { path: 'utils', component: UtilsComponent },
-    { path: 'select', component: SelectComponent },
-    { path: 'filters', component: FilterComponent },
-    { path: 'forms', component: FormsComponent },
-    { path: 'date', component: DateComponent },
-    { path: 'ui', component: UiComponent },
-    { path: '', component: HomeComponent }
-];
 
 @NgModule({
   declarations: [
     AppComponent,
-    GoogleComponent,
-    FacebookComponent,
-    SelectComponent,
-    UtilsComponent,
-    FormsComponent,
     HomeComponent,
-    FilterComponent,
-    DateComponent,
-    UiComponent
+    GoogleComponent,
+    FacebookComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
+    AppRoutingModule,
     SerUiModule,
     SerFormModule,
-    RouterModule.forRoot(
-        appRoutes,
-        { enableTracing: false } // <-- debugging purposes only
-    ),
+    SerMaskModule.forRoot(),
     HighlightModule.forRoot({
       languages() {
         return [
@@ -86,7 +62,8 @@ const appRoutes: Routes = [
         xfbml: true,
         version: 'v6.0'
       }
-    })
+    }),
+    SharedModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es-CO' }

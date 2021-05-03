@@ -2,68 +2,81 @@
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-width: 0;
 }
 
-#map {
-    height: 500px;
-    width: 100%;
-}
+:host {
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    height: 100%;
 
-.toolbar {
-    height: 60px;
-    padding: 0 32px;
-    display: flex;
-    align-items: center;
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: 600;
-
-    img {
-        cursor: pointer;
-        height: 40px;
-        margin: 0 16px;
-    }
-
-    .material-icons {
+    .toolbar {
+        height: 60px;
+        padding: 0 32px;
+        display: flex;
+        align-items: center;
+        background-color: var(--primary-color);
         color: white;
-    }
+        font-weight: 600;
 
-    .social-logo {
-        height: 25px;
-        margin: 0 16px;
-
-        &:hover {
-            opacity: 0.8;
+        img {
+            cursor: pointer;
+            height: 40px;
+            margin: 0 16px;
         }
-    }
-}
 
-.content {
-    display: flex;
-    margin: 32px auto;
-    padding: 0 16px;
-    flex-direction: column;
-    align-items: flex-start;
+        .material-icons {
+            color: white;
+        }
 
-    > * {
-        display: block;
-        max-width: 100%;
-    }
-}
+        .social-logo {
+            height: 25px;
+            margin: 0 16px;
 
-.leaflet-container {
-
-    .leaflet-control-fullscreen {
-        a {
-            background-image: url('/assets/images/fullscreen.png');
+            &:hover {
+                opacity: 0.8;
+            }
         }
     }
 
-    @media
-    (-webkit-min-device-pixel-ratio:2),
-    (min-resolution:192dpi) {
-        .leaflet-control-fullscreen a {
-            background-image: url('/assets/images/fullscreen2x.png');
+    .site {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+
+        .sidebar {
+            background-color: var(--bg-0dp);
+
+            .item {
+                padding: 16px;
+
+                .subitems {
+                    padding-left: 32px;
+
+                    a {
+                        color: #525252;
+                        display: block;
+                        text-decoration: none;
+
+                        &.active {
+                            color: var(--primary-color);
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+
+        .content {
+            display: flex;
+            margin: 32px;
+            padding: 0 16px;
+            flex-direction: column;
+            align-items: flex-start;
+
+            > * {
+                display: block;
+                max-width: 100%;
+            }
         }
     }
 }
