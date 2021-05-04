@@ -1,3 +1,4 @@
+import { FileComponent } from './file/file.component';
 import { ExtrasComponent } from './extras/extras.component';
 import { BasicComponent } from './basic/basic.component';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,10 @@ const routes: Routes = [
     {
         path: 'extras',
         component: ExtrasComponent
+    },
+    {
+        path: 'file',
+        component: FileComponent
     }
 ];
 

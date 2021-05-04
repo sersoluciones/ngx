@@ -24,6 +24,7 @@ export class InputFileComponent implements AfterViewInit, OnInit, ControlValueAc
     @HostBinding('class.show') show = false;
 
     @Input() settings: InputFileSettings;
+    @Input() preventBodyDrop = true;
 
     @Output() focus: EventEmitter<void> = new EventEmitter<void>();
     @Output() blur: EventEmitter<void> = new EventEmitter<void>();
@@ -52,6 +53,27 @@ export class InputFileComponent implements AfterViewInit, OnInit, ControlValueAc
 
     constructor(@Optional() @Attribute('multiple') multipleAttr: any) {
         this.multiple = multipleAttr !== null;
+    }
+
+    @HostListener('drop', ['$event'])
+    onDrop(event: DragEvent) {
+        event.preventDefault();
+        this.setFile(event);
+    }
+
+    @HostListener('body:dragover', ['$event'])
+    onBodyDragOver(event: DragEvent) {
+        if (this.preventBodyDrop) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    }
+
+    @HostListener('body:drop', ['$event'])
+    onBodyDrop(event: DragEvent) {
+        if (this.preventBodyDrop) {
+            event.preventDefault();
+        }
     }
 
     writeValue(obj: any) {
@@ -110,9 +132,19 @@ export class InputFileComponent implements AfterViewInit, OnInit, ControlValueAc
         this.filesInstance = [];
     }
 
-    setFile(ev: Event) {
-        this.files = Array.from((ev.target as HTMLInputElement).files);
-        (ev.target as HTMLInputElement).value = null;
+    setFile(ev: any) {
+
+        if (ev instanceof DragEvent) {
+
+            this.files = Array.from(ev.dataTransfer.files);
+            ev.dataTransfer.clearData();
+
+        } else if (ev instanceof Event) {
+
+            (ev.target as HTMLInputElement).value = null;
+            this.files = Array.from((ev.target as HTMLInputElement).files);
+
+        }
 
         if (this.multiple) {
             this.onSelect.emit(this.files);
