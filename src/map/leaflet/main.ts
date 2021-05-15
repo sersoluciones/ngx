@@ -10,6 +10,7 @@ import { LEAFLET_MAP_LAYERS } from './providers';
 
 export class LeafletMap {
     map: L.Map;
+    mapInitializated = false;
     markers: any = {};
     markerCluster: L.MarkerClusterGroup;
     layerControl: L.Control.Layers;
@@ -56,6 +57,10 @@ export class LeafletMap {
         }
 
         this.map = new L.Map(this.options.container, this.options.mapOptions);
+
+        this.map.whenReady(() => {
+            this.mapInitializated = true;
+        });
 
         if (this.options.mousePositionOptions.enable) {
             this.map.addControl(new L.Control.MousePosition(this.options.mousePositionOptions));
