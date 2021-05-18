@@ -15,13 +15,11 @@ export class AppComponent extends BaseView {
     examples = examples;
     leafletInstance: LeafletMap;
 
-    constructor(protected injectorObj: Injector, public colorScheme: PrefersColorSchemeService, private _map: MapService) {
+    constructor(protected injectorObj: Injector, public colorScheme: PrefersColorSchemeService) {
         super(injectorObj);
     }
 
     init() {
-        // this.colorScheme.init();
-        this.colorScheme.watch();
 
         console.log('%cPowered by SER', 'color: white;background-color: #653182;padding: 8px; border-radius: 4px;margin: 8px 0;');
         console.log('https://www.sersoluciones.com/');

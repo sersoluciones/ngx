@@ -4,26 +4,17 @@ import { BaseView } from '../base/base-view';
 
 @Component({
     selector: 'showcase-date',
-    templateUrl: './date.component.html',
-    styleUrls: ['./date.component.scss']
+    templateUrl: './date.component.html'
 })
-export class DateComponent extends BaseView {
+export class Date2Component extends BaseView {
 
     modelForm = this._fb.group({
-        date1: [null, [Validators.required]],
-        date2: [null, [Validators.required]],
         date3: [null, [Validators.required]],
         date4: [{
             from: new Date('2020-12-02T11:43:40.336716'),
             to: new Date('2020-12-28T11:43:40.336716')
         }, [Validators.required]]
     });
-
-    init() {
-         this.modelForm.valueChanges.subscribe((values) => {
-             // console.log(values);
-         });
-    }
 
     setDate() {
         console.log((new Date()).toISOString());

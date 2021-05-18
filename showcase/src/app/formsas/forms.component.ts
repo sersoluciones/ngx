@@ -12,12 +12,6 @@ import { InputFileSettings } from '../../../../src/form/input-file/input-file.in
 export class FormsComponent extends BaseView {
 
     modelForm = this._fb.group({
-        username: ['', [Validators.required]],
-        password: ['', [Validators.required]],
-        text10: ['', [Validators.required]],
-        text11: ['', [Validators.required]],
-        text2: ['', Validators.required],
-        text3: ['', Validators.required],
         file: [null, Validators.required],
         file_id: [''],
         regexInput: ['\\d+', Validators.required],
@@ -25,28 +19,15 @@ export class FormsComponent extends BaseView {
         address: ['', Validators.required],
         num: [2],
         num1: [],
-        num2: [],
-        pin: ['', Validators.required],
-        pinForm: this._fb.group({
-            codeLength: [4, Validators.required],
-            onlyNumber: [true, Validators.required],
-            isCodeHidden: [false, Validators.required]
-        })
+        num2: []
     }, {
         validators: [CustomValidators.betweenRange('num', 'num1', 'num2')]
     });
 
     text3Regex = '\\d+';
-    pinShow = true;
     testL = true;
 
     init() {
-        this.modelForm.get('pinForm').valueChanges.subscribe(() => {
-            this.pinShow = false;
-            setTimeout(() => {
-                this.pinShow = true;
-            }, 500);
-        });
 
         this.modelForm.patchValue({
             file: 'https://kimed.s3.amazonaws.com/upload/attachments/ips/file_4db4df75-f984-419e-abf2-a6806dbe0b9c.jpg'

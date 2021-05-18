@@ -1,3 +1,4 @@
+import { PinComponent } from './pin/pin.component';
 import { FileComponent } from './file/file.component';
 import { ExtrasComponent } from './extras/extras.component';
 import { BasicComponent } from './basic/basic.component';
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
         path: 'file',
         component: FileComponent
+    },
+    {
+        path: 'pin',
+        component: PinComponent
     }
 ];
 

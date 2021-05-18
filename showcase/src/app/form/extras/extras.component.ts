@@ -13,7 +13,8 @@ export class ExtrasComponent extends BaseView {
     modelForm = this._fb.group({
         number1: [null, [Validators.required]],
         number2: [null, [Validators.required]],
-        select1: [null, [Validators.required]]
+        addressCOL: [null, [Validators.required]],
+        text1: [null]
     });
 
 }

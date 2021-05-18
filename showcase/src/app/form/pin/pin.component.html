@@ -1,0 +1,67 @@
+<form class="form-example" [formGroup]="modelForm">
+
+    <a class="example-name" href="#">
+        <span class="material-icons">link</span>
+        <h1>Entrada tipo PIN</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.PINExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.PINExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+                <div class="desc">Directiva para ingresar un PIN alfanumérico de longitud variable</div>
+
+                <ng-container formGroupName="pinForm">
+                    <div class="row start-center">
+
+                        <ser-form-element>
+                            <label>Tamaño</label>
+                            <input serControl type="number" formControlName="codeLength">
+                        </ser-form-element>
+
+                        <div class="checkbox">
+                            <label>
+                                <input serControl type="checkbox" formControlName="onlyNumber">
+                                Solo números
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input serControl type="checkbox" formControlName="isCodeHidden">
+                                Ocultar escritura
+                            </label>
+                        </div>
+
+                    </div>
+                </ng-container>
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('pin1')">Habilitar / Deshabilitar</button>
+
+                <ng-container *ngIf="pinShow">
+                    <ser-form-element>
+                        <pin-input serControl formControlName="pin1" [codeLength]="modelForm.value.pinForm.codeLength" [onlyNumber]="modelForm.value.pinForm.onlyNumber" [isCodeHidden]="modelForm.value.pinForm.isCodeHidden"></pin-input>
+
+                        <div serErrors="pin1">
+                            <div serError="required">Requerido</div>
+                        </div>
+                    </ser-form-element>
+                </ng-container>
+
+            </div>
+        </div>
+
+    </div>
+
+</form>

@@ -10,8 +10,8 @@
         <div class="code">
 
             <div class="body">
-                <pre><code [highlight]="examples.InputTextExample"></code></pre>
-                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.InputTextExample" (copied)="alert('Copiado al portapapeles')">
+                <pre><code [highlight]="examples.NumberExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.NumberExample" (copied)="alert('Copiado al portapapeles')">
                     <span class="material-icons">content_copy</span>
                 </button>
             </div>
@@ -37,7 +37,7 @@
 
     </div>
 
-    <a class="example-name" href="#bttn-bordered">
+    <a class="example-name" href="./#bttn-bordered">
         <span class="material-icons">link</span>
         <h1 id="bttn-icon">Entrada tipo moneda</h1>
     </a>
@@ -47,8 +47,8 @@
         <div class="code">
 
             <div class="body">
-                <pre><code [highlight]="examples.InputTextExample"></code></pre>
-                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.InputTextExample" (copied)="alert('Copiado al portapapeles')">
+                <pre><code [highlight]="examples.CurrencyExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.CurrencyExample" (copied)="alert('Copiado al portapapeles')">
                     <span class="material-icons">content_copy</span>
                 </button>
             </div>
@@ -67,6 +67,80 @@
                     <div serErrors="number2">
                         <div serError="required">Requerido</div>
                     </div>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+    <a class="example-name" href="#address-col">
+        <span class="material-icons">link</span>
+        <h1 id="address-col">Dirección (COL)</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.AddressCOLExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.AddressCOLExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <div class="desc">Directiva para ingresar una dirección guiada en formato colombiano</div>
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('addressCOL')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Dirección</label>
+                    <address-col-input serControl formControlName="addressCOL"></address-col-input>
+
+                    <div serErrors="addressCOL">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+    <a class="example-name" href="#address-col">
+        <span class="material-icons">link</span>
+        <h1 id="address-col">Área de texto de alto dinámico</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.TextAreaExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.TextAreaExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <div class="desc">Directiva <code>growOnInput</code> para aumentar y disminuir el alto de un <code>textarea</code> según el contenido</div>
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('text1')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Texto</label>
+                    <textarea serControl growOnInput formControlName="text1"></textarea>
                 </ser-form-element>
 
             </div>
