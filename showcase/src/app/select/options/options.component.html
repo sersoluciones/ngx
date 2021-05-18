@@ -1,0 +1,75 @@
+<form class="form-example" [formGroup]="modelForm">
+
+    <a class="example-name" href="#badge">
+        <span class="material-icons">link</span>
+        <h1 id="badge">Simple</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.SimpleExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.SimpleExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <div class="desc">Usa el atributo <code>simple</code> para deshabilitar la función de busqueda y el botón de limpiar</div>
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('simpleSelect')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Simple</label>
+                    <ser-select serControl formControlName="simpleSelect" [data]="options.dropdown" simple></ser-select>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+    <a class="example-name" href="#badge">
+        <span class="material-icons">link</span>
+        <h1 id="badge">Valor - Insignia</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.PLExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.PLExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <div class="desc">Usa el atributo <code>primaryKey</code> para indicar el nombre de la propiedad que se usará como valor seleccionado y <code>labelKey</code>
+                    para la clave que se usará como insignia, por defecto los valores con <i>id</i> y <i>name</i> respectivamente</div>
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('plTemplate')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <ser-select serControl formControlName="plTemplate" [data]="options.dropdown" labelKey="desc" primaryKey="name"></ser-select>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+</form>

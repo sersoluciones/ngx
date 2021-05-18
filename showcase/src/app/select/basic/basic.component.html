@@ -1,0 +1,78 @@
+<form class="form-example" [formGroup]="modelForm">
+
+    <a class="example-name" href="#default">
+        <span class="material-icons">link</span>
+        <h1 id="default">Default</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.DefaultExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.DefaultExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('selectDefault')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Por defecto</label>
+                    <ser-select serControl formControlName="selectDefault" [data]="options.dropdown"></ser-select>
+
+                    <div serErrors="selectDefault">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <a class="example-name" href="#multiple">
+        <span class="material-icons">link</span>
+        <h1 id="multiple">Multiple</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.MultipleExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.MultipleExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('selectMultiple')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Múltiple</label>
+                    <ser-select serControl formControlName="selectMultiple" [data]="options.dropdown" multiple></ser-select>
+
+                    <div serErrors="selectMultiple">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+</form>

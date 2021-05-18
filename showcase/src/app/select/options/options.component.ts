@@ -4,14 +4,17 @@ import { BaseView } from 'src/app/base/base-view';
 import * as examples from './examples';
 
 @Component({
-    templateUrl: './file.component.html'
+    templateUrl: './options.component.html'
 })
-export class FileComponent extends BaseView {
+export class OptionsComponent extends BaseView {
 
     examples = examples;
 
     modelForm = this._fb.group({
-        file1: [null, [Validators.required]]
+        simpleSelect: [null],
+        simpleMultiSelect: [null],
+        plTemplate: [null],
+        badgeItemCompTemplate: [null]
     });
 
 }

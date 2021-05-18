@@ -14,6 +14,10 @@ const routes: Routes = [
     {
         path: 'forms',
         loadChildren: () => import('./form/form.module').then(m => m.FormModule)
+    },
+    {
+        path: 'select',
+        loadChildren: () => import('./select/select.module').then(m => m.SelectModule)
     }
 ];
 

@@ -1,0 +1,197 @@
+<form class="form-example" [formGroup]="modelForm">
+
+    <a class="example-name" href="#badge">
+        <span class="material-icons">link</span>
+        <h1 id="badge">Insignia</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.BadgeExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.BadgeExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('badgeTemplate')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Insignia</label>
+                    <ser-select serControl formControlName="badgeTemplate" [data]="options.dropdown">
+
+                        <ng-template sd-badge let-item="item">
+                            <div class="select-template">
+                                <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                                <div>
+                                    <div>{{ item.name }}</div>
+                                    <strong>{{ item.desc }}</strong>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                    </ser-select>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <a class="example-name" href="#badge">
+        <span class="material-icons">link</span>
+        <h1 id="badge">Elemento</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.ItemExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.ItemExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('itemTemplate')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Elemento</label>
+                    <ser-select serControl formControlName="itemTemplate" [data]="options.dropdown">
+
+                        <ng-template sd-item let-item="item">
+                            <div class="select-template">
+                                <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                                <div>
+                                    <div>{{ item.name }}</div>
+                                    <strong>{{ item.desc }}</strong>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                    </ser-select>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <a class="example-name" href="#badge">
+        <span class="material-icons">link</span>
+        <h1 id="badge">Insignia + Elemento</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.BadgeItemExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.BadgeItemExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('badgeItemTemplate')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Insignia + Elemento</label>
+                    <ser-select serControl formControlName="badgeItemTemplate" [data]="options.dropdown">
+
+                        <ng-template sd-badge let-item="item">
+                            <div class="select-template">
+                                <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                                <div>
+                                    <div>{{ item.name }}</div>
+                                    <strong>{{ item.desc }}</strong>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template sd-item let-item="item">
+                            <div class="select-template">
+                                <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                                <div>
+                                    <div>{{ item.name }}</div>
+                                    <strong>{{ item.desc }}</strong>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                    </ser-select>
+
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <a class="example-name" href="#badge">
+        <span class="material-icons">link</span>
+        <h1 id="badge">Insignia + Elemento compacto</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.BadgeItemCompExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.BadgeItemCompExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('badgeItemCompTemplate')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Insignia + Elemento compacto</label>
+                    <ser-select serControl formControlName="badgeItemCompTemplate" [data]="options.dropdown">
+
+                        <ng-template sd-badge-item let-item="item">
+                            <div class="select-template">
+                                <div class="img" [ngStyle]="{'background-image': 'url(' + item.image + ')'}"></div>
+                                <div>
+                                    <div>{{ item.name }}</div>
+                                    <strong>{{ item.desc }}</strong>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                    </ser-select>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+</form>

@@ -4,9 +4,7 @@ import { BaseView } from 'src/app/base/base-view';
 import * as examples from './examples';
 
 @Component({
-  selector: 'showcase-extras',
-  templateUrl: './extras.component.html',
-  styleUrls: ['./extras.component.scss']
+  templateUrl: './extras.component.html'
 })
 export class ExtrasComponent extends BaseView {
 
