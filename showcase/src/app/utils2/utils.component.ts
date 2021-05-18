@@ -11,7 +11,7 @@ import { MaterialIcons } from './material-icons-type';
     templateUrl: './utils.component.html',
     styleUrls: ['./utils.component.scss']
 })
-export class UtilsComponent extends BaseView {
+export class Utils2Component extends BaseView {
 
     messageTypeClick = 'Clic aquí para probar';
 

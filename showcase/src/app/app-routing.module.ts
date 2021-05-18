@@ -18,7 +18,8 @@ const routes: Routes = [
     {
         path: 'select',
         loadChildren: () => import('./select/select.module').then(m => m.SelectModule)
-    }
+    },
+    { path: 'utils', loadChildren: () => import('./utils/utils.module').then(m => m.UtilsModule) }
 ];
 
 @NgModule({

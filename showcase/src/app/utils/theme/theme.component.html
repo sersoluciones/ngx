@@ -1,0 +1,47 @@
+<h2>
+    <a class="bttn icon " href="#color-schema">
+        <span class="material-icons">link</span>
+    </a>
+    Tema claro/oscuro
+</h2>
+
+<p class="description">
+    (<a href="n-ui-doc/classes/_prefers_color_scheme_.preferscolorscheme.html" target="_blank" rel="noopener noreferrer">PrefersColorScheme</a>)
+    Clase para detectar, cambiar y observar el esquema de color claro/oscuro en conjunto con el sistema operativo anfitrión
+</p>
+
+<div class="dark-os-config">
+    <div class="item">
+        <h4>macOS Mojave+</h4>
+        <a href="assets/dark-mac.png" target="_blank" rel="noopener noreferrer">
+            <img src="assets/dark-mac.png" alt="macOS">
+        </a>
+    </div>
+    <div class="item">
+        <h4>Windows 10 (October 2018)+</h4>
+        <a href="assets/dark-windows.png" target="_blank" rel="noopener noreferrer">
+            <img src="assets/dark-windows.png" alt="Windows">
+        </a>
+    </div>
+    <div class="item">
+        <h4>iOS 13+</h4>
+        <a href="assets/dark-ios.jpeg" target="_blank" rel="noopener noreferrer">
+            <img src="assets/dark-ios.jpeg" alt="iOS">
+        </a>
+    </div>
+    <div class="item">
+        <h4>Android 10+</h4>
+        <a href="assets/dark-android.png" target="_blank" rel="noopener noreferrer">
+            <img src="assets/dark-android.png" alt="Android">
+        </a>
+    </div>
+</div>
+
+<p class="description">Ó puedes controlar de manera manual el esquema de color independiente del sistema operativo</p>
+
+<div class="bttn-group">
+    <button type="button" class="bttn" (click)="colorscheme.enableLight()" [ngClass]="{blue: !colorscheme.dark}">Claro</button>
+    <button type="button" class="bttn" (click)="colorscheme.enableDark()" [ngClass]="{blue: colorscheme.dark}">Oscuro</button>
+</div>
+
+<pre><code [highlight]="examples.PrefersColorSchemeExample"></code></pre>

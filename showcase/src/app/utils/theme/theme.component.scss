@@ -1,0 +1,17 @@
+.dark-os-config {
+    width: 100%;
+    overflow-x: auto;
+    display: flex;
+
+    .item {
+        text-align: center;
+
+        img {
+            max-width: 300px;
+            max-height: 300px;
+            margin: 12px;
+            box-shadow: 2px 2px 12px 0 black;
+            border-radius: 4px;
+        }
+    }
+}
