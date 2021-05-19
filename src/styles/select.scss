@@ -153,11 +153,11 @@ ser-select {
             height: 100% !important;
 
             .list-container {
-                max-height: calc(100% - 35px) !important;
+                max-height: calc(100% - 45px) !important;
             }
 
             .select-all + .list-container {
-                max-height: calc(100% - 77px) !important;
+                max-height: calc(100% - 87px) !important;
             }
         }
 

@@ -757,6 +757,10 @@ ser-select {
             height: 35px;
             border-bottom: 1px solid var(--select-border);
 
+            @media (max-width: 600px) {
+                height: 35px;
+            }
+
             .icon-search {
                 margin-right: 8px;
             }
