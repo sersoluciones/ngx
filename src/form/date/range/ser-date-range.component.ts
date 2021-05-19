@@ -165,7 +165,7 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
         this._picker.on('selected', (date1, date2) => {
             if (!this._noReadEvent) {
 
-                console.log(date1.dateInstance, date2.dateInstance);
+                // console.log(date1.dateInstance, date2.dateInstance);
 
                 const dates = {};
                 dates[this.settings.startDateField] = date1.dateInstance;

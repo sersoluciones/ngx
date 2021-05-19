@@ -275,7 +275,7 @@ export class LPCore extends EventEmitter {
     }
 
     protected isShowning() {
-        return this.ui && this.ui.style.display !== 'none';
+        return this.ui?.parentElement;
     }
 
     protected findPosition(element) {
@@ -285,10 +285,21 @@ export class LPCore extends EventEmitter {
         const scrollX = window.scrollX || window.pageXOffset;
         const scrollY = window.scrollY || window.pageYOffset;
 
-        let top = 0;
-        let left = 0;
+        const remainingHeight = document.documentElement.offsetHeight - (this.ui.offsetHeight + rect.top + element.offsetHeight);
 
-        if (orientation[0] === 'auto' || !(/top|bottom/.test(orientation[0]))) {
+        const position = {
+            left: rect.left,
+            top: null,
+            bottom: null
+        };
+
+        if (remainingHeight > 0) {
+            position.top = rect.bottom;
+        } else {
+            position.bottom = document.documentElement.offsetHeight - rect.top;
+        }
+
+        /* if (orientation[0] === 'auto' || !(/top|bottom/.test(orientation[0]))) {
             top = rect.bottom + scrollY;
 
             const isOutBounds = rect.bottom + calRect.height > window.innerHeight;
@@ -322,11 +333,8 @@ export class LPCore extends EventEmitter {
             if (orientation[0] === 'right' || orientation[1] === 'right') {
                 left -= calRect.width;
             }
-        }
+        } */
 
-        return {
-            left,
-            top,
-        };
+        return position;
     }
 }

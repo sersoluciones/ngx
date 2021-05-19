@@ -542,7 +542,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                     .pipe(filter((e: KeyboardEvent) => e.key.toLowerCase() === 'escape' && this.settings.escapeToClose )),
 
                 fromIntersectionObserver(this.selectedListElem.nativeElement)
-                    .pipe(filter((ev) => !ev[0].isIntersecting))
+                    .pipe(filter((ev) => !ev[0].isIntersecting && window.innerWidth > 600))
             )
             .subscribe(() => this.closeDropdown()),
 

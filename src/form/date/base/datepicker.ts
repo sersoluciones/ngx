@@ -1,3 +1,7 @@
+import { fromEvent, merge, Observable, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { inArray } from '../../../utils/array';
+import { hasValue } from '../../../utils/check';
 import { Calendar } from './calendar';
 import { DateTime } from './datetime';
 import { ILPConfiguration } from './interfaces';
@@ -6,6 +10,8 @@ import { dateIsLocked, findNestedMonthItem, rangeIsLocked } from './utils';
 
 export class Datepicker extends Calendar {
     public preventClick = false;
+    private parents: Element[] = [];
+    private dropdownSubs$: Subscription[] = [];
     protected triggerElement;
     protected backdrop;
 
@@ -37,7 +43,6 @@ export class Datepicker extends Calendar {
 
         this.ui = document.createElement('div');
         this.ui.className = style.datepicker;
-        this.ui.style.display = 'none';
         this.ui.addEventListener('mouseenter', this.onMouseEnter.bind(this), true);
         this.ui.addEventListener('mouseleave', this.onMouseLeave.bind(this), false);
 
@@ -64,15 +69,22 @@ export class Datepicker extends Calendar {
                 (document.querySelector(this.options.parentEl) as HTMLElement).appendChild(this.ui);
             }
         } else {
-            if (this.options.inlineMode) {
-                if (this.options.element instanceof HTMLInputElement) {
-                    this.options.element.parentNode.appendChild(this.ui);
-                } else {
-                    this.options.element.appendChild(this.ui);
-                }
+            if (this.options.inlineMode && this.options.element instanceof HTMLInputElement) {
+                this.options.element.parentNode.appendChild(this.ui);
             } else {
-                document.body.appendChild(this.ui);
+                // this.options.element.appendChild(this.ui);
             }
+        }
+
+        let parent = this.options.element.parentElement;
+
+        while (hasValue(parent)) {
+
+            if (inArray(getComputedStyle(parent).overflowY, ['auto', 'scroll', 'overlay']) || inArray(getComputedStyle(parent).overflowX, ['auto', 'scroll', 'overlay'])) {
+                this.parents.push(parent);
+            }
+
+            parent = parent.parentElement;
         }
 
         this.updateInput();
@@ -147,7 +159,7 @@ export class Datepicker extends Calendar {
     show(el = null) {
         this.emit('before:show', el);
 
-        const element = el ? el : this.options.element;
+        const element = el ? (el as HTMLElement | HTMLInputElement) : this.options.element;
         this.triggerElement = element;
 
         if (this.isShowning()) {
@@ -164,28 +176,76 @@ export class Datepicker extends Calendar {
             return;
         }
 
+        this.ui.style.position = 'fixed';
+        this.options.element.appendChild(this.ui);
+        this.setPosition(element);
+
+        const parents$: Observable<any>[] = [
+            fromEvent(document, 'scroll'),
+            fromEvent(document, 'resize')
+        ];
+
+        this.parents.forEach((parent) => {
+            parents$.push(fromEvent(parent, 'scroll'));
+        });
+
+        this.dropdownSubs$.push(
+
+            merge(
+                /* fromEvent(window, 'click')
+                    .pipe(filter((e: MouseEvent) => !element.contains((e.target as any)) )), */
+
+                fromEvent(window, 'keyup')
+                    .pipe(filter((e: KeyboardEvent) => e.key.toLowerCase() === 'escape' )),
+            )
+            .subscribe(() => this.hide()),
+
+            merge(...parents$).subscribe(() => this.setPosition(element))
+        );
+
         this.scrollToDate(el);
 
         this.render();
-
-        this.ui.style.position = 'absolute';
-        this.ui.style.display = 'block';
         this.ui.style.zIndex = this.options.zIndex + '';
 
-        const position = this.findPosition(element);
-
-        this.ui.style.top = `${position.top}px`;
-        this.ui.style.left = `${position.left}px`;
-        this.ui.style.right = null;
-        this.ui.style.bottom = null;
-
         this.emit('show', el);
+    }
+
+    setPosition(el: HTMLElement | HTMLInputElement) {
+        const rect = el.getBoundingClientRect();
+        const remainingHeight = document.documentElement.offsetHeight - (this.ui.offsetHeight + rect.top + el.offsetHeight);
+        const remainingWidth = document.documentElement.offsetWidth - (rect.left + this.ui.offsetWidth);
+
+
+        if (remainingWidth > 0) {
+            this.ui.style.left = `${rect.left}px`;
+            this.ui.style.right = null;
+        } else {
+            this.ui.style.left = null;
+            this.ui.style.right = `0px`;
+        }
+
+        if (remainingHeight > 0) {
+            this.ui.style.top = `${rect.bottom}px`;
+            this.ui.style.bottom = null;
+            this.ui.classList.remove('ontop');
+            el.classList.remove('ontop');
+        } else {
+            this.ui.style.top = null;
+            this.ui.style.bottom = `${document.documentElement.offsetHeight - rect.top}px`;
+            this.ui.classList.add('ontop');
+            el.classList.add('ontop');
+        }
+
     }
 
     hide() {
         if (!this.isShowning()) {
             return;
         }
+
+        this.dropdownSubs$.forEach(s => s.unsubscribe() );
+        this.dropdownSubs$ = [];
 
         this.datePicked.length = 0;
         this.updateInput();
@@ -195,7 +255,7 @@ export class Datepicker extends Calendar {
             return;
         }
 
-        this.ui.style.display = 'none';
+        this.options.element.removeChild(this.ui);
 
         this.emit('hide');
     }

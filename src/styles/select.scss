@@ -146,6 +146,21 @@ ser-select {
         transform-origin: 0 0;
         animation: dropdown-appear 150ms ease-in-out;
 
+        @media (max-width: 600px) {
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+
+            .list-container {
+                max-height: calc(100% - 35px) !important;
+            }
+
+            .select-all + .list-container {
+                max-height: calc(100% - 77px) !important;
+            }
+        }
+
         .list {
             padding: 0px;
             list-style: none;

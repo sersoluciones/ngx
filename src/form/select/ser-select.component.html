@@ -55,19 +55,12 @@
 </div>
 
 <div #dropdownList class="dropdown-list" [ngClass]="{'single-select-mode': settings.singleSelection, 'lazy-loading': settings.lazyLoading }">
-    <div class="pure-checkbox select-all" *ngIf="settings.enableCheckAll && !settings.singleSelection && !settings.limitSelection && !isDisabledItemPresent" (click)="toggleSelectAll()">
-
-        <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelectAll" [disabled]="settings.limitSelection == selectedItems?.length" id="selectAll"/>
-
-        <label for="selectAll">
-            <span [hidden]="isSelectAll">{{ settings.selectAllText }}</span>
-            <span [hidden]="!isSelectAll">{{ settings.unSelectAllText }}</span>
-        </label>
-    </div>
 
     <img class="loading-icon" *ngIf="loading" src="assets/img/loading.gif" />
 
     <div class="list-filter" *ngIf="settings.enableSearchFilter">
+
+        <span class="material-icons icon-back" (click)="closeDropdown()">arrow_back</span>
 
         <span class="material-icons icon-search">search</span>
 
@@ -110,7 +103,17 @@
         </div>
     </div>
 
-    <div [style.maxHeight]="settings.maxHeight + 'px'" style="overflow: auto;" [ngClass]="{'single-select-mode': settings.singleSelection }">
+    <div class="pure-checkbox select-all" *ngIf="settings.enableCheckAll && !settings.singleSelection && !settings.limitSelection && !isDisabledItemPresent" (click)="toggleSelectAll()">
+
+        <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelectAll" [disabled]="settings.limitSelection == selectedItems?.length" id="selectAll"/>
+
+        <label for="selectAll">
+            <span [hidden]="isSelectAll">{{ settings.selectAllText }}</span>
+            <span [hidden]="!isSelectAll">{{ settings.unSelectAllText }}</span>
+        </label>
+    </div>
+
+    <div class="list-container" [style.maxHeight]="settings.maxHeight + 'px'" style="overflow: auto;" [ngClass]="{'single-select-mode': settings.singleSelection }">
 
         <ng-container *ngIf="!settings.groupBy">
 

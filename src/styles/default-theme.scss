@@ -426,8 +426,13 @@ ser-form-element {
 
     > ser-date,
     > ser-date-range {
+
         &.active {
-            border-radius: 12px 12px 0 0;
+            border-radius: var(--input-border-radius) var(--input-border-radius) 0 0;
+
+            &.ontop {
+                border-radius: 0 0 var(--input-border-radius) var(--input-border-radius);
+            }
         }
     }
 
@@ -736,6 +741,10 @@ ser-select {
         &.ontop {
             border-radius: 12px 12px 0 0;
             box-shadow: -2px -1px 5px var(--select-shadow-color), 2px -1px 5px var(--select-shadow-color);
+
+            @media (max-width: 600px) {
+                border-radius: 0;
+            }
         }
 
         .select-all {
@@ -747,6 +756,19 @@ ser-select {
             padding: 0 10px;
             height: 35px;
             border-bottom: 1px solid var(--select-border);
+
+            .icon-search {
+                margin-right: 8px;
+            }
+
+            .icon-back {
+                display: none;
+                margin-right: 16px;
+
+                @media (max-width: 600px) {
+                    display: block;
+                }
+            }
 
             input {
                 background-color: var(--bg-input);
@@ -878,6 +900,15 @@ ser-filter {
             margin-right: 8px;
         }
 
+        .icon-back {
+            display: none;
+            margin-right: 32px;
+
+            @media (max-width: 600px) {
+                display: block;
+            }
+        }
+
         .icon-clear {
             margin-left: 8px;
         }
@@ -951,9 +982,17 @@ ser-filter {
         box-shadow: 2px 3px 4px 0px rgba(0, 0, 0, 0.1), -2px 3px 4px 0px rgba(0, 0, 0, 0.1);
         animation: dropdown-appear 150ms ease-in-out;
 
+        @media (max-width: 800px) {
+            border-radius: 0;
+        }
+
         &.ontop {
             border-radius: 12px 12px 0 0;
             box-shadow: 0px -3px 5px #959595;
+
+            @media (max-width: 800px) {
+                border-radius: 0;
+            }
         }
 
         .list {
@@ -1109,22 +1148,25 @@ ser-date-range {
 
     .controls {
 
-        .clear-all {
-            background-color: var(--input-border);
-            border-radius: 50%;
-            padding: 4px;
+        button[type="button"] {
+            &.clear-all {
+                background-color: var(--input-border);
+                border-radius: 50%;
+                padding: 4px;
 
-            .material-icons {
-                font-size: 12px;
-                font-weight: bold;
-                color: var(--select-icon-color);
+                .material-icons {
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: var(--select-icon-color);
+                }
+            }
+
+            &.clear-all,
+            &.chevron {
+                color: var(--select-border);
             }
         }
 
-        .clear-all,
-        .chevron {
-            color: var(--select-border);
-        }
     }
 
 }

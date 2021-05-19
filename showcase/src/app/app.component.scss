@@ -45,9 +45,17 @@
         grid-template-rows: 100%;
         overflow: hidden;
 
+        @media (max-width: 800px) {
+            grid-template-columns: 1fr;
+        }
+
         .sidebar {
             background-color: var(--bg-0dp);
             overflow: auto;
+
+            @media (max-width: 800px) {
+                display: none;
+            }
 
             .item {
                 padding: 16px;
@@ -72,6 +80,10 @@
         .content {
             padding: 32px;
             overflow: auto;
+
+            @media (max-width: 800px) {
+                padding: 16px;
+            }
 
             > * {
                 display: block;
