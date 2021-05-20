@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { SDBadgeDirective, SDBadgeItemDirective, SDItemDirective } from './ser-select-menu-item.directive';
 import { SerSelectComponent } from './ser-select.component';
 import { DataService } from './ser-select.service';
-import { VirtualScrollerModule } from 'ngx-virtual-scroller';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 const dependencies = [
     SerSelectComponent,
@@ -17,7 +17,7 @@ const dependencies = [
 ];
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, VirtualScrollerModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ScrollingModule],
     declarations: [...dependencies],
     exports: [...dependencies],
     providers: [DataService]
