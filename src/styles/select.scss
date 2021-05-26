@@ -160,7 +160,7 @@ ser-select {
         .list-container {
 
             @media (max-width: 600px) {
-                max-height: calc(100% - 45px) !important;
+                height: calc(100% - 45px) !important;
             }
 
             .list {
