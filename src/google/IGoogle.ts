@@ -5,12 +5,12 @@
 // TypeScript Version: 2.3
 
 export interface GoogleUserProfile {
-  id: string;
-  id_token: string;
-  first_name: string;
-  last_name?: string;
-  email?: string;
-  picture?: string;
+    id: string;
+    id_token: string;
+    first_name: string;
+    last_name?: string;
+    email?: string;
+    picture?: string;
 }
 
 export class GoogleClientConfig implements gapi.auth2.ClientConfig { }

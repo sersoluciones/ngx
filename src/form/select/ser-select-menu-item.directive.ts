@@ -1,7 +1,7 @@
 // tslint:disable: directive-class-suffix
 // tslint:disable: component-class-suffix
 // tslint:disable: directive-selector
-import { TemplateRef, Directive } from '@angular/core';
+import { TemplateRef, Directive, Output, OnDestroy, EventEmitter, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[sd-item]'

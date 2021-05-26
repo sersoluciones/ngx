@@ -8,18 +8,18 @@
 // tslint:disable: component-class-suffix
 // tslint:disable: component-selector
 
-import { Attribute, HostBinding, Optional, Renderer2 } from '@angular/core';
-import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef, ViewEncapsulation, ContentChild, ViewChild, forwardRef, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
+import { Attribute, HostBinding, Optional, QueryList, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ViewEncapsulation, ContentChild, ViewChild, forwardRef, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder } from '@angular/forms';
 import { DropdownSettings } from './ser-select.interface';
 import { SDItemDirective, SDBadgeDirective, SDBadgeItemDirective } from './ser-select-menu-item.directive';
 import { DataService } from './ser-select.service';
-import { Subscription, fromEvent, merge, Observable, ReplaySubject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
+import { Subscription, fromEvent, merge, Observable, ReplaySubject, Subject } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, filter, switchMap, takeUntil } from 'rxjs/operators';
 import { hasValue } from '../../utils/check';
 import { inArray } from '../../utils/array';
 import { fromIntersectionObserver } from '../../utils/rx-utils';
-import { VirtualScrollerComponent } from 'ngx-virtual-scroller';
+import { getPath, mergeObjs } from '../../utils/object';
 
 const noop = () => {
 };
@@ -39,11 +39,12 @@ const noop = () => {
 })
 export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChanges, AfterViewInit, OnDestroy {
 
+    //#region Properties
+
     @HostBinding('class.disabled') isDisabled = false;
     @HostBinding('class.active') isActive = false;
     @HostBinding('class.multiple') multipleClass = false;
 
-    //#region Properties
     private _data = [];
 
     public get data() {
@@ -54,15 +55,16 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     public set data(value) {
         this._data = value;
 
-        if (hasValue(this.value)) {
+        if (hasValue(this.value) && !this.settings.remote) {
             this.writeValue(this.value);
         }
 
-        this.filterList();
+        if (!this.settings?.remote) {
+            this.filterList();
+        }
     }
 
     @Input() settings: DropdownSettings;
-    @Input() loading: boolean;
     @Input() multiple: boolean | string;
 
     @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
@@ -73,11 +75,8 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     @Output() onOpen: EventEmitter<any> = new EventEmitter<any>();
     @Output() onClose: EventEmitter<any> = new EventEmitter<any>();
     @Output() onScrollToEnd: EventEmitter<any> = new EventEmitter<any>();
-    @Output() onFilterSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
-    @Output() onFilterDeSelectAll: EventEmitter<Array<any>> = new EventEmitter<Array<any>>();
+    @Output() onSearch: EventEmitter<any> = new EventEmitter<any>();
     @Output() onAddFilterNewItem: EventEmitter<any> = new EventEmitter<any>();
-    @Output() onGroupSelect: EventEmitter<any> = new EventEmitter<any>();
-    @Output() onGroupDeSelect: EventEmitter<any> = new EventEmitter<any>();
 
     @Output() focus: EventEmitter<void> = new EventEmitter<void>();
     @Output() blur: EventEmitter<void> = new EventEmitter<void>();
@@ -88,38 +87,19 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     @ViewChild('searchInput') searchInput: ElementRef;
     @ViewChild('selectedList') selectedListElem: ElementRef;
-    @ViewChild('dropdownList') dropdownListElem: ElementRef;
+    @ViewChild('dropdown') dropdownElem: ElementRef;
+    @ViewChild('list') listElem: QueryList<any>;
 
-    virtualdata: any = [];
+    protected listDataSub: Subject<any> = new Subject();
     notifierDestroySubs: ReplaySubject<any> = new ReplaySubject();
 
     value: any = null;
     selectedItems: any[] = [];
     isSelectAll = false;
-    isFilterSelectAll = false;
-    isInfiniteFilterSelectAll = false;
-    groupedData: any[];
     filter: any;
-    chunkArray: any[];
-    scrollTop: any;
-    chunkIndex: any[] = [];
-    cachedItems: any[] = [];
-    groupCachedItems: any[] = [];
-    totalRows: any;
-    itemHeight: any = 41.6;
-    screenItemsLen: any;
-    cachedItemsLen: any;
-    totalHeight: any;
-    scroller: any;
-    maxBuffer: any;
-    lastScrolled: any;
-    lastRepaintY: any;
-    selectedListHeight: any;
-    filterLength: any = 0;
-    infiniteFilterLength: any = 0;
-    viewPortItems: any;
     item: any;
 
+    public filteredList: any = [];
     search = this._fb.control('');
 
     private parents: Element[] = [];
@@ -144,25 +124,25 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         labelKey: 'name',
         primaryKey: 'id',
         disabledKey: 'disabled',
-        enableFilterSelectAll: true,
-        selectGroup: false,
-        addNewItemOnFilter: false,
+        remote: false,
+        paginationState:  {
+            loading: false,
+            pageSize: 10,
+            currentPage: 0,
+            rowCount: 0,
+            hasNextPage: true
+        },
         addNewButtonText: 'Agregar',
         escapeToClose: true,
         clearAll: true
     };
-
-    randomSize = true;
-    public parseError: boolean;
-    public filteredList: any = [];
-    @ViewChild(VirtualScrollerComponent, { static: false }) private virtualScroller: VirtualScrollerComponent;
-    public isDisabledItemPresent = false;
     //#endregion
 
     hasValue = hasValue;
 
     constructor(public _elementRef: ElementRef, private _fb: FormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any,
-                @Optional() @Attribute('simple') simple: any, @Optional() @Attribute('primaryKey') primaryKey: any, @Optional() @Attribute('labelKey') labelKey: any, @Optional() @Attribute('lazyLoading') lazyLoading: any) {
+                @Optional() @Attribute('simple') simple: any, @Optional() @Attribute('primaryKey') primaryKey: any, @Optional() @Attribute('labelKey') labelKey: any,
+                @Optional() @Attribute('lazyLoading') lazyLoading: any) {
 
         this.multiple = multipleAttr !== null;
 
@@ -190,9 +170,13 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     ngOnInit() {
 
-        this.settings = Object.assign(this.defaultSettings, this.settings);
+        this.settings = mergeObjs(this.defaultSettings, this.settings);
 
         this.multipleClass = !this.settings.singleSelection;
+
+        if (this.settings.remote) {
+            this._setlistDataSub();
+        }
 
         this.search.valueChanges
             .pipe(
@@ -202,11 +186,22 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                 }),
                 takeUntil(this.notifierDestroySubs)
             )
-            .subscribe(() => {
-                this.filterList();
+            .subscribe((value: string) => {
+
+                if (this.settings.remote) {
+
+                    this.settings.paginationState.searchTerm = value;
+                    this.reinitList();
+                    this.fetchData();
+
+                } else {
+                    this.filterList();
+                }
+
+                this.onSearch.emit();
+
             });
 
-        this.cachedItems = this.cloneArray(this.data);
     }
 
     ngAfterViewInit() {
@@ -222,29 +217,64 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             parent = parent.parentElement;
         }
 
-        this._renderer.removeChild(this._elementRef.nativeElement, this.dropdownListElem.nativeElement);
+        this._renderer.removeChild(this._elementRef.nativeElement, this.dropdownElem.nativeElement);
+
+        if (this.settings.remote) {
+
+            /* this.listElem.changes
+            .pipe(takeUntil(this.notifierDestroySubs))
+            .subscribe(() => {
+                console.log('finaliza');
+            }); */
+
+        }
     }
 
     ngOnChanges(changes: SimpleChanges) {
 
-        if (changes.data && !changes.data.firstChange) {
-
-            if (this.settings.groupBy) {
-                this.groupedData = this.transformData(this.data, this.settings.groupBy);
-
-                if (this.data.length === 0) {
-                    this.selectedItems = [];
-                }
-
-                this.groupCachedItems = this.cloneArray(this.groupedData);
-            }
-
+        if (changes.data && !changes.data.firstChange && !this.settings.remote) {
             this.filterList();
         }
 
         if (changes.settings && !changes.settings.firstChange) {
-            this.settings = Object.assign(this.defaultSettings, this.settings);
+            this.settings = mergeObjs(this.defaultSettings, this.settings);
         }
+
+    }
+
+    reinitList() {
+        this.settings.paginationState.currentPage = 0;
+        this.settings.paginationState.hasNextPage = true;
+        this.filteredList = [];
+    }
+
+    fetchData() {
+        if (!this.settings.paginationState.loading && this.settings.paginationState.hasNextPage) {
+            this.settings.paginationState.loading = true;
+            this.settings.paginationState.currentPage++;
+            this.listDataSub.next();
+        }
+    }
+
+    protected _setlistDataSub() {
+
+        this.listDataSub.pipe(
+            switchMap(() => this.settings.paginationState.getList(this.settings)
+                .pipe(
+                    catchError((e: any) => {
+                        this.settings.paginationState.loading = false;
+                        return e;
+                    })
+                )
+            ),
+            takeUntil(this.notifierDestroySubs)
+        )
+        .subscribe((response: any) => {
+            this.filteredList = this.filteredList.concat(getPath(response, this.settings.paginationState.listPath));
+            this.settings.paginationState.rowCount = getPath(response, this.settings.paginationState.rowCountPath);
+            this.settings.paginationState.hasNextPage = getPath(response, this.settings.paginationState.hasNextPagePath);
+            this.settings.paginationState.loading = false;
+        });
 
     }
 
@@ -259,7 +289,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         if (hasValue(value)) {
 
-            if (!hasValue(this.data)) {
+            if (!hasValue(this.data) && !this.settings.remote) {
 
                 console.warn('ser-select: Data is empty at the write value');
 
@@ -280,15 +310,16 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                 });
 
                 if (hasValue(selectedObject)) {
+
                     this.selectedItems = [selectedObject];
+
+                } else if (this.settings.remote) {
+
+                    this.selectedItems = [value];
+
                 } else {
                     this.selectedItems = [];
                     console.warn('No value finded in data, please set "primaryKey" setting with the correct value or pass a existing value in data');
-                }
-
-                if (this.settings.groupBy) {
-                    this.groupedData = this.transformData(this.data, this.settings.groupBy);
-                    this.groupCachedItems = this.cloneArray(this.groupedData);
                 }
 
             } else {
@@ -313,7 +344,27 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                     } else {
                         this.selectedItems = selectedObjects;
                     }
-                } else {
+
+                } else if (this.settings.remote) {
+
+                    if (this.settings.limitSelection) {
+                        this.selectedItems = value.slice(0, this.settings.limitSelection);
+                    } else {
+                        this.selectedItems = value;
+                    }
+
+                    const items = this.selectedItems.map(element => {
+
+                        if (typeof element === 'object') {
+                            return element[this.settings.primaryKey];
+                        }
+
+                        return element;
+                    });
+
+                    this.onChangeCallback(value[this.settings.primaryKey]);
+
+                }  else {
                     this.selectedItems = [];
                     console.warn('No value finded in data, please set "primaryKey" setting with the correct value or pass a existing value in data');
                 }
@@ -322,10 +373,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                     this.isSelectAll = true;
                 }
 
-                if (this.settings.groupBy) {
-                    this.groupedData = this.transformData(this.data, this.settings.groupBy);
-                    this.groupCachedItems = this.cloneArray(this.groupedData);
-                }
             }
 
         } else {
@@ -394,10 +441,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.isSelectAll = true;
         }
 
-        if (this.settings.groupBy) {
-            this.updateGroupInfo(item);
-        }
-
         this.setPositionDropdown();
     }
 
@@ -428,9 +471,10 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     addSelected(item: any) {
 
         if (this.settings.singleSelection) {
+
             this.selectedItems = [item];
 
-            if (typeof item === 'object') {
+            if (typeof item === 'object' && !this.settings.remote) {
                 this.onChangeCallback(item[this.settings.primaryKey]);
                 this.onTouchedCallback(item[this.settings.primaryKey]);
             } else {
@@ -445,7 +489,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
             const items = this.selectedItems.map(element => {
 
-                if (typeof item === 'object') {
+                if (typeof item === 'object' && !this.settings.remote) {
                     return element[this.settings.primaryKey];
                 }
 
@@ -549,13 +593,30 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             merge(...parents$).subscribe(() => this.setPositionDropdown())
         );
 
-        this._renderer.appendChild(this._elementRef.nativeElement, this.dropdownListElem.nativeElement);
+        this._renderer.appendChild(this._elementRef.nativeElement, this.dropdownElem.nativeElement);
 
-        if (this.settings.enableSearchFilter) {
-            setTimeout(() => {
+        setTimeout(() => {
+
+            if (this.settings.enableSearchFilter) {
                 this.searchInput?.nativeElement.focus();
-            }, 0);
-        }
+            }
+
+            if (this.settings.remote) {
+                this.fetchData();
+            }
+
+            /* if (this.settings.remote) {
+
+                const dropdownList = (this.dropdownElem.nativeElement.querySelector('.list-container').querySelector('.list') as HTMLDivElement);
+                console.log(dropdownList.offsetHeight, dropdownList.scrollHeight);
+
+                if (dropdownList.offsetHeight === dropdownList.scrollHeight) {
+                    this.fetchData();
+                }
+
+            } */
+
+        });
 
         this.onOpen.emit(true);
     }
@@ -567,6 +628,11 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         }
 
         this.clearSearch();
+
+        if (this.settings.remote) {
+            this.reinitList();
+        }
+
         this.isActive = false;
         this.blur.emit();
 
@@ -574,14 +640,14 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         this.dropdownSubs$ = [];
 
         this.onClose.emit(false);
-        this._renderer.removeChild(this._elementRef.nativeElement, this.dropdownListElem.nativeElement);
+        this._renderer.removeChild(this._elementRef.nativeElement, this.dropdownElem.nativeElement);
     }
 
     setPositionDropdown() {
 
         setTimeout(() => {
 
-            const dropdown = (this.dropdownListElem.nativeElement as HTMLDivElement);
+            const dropdown = (this.dropdownElem.nativeElement as HTMLDivElement);
             const el = (this._elementRef.nativeElement as HTMLElement);
             const remainingHeight = document.documentElement.offsetHeight - (dropdown.offsetHeight + el.getBoundingClientRect().top + el.offsetHeight);
 
@@ -627,27 +693,11 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             });
 
             this.isSelectAll = true;
-            this.onChangeCallback(selectedItems);
+            // this.onChangeCallback(selectedItems);
             this.onTouchedCallback(selectedItems);
 
             this.onSelectAll.emit(this.selectedItems);
 
-            /* this.selectedItems = [];
-            if (this.settings.groupBy) {
-                this.groupedData.forEach((obj) => {
-                    obj.selected = !obj[this.settings.disabledKey];
-                });
-                this.groupCachedItems.forEach((obj) => {
-                    obj.selected = !obj[this.settings.disabledKey];
-                });
-            }
-            // this.selectedItems = this.data.slice();
-            this.selectedItems = this.data.filter((individualData) => !individualData[this.settings.disabledKey]);
-            this.isSelectAll = true;
-            this.onChangeCallback(this.selectedItems);
-            this.onTouchedCallback(this.selectedItems);
-
-            this.onSelectAll.emit(this.selectedItems); */
         } else {
 
             this.selectedItems = [];
@@ -656,173 +706,15 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.onTouchedCallback(this.selectedItems);
 
             this.onDeSelectAll.emit(this.selectedItems);
-
-            /* if (this.settings.groupBy) {
-                this.groupedData.forEach((obj) => {
-                    obj.selected = false;
-                });
-                this.groupCachedItems.forEach((obj) => {
-                    obj.selected = false;
-                });
-            }
-            this.selectedItems = [];
-            this.isSelectAll = false;
-            this.onChangeCallback(this.selectedItems);
-            this.onTouchedCallback(this.selectedItems);
-
-            this.onDeSelectAll.emit(this.selectedItems); */
         }
 
         this.closeDropdown();
     }
 
-    filterFn() {
-
-        if (this.settings.groupBy && !this.settings.lazyLoading) {
-            this.filterGroupedList();
-        } else if (this.settings.lazyLoading) {
-            // this.searchTerm$.next((ev.target as HTMLInputElement).value);
-        }
-
-    }
-
-    filterGroupedList() {
-        if (this.filter === '' || this.filter == null) {
-            this.clearSearch();
-            return;
-        }
-
-        this.groupedData = this.cloneArray(this.groupCachedItems);
-        this.groupedData = this.groupedData.filter(obj => {
-            let arr = [];
-            if (obj[this.settings.labelKey].toLowerCase().indexOf(this.filter.toLowerCase()) > -1) {
-                arr = obj.list;
-            } else {
-                arr = obj.list.filter(t => {
-                    return t[this.settings.labelKey].toLowerCase().indexOf(this.filter.toLowerCase()) > -1;
-                });
-            }
-
-            obj.list = arr;
-            if (obj[this.settings.labelKey].toLowerCase().indexOf(this.filter.toLowerCase()) > -1) {
-                return arr;
-            } else {
-                return arr.some(cat => {
-                    return cat[this.settings.labelKey].toLowerCase().indexOf(this.filter.toLowerCase()) > -1;
-                }
-                );
-            }
-
-        });
-    }
-
-    toggleFilterSelectAll() {
-        if (!this.isFilterSelectAll) {
-            let added = [];
-            if (this.settings.groupBy) {
-                /*                 this.groupedData.forEach((item: any) => {
-                                    if (item.list) {
-                                        item.list.forEach((el: any) => {
-                                            if (!this.isSelected(el)) {
-                                                this.addSelected(el);
-                                                added.push(el);
-                                            }
-                                        });
-                                    }
-                                    this.updateGroupInfo(item);
-
-                                }); */
-
-                /* this._ds.getFilteredData().forEach((el: any) => {
-                    if (!this.isSelected(el) && !el.hasOwnProperty('grpTitle')) {
-                        this.addSelected(el);
-                        added.push(el);
-                    }
-                }); */
-
-            } else {
-                /* this._ds.getFilteredData().forEach((item: any) => {
-                    if (!this.isSelected(item)) {
-                        this.addSelected(item);
-                        added.push(item);
-                    }
-
-                }); */
-            }
-
-            this.isFilterSelectAll = true;
-            this.onFilterSelectAll.emit(added);
-        } else {
-            let removed = [];
-            if (this.settings.groupBy) {
-                /*                 this.groupedData.forEach((item: any) => {
-                                    if (item.list) {
-                                        item.list.forEach((el: any) => {
-                                            if (this.isSelected(el)) {
-                                                this.removeSelected(el);
-                                                removed.push(el);
-                                            }
-                                        });
-                                    }
-                                }); */
-                /* this._ds.getFilteredData().forEach((el: any) => {
-                    if (this.isSelected(el)) {
-                        this.removeSelected(el);
-                        removed.push(el);
-                    }
-                }); */
-            } else {
-                /* this._ds.getFilteredData().forEach((item: any) => {
-                    if (this.isSelected(item)) {
-                        this.removeSelected(item);
-                        removed.push(item);
-                    }
-
-                }); */
-            }
-            this.isFilterSelectAll = false;
-            this.onFilterDeSelectAll.emit(removed);
-        }
-    }
-
-    toggleInfiniteFilterSelectAll() {
-        if (!this.isInfiniteFilterSelectAll) {
-            this.virtualdata.forEach((item: any) => {
-                if (!this.isSelected(item)) {
-                    this.addSelected(item);
-                }
-            });
-            this.isInfiniteFilterSelectAll = true;
-        } else {
-            this.virtualdata.forEach((item: any) => {
-                if (this.isSelected(item)) {
-                    this.removeSelected(item);
-                }
-
-            });
-            this.isInfiniteFilterSelectAll = false;
-        }
-    }
-
     clearSearch() {
 
-        this.search.setValue('');
-
-        if (this.settings.lazyLoading) {
-
-            this.isInfiniteFilterSelectAll = false;
-            this.virtualdata = [];
-            this.virtualdata = this.cachedItems;
-            this.groupedData = this.groupCachedItems;
-            this.infiniteFilterLength = 0;
-
-        } else {
-            if (this.settings.groupBy) {
-                this.groupedData = [];
-                this.groupedData = this.cloneArray(this.groupCachedItems);
-            }
-
-            this.isFilterSelectAll = false;
+        if (hasValue(this.search.value)) {
+            this.search.setValue('');
         }
 
         this.setPositionDropdown();
@@ -833,197 +725,13 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     }
 
-    cloneArray(arr: any) {
-
-        if (Array.isArray(arr)) {
-            return JSON.parse(JSON.stringify(arr));
-        } else if (typeof arr === 'object') {
-            throw new Error('Cannot clone array containing an object!');
-        } else {
-            return arr;
-        }
-    }
-
-    updateGroupInfo(item: any) {
-        if (item[this.settings.disabledKey]) {
-            return false;
-        }
-        let key = this.settings.groupBy;
-        this.groupedData.forEach((obj: any) => {
-            let cnt = 0;
-            if (obj.grpTitle && (item[key] === obj[key])) {
-                if (obj.list) {
-                    obj.list.forEach((el: any) => {
-                        if (this.isSelected(el)) {
-                            cnt++;
-                        }
-                    });
-                }
-            }
-            if (obj.list && (cnt === obj.list.length) && (item[key] === obj[key])) {
-                obj.selected = true;
-            } else if (obj.list && (cnt !== obj.list.length) && (item[key] === obj[key])) {
-                obj.selected = false;
-            }
-        });
-        this.groupCachedItems.forEach((obj: any) => {
-            let cnt = 0;
-            if (obj.grpTitle && (item[key] === obj[key])) {
-                if (obj.list) {
-                    obj.list.forEach((el: any) => {
-                        if (this.isSelected(el)) {
-                            cnt++;
-                        }
-                    });
-                }
-            }
-            if (obj.list && (cnt === obj.list.length) && (item[key] === obj[key])) {
-                obj.selected = true;
-            } else if (obj.list && (cnt !== obj.list.length) && (item[key] === obj[key])) {
-                obj.selected = false;
-            }
-        });
-    }
-
-    transformData(arr: Array<any>, field: any): Array<any> {
-        const groupedObj: any = arr.reduce((prev: any, cur: any) => {
-            if (!prev[cur[field]]) {
-                prev[cur[field]] = [cur];
-            } else {
-                prev[cur[field]].push(cur);
-            }
-            return prev;
-        }, {});
-        const tempArr: any = [];
-        Object.keys(groupedObj).map((x: any) => {
-            let obj: any = {};
-            let disabledChildrens = [];
-            obj.grpTitle = true;
-            obj[this.settings.labelKey] = x;
-            obj[this.settings.groupBy] = x;
-            obj.selected = false;
-            obj.list = [];
-            let cnt = 0;
-            groupedObj[x].forEach((item: any) => {
-                item.list = [];
-                if (item[this.settings.disabledKey]) {
-                    this.isDisabledItemPresent = true;
-                    disabledChildrens.push(item);
-                }
-                obj.list.push(item);
-                if (this.isSelected(item)) {
-                    cnt++;
-                }
-            });
-            if (cnt === obj.list.length) {
-                obj.selected = true;
-            } else {
-                obj.selected = false;
-            }
-
-            // Check if current group item's all childrens are disabled or not
-            obj[this.settings.disabledKey] = disabledChildrens.length === groupedObj[x].length;
-            tempArr.push(obj);
-            // obj.list.forEach((item: any) => {
-            //     tempArr.push(item);
-            // });
-        });
-        return tempArr;
-    }
-
-    public filterInfiniteList(evt: any) {
-        let filteredElems: Array<any> = [];
-        if (this.settings.groupBy) {
-            this.groupedData = this.groupCachedItems.slice();
-        } else {
-            this.data = this.cachedItems.slice();
-            this.virtualdata = this.cachedItems.slice();
-        }
-
-        if ((evt != null || evt !== '') && !this.settings.groupBy) {
-            if (this.settings.searchBy.length > 0) {
-                for (let t = 0; t < this.settings.searchBy.length; t++) {
-
-                    this.virtualdata.filter((el: any) => {
-                        if (el[this.settings.searchBy[t].toString()].toString().toLowerCase().indexOf(evt.toString().toLowerCase()) >= 0) {
-                            filteredElems.push(el);
-                        }
-                    });
-                }
-
-            } else {
-                this.virtualdata.filter((el: any) => {
-                    for (let prop in el) {
-                        if (el[prop].toString().toLowerCase().indexOf(evt.toString().toLowerCase()) >= 0) {
-                            filteredElems.push(el);
-                            break;
-                        }
-                    }
-                });
-            }
-            this.virtualdata = [];
-            this.virtualdata = filteredElems;
-            this.infiniteFilterLength = this.virtualdata.length;
-        }
-        if (evt.toString() !== '' && this.settings.groupBy) {
-            this.groupedData.filter((el: any) => {
-                if (el.hasOwnProperty('grpTitle')) {
-                    filteredElems.push(el);
-                } else {
-                    for (let prop in el) {
-                        if (el[prop].toString().toLowerCase().indexOf(evt.toString().toLowerCase()) >= 0) {
-                            filteredElems.push(el);
-                            break;
-                        }
-                    }
-                }
-            });
-            this.groupedData = [];
-            this.groupedData = filteredElems;
-            this.infiniteFilterLength = this.groupedData.length;
-        } else if (evt.toString() === '' && this.cachedItems.length > 0) {
-            this.virtualdata = [];
-            this.virtualdata = this.cachedItems;
-            this.infiniteFilterLength = 0;
-        }
-        this.virtualScroller.refresh();
-    }
-
     onScrollEnd(e: any) {
-        if (e.endIndex === this.data.length - 1 || e.startIndex === 0) {
 
+        if (this.settings.remote) {
+            this.fetchData();
         }
 
         this.onScrollToEnd.emit(e);
-    }
-
-    selectGroup(item: any) {
-        if (item[this.settings.disabledKey]) {
-            return false;
-        }
-        if (item.selected) {
-            item.selected = false;
-            item.list.forEach((obj: any) => {
-                this.removeSelected(obj);
-            });
-
-            this.onGroupDeSelect.emit(item);
-            this.updateGroupInfo(item);
-
-        } else {
-            item.selected = true;
-            item.list.forEach((obj: any) => {
-                if (!this.isSelected(obj)) {
-                    this.addSelected(obj);
-                }
-
-            });
-
-            this.onGroupSelect.emit(item);
-            this.updateGroupInfo(item);
-
-        }
-
     }
 
     addFilterNewItem() {
@@ -1033,12 +741,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     clearSelection(e: MouseEvent) {
 
         this.onClear.emit(this.selectedItems);
-
-        if (this.settings.groupBy) {
-            this.groupCachedItems.forEach((obj) => {
-                obj.selected = false;
-            });
-        }
 
         this.clearSearch();
         this.selectedItems = [];

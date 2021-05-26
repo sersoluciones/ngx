@@ -6,6 +6,7 @@ import { GoogleSDKService } from './google-sdk.service';
  * Módulo para parametrizar la autenticación con Google
  * @example
  * import { NG_GAPI_CONFIG, GoogleSDKModule } from '@sersol/ngx';
+ *
  * @NgModule({
  *  imports: [
  *    ...,
@@ -27,13 +28,13 @@ import { GoogleSDKService } from './google-sdk.service';
  */
 @NgModule()
 export class GoogleSDKModule {
-  static forRoot(gapiConfigProvider: Provider): ModuleWithProviders {
-    return {
-      ngModule: GoogleSDKModule,
-      providers: [
-        gapiConfigProvider,
-        GoogleSDKService
-      ]
-    };
-  }
+    static forRoot(gapiConfigProvider: Provider): ModuleWithProviders<GoogleSDKModule> {
+        return {
+            ngModule: GoogleSDKModule,
+            providers: [
+                gapiConfigProvider,
+                GoogleSDKService
+            ]
+        };
+    }
 }

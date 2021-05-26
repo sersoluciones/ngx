@@ -1,4 +1,7 @@
 // tslint:disable: member-ordering
+
+/// <reference types="node"/>
+
 import { EventEmitter } from 'events';
 import { DateTime } from './datetime';
 import { ILPConfiguration } from './interfaces';

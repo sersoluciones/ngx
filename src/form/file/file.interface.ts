@@ -9,3 +9,13 @@ export interface InputFileSettings {
     classes?: string;
     processFilenameUrl?: boolean;
 }
+
+export interface InputImageSettings {
+    uploadIconHTML?: string | SafeHtml;
+    clearIconHTML?: string | SafeHtml;
+    removeText?: string;
+    uploadText?: string;
+    classes?: string;
+    optimize?: boolean;
+    accept?: string[];
+}

@@ -1,0 +1,40 @@
+<form class="form-example" [formGroup]="modelForm">
+
+    <a class="example-name" href="#bttn-bordered">
+        <span class="material-icons">link</span>
+        <h1 id="bttn-icon">Imágenes</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.ImageExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.ImageExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('image1')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element>
+                    <ser-input-image serControl formControlName="image1" class="round cover"></ser-input-image>
+
+                    <div serErrors="image1">
+                        <div serError="required">Requerido</div>
+                        <div serError="requiredFileType">Formato incorrecto</div>
+                    </div>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+</form>

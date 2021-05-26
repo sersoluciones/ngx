@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { Component, forwardRef, OnInit, ViewEncapsulation, OnDestroy, HostBinding, AfterViewInit, ElementRef, Renderer2, Output, EventEmitter, ViewChildren } from '@angular/core';
+import { Component, forwardRef, OnInit, ViewEncapsulation, OnDestroy, HostBinding, AfterViewInit, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { hasValue } from '../../utils/check';
 
@@ -19,7 +19,6 @@ import { hasValue } from '../../utils/check';
 export class InputNumberComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
 
     @HostBinding('class.disabled') isDisabled = false;
-    @ViewChildren('input') input: ElementRef;
     @Output() focus: EventEmitter<void> = new EventEmitter<void>();
     @Output() blur: EventEmitter<void> = new EventEmitter<void>();
 

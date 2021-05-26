@@ -1,16 +1,14 @@
 import { CurrencyPipe } from '@angular/common';
-import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'currencyCOP',
 })
-export class CurrencyCOPPipe extends CurrencyPipe implements PipeTransform {
+export class CurrencyCOPPipe implements PipeTransform {
 
-    constructor(@Inject(LOCALE_ID) locale: string) {
-        super(locale);
-    }
+    constructor(private currencyPipe: CurrencyPipe) {}
 
-    transform(value: any) {
-        return super.transform(value, '', '$', '1.0-5');
+    transform(value: any): string {
+        return this.currencyPipe.transform(value, '', '$', '1.0-5');
     }
 }

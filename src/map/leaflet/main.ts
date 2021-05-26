@@ -90,7 +90,7 @@ export class LeafletMap {
 
     initMarkerCluster() {
         if (L.MarkerClusterGroup) {
-            this.markerCluster = new L.MarkerClusterGroup([], this.options.clusterMarkers.config);
+            this.markerCluster = new L.MarkerClusterGroup(this.options.clusterMarkers.config);
             this.map.addLayer(this.markerCluster);
         }
     }

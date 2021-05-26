@@ -152,38 +152,51 @@ ser-select {
             width: 100% !important;
             height: 100% !important;
 
-            .list-container {
-                max-height: calc(100% - 45px) !important;
-            }
-
             .select-all + .list-container {
                 max-height: calc(100% - 87px) !important;
             }
         }
 
-        .list {
-            padding: 0px;
-            list-style: none;
-            overflow: auto;
-            margin: 0px;
+        .list-container {
 
-            > .item,
-            > .scrollable-content > .item {
-                display: flex;
-                padding: 10px 10px;
-                cursor: pointer;
-                text-align: left;
+            @media (max-width: 600px) {
+                max-height: calc(100% - 45px) !important;
+            }
 
-                &:first-child {
-                    padding-top: 10px;
+            .list {
+                overflow: auto;
+
+                @media (max-width: 600px) {
+                    max-height: 100% !important;
                 }
 
-                &:last-child {
-                    padding-bottom: 10px;
+                > .item,
+                > .cdk-virtual-scroll-content-wrapper > .item {
+                    display: flex;
+                    padding: 10px 10px;
+                    cursor: pointer;
+                    text-align: left;
+
+                    &:first-child {
+                        padding-top: 10px;
+                    }
+
+                    &:last-child {
+                        padding-bottom: 10px;
+                    }
+
+                    &:hover {
+                        background-color: rgba(131, 131, 131, 0.13);
+                    }
                 }
 
-                &:hover {
-                    background-color: rgba(131, 131, 131, 0.13);
+                .loading {
+                    padding: 8px 16px;
+
+                    .text {
+                        height: 20px;
+                        border-radius: 24px;
+                    }
                 }
             }
         }
@@ -329,56 +342,10 @@ ser-select {
         font-size: initial;
     }
 
-    .list-grp {
-        padding: 0 15px !important;
-    }
-
-    .list-grp h4 {
-        text-transform: capitalize;
-        margin: 15px 0px 0px 0px;
-        font-size: 14px;
-        font-weight: 700;
-    }
-
-    .list-grp > li {
-        padding-left: 15px !important;
-    }
-
-    .grp-item {
-        padding-left: 30px !important;
-    }
-
-    .grp-title {
-        padding-bottom: 0px !important;
-    }
-
-    .grp-title label {
-        margin-bottom: 0px !important;
-        font-weight: 800;
-        text-transform: capitalize;
-    }
-
-    .grp-title:hover {
-        background: none !important;
-    }
-
-    .loading-icon {
-        width: 20px;
-        position: absolute;
-        right: 10px;
-        top: 23px;
-        z-index: 1;
-    }
-
     .nodata-label {
         width: 100%;
         text-align: center;
         padding: 10px 0px 0px;
-    }
-
-    .btn-container {
-        text-align: center;
-        padding: 0px 5px 10px;
     }
 
 }

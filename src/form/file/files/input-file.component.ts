@@ -1,9 +1,9 @@
 // tslint:disable: component-selector
-import { AfterViewInit, Attribute, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnInit, Optional, Output, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { Attribute, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnInit, Optional, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { hasValue } from '../../utils/check';
+import { hasValue } from '../../../utils/check';
 import { IFItemDirective } from './input-file-item.directive';
-import { InputFileSettings } from './input-file.interface';
+import { InputFileSettings } from '../file.interface';
 
 @Component({
     selector: 'ser-input-file',
@@ -18,9 +18,9 @@ import { InputFileSettings } from './input-file.interface';
         }
     ]
 })
-export class InputFileComponent implements AfterViewInit, OnInit, ControlValueAccessor {
+export class InputFileComponent implements OnInit, ControlValueAccessor {
 
-    @ViewChildren('file') input: QueryList<ElementRef>;
+    @ViewChild('file') input: ElementRef;
     @HostBinding('class.show') show = false;
 
     @Input() settings: InputFileSettings;
@@ -105,9 +105,6 @@ export class InputFileComponent implements AfterViewInit, OnInit, ControlValueAc
         this.settings = Object.assign(this.defaultSettings, this.settings);
     }
 
-    ngAfterViewInit() {
-    }
-
     getFilenameFromUrl(url: string) {
         if (this.settings.processFilenameUrl) {
             return url.substring(url.lastIndexOf('/') + 1);
@@ -117,9 +114,7 @@ export class InputFileComponent implements AfterViewInit, OnInit, ControlValueAc
     }
 
     onClick() {
-        this.input.forEach(e => {
-            e.nativeElement.click();
-        });
+        this.input.nativeElement.click();
     }
 
     setValue() {
@@ -141,8 +136,8 @@ export class InputFileComponent implements AfterViewInit, OnInit, ControlValueAc
 
         } else if (ev instanceof Event) {
 
-            (ev.target as HTMLInputElement).value = null;
             this.files = Array.from((ev.target as HTMLInputElement).files);
+            (ev.target as HTMLInputElement).value = null;
 
         }
 

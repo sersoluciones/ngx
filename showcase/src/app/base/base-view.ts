@@ -1,14 +1,17 @@
 import { SnackbarService } from './../../../../src/ui/snackbar.service';
-import { OnInit, AfterViewInit, Injector } from '@angular/core';
+import { OnInit, AfterViewInit, Injector, Directive, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DownloadService } from '../../../../src/ui/download.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
+@Directive()
+// tslint:disable-next-line: directive-class-suffix
 export class BaseView implements OnInit, AfterViewInit {
     _fb: FormBuilder;
     _msj: SnackbarService;
     modelForm: FormGroup;
     sanitized: DomSanitizer;
+    _http: HttpClient;
 
     options = {
         simpleDropdown: ['Kratos', 'Batman', 'Leon Kennedy', 'Big Daddy', 'War (Horseman)', 'Aloy', 'Price', 'Dante', 'Agent 47', 'Prince of persia', 'Ryu', 'Master Chief', 'Solid Snake', 'Gordon Freeman', 'Dovahkiin'],
@@ -110,6 +113,7 @@ export class BaseView implements OnInit, AfterViewInit {
         this._fb = this.injectorObj.get(FormBuilder);
         this._msj = this.injectorObj.get(SnackbarService);
         this.sanitized = this.injectorObj.get(DomSanitizer);
+        this._http = this.injectorObj.get(HttpClient);
     }
 
     alert(text: string) {
@@ -118,7 +122,7 @@ export class BaseView implements OnInit, AfterViewInit {
         });
     }
 
-    toogleFormControlDisabled(name: string) {
+    public toogleFormControlDisabled(name: string) {
         if (this.modelForm.get(name).enabled) {
             this.modelForm.get(name).disable();
         } else {

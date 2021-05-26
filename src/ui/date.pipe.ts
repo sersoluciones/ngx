@@ -1,17 +1,15 @@
 import { DatePipe } from '@angular/common';
-import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { hasValue } from '../utils/check';
 
 @Pipe({
     name: 'dateUTC',
 })
-export class DateUTCPipe extends DatePipe implements PipeTransform {
+export class DateUTCPipe implements PipeTransform {
 
-    constructor(@Inject(LOCALE_ID) locale: string) {
-        super(locale);
-    }
+    constructor(private datePipe: DatePipe) {}
 
-    transform(value: any, format?: string, timezone?: string, locale?: string) {
+    transform(value: any, format?: string, timezone?: string, locale?: string): string | null {
 
         if (!hasValue(value)) {
             return '';
@@ -21,6 +19,6 @@ export class DateUTCPipe extends DatePipe implements PipeTransform {
             value = value + 'Z';
         }
 
-        return super.transform(value, format, timezone, locale);
+        return this.datePipe.transform(value, format, timezone, locale);
     }
 }

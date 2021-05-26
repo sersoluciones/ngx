@@ -1,0 +1,12 @@
+<input type="file" #file (change)="setFile($event)" [disabled]="isDisabled" [accept]="accept">
+
+<button type="button" class="upload" [title]="settings.uploadText" [disabled]="isDisabled" (click)="onClick()">
+    <div class="label">{{ settings.uploadText }}</div>
+    <div class="icon" [innerHTML]="settings.uploadIconHTML"></div>
+</button>
+
+<button type="button" class="clean" *ngIf="!isDisabled" (click)="clear()" [title]="settings.removeText">
+    <div class="icon" [innerHTML]="settings.clearIconHTML"></div>
+</button>
+
+<div #preview class="preview"></div>

@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 /**
  * Read the content of a File or Blob using the FileReader interface.
@@ -52,38 +53,108 @@ export function readAsDataURL(blob: Blob): Observable<any> {
  * @description Get file type based on header info
  * @param arrayBuffer Result of FileReader.readAsArrayBuffer()
  */
-export function getFileType(arrayBuffer: ArrayBuffer) {
+export function getFileType(arrayBuffer: ArrayBuffer, file?: File) {
 
     const arr = (new Uint8Array(arrayBuffer)).subarray(0, 4);
-
+    const extOriginal = file.name.substring(file.name.lastIndexOf('.') + 1);
     let header = '';
+    let ext = '';
+
     for (const i of arr) {
         header += i.toString(16);
     }
 
-    console.log('Header file: ', header);
-
     switch (header) {
         case '89504e47':
-            return 'png';
+            ext = 'png';
+            break;
 
         case '47494638':
-            return 'gif';
+            ext = 'gif';
+            break;
 
         case 'ffd8ffe0':
         case 'ffd8ffe1':
         case 'ffd8ffe2':
         case 'ffd8ffe3':
         case 'ffd8ffe8':
-            return 'jpeg';
+            ext = 'jpeg';
+            break;
 
         case '504b34':
-            return 'xlsx';
+            ext = 'xlsx';
+            break;
 
         case '25504446':
-            return 'pdf';
+            ext = 'pdf';
+            break;
+
+        case '504b34':
+            ext = 'zip';
+            break;
 
         default:
-            return 'unknown';
+            ext = 'unknown';
     }
+
+    console.log('Header file: ', header);
+    console.log('Original ext: ', extOriginal);
+    console.log('Real ext: ', ext);
+
+    return ext;
+}
+
+/**
+     * @description De una url se convierte en un Base64
+     * @param imageUrl - Url para de la imagen
+     */
+export function urlToDataUrl(imageUrl: string): Observable<string | ArrayBuffer> {
+
+    return from(fetch(imageUrl))
+    .pipe(
+        switchMap(res => {
+            return from(res.blob())
+            .pipe(
+                switchMap(blob => {
+                    return new Observable<string | ArrayBuffer>((obs: any) => {
+
+                        const reader = new FileReader();
+
+                        reader.onerror = err => obs.error(err);
+                        reader.onabort = err => obs.error(err);
+                        reader.onload = () => obs.next(reader.result);
+                        reader.onloadend = () => obs.complete();
+
+                        reader.readAsDataURL(blob);
+                    });
+                })
+            );
+        })
+    );
+
+}
+
+/**
+     * @description De una url se convierte en un Base64
+     * @param imageUrl - Url para de la imagen
+     */
+export function urlImageToFile(imageUrl: string) {
+
+    return from(fetch(imageUrl))
+    .pipe(
+        switchMap(res => {
+            return from(res.blob())
+            .pipe(
+                map(blob => {
+
+                    const url = new URL(imageUrl);
+
+                    return new File([blob], url.pathname.substring(url.pathname.lastIndexOf('/') + 1), {
+                        type: blob.type
+                    });
+                })
+            );
+        })
+    );
+
 }

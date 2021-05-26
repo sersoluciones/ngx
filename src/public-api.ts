@@ -75,10 +75,11 @@ export * from './form/select/ser-select.component';
 export * from './form/select/ser-select.module';
 
 // Files
-export * from './form/input-file/input-file.interface';
-export * from './form/input-file/input-file-item.directive';
-export * from './form/input-file/input-file.component';
-export * from './form/input-file/input-file.module';
+export * from './form/file/file.interface';
+export * from './form/file/files/input-file-item.directive';
+export * from './form/file/files/input-file.component';
+export * from './form/file/images/input-image.component';
+export * from './form/file/file.module';
 
 // Date
 export * from './form/date/base/interfaces';

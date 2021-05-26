@@ -11,7 +11,7 @@ export class Calendar extends LPCore {
     }
 
     protected render() {
-        this.emit('before:render', this.ui);
+        // this.emit('before:render', this.ui);
 
         const mainBlock = document.createElement('div');
         mainBlock.className = style.containerMain;

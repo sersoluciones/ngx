@@ -19,15 +19,15 @@ export class MapService {
      *      }
      *   });
      */
-    getCurrentPosition(): Observable<Position> {
+    getCurrentPosition(): Observable<GeolocationPosition> {
 
         return new Observable((observer) => {
 
             // Simple geolocation API check provides values to publish
             if ('geolocation' in navigator) {
-                navigator.geolocation.getCurrentPosition((position: Position) => {
+                navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {
                     observer.next(position);
-                }, (error: PositionError) => {
+                }, (error: GeolocationPositionError) => {
                     observer.error(error);
                 });
             } else {

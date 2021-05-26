@@ -1,6 +1,11 @@
-import { takeUntil, debounceTime, filter, map, debounce, switchMap, distinctUntilChanged } from 'rxjs/operators';
-import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, OnDestroy } from '@angular/core';
-import { fromEvent, merge, of, ReplaySubject, Subject, Subscription, timer } from 'rxjs';
+import { takeUntil, filter, map, switchMap } from 'rxjs/operators';
+import { Directive, ElementRef, EventEmitter, HostBinding, Input, Output, OnDestroy } from '@angular/core';
+import { fromEvent, merge, of, ReplaySubject, timer } from 'rxjs';
+
+export interface LongPressEventClick {
+    state: string;
+    event: MouseEvent | TouchEvent;
+}
 
 @Directive({
     selector: '[longPress]'
@@ -17,8 +22,6 @@ export class LongPressDirective implements OnDestroy {
 
     private move = false;
     @HostBinding('class.longpress') private longPressing = false;
-    private _mouseX: number;
-    private _mouseY: number;
 
     constructor(elementRef: ElementRef) {
 
@@ -35,7 +38,7 @@ export class LongPressDirective implements OnDestroy {
 
         const mouseup = fromEvent<MouseEvent>(elementRef.nativeElement, 'mouseup').pipe(
             filter(event => this.isLeftClick(event)),
-            map((event: MouseEvent) => {
+            map(event => {
                 return {
                     state: 'down',
                     event
@@ -44,14 +47,14 @@ export class LongPressDirective implements OnDestroy {
         );
 
         // Touch events
-        const touchstart = fromEvent(elementRef.nativeElement, 'touchstart').pipe(map((event: TouchEvent) => {
+        const touchstart = fromEvent<TouchEvent>(elementRef.nativeElement, 'touchstart').pipe(map(event => {
             return {
                 state: 'up',
                 event
             };
         }));
 
-        const touchEnd = fromEvent(elementRef.nativeElement, 'touchend').pipe(map((event: TouchEvent) => {
+        const touchEnd = fromEvent<TouchEvent>(elementRef.nativeElement, 'touchend').pipe(map(event => {
 
             if (!this.move) {
                 event.preventDefault();
@@ -67,7 +70,7 @@ export class LongPressDirective implements OnDestroy {
         }));
 
         const touchMove = fromEvent(elementRef.nativeElement, 'touchmove').pipe(
-            map((event) => {
+            map(event => {
 
                 this.move = true;
 
@@ -81,7 +84,7 @@ export class LongPressDirective implements OnDestroy {
             .pipe(
                 takeUntil(this.notifierDestroySubs),
                 switchMap(e => {
-                    return e.state === 'up' ? timer(this.tresshold).map(() => e) : of(e);
+                    return e.state === 'up' ? timer(this.tresshold).pipe(map(() => e)) : of(e);
                 })
             )
             .subscribe((e) => {

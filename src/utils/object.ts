@@ -30,4 +30,24 @@ export function mergeObjs(target: any, source: any) {
     return target;
 }
 
-export const noop = () => {};
+export const noop = () => { };
+
+export function getPath(obj: any, path: string[]) {
+
+    // Cache the current object
+    let current = obj;
+
+    // For each item in the path, dig into the object
+    for (let i = 0; i < path.length; i++) {
+
+        // If the item isn't found, return the default (or null)
+        if (!current[path[i]]) { return undefined; }
+
+        // Otherwise, update the current  value
+        current = current[path[i]];
+
+    }
+
+    return current;
+
+}

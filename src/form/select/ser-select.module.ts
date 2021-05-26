@@ -1,6 +1,4 @@
 import { ReactiveFormsModule } from '@angular/forms';
-// tslint:disable: max-line-length
-
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +6,7 @@ import { SDBadgeDirective, SDBadgeItemDirective, SDItemDirective } from './ser-s
 import { SerSelectComponent } from './ser-select.component';
 import { DataService } from './ser-select.service';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { SerUiModule } from '../../ui/ser-ui.module';
 
 const dependencies = [
     SerSelectComponent,
@@ -17,7 +16,7 @@ const dependencies = [
 ];
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, ScrollingModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, SerUiModule, ScrollingModule],
     declarations: [...dependencies],
     exports: [...dependencies],
     providers: [DataService]

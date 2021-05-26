@@ -1,8 +1,8 @@
-import { Directive, Input, OnChanges, OnDestroy, AfterViewInit, HostBinding } from '@angular/core';
+import { Directive, Input, OnChanges, OnDestroy, AfterViewInit } from '@angular/core';
 import { FormGroupDirective, AbstractControl } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ErrorDetails, ErrorOptions } from './ser-errors';
 import { toArray } from '../../utils/array';
+import { BehaviorSubject } from 'rxjs';
 
 @Directive({
     // tslint:disable-next-line: directive-selector

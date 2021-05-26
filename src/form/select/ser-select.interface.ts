@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+
 export interface DropdownSettings {
     singleSelection?: boolean;
     enableCheckAll?: boolean;
@@ -5,7 +7,6 @@ export interface DropdownSettings {
     unSelectAllText?: string;
     filterSelectAllText?: string;
     filterUnSelectAllText?: string;
-    enableFilterSelectAll?: boolean;
     enableSearchFilter?: boolean;
     searchBy?: string[];
     maxHeight?: number;
@@ -13,7 +14,6 @@ export interface DropdownSettings {
     classes?: string;
     limitSelection?: number;
     searchPlaceholderText?: string;
-    groupBy?: string;
     showCheckbox?: boolean;
     noDataLabel?: string;
     searchAutofocus?: boolean;
@@ -21,10 +21,23 @@ export interface DropdownSettings {
     labelKey?: string;
     primaryKey?: string;
     disabledKey?: string;
-    loading?: boolean;
+    remote?: boolean;
+    paginationState?: DropdownPaginationState;
     selectGroup?: boolean;
-    addNewItemOnFilter?: boolean;
     addNewButtonText?: string;
     escapeToClose?: boolean;
     clearAll?: boolean;
+}
+
+export interface DropdownPaginationState {
+    loading?: boolean;
+    searchTerm?: string;
+    pageSize?: number;
+    currentPage?: number;
+    rowCount?: number;
+    rowCountPath?: string[];
+    hasNextPage?: boolean;
+    hasNextPagePath?: string[];
+    listPath?: string[];
+    getList?: (settings: DropdownSettings) => Observable<any>;
 }

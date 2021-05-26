@@ -29,7 +29,7 @@ export class AppModule { }
  */
 @NgModule()
 export class FacebookSDKModule {
-  static forRoot(fsdkConfigProvider: Provider): ModuleWithProviders {
+  static forRoot(fsdkConfigProvider: Provider): ModuleWithProviders<FacebookSDKModule> {
     return {
       ngModule: FacebookSDKModule,
       providers: [

@@ -2,7 +2,7 @@
 
     <a class="example-name" href="#bttn-bordered">
         <span class="material-icons">link</span>
-        <h1 id="bttn-icon">Subida de archivo simple</h1>
+        <h1 id="bttn-icon">Entrada de texto básico</h1>
     </a>
 
     <div class="example-snippet">
@@ -10,8 +10,8 @@
         <div class="code">
 
             <div class="body">
-                <pre><code [highlight]="examples.InputTextExample"></code></pre>
-                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.InputTextExample" (copied)="alert('Copiado al portapapeles')">
+                <pre><code [highlight]="examples.FileExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.FileExample" (copied)="alert('Copiado al portapapeles')">
                     <span class="material-icons">content_copy</span>
                 </button>
             </div>
@@ -24,7 +24,7 @@
                 <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('file1')">Habilitar / Deshabilitar</button>
 
                 <ser-form-element style="width: 300px;">
-                    <label>Un solo archivo</label>
+                    <label>Texto</label>
                     <ser-input-file serControl formControlName="file1"></ser-input-file>
 
                     <div serErrors="file1">
@@ -36,7 +36,5 @@
         </div>
 
     </div>
-
-    <div class="separator"></div>
 
 </form>

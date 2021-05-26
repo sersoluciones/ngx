@@ -1,15 +1,10 @@
 // tslint:disable: no-bitwise
 import { Directive, Input, OnInit, OnDestroy, DoCheck, Inject, HostBinding, forwardRef } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/observable/combineLatest';
 import { ErrorOptions } from './ser-errors';
 import { SerErrorsDirective } from './ser-errors.directive';
 import { toArray } from '../../utils/array';
+import { combineLatest, Observable, Subject, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 @Directive({
     // tslint:disable-next-line: directive-selector
@@ -39,18 +34,20 @@ export class SerErrorDirective implements OnInit, OnDestroy, DoCheck {
     ngOnInit() {
 
         this._states = new Subject<string[]>();
-        this.states = this._states.asObservable().distinctUntilChanged();
+        this.states = this._states.asObservable().pipe(distinctUntilChanged());
 
         const errors = this._serErrors.subject
-            .filter(Boolean)
-            .filter((obj: any) => !!~this.errorNames.indexOf(obj.errorName));
+            .pipe(
+                filter(Boolean),
+                filter((obj: any) => !!~this.errorNames.indexOf(obj.errorName))
+            );
 
         const states = this.states
-            .map(states => this.rules.every(rule => !!~states.indexOf(rule)));
+            .pipe(map(stats => this.rules.every(rule => !!~stats.indexOf(rule))));
 
-        this.subscription = Observable.combineLatest([states, errors])
-            .subscribe(([states, errors]) => {
-                this.hidden = !(states && errors.control.hasError(errors.errorName));
+        this.subscription = combineLatest([states, errors])
+            .subscribe(([stats, errs]) => {
+                this.hidden = !(stats && errs.control.hasError(errs.errorName));
             });
 
     }
@@ -62,8 +59,8 @@ export class SerErrorDirective implements OnInit, OnDestroy, DoCheck {
     }
 
     ngOnDestroy() {
-        if (!this.subscription.closed) {
-            this.subscription.unsubscribe();
+        if (this.subscription && !this.subscription.closed) {
+            this.subscription?.unsubscribe();
         }
     }
 

@@ -14,13 +14,13 @@ import { SerDateModule } from './date/ser-date.module';
 import { GrowOnInputDirective } from './grow-on-input.directive';
 import { InputRegexDirective } from './input-regex.directive';
 import { InputRegexOnlyDirective } from './input-regex-only.directive';
-import { SerInputFileModule } from './input-file/input-file.module';
 import { InputLowerCaseDirective } from './input-lower-case.directive';
 import { InputNameCaseDirective } from './input-name-case.directive';
 import { InputIntegerDirective } from './input-integer.directive';
 import { InputNumberComponent } from './input-number/input-number.component';
 import { SerMaskModule } from './mask/ser-mask.module';
 import { InputCurrencyComponent } from './input-currency/input-currency.component';
+import { SerFormFileModule } from './file/file.module';
 
 const dependencies = [
     SerFormElementComponent,
@@ -43,6 +43,6 @@ const dependencies = [
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule, SerMaskModule.forChild()],
     declarations: [...dependencies],
-    exports: [...dependencies, SerSelectModule, SerFilterModule, SerDateModule, SerInputFileModule, SerMaskModule]
+    exports: [...dependencies, SerSelectModule, SerFilterModule, SerDateModule, SerFormFileModule, SerMaskModule]
 })
 export class SerFormModule { }

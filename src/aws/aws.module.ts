@@ -29,7 +29,7 @@ export class AppModule { }
  */
 @NgModule()
 export class AwsModule {
-  static forRoot(ConfigProvider: Provider): ModuleWithProviders {
+  static forRoot(ConfigProvider: Provider): ModuleWithProviders<AwsModule> {
     return {
       ngModule: AwsModule,
       providers: [

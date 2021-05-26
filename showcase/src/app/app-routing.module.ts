@@ -21,7 +21,8 @@ const routes: Routes = [
     },
     { path: 'utils', loadChildren: () => import('./utils/utils.module').then(m => m.UtilsModule) },
     { path: 'date', loadChildren: () => import('./date/date.module').then(m => m.DateModule) },
-    { path: 'social', loadChildren: () => import('./social/social.module').then(m => m.SocialModule) }
+    { path: 'social', loadChildren: () => import('./social/social.module').then(m => m.SocialModule) },
+    { path: 'file', loadChildren: () => import('./file/file.module').then(m => m.FileModule) }
 ];
 
 @NgModule({
