@@ -80,7 +80,7 @@
 
     <div class="list-container" [ngClass]="{'single-select-mode': settings.singleSelection }">
 
-        <div #list class="list" [style.maxHeight]="settings.maxHeight + 'px'" (whenScrolled)="onScrollEnd($event)">
+        <div #list class="list" [style.maxHeight]="settings.maxHeight + 'px'" (whenScrolled)="onScrollEnd($event)" [whenScrolledGap]="settings.scrollEndGap">
 
             <ng-container *ngIf="!hasValue(itemTempl) && !hasValue(badgeItemTempl); else templs">
 

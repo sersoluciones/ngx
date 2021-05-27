@@ -27,6 +27,7 @@ export interface DropdownSettings {
     addNewButtonText?: string;
     escapeToClose?: boolean;
     clearAll?: boolean;
+    scrollEndGap?: number;
 }
 
 export interface DropdownPaginationState {

@@ -135,7 +135,8 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         },
         addNewButtonText: 'Agregar',
         escapeToClose: true,
-        clearAll: true
+        clearAll: true,
+        scrollEndGap: 200
     };
     //#endregion
 
