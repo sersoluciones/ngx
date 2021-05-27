@@ -88,10 +88,11 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     @ViewChild('searchInput') searchInput: ElementRef;
     @ViewChild('selectedList') selectedListElem: ElementRef;
     @ViewChild('dropdown') dropdownElem: ElementRef;
-    @ViewChild('list') listElem: QueryList<any>;
+    @ViewChild('list') listElem: ElementRef;
 
     protected listDataSub: Subject<any> = new Subject();
     notifierDestroySubs: ReplaySubject<any> = new ReplaySubject();
+    cancelGetList: ReplaySubject<any> = new ReplaySubject();
 
     value: any = null;
     selectedItems: any[] = [];
@@ -191,7 +192,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                 if (this.settings.remote) {
 
                     this.settings.paginationState.searchTerm = value;
-                    this.reinitList();
+                    this.reinitFetchData();
                     this.fetchData();
 
                 } else {
@@ -218,16 +219,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         }
 
         this._renderer.removeChild(this._elementRef.nativeElement, this.dropdownElem.nativeElement);
-
-        if (this.settings.remote) {
-
-            /* this.listElem.changes
-            .pipe(takeUntil(this.notifierDestroySubs))
-            .subscribe(() => {
-                console.log('finaliza');
-            }); */
-
-        }
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -242,10 +233,19 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     }
 
-    reinitList() {
+    reinitFetchData() {
         this.settings.paginationState.currentPage = 0;
         this.settings.paginationState.hasNextPage = true;
+        this.settings.paginationState.loading = false;
         this.filteredList = [];
+
+        this.cancelGetList.next();
+        this.cancelGetList.complete();
+        this.cancelGetList = new ReplaySubject();
+
+        this.listDataSub = new Subject();
+        this._setlistDataSub();
+
     }
 
     fetchData() {
@@ -259,7 +259,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     protected _setlistDataSub() {
 
         this.listDataSub.pipe(
-            switchMap(() => this.settings.paginationState.getList(this.settings)
+            switchMap(() => this.settings.paginationState.getList(this.settings).pipe(takeUntil(this.cancelGetList))
                 .pipe(
                     catchError((e: any) => {
                         this.settings.paginationState.loading = false;
@@ -274,6 +274,14 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.settings.paginationState.rowCount = getPath(response, this.settings.paginationState.rowCountPath);
             this.settings.paginationState.hasNextPage = getPath(response, this.settings.paginationState.hasNextPagePath);
             this.settings.paginationState.loading = false;
+
+            setTimeout(() => {
+
+                if (this.listElem.nativeElement.offsetHeight === this.listElem.nativeElement.scrollHeight) {
+                    this.fetchData();
+                }
+
+            });
         });
 
     }
@@ -605,17 +613,6 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                 this.fetchData();
             }
 
-            /* if (this.settings.remote) {
-
-                const dropdownList = (this.dropdownElem.nativeElement.querySelector('.list-container').querySelector('.list') as HTMLDivElement);
-                console.log(dropdownList.offsetHeight, dropdownList.scrollHeight);
-
-                if (dropdownList.offsetHeight === dropdownList.scrollHeight) {
-                    this.fetchData();
-                }
-
-            } */
-
         });
 
         this.onOpen.emit(true);
@@ -630,7 +627,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         this.clearSearch();
 
         if (this.settings.remote) {
-            this.reinitList();
+            this.reinitFetchData();
         }
 
         this.isActive = false;
