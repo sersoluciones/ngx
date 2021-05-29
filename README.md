@@ -1,4 +1,4 @@
-# NGX-UI
+# NGX
 
 Librería Angular (v9+) orientado al montaje de interfaces rápidas e intuitivas
 
