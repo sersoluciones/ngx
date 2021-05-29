@@ -8,6 +8,7 @@ import { LongPressDirective } from './long-press.directive';
 import { DateUTCPipe } from './date.pipe';
 import { FilterList } from './filter.pipe';
 import { CurrencyCOPPipe } from './currency.pipe';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 
 const dependencies = [
   WhenScrolledDirective,
@@ -23,6 +24,7 @@ const dependencies = [
 
 @NgModule({
   declarations: [...dependencies],
+  providers: [CurrencyPipe, DatePipe],
   exports: [...dependencies]
 })
 export class SerUiModule {}

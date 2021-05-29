@@ -43,13 +43,6 @@ export * from './utils/keyboard-keys';
 export * from './utils/patterns';
 export * from './utils/rx-utils';
 
-// Map
-export * from './map/types';
-export * from './map/map.service';
-export * from './map/leaflet/types';
-export * from './map/leaflet/providers';
-export * from './map/leaflet/main';
-
 // File
 export * from './file/read';
 

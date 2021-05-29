@@ -1,5 +1,3 @@
-import { MapService } from './../../../src/map/map.service';
-import { LeafletMap } from './../../../src/map/leaflet/main';
 import { PrefersColorSchemeService } from './../../../src/prefers-color-scheme/prefers-color-scheme.service';
 import { Component, Injector } from '@angular/core';
 import { BaseView } from './base/base-view';
@@ -13,8 +11,6 @@ import * as examples from './app.examples';
 export class AppComponent extends BaseView {
 
     examples = examples;
-    leafletInstance: LeafletMap;
-
     constructor(protected injectorObj: Injector, public colorScheme: PrefersColorSchemeService) {
         super(injectorObj);
     }

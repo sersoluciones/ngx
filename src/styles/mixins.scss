@@ -2,6 +2,7 @@
 $browser-context: 14; // Default
 $font-family: 'Segoe UI', sans-serif;
 $s3bucket: null; // !global;
+$cloudfrontId: null; // !global;
 
 @function rem($pixels, $context: $browser-context) {
   @return #{$pixels/$context}rem;
@@ -14,6 +15,16 @@ $s3bucket: null; // !global;
 @function urlS3($key) {
     @if ($key) {
         @return url('https://#{ $s3bucket }.s3.amazonaws.com/#{ $key }');
+    }
+    @else
+    {
+        @return '';
+    }
+}
+
+@function urlCloudfront($key) {
+    @if ($key) {
+        @return url('https://#{ $cloudfrontId }.cloudfront.net/#{ $key }');
     }
     @else
     {
