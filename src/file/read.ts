@@ -56,7 +56,7 @@ export function readAsDataURL(blob: Blob): Observable<any> {
 export function getFileType(arrayBuffer: ArrayBuffer, file?: File) {
 
     const arr = (new Uint8Array(arrayBuffer)).subarray(0, 4);
-    const extOriginal = file.name.substring(file.name.lastIndexOf('.') + 1);
+    const extOriginal = file?.name.substring(file?.name.lastIndexOf('.') + 1);
     let header = '';
     let ext = '';
 

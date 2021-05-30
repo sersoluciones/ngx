@@ -81,6 +81,7 @@
 
     --input-image-width: 200px;
     --input-image-height: 200px;
+    --input-image-margin: 0 auto;
 
     --dark-grey-4dp: #272727;
     --dark-grey-6dp: #2c2c2c;
@@ -1250,6 +1251,7 @@ ser-input-image {
     position: relative;
     width: var(--input-image-width);
     height: var(--input-image-height);
+    margin: var(--input-image-margin);
 
     .preview {
         visibility: hidden;
