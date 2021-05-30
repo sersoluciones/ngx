@@ -29,7 +29,7 @@ export function maxFileSize(size: string): ValidatorFn {
         if (hasValue(sizeNumber)) {
             const sizeOnBytes = parseFloat(sizeNumber.join('')) * multiplier;
 
-            if (control.value) {
+            if (control.value instanceof File || control.value instanceof Blob) {
 
                 if (control.value.size >= sizeOnBytes) {
                     return {
@@ -72,7 +72,7 @@ export function minFileSize(size: string): ValidatorFn {
         if (hasValue(sizeNumber)) {
             const sizeOnBytes = parseFloat(sizeNumber.join('')) * multiplier;
 
-            if (control.value) {
+            if (control.value instanceof File || control.value instanceof Blob) {
 
                 if (control.value.size <= sizeOnBytes) {
                     return {
@@ -95,7 +95,7 @@ export function requiredFileType(ext: string | string[]): AsyncValidatorFn {
 
         const file = control.value;
 
-        if (file) {
+        if (file instanceof File || file instanceof Blob) {
 
             if (!Array.isArray(ext)) {
                 ext = [ext];
