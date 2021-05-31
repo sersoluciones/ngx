@@ -15,6 +15,9 @@ import { AwsService } from './aws.service';
           useValue: {
               s3: {
                 bucket: 'ser-app'
+              },
+              cloudfront: {
+                bucket: 'id'
               }
           }
       }),

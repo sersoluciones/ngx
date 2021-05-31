@@ -7,6 +7,7 @@ import { hasValue } from '../utils/check';
 interface BgImage {
     url?: string;
     file?: File;
+    cloudfront?: boolean;
 }
 
 @Directive({
@@ -28,7 +29,7 @@ export class BgImageDirective implements OnChanges {
             });
 
         } else if (hasValue(this.image.url)) {
-            this.rendered.setStyle(this.el.nativeElement, 'background-image', this.aws.getS3BgUrl(this.image.url));
+            this.rendered.setStyle(this.el.nativeElement, 'background-image', this.image.cloudfront ? this.aws.getCloudfrontBgUrl(this.image.url) : this.aws.getS3BgUrl(this.image.url));
         } else {
             this.rendered.removeStyle(this.el.nativeElement, 'background-image');
         }
