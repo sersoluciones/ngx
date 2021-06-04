@@ -19,6 +19,10 @@ export class DateUTCPipe implements PipeTransform {
             value = value + 'Z';
         }
 
+        if (typeof value === 'number' && value.toString().length === 10) {
+            value *= 1000;
+        }
+
         return this.datePipe.transform(value, format, timezone, locale);
     }
 }
