@@ -15,7 +15,7 @@ export class DateUTCPipe implements PipeTransform {
             return '';
         }
 
-        if (!(/^z/.test(value))) {
+        if (typeof value === 'string' && !(/^z/.test(value))) {
             value = value + 'Z';
         }
 

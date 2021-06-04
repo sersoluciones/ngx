@@ -11,20 +11,20 @@ import { CurrencyCOPPipe } from './currency.pipe';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 
 const dependencies = [
-  WhenScrolledDirective,
-  FinishTypingDirective,
-  BgImageDirective,
-  CopyToClipboardDirective,
-  ToggleClassDirective,
-  LongPressDirective,
-  DateUTCPipe,
-  CurrencyCOPPipe,
-  FilterList
+    WhenScrolledDirective,
+    FinishTypingDirective,
+    BgImageDirective,
+    CopyToClipboardDirective,
+    ToggleClassDirective,
+    LongPressDirective,
+    DateUTCPipe,
+    CurrencyCOPPipe,
+    FilterList
 ];
 
 @NgModule({
-  declarations: [...dependencies],
-  providers: [CurrencyPipe, DatePipe],
-  exports: [...dependencies]
+    declarations: [...dependencies],
+    providers: [CurrencyPipe, DatePipe],
+    exports: [...dependencies]
 })
-export class SerUiModule {}
+export class SerUiModule { }
