@@ -7,7 +7,7 @@
     font-size: 0.8em;
     border-radius: 0 0 12px 12px;
     background-color: var(--datepicker-container-months-color-bg);
-    box-shadow: -2px -1px 5px var(--select-shadow-color), 2px -1px 5px var(--select-shadow-color);
+    box-shadow: 1px 0px 20px -7px rgb(0 0 0 / 26%), 0px 0px 20px -7px rgb(0 0 0 / 26%);
 
     @media (max-width: 600px) {
         /* top: 50% !important;
@@ -107,6 +107,9 @@
                             &.month-item-year {
                                 cursor: pointer;
                                 border-radius: 8px;
+                                padding: 0 8px;
+                                color: var(--datepicker-month-item-font-color);
+                                background-color: var(--datepicker-month-item-header-bg);
                             }
                         }
                     }
@@ -334,6 +337,7 @@
             button {
                 display: block;
                 text-align: left;
+                color: var(--datepicker-shortcut-font-color);
             }
         }
 

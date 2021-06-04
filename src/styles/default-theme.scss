@@ -72,7 +72,7 @@
     --input-error-border: 2px solid var(--input-error-border-color);
     --input-error-shadow-color: #f8dddd;
     --input-focus-color: #3490cc;
-    --input-focus-shadow-color: #d1edff;
+    --input-focus-shadow-color: rgb(0, 155, 255, 0.3);
     --input-icon-color: #7d7d7d;
 
     --input-file-item-bg: #e6e6e6;
@@ -161,6 +161,9 @@
     --datepicker-highlighted-day-color: #333;
     --datepicker-highlighted-day-color-bg: #ffeb3b;
     --datepicker-shortcut-border-color: #e7e7e7;
+    --datepicker-shortcut-font-color: #040404;
+    --datepicker-month-item-header-bg: #ddd;
+    --datepicker-month-item-font-color: #040404;
 }
 
 body.scheme-dark {
@@ -206,11 +209,11 @@ body.scheme-dark {
     --address-color-placeholder: #bcbcbc;
     --address-input-border: #616161;
 
-    --datepicker-container-months-color-bg: #272727;
+    --datepicker-container-months-color-bg: #3b3b3b;
     --datepicker-container-months-box-shadow-color: #131313;
     --datepicker-footer-color-bg: #fafafa;
     --datepicker-footer-box-shadow-color: #ddd;
-    --datepicker-tooltip-color-bg: #fff;
+    --datepicker-tooltip-color-bg: #3b3b3b;
     --datepicker-month-header-color: white;
     --datepicker-button-prev-month-color: #9e9e9e;
     --datepicker-button-next-month-color: #9e9e9e;
@@ -226,6 +229,9 @@ body.scheme-dark {
     --datepicker-is-end-color: #fff;
     --datepicker-is-end-color-bg: #2196f3;
     --datepicker-highlighted-day-color: #333;
+    --datepicker-shortcut-font-color: white;
+    --datepicker-month-item-header-bg: #656565;
+    --datepicker-month-item-font-color: white;
 }
 
 fieldset {
