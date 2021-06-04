@@ -304,5 +304,9 @@
 
     .bttn {
         margin: 0;
+
+        &:hover {
+            z-index: 1;
+        }
     }
 }

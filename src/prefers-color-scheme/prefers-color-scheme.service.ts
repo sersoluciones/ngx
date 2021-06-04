@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 
 /**
  * @description
@@ -39,6 +39,8 @@ export class PrefersColorSchemeService {
 
     dark = false;
 
+    @Output() changes = new EventEmitter<boolean>();
+
     constructor() {
         this.Scheme = window.matchMedia('(prefers-color-scheme: dark)');
     }
@@ -55,6 +57,8 @@ export class PrefersColorSchemeService {
         } else {
             this.enableLight();
         }
+
+
     }
 
     /**
@@ -84,6 +88,8 @@ export class PrefersColorSchemeService {
         body.classList.add(this.SchemeDarkClassName);
 
         this.dark = true;
+
+        this.changes.emit(true);
     }
 
     /**
@@ -100,6 +106,8 @@ export class PrefersColorSchemeService {
         body.classList.add(this.SchemeLightClassName);
 
         this.dark = false;
+
+        this.changes.emit(false);
     }
 
     /**
