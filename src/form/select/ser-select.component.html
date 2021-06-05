@@ -88,7 +88,7 @@
 
             <ng-container *ngIf="!hasValue(itemTempl) && !hasValue(badgeItemTempl); else templs">
 
-                <div class="item pure-checkbox" *ngFor="let item of filteredList; let i = index;" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item) }">
+                <div class="item pure-checkbox" *ngFor="let item of filteredList; let i = index;" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item), 'disabled': (settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey] }">
                     <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
                     <label>{{ getLabelText(item) }}</label>
                 </div>
@@ -97,7 +97,7 @@
 
             <ng-template #templs>
 
-                <div class="item pure-checkbox" *ngFor="let item of filteredList; let i = index;" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item) }">
+                <div class="item pure-checkbox" *ngFor="let item of filteredList; let i = index;" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item), 'disabled': (settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey] }">
                     <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
                     <label></label>
                     <ng-container *ngIf="hasValue(itemTempl)">

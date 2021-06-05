@@ -186,6 +186,17 @@ ser-select {
                     cursor: pointer;
                     text-align: left;
 
+                    &.disabled {
+                        opacity: 0.4;
+                        cursor: not-allowed;
+
+                        &.pure-checkbox {
+                            input[type=checkbox] + label {
+                                cursor: not-allowed;
+                            }
+                        }
+                    }
+
                     &:first-child {
                         padding-top: 10px;
                     }

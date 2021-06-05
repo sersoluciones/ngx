@@ -25,6 +25,7 @@ export class BaseView implements OnInit, AfterViewInit {
             {
                 id: 2,
                 image: 'assets/avatars/2.jpg',
+                disabled: true,
                 name: 'Batman',
                 desc: 'Arkham series'
             },
