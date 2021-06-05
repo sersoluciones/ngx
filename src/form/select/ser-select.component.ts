@@ -437,7 +437,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                 this.onSelect.emit(item);
             }
 
-        } else {
+        } else if (this.settings.clearAll) {
             this.removeSelected(item);
             this.onDeSelect.emit(item);
         }

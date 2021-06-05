@@ -163,6 +163,15 @@ ser-select {
                 height: calc(100% - 45px) !important;
             }
 
+            .simple-close {
+                display: none;
+                padding: 8px;
+
+                @media (max-width: 600px) {
+                    display: block;
+                }
+            }
+
             .list {
                 overflow: auto;
 
