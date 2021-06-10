@@ -276,6 +276,8 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.settings.paginationState.hasNextPage = getPath(response, this.settings.paginationState.hasNextPagePath);
             this.settings.paginationState.loading = false;
 
+            this.setPositionDropdown();
+
             if (this.isActive && this.settings.paginationState.hasNextPage) {
                 setTimeout(() => {
 
