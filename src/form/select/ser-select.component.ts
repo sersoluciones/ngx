@@ -276,13 +276,15 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.settings.paginationState.hasNextPage = getPath(response, this.settings.paginationState.hasNextPagePath);
             this.settings.paginationState.loading = false;
 
-            setTimeout(() => {
+            if (this.isActive && this.settings.paginationState.hasNextPage) {
+                setTimeout(() => {
 
-                if (this.listElem.nativeElement.offsetHeight === this.listElem.nativeElement.scrollHeight) {
-                    this.fetchData();
-                }
+                    if (this.listElem.nativeElement.offsetHeight === this.listElem.nativeElement.scrollHeight) {
+                        this.fetchData();
+                    }
 
-            });
+                });
+            }
         });
 
     }

@@ -1,8 +1,5 @@
 ﻿
 $browser-context: 14; // Default
-$font-family: 'Segoe UI', sans-serif;
-$s3bucket: null; // !global;
-$cloudfrontId: null; // !global;
 
 @function rem($pixels, $context: $browser-context) {
   @return #{$pixels/$context}rem;
