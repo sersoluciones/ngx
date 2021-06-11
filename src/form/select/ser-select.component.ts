@@ -382,7 +382,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
                     console.warn('No value finded in data, please set "primaryKey" setting with the correct value or pass a existing value in data');
                 }
 
-                if (this.selectedItems.length === this.data.length && this.data.length > 0) {
+                if (this.selectedItems.length === this.data?.length && this.data?.length > 0) {
                     this.isSelectAll = true;
                 }
 
@@ -446,11 +446,11 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.onDeSelect.emit(item);
         }
 
-        if (this.isSelectAll || this.data.length > this.selectedItems.length) {
+        if (this.isSelectAll || this.data?.length > this.selectedItems.length) {
             this.isSelectAll = false;
         }
 
-        if (this.data.length === this.selectedItems.length) {
+        if (this.data?.length === this.selectedItems.length) {
             this.isSelectAll = true;
         }
 
