@@ -177,6 +177,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         this.multipleClass = !this.settings.singleSelection;
 
         if (this.settings.remote) {
+            this.settings.enableCheckAll = false;
             this._setlistDataSub();
         }
 
@@ -518,6 +519,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         if (hasValue(this.selectedItems)) {
             this.selectedItems.forEach((item, index) => {
+
                 if (typeof item === 'object') {
                     if (clickedItem[this.settings.primaryKey] === item[this.settings.primaryKey]) {
                         this.selectedItems.splice(index, 1);
@@ -538,7 +540,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
             const items = this.selectedItems.map(element => {
 
-                if (typeof clickedItem === 'object') {
+                if (typeof clickedItem === 'object' && !this.settings.remote) {
                     return element[this.settings.primaryKey];
                 }
 
