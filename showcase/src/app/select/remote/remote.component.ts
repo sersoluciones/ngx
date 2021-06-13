@@ -18,6 +18,7 @@ export class RemoteComponent extends BaseView {
     });
 
     settings: DropdownSettings = {
+        badgeShowLimit: 3,
         remote: true,
         paginationState: {
             listPath: ['data', 'city_list'],

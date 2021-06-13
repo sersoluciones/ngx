@@ -55,9 +55,6 @@ ser-select {
                 .token {
                     display: inline-flex;
                     position: relative;
-                    padding: 4px 8px;
-                    border-radius: 6px;
-                    margin: 2px 4px 0 0;
 
                     .remove {
                         display: flex;
@@ -79,7 +76,6 @@ ser-select {
         .controls {
             display: flex;
             align-items: center;
-            margin-left: 16px;
 
             .clear-all,
             .chevron {
@@ -95,13 +91,6 @@ ser-select {
                     transform: rotate(-180deg);
                     transition: transform 300ms ease-in-out;
                 }
-            }
-
-            .countplaceholder {
-                position: absolute;
-                right: 45px;
-                top: 50%;
-                transform: translateY(-50%);
             }
         }
 
@@ -240,13 +229,9 @@ ser-select {
 
                 + label {
                     position: relative;
-                    padding-left: 2em;
                     vertical-align: middle;
                     user-select: none;
                     cursor: pointer;
-                    margin: 0px;
-                    font-weight: normal;
-                    font-size: 0.8rem;
 
                     &:before {
                         content: "";
@@ -254,12 +239,8 @@ ser-select {
                         position: absolute;
                         top: 50%;
                         left: 0;
-                        width: 15px;
-                        height: 15px;
-                        margin-top: -9px;
                         text-align: center;
                         transition: all 0.4s ease;
-                        border-radius: 3px;
                     }
 
                     &:after {
@@ -267,21 +248,9 @@ ser-select {
                         box-sizing: content-box;
                         position: absolute;
                         top: 50%;
-                        // left: 0;
-                        left: 3px;
-                        // width: 15px;
-                        // height: 15px;
-                        width: 9px;
-                        height: 4px;
-                        // margin-top: -9px;
-                        margin-top: -5px;
-                        // transform: scale(0);
                         transform: rotate(-45deg) scale(0);
                         transform-origin: 50%;
                         transition: transform 200ms ease-out;
-
-                        border-style: solid;
-                        border-width: 0 0 2px 2px;
                         border-image: none;
                     }
                 }

@@ -23,7 +23,7 @@
             <div class="token-list">
                 <ng-container *ngFor="let item of selectedItems;trackBy: trackByFn.bind(this);let k = index">
 
-                    <div *ngIf="k < (settings.badgeShowLimit - 1)" class="token">
+                    <div *ngIf="k < settings.badgeShowLimit" class="token">
                         <span *ngIf="!hasValue(badgeTempl) && !hasValue(badgeItemTempl)" class="label">{{ getLabelText(item) }}</span>
                         <span *ngIf="hasValue(badgeTempl)" class="label">
                             <ng-container *ngTemplateOutlet="badgeTempl.template; context:{item: item}"></ng-container>
@@ -43,8 +43,9 @@
         </ng-container>
     </div>
 
+    <div class="countplaceholder" *ngIf="selectedItems?.length > settings.badgeShowLimit">+{{ selectedItems?.length - settings.badgeShowLimit }}</div>
+
     <div class="controls">
-        <span class="countplaceholder" *ngIf="selectedItems?.length > settings.badgeShowLimit">+{{ selectedItems?.length - settings.badgeShowLimit }}</span>
 
         <button type="button" *ngIf="settings.clearAll && !isDisabled && selectedItems?.length > 0" class="clear-all" (click)="clearSelection($event);">
             <span class="material-icons">close</span>
