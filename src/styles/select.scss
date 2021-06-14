@@ -140,6 +140,7 @@ ser-select {
             left: 0 !important;
             width: 100% !important;
             height: 100% !important;
+            z-index: 1000;
 
             .select-all + .list-container {
                 max-height: calc(100% - 87px) !important;
