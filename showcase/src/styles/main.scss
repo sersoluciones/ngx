@@ -53,9 +53,11 @@ p {
 
     > .code {
         border-radius: 12px 0 0 12px;
-        background-color: #282828;
+        background-color: var(--code-example-bg);
         max-width: 50%;
         --scrollbar-thumb-color-bg: #a2a2a2;
+        padding: 16px;
+        margin-top: 0;
 
         @media (max-width: 800px) {
             max-width: 100%;
@@ -69,6 +71,7 @@ p {
 
             pre {
                 max-width: 100%;
+                overflow: auto;
             }
         }
 
@@ -80,8 +83,10 @@ p {
 
 .code {
     position: relative;
+    padding: 32px;
+    margin-top: 32px;
     border-radius: 12px;
-    background-color: #282828;
+    background-color: var(--code-example-bg);
 
     .body {
         flex-direction: row;
