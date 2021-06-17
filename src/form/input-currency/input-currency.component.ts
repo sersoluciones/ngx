@@ -36,7 +36,13 @@ export class InputCurrencyComponent implements OnInit, AfterViewInit, OnDestroy,
 
     setValue() {
         if (hasValue(this.value)) {
-            this.onChange(parseFloat(this.value));
+
+            if (typeof this.value === 'string') {
+                this.onChange(parseFloat(this.value));
+            } else {
+                this.onChange(this.value);
+            }
+
         } else {
             this.onChange(null);
         }

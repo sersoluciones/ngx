@@ -44,7 +44,13 @@ export class InputNumberComponent implements OnInit, AfterViewInit, OnDestroy, C
 
     setValue() {
         if (hasValue(this.value)) {
-            this.onChange(parseFloat(this.value.trim()));
+
+            if (typeof this.value === 'string') {
+                this.onChange(parseFloat(this.value.trim()));
+            } else {
+                this.onChange(this.value);
+            }
+
         } else {
             this.onChange(null);
         }
