@@ -417,3 +417,16 @@ mat-icon {
 .dp2 {
     background-color: var(--bg-2dp);
 }
+
+.bn-Safari {
+    .mat-tab-body {
+        &:not(.mat-tab-body-active) {
+            pointer-events: none;
+        }
+
+        &.mat-tab-body-active {
+            z-index: unset !important;
+        }
+    }
+}
+

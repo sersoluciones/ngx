@@ -7,6 +7,8 @@ import { OptionsComponent } from './options/options.component';
 import { TemplatesComponent } from './templates/templates.component';
 import { RemoteComponent } from './remote/remote.component';
 
+import { MatTabsModule } from '@angular/material/tabs';
+
 
 @NgModule({
     declarations: [
@@ -17,6 +19,7 @@ import { RemoteComponent } from './remote/remote.component';
     ],
     imports: [
         SharedModule,
+        MatTabsModule,
         SelectRoutingModule
     ]
 })

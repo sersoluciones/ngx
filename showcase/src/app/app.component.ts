@@ -1,7 +1,9 @@
 import { PrefersColorSchemeService } from './../../../src/prefers-color-scheme/prefers-color-scheme.service';
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, Renderer2 } from '@angular/core';
 import { BaseView } from './base/base-view';
 import * as examples from './app.examples';
+import * as Bowser from 'bowser';
+import { setBowserClasses } from '../../../src/utils/bowser';
 
 @Component({
     selector: 'app-root',
@@ -11,8 +13,11 @@ import * as examples from './app.examples';
 export class AppComponent extends BaseView {
 
     examples = examples;
-    constructor(protected injectorObj: Injector, public colorScheme: PrefersColorSchemeService) {
+    constructor(protected injectorObj: Injector, public colorScheme: PrefersColorSchemeService, _renderer: Renderer2) {
         super(injectorObj);
+
+        const bowser = Bowser.getParser(window.navigator.userAgent);
+        setBowserClasses(bowser, _renderer);
     }
 
     init() {
