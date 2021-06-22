@@ -1,4 +1,5 @@
-import { Component, forwardRef, OnInit, ViewEncapsulation, OnDestroy, HostBinding, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { ElementRef, ViewChild } from '@angular/core';
+import { Component, forwardRef, OnInit, ViewEncapsulation, OnDestroy, HostBinding, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { hasValue } from '../../utils/check';
 
@@ -17,9 +18,11 @@ import { hasValue } from '../../utils/check';
 })
 export class InputCurrencyComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
 
+    @ViewChild('input') inputEl: ElementRef<HTMLInputElement>;
     @HostBinding('class.disabled') isDisabled = false;
     @Output() focus: EventEmitter<void> = new EventEmitter<void>();
     @Output() blur: EventEmitter<void> = new EventEmitter<void>();
+    @Input() maxLength = 50;
 
     value: string;
 
@@ -46,6 +49,15 @@ export class InputCurrencyComponent implements OnInit, AfterViewInit, OnDestroy,
         } else {
             this.onChange(null);
         }
+    }
+
+    setBlur() {
+
+        if (!hasValue(this.value)) {
+            this.inputEl.nativeElement.value = null;
+        }
+
+        this.blur.emit();
     }
 
     registerOnChange(fn: any) {

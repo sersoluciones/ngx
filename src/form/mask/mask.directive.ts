@@ -90,6 +90,9 @@ export class MaskDirective implements ControlValueAccessor, OnChanges, Validator
             leadZeroDateTime,
         } = changes;
         if (maskExpression) {
+            if (maskExpression.currentValue !== maskExpression.previousValue && !maskExpression.firstChange) {
+                this._maskService.maskChanged = true;
+            }
             this._maskValue = maskExpression.currentValue || '';
             if (maskExpression.currentValue && maskExpression.currentValue.split('||').length > 1) {
                 this._maskExpressionArray = maskExpression.currentValue.split('||').sort((a: string, b: string) => {
@@ -262,7 +265,7 @@ export class MaskDirective implements ControlValueAccessor, OnChanges, Validator
         this._maskService.applyValueChanges(
             position,
             this._justPasted,
-            this._code === 'Backspace',
+            this._code === 'Backspace' || this._code === 'Delete',
             (shift: number, _backspaceShift: boolean) => {
                 this._justPasted = false;
                 caretShift = shift;
@@ -279,6 +282,9 @@ export class MaskDirective implements ControlValueAccessor, OnChanges, Validator
             : position + (this._code === 'Backspace' && !backspaceShift ? 0 : caretShift);
         if (positionToApply > this._getActualInputLength()) {
             positionToApply = this._getActualInputLength();
+        }
+        if (positionToApply < 0) {
+            positionToApply = 0;
         }
         el.setSelectionRange(positionToApply, positionToApply);
         this._position = null;
