@@ -1,6 +1,5 @@
-import { Subscription } from 'rxjs';
-import { Component, forwardRef, OnInit, ViewEncapsulation, OnDestroy, HostBinding, AfterViewInit, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, ViewEncapsulation, HostBinding, Output, EventEmitter, ViewChild, ElementRef, Input } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { hasValue } from '../../utils/check';
 
 
@@ -16,30 +15,19 @@ import { hasValue } from '../../utils/check';
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class InputNumberComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
+export class InputNumberComponent implements ControlValueAccessor {
 
+    @ViewChild('input') inputEl: ElementRef<HTMLInputElement>;
     @HostBinding('class.disabled') isDisabled = false;
     @Output() focus: EventEmitter<void> = new EventEmitter<void>();
     @Output() blur: EventEmitter<void> = new EventEmitter<void>();
+    @Input() maxLength = 50;
 
-    value: string;
-    modelSub: Subscription;
-
-    // tslint:disable-next-line: max-line-length
-    viaOptionsSubs$: Subscription[] = [];
-    private viewInitialized = false;
-
-    constructor(private _fb: FormBuilder, private _renderer: Renderer2, private _elementRef: ElementRef) { }
+    value: string = null;
 
     //#region ControlValueAccessor
     writeValue(obj: any) {
-
-        if (hasValue(obj)) {
-            this.value = obj;
-        } else {
-            this.value = null;
-        }
-
+        this.value = obj.toString();
     }
 
     setValue() {
@@ -70,24 +58,5 @@ export class InputNumberComponent implements OnInit, AfterViewInit, OnDestroy, C
         this.isDisabled = isDisabled;
     }
     //#endregion
-
-    ngOnInit() {
-
-        /* this.modelSub = this.modelForm.valueChanges.subscribe(() => {
-            if (this.modelForm.valid) {
-                this.onChange(this.generateValue());
-            } else if (!this.isDisabled) {
-                this.onChange(null);
-            }
-        }); */
-    }
-
-    ngAfterViewInit(): void {
-        this.viewInitialized = true;
-    }
-
-    ngOnDestroy() {
-        // this.modelSub.unsubscribe();
-    }
 
 }

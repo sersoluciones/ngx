@@ -63,11 +63,9 @@
                 <ser-form-element style="width: 300px;">
                     <label>Moneda</label>
                     <ser-input-currency serControl formControlName="number2"></ser-input-currency>
-
-                    <div serErrors="number2">
-                        <div serError="required">Requerido</div>
-                    </div>
                 </ser-form-element>
+
+                {{ modelForm.value.number2 }}
 
             </div>
         </div>

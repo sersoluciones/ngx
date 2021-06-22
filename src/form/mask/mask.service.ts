@@ -17,8 +17,8 @@ export class MaskService extends MaskApplierService {
      * Whether we are currently in writeValue function, in this case when applying the mask we don't want to trigger onChange function,
      * since writeValue should be a one way only process of writing the DOM value based on the Angular model value.
      */
-    public writingValue: boolean = false;
-    public maskChanged: boolean = false;
+    public writingValue = false;
+    public maskChanged = false;
 
     public onChange = (_: any) => { };
 

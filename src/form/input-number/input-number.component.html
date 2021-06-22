@@ -1,4 +1,4 @@
 
-<input #input class="not-styled" x-inputmode="numeric"
+<input #input class="not-styled" x-inputmode="numeric" [maxLength]="maxLength"
 [(ngModel)]="value" (focus)="focus.emit()" (blur)="blur.emit()" (input)="setValue()"
 [disabled]="isDisabled" autocomplete="off" spellcheck="false" mask="separator" thousandSeparator="." />
