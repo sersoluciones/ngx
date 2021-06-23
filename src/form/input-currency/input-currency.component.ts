@@ -27,7 +27,7 @@ export class InputCurrencyComponent implements ControlValueAccessor {
 
     //#region ControlValueAccessor
     writeValue(obj: any) {
-        this.value = obj.toString();
+        this.value = obj?.toString();
     }
 
     setValue() {

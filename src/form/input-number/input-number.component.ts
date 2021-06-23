@@ -27,7 +27,7 @@ export class InputNumberComponent implements ControlValueAccessor {
 
     //#region ControlValueAccessor
     writeValue(obj: any) {
-        this.value = obj.toString();
+        this.value = obj?.toString();
     }
 
     setValue() {
