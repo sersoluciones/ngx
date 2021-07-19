@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ViewEncapsulation, forwardRef, AfterViewInit, ElementRef, Input, EventEmitter, Output, Attribute, Optional, HostBinding, HostListener } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { hasValue } from '../../../utils/check';
-import { noop } from '../../../utils/object';
+import { mergeObjs, noop } from '../../../utils/object';
 import { Datepicker } from '../base/datepicker';
 import { DateInputSettings } from '../ser-date.interface';
 
@@ -67,7 +67,7 @@ export class SerDateComponent implements OnInit, ControlValueAccessor, OnChanges
 
     ngOnInit(): void {
 
-        this.settings = Object.assign(this.defaultSettings, this.settings);
+        this.settings = mergeObjs(this.defaultSettings, this.settings);
 
         this.timeClass = this.settings.timePicker;
 
