@@ -87,6 +87,8 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
     writeValue(value: any) {
 
         if (!hasValue(value)) {
+            this._picker?.clearSelection();
+            this.selectedDateRange = null;
             return;
         }
 

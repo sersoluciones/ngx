@@ -91,6 +91,8 @@ export class SerDateComponent implements OnInit, ControlValueAccessor, OnChanges
 
         } else {
             this._value = value;
+            this._picker?.clearSelection();
+            this.selectedDate = null;
         }
     }
 

@@ -62,7 +62,7 @@
 
                 <ser-form-element style="width: 300px;">
                     <label>Fecha hora</label>
-                    <ser-date serControl formControlName="date2" time></ser-date>
+                    <ser-date serControl formControlName="date2" time [settings]="date2Settings"></ser-date>
 
                     <div serErrors="date2">
                         <div serError="required">Requerido</div>
