@@ -15,7 +15,7 @@ import { hasValue } from '../../utils/check';
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class InputCurrencyComponent implements ControlValueAccessor, AfterViewInit {
+export class InputCurrencyComponent implements ControlValueAccessor {
 
     @ViewChild('input') inputEl: ElementRef<HTMLInputElement>;
     @HostBinding('class.disabled') isDisabled = false;
@@ -46,11 +46,6 @@ export class InputCurrencyComponent implements ControlValueAccessor, AfterViewIn
     }
 
     setBlur() {
-
-        if (!hasValue(this.value)) {
-            this.inputEl.nativeElement.value = null;
-        }
-
         this.blur.emit();
     }
 
@@ -68,9 +63,5 @@ export class InputCurrencyComponent implements ControlValueAccessor, AfterViewIn
         this.isDisabled = isDisabled;
     }
     //#endregion
-
-    ngAfterViewInit() {
-        this.setBlur();
-    }
 
 }
