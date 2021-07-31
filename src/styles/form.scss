@@ -167,6 +167,19 @@ ser-input-currency {
     }
 }
 
+ser-input-currency {
+    display: flex;
+    align-items: center;
+
+    &::before {
+        content: '$';
+    }
+
+    input {
+        padding-left: 4px;
+    }
+}
+
 .scheme-dark {
 
     select:-webkit-autofill,
