@@ -416,6 +416,10 @@ ser-form-element {
             &.ontop {
                 border-radius: 12px 12px 0 0;
                 box-shadow: 0px -3px 5px var(--select-shadow-color);
+
+                @media (max-width: 600px) {
+                    border-radius: 0;
+                }
             }
 
             .via-item {

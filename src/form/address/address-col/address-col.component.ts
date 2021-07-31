@@ -20,7 +20,7 @@ import { fromIntersectionObserver } from '../../../utils/rx-utils';
 })
 export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
 
-    @ViewChild('viaOptionsEl') viaOptionsEl: ElementRef;
+    @ViewChild('viaOptionsEl') viaOptionsEl: ElementRef<HTMLDivElement>;
     @ViewChild('viaElCont') viaElCont: ElementRef;
     @ViewChild('viaEl') viaEl: ElementRef;
     @ViewChild('viaElHint') viaElHint: ElementRef;
@@ -276,7 +276,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
         setTimeout(() => {
 
-            const dropdown = (this.viaOptionsEl.nativeElement as HTMLDivElement);
+            const dropdown = this.viaOptionsEl.nativeElement;
             const el = (this.viaEl.nativeElement as HTMLElement);
             const remainingHeight = document.documentElement.offsetHeight - (dropdown.offsetHeight + el.getBoundingClientRect().top + el.offsetHeight);
 
