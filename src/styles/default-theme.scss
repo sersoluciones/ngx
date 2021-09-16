@@ -532,6 +532,13 @@ ser-form-element {
 
         .input-group {
             background-color: var(--input-bg-disabled);
+
+            > {
+                #{$inputs} {
+                    background-color: var(--input-bg-disabled);
+                    color: var(--input-font-color-disabled);
+                }
+            }
         }
     }
 
