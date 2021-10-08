@@ -123,7 +123,7 @@ export class BaseView implements OnInit, AfterViewInit {
         });
     }
 
-    public toogleFormControlDisabled(name: string) {
+    toogleFormControlDisabled(name: string) {
         if (this.modelForm.get(name).enabled) {
             this.modelForm.get(name).disable();
         } else {

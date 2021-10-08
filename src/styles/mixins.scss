@@ -1,7 +1,9 @@
 ﻿
 @use "sass:math";
 
-$browser-context: 14; // Default
+$browser-context: 14 !default; // Default
+$s3bucket: '' !default;
+$cloudfrontId: '' !default;
 
 @function rem($pixels, $context: $browser-context) {
   @return #{math.div($pixels, $context)}rem;
@@ -31,7 +33,7 @@ $browser-context: 14; // Default
     }
 }
 
-@mixin row{
+@mixin row {
     box-sizing: border-box;
     display: -webkit-box;
     display: -webkit-flex;
