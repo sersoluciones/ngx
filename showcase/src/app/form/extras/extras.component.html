@@ -39,45 +39,6 @@
 
     <a class="example-name" href="./#bttn-bordered">
         <span class="material-icons">link</span>
-        <h1 id="bttn-icon">Compuesto</h1>
-    </a>
-
-    <div class="example-snippet">
-
-        <div class="code">
-
-            <div class="body">
-                <pre><code [highlight]="examples.CurrencyExample"></code></pre>
-                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.CurrencyExample" (copied)="alert('Copiado al portapapeles')">
-                    <span class="material-icons">content_copy</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="preview">
-
-            <div class="body">
-
-                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('number2')">Habilitar / Deshabilitar</button>
-
-                <ser-form-element style="width: 300px;">
-                    <div class="input-group">
-                        <div class="addon">test</div>
-                        <input type="text" serControl formControlName="number2">
-                    </div>
-
-                    <div serErrors="number2">
-                        <div serError="required">Requerido</div>
-                    </div>
-                </ser-form-element>
-
-            </div>
-        </div>
-
-    </div>
-
-    <a class="example-name" href="./#bttn-bordered">
-        <span class="material-icons">link</span>
         <h1 id="bttn-icon">Entrada tipo moneda</h1>
     </a>
 

@@ -1,3 +1,5 @@
+@import '../../../src/styles/mixins.scss';
+
 * {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
@@ -9,6 +11,7 @@
     display: grid;
     grid-template-rows: 60px 1fr;
     height: 100%;
+    font-size: rem(13);
 
     .toolbar {
         height: 60px;
