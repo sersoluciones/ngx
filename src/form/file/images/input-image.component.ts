@@ -48,8 +48,8 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
     defaultSettings: InputImageSettings = {
         removeText: 'Remover imagen',
         uploadText: 'Seleccionar imagen',
-        uploadIconHTML: '<span class="material-icons">photo_camera</span>',
-        clearIconHTML: '<span class="material-icons">delete</span>',
+        uploadIconHTML: '<span class="material-icons-outlined">photo_camera</span>',
+        clearIconHTML: '<span class="material-icons-outlined">delete</span>',
         classes: '',
         optimize: true,
         accept: ['.png', '.jpg', '.jpeg']
