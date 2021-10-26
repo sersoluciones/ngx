@@ -108,9 +108,6 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
     private dropdownSubs$: Subscription[] = [];
     private subscription: Subscription;
     defaultSettings: FilterSettings = {
-        enableCheckAll: true,
-        selectAllText: 'Seleccionar todo',
-        unSelectAllText: 'Deseleccionar todo',
         searchBy: ['name'],
         maxHeight: 300,
         classes: '',

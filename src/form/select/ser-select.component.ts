@@ -28,7 +28,7 @@ const noop = () => {
     selector: 'ser-select',
     templateUrl: './ser-select.component.html',
     encapsulation: ViewEncapsulation.None,
-    host: { '[class]': 'defaultSettings.classes' },
+    host: { '[class]': 'settings.classes', '[class.no-responsive]': '!settings.dropdownMobileFixed' },
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -103,7 +103,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     public filteredList: any = [];
     search = this._fb.control('');
 
-    private parents: Element[] = [];
+    private parents: HTMLElement[] = [];
     private dropdownSubs$: Subscription[] = [];
     private subscription: Subscription;
     defaultSettings: DropdownSettings = {
@@ -136,7 +136,8 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         addNewButtonText: 'Agregar',
         escapeToClose: true,
         clearAll: true,
-        scrollEndGap: 200
+        scrollEndGap: 200,
+        dropdownMobileFixed: true
     };
     //#endregion
 
@@ -144,7 +145,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     constructor(public _elementRef: ElementRef, private _fb: FormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any,
                 @Optional() @Attribute('simple') simple: any, @Optional() @Attribute('primaryKey') primaryKey: any, @Optional() @Attribute('labelKey') labelKey: any,
-                @Optional() @Attribute('lazyLoading') lazyLoading: any) {
+                @Optional() @Attribute('lazyLoading') lazyLoading: any, @Optional() @Attribute('noResponsive') noResponsive: any) {
 
         this.multiple = multipleAttr !== null;
 
@@ -155,6 +156,10 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         if (simple !== null) {
             this.defaultSettings.enableSearchFilter = false;
             this.defaultSettings.clearAll = false;
+        }
+
+        if (noResponsive !== null) {
+            this.defaultSettings.dropdownMobileFixed = false;
         }
 
         if (primaryKey !== null) {
@@ -277,7 +282,11 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.settings.paginationState.hasNextPage = getPath(response, this.settings.paginationState.hasNextPagePath);
             this.settings.paginationState.loading = false;
 
-            this.setPositionDropdown();
+            if (this.settings.dropdownMobileFixed) {
+                this.setPositionFixedDropdown();
+            } else {
+                this.setPositionAbsoluteDropdown();
+            }
 
             if (this.isActive && this.settings.paginationState.hasNextPage) {
                 setTimeout(() => {
@@ -455,7 +464,11 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.isSelectAll = true;
         }
 
-        this.setPositionDropdown();
+        if (this.settings.dropdownMobileFixed) {
+            this.setPositionFixedDropdown();
+        } else {
+            this.setPositionAbsoluteDropdown();
+        }
     }
 
     isSelected(item: any) {
@@ -580,7 +593,11 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         this.isActive = true;
         this.focus.emit();
 
-        this.setPositionDropdown();
+        if (this.settings.dropdownMobileFixed) {
+            this.setPositionFixedDropdown();
+        } else {
+            this.setPositionAbsoluteDropdown();
+        }
 
         const parents$: Observable<any>[] = [
             fromEvent(document, 'scroll'),
@@ -594,18 +611,18 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         this.dropdownSubs$.push(
 
             merge(
-                fromEvent(window, 'click')
-                    .pipe(filter((e: MouseEvent) => !this._elementRef.nativeElement.contains(e.target) )),
+                fromEvent<MouseEvent>(window, 'click')
+                    .pipe(filter(e => !this._elementRef.nativeElement.contains(e.target) )),
 
-                fromEvent(window, 'keyup')
-                    .pipe(filter((e: KeyboardEvent) => e.key.toLowerCase() === 'escape' && this.settings.escapeToClose )),
+                fromEvent<KeyboardEvent>(window, 'keyup')
+                    .pipe(filter(e => e.key.toLowerCase() === 'escape' && this.settings.escapeToClose )),
 
                 fromIntersectionObserver(this.selectedListElem.nativeElement)
-                    .pipe(filter((ev) => !ev[0].isIntersecting && window.innerWidth > 600))
+                    .pipe(filter(ev => !ev[0].isIntersecting && window.innerWidth > 600))
             )
             .subscribe(() => this.closeDropdown()),
 
-            merge(...parents$).subscribe(() => this.setPositionDropdown())
+            merge(...parents$).pipe(filter(() => this.settings.dropdownMobileFixed)).subscribe(() => this.setPositionFixedDropdown())
         );
 
         this._renderer.appendChild(this._elementRef.nativeElement, this.dropdownElem.nativeElement);
@@ -647,16 +664,17 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         this._renderer.removeChild(this._elementRef.nativeElement, this.dropdownElem.nativeElement);
     }
 
-    setPositionDropdown() {
+    setPositionFixedDropdown() {
 
         setTimeout(() => {
 
             const dropdown = (this.dropdownElem.nativeElement as HTMLDivElement);
             const el = (this._elementRef.nativeElement as HTMLElement);
-            const remainingHeight = document.documentElement.offsetHeight - (dropdown.offsetHeight + el.getBoundingClientRect().top + el.offsetHeight);
 
             this._renderer.setStyle(dropdown, 'width', (el.offsetWidth) + 'px');
             this._renderer.setStyle(dropdown, 'left', (el.getBoundingClientRect().left) + 'px');
+
+            const remainingHeight = document.documentElement.offsetHeight - (dropdown.offsetHeight + el.getBoundingClientRect().top + el.offsetHeight);
 
             if (remainingHeight > 0) {
                 this._renderer.removeClass(el, 'ontop');
@@ -671,6 +689,20 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             }
 
         });
+    }
+
+    setPositionAbsoluteDropdown() {
+
+        const dropdown = (this.dropdownElem.nativeElement as HTMLDivElement);
+        const el = (this._elementRef.nativeElement as HTMLElement);
+
+        this._renderer.setStyle(dropdown, 'width', (el.offsetWidth) + 'px');
+
+        this._elementRef.nativeElement.scrollIntoView();
+
+        setTimeout(() => {
+            this.parents[0].scrollBy(0, -16);
+        }, 100);
     }
 
     //#endregion
@@ -721,7 +753,9 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             this.search.setValue('');
         }
 
-        this.setPositionDropdown();
+        if (this.settings.dropdownMobileFixed) {
+            this.setPositionFixedDropdown();
+        }
 
         setTimeout(() => {
             this.searchInput?.nativeElement.focus();

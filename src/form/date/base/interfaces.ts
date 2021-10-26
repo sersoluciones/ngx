@@ -8,18 +8,50 @@ interface ILPOptionDropdowns {
     years?: boolean | string;
 }
 
+interface ILPOptionShotcutItem {
+    enable?: boolean;
+    text?: string;
+}
+
+interface ILPOptionShotcuts {
+    enable?: boolean;
+    title?: string;
+
+    today?: ILPOptionShotcutItem;
+    yesterday?: ILPOptionShotcutItem;
+
+    actualWeek?: ILPOptionShotcutItem;
+    runningWeek?: ILPOptionShotcutItem;
+    lastWeek?: ILPOptionShotcutItem;
+
+    actualMonth?: ILPOptionShotcutItem;
+    runningMonth?: ILPOptionShotcutItem;
+    lastMonth?: ILPOptionShotcutItem;
+
+    actualTrimester?: ILPOptionShotcutItem;
+    runningTrimester?: ILPOptionShotcutItem;
+    lastTrimester?: ILPOptionShotcutItem;
+
+    actualSemester?: ILPOptionShotcutItem;
+    runningSemester?: ILPOptionShotcutItem;
+    lastSemester?: ILPOptionShotcutItem;
+
+    actualYear?: ILPOptionShotcutItem;
+    runningYear?: ILPOptionShotcutItem;
+    lastYear?: ILPOptionShotcutItem;
+
+    /**
+     * 12 months backs from today
+     */
+    month12back?: ILPOptionShotcutItem;
+}
+
 interface ILPOptionButtonText {
     apply?: string;
     cancel?: string;
     previousMonth?: string;
     nextMonth?: string;
     reset?: string;
-    today?: string;
-    yesterday?: string;
-    week?: string;
-    lastWeek?: string;
-    month?: string;
-    lastMonth?: string;
 }
 
 interface ILPOptionTooltip {
@@ -57,7 +89,7 @@ export interface ILPConfiguration {
     splitView?: boolean;
     inlineMode?: boolean;
     singleMode?: boolean;
-    shortcuts?: boolean;
+    shortcuts?: ILPOptionShotcuts;
     timePicker?: boolean;
     timePickerText?: ILPTimePicker;
     autoApply?: boolean;
@@ -76,7 +108,6 @@ export interface ILPConfiguration {
     highlightedDaysFormat?: string;
     highlightedDays?: any[];
     dropdowns?: ILPOptionDropdowns;
-    shortcutsText?: string;
     buttonText?: ILPOptionButtonText;
     tooltipText?: ILPOptionTooltip;
     tooltipPluralSelector?: (arg: number) => string;

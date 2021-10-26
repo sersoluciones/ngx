@@ -20,19 +20,19 @@ import { fromIntersectionObserver } from '../../../utils/rx-utils';
 })
 export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
 
+    @ViewChild('viaElCont') viaElCont: ElementRef<HTMLDivElement>;
+    @ViewChild('viaEl') viaEl: ElementRef<HTMLInputElement>;
+    @ViewChild('viaElHint') viaElHint: ElementRef<HTMLInputElement>;
     @ViewChild('viaOptionsEl') viaOptionsEl: ElementRef<HTMLDivElement>;
-    @ViewChild('viaElCont') viaElCont: ElementRef;
-    @ViewChild('viaEl') viaEl: ElementRef;
-    @ViewChild('viaElHint') viaElHint: ElementRef;
-    @ViewChild('address1') address1: ElementRef;
-    @ViewChild('address2') address2: ElementRef;
-    @ViewChild('address3') address3: ElementRef;
+    @ViewChild('address1') address1: ElementRef<HTMLInputElement>;
+    @ViewChild('address2') address2: ElementRef<HTMLInputElement>;
+    @ViewChild('address3') address3: ElementRef<HTMLInputElement>;
     @HostBinding('class.disabled') isDisabled = false;
     focused = false;
     @Output() focus: EventEmitter<void> = new EventEmitter<void>();
     @Output() blur: EventEmitter<void> = new EventEmitter<void>();
 
-    private parents: Element[] = [];
+    private parents: HTMLElement[] = [];
 
     modelSub: Subscription;
     modelForm = this._fb.group({
@@ -53,6 +53,8 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
         'Calle', 'Carrera', 'Autopista', 'Avenida', 'Avenida Calle', 'Avenida Carrera', 'Circunvalar', 'Circular', 'Diagonal', 'Kilometro', 'Manzana', 'Transversal', 'Via'
     ];
 
+    private _absolutePos = (document.body.classList.contains('bpt-mobile') || document.body.classList.contains('bpt-tablet')) && window.innerWidth < 600;
+
     private lateInstance = {
         via: null,
         address1: null,
@@ -61,7 +63,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
     };
     private viewInitialized = false;
 
-    constructor(private _fb: FormBuilder, private _renderer: Renderer2, private _elementRef: ElementRef) { }
+    constructor(private _fb: FormBuilder, private _renderer: Renderer2, private _elementRef: ElementRef<HTMLElement>) { }
 
     //#region ControlValueAccessor
     writeValue(obj: any) {
@@ -228,7 +230,11 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
     public openViaOptions() {
 
-        this.setPositionDropdown();
+        if (this._absolutePos) {
+            this.setPositionAbsoluteDropdown();
+        } else {
+            this.setPositionFixedDropdown();
+        }
 
         const parents$: Observable<any>[] = [
             fromEvent(document, 'scroll'),
@@ -243,20 +249,20 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
             this.viaOptionsSubs$.push(
 
                 merge(
-                    fromEvent(window, 'click')
-                        .pipe(filter((e: MouseEvent) => !this.viaElCont.nativeElement.contains(e.target) )),
+                    fromEvent<MouseEvent>(window, 'click')
+                        .pipe(filter(e => !this.viaElCont.nativeElement.contains((e.target as HTMLElement)) )),
 
-                    fromEvent(window, 'keyup')
-                        .pipe(filter((e: KeyboardEvent) => inArray(e.key.toLowerCase(), ['arrowright', 'escape', 'enter']))),
+                    fromEvent<KeyboardEvent>(window, 'keyup')
+                        .pipe(filter(e => inArray(e.key.toLowerCase(), ['arrowright', 'escape', 'enter']))),
 
                     fromIntersectionObserver(this.viaElCont.nativeElement)
-                        .pipe(filter((ev) => !ev[0].isIntersecting))
+                        .pipe(filter(ev => !ev[0].isIntersecting))
                 )
                 .subscribe(() => {
                     this.setVia(this.viaOptions[0]);
                 }),
 
-                merge(...parents$).subscribe(() => this.setPositionDropdown())
+                merge(...parents$).pipe(filter(() => !this._absolutePos)).subscribe(() => this.setPositionFixedDropdown())
             );
         });
 
@@ -272,7 +278,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
         this.address1.nativeElement.focus();
     }
 
-    setPositionDropdown() {
+    setPositionFixedDropdown() {
 
         setTimeout(() => {
 
@@ -297,6 +303,15 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
         });
     }
 
+    setPositionAbsoluteDropdown() {
+
+        this._elementRef.nativeElement.scrollIntoView();
+
+        setTimeout(() => {
+            this.parents[0].scrollBy(0, -16);
+        }, 300);
+    }
+
     filterViaOptions(value: string) {
 
         if (hasValue(value)) {
@@ -310,8 +325,15 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
             }
 
             setTimeout(() => {
-                this.setPositionDropdown();
+
+                if (this._absolutePos) {
+                    this.setPositionAbsoluteDropdown();
+                } else {
+                    this.setPositionFixedDropdown();
+                }
+
             });
+
         } else {
             this.viaOptions = this.viaOptionsOriginal;
             this.viaElHint.nativeElement.value = this.viaOptions[0];

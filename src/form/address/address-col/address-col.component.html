@@ -1,7 +1,7 @@
 <ng-container [formGroup]="modelForm">
 
     <div class="via" #viaElCont>
-        <input type="text" class="not-styled via-input" [size]="viaElHint?.value ? viaElHint?.value?.length : 1" #viaEl (focus)="openViaOptions()" (input)="filterViaOptions(viaEl.value)" autocomplete="off" spellcheck="false" [disabled]="isDisabled" >
+        <input type="text" #viaEl class="not-styled via-input" [size]="viaElHint?.value ? viaElHint?.value?.length : 1" (focus)="openViaOptions()" (input)="filterViaOptions(viaEl.value)" autocomplete="off" spellcheck="false" [disabled]="isDisabled" >
         <input type="text" #viaElHint class="not-styled hint" [size]="viaElHint?.value ? viaElHint?.value?.length : 1" />
 
         <div class="via-options" #viaOptionsEl>

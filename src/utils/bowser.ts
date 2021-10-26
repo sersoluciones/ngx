@@ -12,4 +12,5 @@ export function setBowserClasses(bowserInstance: Parser.Parser, renderer: Render
     renderer.addClass(document.body, 'bosv-' + bowserInstance.getOSVersion().replace(/ +/g, '-'));
     renderer.addClass(document.body, 'bn-' + bowserInstance.getBrowserName().replace(/ +/g, '-'));
     renderer.addClass(document.body, 'bv-' + bowserInstance.getBrowserVersion().replace(/ +/g, '-'));
+    renderer.addClass(document.body, 'bpt-' + bowserInstance.getPlatformType().replace(/ +/g, '-'));
 }

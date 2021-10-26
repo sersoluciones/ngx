@@ -31,7 +31,7 @@ export class Calendar extends LPCore {
             months.classList.add(style.showWeekNumbers);
         }
 
-        const today = new  Date();
+        const today = new Date();
         const startDate = this.calendars[0].clone();
         const startMonthIdx = startDate.getMonth();
         const totalMonths = startDate.getMonth() + this.options.numberOfMonths;
@@ -89,7 +89,7 @@ export class Calendar extends LPCore {
                 .appendChild(resetButton);
         }
 
-        if (this.options.shortcuts) {
+        if (this.options.shortcuts.enable) {
             mainBlock.appendChild(this.renderShortcuts());
         }
 
@@ -461,166 +461,655 @@ export class Calendar extends LPCore {
         const shortcuts = document.createElement('div');
         shortcuts.className = style.containerShortcuts;
 
-        const title =  document.createElement('div');
+        const title = document.createElement('div');
         title.className = style.shortcutsTitle;
-        title.innerText = this.options.shortcutsText;
+        title.innerText = this.options.shortcuts.title;
         shortcuts.appendChild(title);
 
-        const todayButton = document.createElement('button');
-        todayButton.type = 'button';
-        todayButton.className = style.buttonToday;
-        todayButton.innerText = this.options.buttonText.today;
+        if (this.options.shortcuts.today?.enable) {
 
-        todayButton.addEventListener('click', (e) => {
-            e.preventDefault();
+            const todayButton = document.createElement('button');
+            todayButton.type = 'button';
+            todayButton.className = style.buttonToday;
+            todayButton.innerText = this.options.shortcuts.today.text;
 
-            const from = new Date();
-            from.setHours(0);
-            from.setMinutes(0);
-            from.setSeconds(0);
+            todayButton.addEventListener('click', (e) => {
+                e.preventDefault();
 
-            const to = new Date();
-            to.setHours(23);
-            to.setMinutes(59);
-            to.setSeconds(59);
+                const from = new Date();
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
 
-            this.setShortcutValue(from, to);
-        });
+                const to = new Date();
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
 
-        shortcuts.appendChild(todayButton);
+                this.setShortcutValue(from, to);
+            });
 
-        const yesterdayButton = document.createElement('button');
-        yesterdayButton.type = 'button';
-        yesterdayButton.className = style.buttonYesterday;
-        yesterdayButton.innerText = this.options.buttonText.yesterday;
+            shortcuts.appendChild(todayButton);
 
-        yesterdayButton.addEventListener('click', (e) => {
-            e.preventDefault();
+        }
 
-            const from = new Date();
-            from.setDate(from.getDate() - 1);
-            from.setHours(0);
-            from.setMinutes(0);
-            from.setSeconds(0);
+        if (this.options.shortcuts.yesterday?.enable) {
 
-            const to = new Date();
-            to.setDate(to.getDate() - 1);
-            to.setHours(23);
-            to.setMinutes(59);
-            to.setSeconds(59);
+            const yesterdayButton = document.createElement('button');
+            yesterdayButton.type = 'button';
+            yesterdayButton.className = style.buttonYesterday;
+            yesterdayButton.innerText = this.options.shortcuts.yesterday.text;
 
-            this.setShortcutValue(from, to);
-        });
+            yesterdayButton.addEventListener('click', (e) => {
+                e.preventDefault();
 
-        shortcuts.appendChild(yesterdayButton);
+                const from = new Date();
+                from.setDate(from.getDate() - 1);
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
 
-        const weekButton = document.createElement('button');
-        weekButton.type = 'button';
-        weekButton.className = style.buttonActualWeek;
-        weekButton.innerText = this.options.buttonText.week;
+                const to = new Date();
+                to.setDate(to.getDate() - 1);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
 
-        weekButton.addEventListener('click', (e) => {
-            e.preventDefault();
+                this.setShortcutValue(from, to);
+            });
 
-            const from = new Date();
+            shortcuts.appendChild(yesterdayButton);
 
-            const day = from.getDay(),
-            diff = from.getDate() - day + (day === 0 ? -6 : 1);
-            from.setDate(diff);
+        }
 
-            from.setHours(0);
-            from.setMinutes(0);
-            from.setSeconds(0);
+        if (this.options.shortcuts.actualWeek?.enable) {
 
-            const to = new Date();
-            to.setDate(diff + 6);
-            to.setHours(23);
-            to.setMinutes(59);
-            to.setSeconds(59);
+            const actualWeekButton = document.createElement('button');
+            actualWeekButton.type = 'button';
+            actualWeekButton.className = style.buttonActualWeek;
+            actualWeekButton.innerText = this.options.shortcuts.actualWeek.text;
 
-            this.setShortcutValue(from, to);
-        });
+            actualWeekButton.addEventListener('click', (e) => {
+                e.preventDefault();
 
-        shortcuts.appendChild(weekButton);
+                const from = new Date();
 
-        const lastWeekButton = document.createElement('button');
-        lastWeekButton.type = 'button';
-        lastWeekButton.className = style.buttonLastWeek;
-        lastWeekButton.innerText = this.options.buttonText.lastWeek;
+                const day = from.getDay(),
+                    diff = from.getDate() - day + (day === 0 ? -6 : 1);
+                from.setDate(diff);
 
-        lastWeekButton.addEventListener('click', (e) => {
-            e.preventDefault();
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
 
-            const from = new Date();
+                const to = new Date();
+                to.setDate(diff + 6);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
 
-            const day = from.getDay(),
-            diff = (from.getDate() - day + (day === 0 ? -6 : 1) - 7);
-            from.setDate(diff);
+                this.setShortcutValue(from, to);
+            });
 
-            from.setHours(0);
-            from.setMinutes(0);
-            from.setSeconds(0);
+            shortcuts.appendChild(actualWeekButton);
 
-            const to = new Date();
-            to.setDate(diff + 6);
-            to.setHours(23);
-            to.setMinutes(59);
-            to.setSeconds(59);
+        }
 
-            this.setShortcutValue(from, to);
-        });
+        if (this.options.shortcuts.runningWeek?.enable) {
 
-        shortcuts.appendChild(lastWeekButton);
+            const runningWeekButton = document.createElement('button');
+            runningWeekButton.type = 'button';
+            runningWeekButton.className = style.buttonRunningWeek;
+            runningWeekButton.innerText = this.options.shortcuts.runningWeek.text;
 
-        const monthButton = document.createElement('button');
-        monthButton.type = 'button';
-        monthButton.className = style.buttonActualMonth;
-        monthButton.innerText = this.options.buttonText.month;
+            runningWeekButton.addEventListener('click', (e) => {
+                e.preventDefault();
 
-        monthButton.addEventListener('click', (e) => {
-            e.preventDefault();
+                const from = new Date();
 
-            const d = new Date();
+                const day = from.getDay(),
+                    diff = from.getDate() - day + (day === 0 ? -6 : 1);
+                from.setDate(diff);
 
-            const from = new Date(d.getFullYear(), d.getMonth(), 1);
-            from.setHours(0);
-            from.setMinutes(0);
-            from.setSeconds(0);
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
 
-            const to = new Date(d.getFullYear(), d.getMonth() + 1, 0);
-            to.setHours(23);
-            to.setMinutes(59);
-            to.setSeconds(59);
+                const to = new Date();
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
 
-            this.setShortcutValue(from, to);
-        });
+                this.setShortcutValue(from, to);
+            });
 
-        shortcuts.appendChild(monthButton);
+            shortcuts.appendChild(runningWeekButton);
 
-        const lastMonthButton = document.createElement('button');
-        lastMonthButton.type = 'button';
-        lastMonthButton.className = style.buttonLastMonth;
-        lastMonthButton.innerText = this.options.buttonText.lastMonth;
+        }
 
-        lastMonthButton.addEventListener('click', (e) => {
-            e.preventDefault();
+        if (this.options.shortcuts.lastWeek?.enable) {
 
-            const d = new Date();
+            const lastWeekButton = document.createElement('button');
+            lastWeekButton.type = 'button';
+            lastWeekButton.className = style.buttonLastWeek;
+            lastWeekButton.innerText = this.options.shortcuts.lastWeek.text;
 
-            const from = new Date(d.getFullYear(), d.getMonth() - 1, 1);
-            from.setHours(0);
-            from.setMinutes(0);
-            from.setSeconds(0);
+            lastWeekButton.addEventListener('click', (e) => {
+                e.preventDefault();
 
-            const to = new Date(d.getFullYear(), d.getMonth(), 0);
-            to.setHours(23);
-            to.setMinutes(59);
-            to.setSeconds(59);
+                const from = new Date();
 
-            this.setShortcutValue(from, to);
-        });
+                const day = from.getDay(),
+                    diff = (from.getDate() - day + (day === 0 ? -6 : 1) - 7);
+                from.setDate(diff);
 
-        shortcuts.appendChild(lastMonthButton);
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date();
+                to.setDate(diff + 6);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(lastWeekButton);
+
+        }
+
+        if (this.options.shortcuts.actualMonth?.enable) {
+
+            const actualMonthButton = document.createElement('button');
+            actualMonthButton.type = 'button';
+            actualMonthButton.className = style.buttonActualMonth;
+            actualMonthButton.innerText = this.options.shortcuts.actualMonth.text;
+
+            actualMonthButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                const year = d.getFullYear();
+
+                const from = new Date(year, d.getMonth(), 1);
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date(year, d.getMonth() + 1, 0);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(actualMonthButton);
+
+        }
+
+        if (this.options.shortcuts.runningMonth?.enable) {
+
+            const runningMonthButton = document.createElement('button');
+            runningMonthButton.type = 'button';
+            runningMonthButton.className = style.buttonRunningMonth;
+            runningMonthButton.innerText = this.options.shortcuts.runningMonth.text;
+
+            runningMonthButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                const year = d.getFullYear();
+
+                const from = new Date(year, d.getMonth(), 1);
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date(year, d.getMonth(), d.getDate());
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(runningMonthButton);
+
+        }
+
+        if (this.options.shortcuts.lastMonth?.enable) {
+
+            const lastMonthButton = document.createElement('button');
+            lastMonthButton.type = 'button';
+            lastMonthButton.className = style.buttonLastMonth;
+            lastMonthButton.innerText = this.options.shortcuts.lastMonth.text;
+
+            lastMonthButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                const year = d.getFullYear();
+
+                const from = new Date(year, d.getMonth() - 1, 1);
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date(year, d.getMonth(), 0);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(lastMonthButton);
+
+        }
+
+        if (this.options.shortcuts.actualTrimester?.enable) {
+
+            const actualTrimesterButton = document.createElement('button');
+            actualTrimesterButton.type = 'button';
+            actualTrimesterButton.className = style.buttonActualTrimester;
+            actualTrimesterButton.innerText = this.options.shortcuts.actualTrimester.text;
+
+            actualTrimesterButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                const year = d.getFullYear();
+
+                const quarter = Math.floor((d.getMonth() + 3) / 3);
+                let from: Date = null;
+                let to: Date = null;
+
+                switch (quarter) {
+                    case 1:
+                        from = new Date(year, 0, 1);
+                        to = new Date(year, 2, 31);
+                        break;
+
+                    case 2:
+                        from = new Date(year, 3, 1);
+                        to = new Date(year, 5, 30);
+                        break;
+
+                    case 3:
+                        from = new Date(year, 6, 1);
+                        to = new Date(year, 8, 30);
+                        break;
+
+                    case 4:
+                        from = new Date(year, 9, 1);
+                        to = new Date(year, 11, 31);
+                        break;
+                }
+
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(actualTrimesterButton);
+
+        }
+
+        if (this.options.shortcuts.runningTrimester?.enable) {
+
+            const runningTrimesterButton = document.createElement('button');
+            runningTrimesterButton.type = 'button';
+            runningTrimesterButton.className = style.buttonRunningTrimester;
+            runningTrimesterButton.innerText = this.options.shortcuts.runningTrimester.text;
+
+            runningTrimesterButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                const year = d.getFullYear();
+
+                const quarter = Math.floor((d.getMonth() + 3) / 3);
+                let from: Date = null;
+
+                switch (quarter) {
+                    case 1:
+                        from = new Date(year, 0, 1);
+                        break;
+
+                    case 2:
+                        from = new Date(year, 3, 1);
+                        break;
+
+                    case 3:
+                        from = new Date(year, 6, 1);
+                        break;
+
+                    case 4:
+                        from = new Date(year, 9, 1);
+                        break;
+                }
+
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date();
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(runningTrimesterButton);
+
+        }
+
+        if (this.options.shortcuts.lastTrimester?.enable) {
+
+            const lastTrimesterButton = document.createElement('button');
+            lastTrimesterButton.type = 'button';
+            lastTrimesterButton.className = style.buttonLastTrimester;
+            lastTrimesterButton.innerText = this.options.shortcuts.lastTrimester.text;
+
+            lastTrimesterButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date('2021-02-03');
+                let year = d.getFullYear();
+
+                let quarter = Math.floor((d.getMonth() + 3) / 3) - 1;
+
+                if (quarter === 0) {
+                    quarter = 4;
+                    year--;
+                }
+
+                let from: Date = null;
+                let to: Date = null;
+
+                switch (quarter) {
+                    case 1:
+                        from = new Date(year, 0, 1);
+                        to = new Date(year, 2, 31);
+                        break;
+
+                    case 2:
+                        from = new Date(year, 3, 1);
+                        to = new Date(year, 5, 30);
+                        break;
+
+                    case 3:
+                        from = new Date(year, 6, 1);
+                        to = new Date(year, 8, 30);
+                        break;
+
+                    case 4:
+                        from = new Date(year, 9, 1);
+                        to = new Date(year, 11, 31);
+                        break;
+                }
+
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(lastTrimesterButton);
+
+        }
+
+        if (this.options.shortcuts.actualSemester?.enable) {
+
+            const actualSemesterButton = document.createElement('button');
+            actualSemesterButton.type = 'button';
+            actualSemesterButton.className = style.buttonActualSemester;
+            actualSemesterButton.innerText = this.options.shortcuts.actualSemester.text;
+
+            actualSemesterButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                const year = d.getFullYear();
+
+                let from: Date = null;
+                let to: Date = null;
+
+                if (d.getMonth() > 5) {
+                    from = new Date(year, 6, 1);
+                    to = new Date(year, 11, 31);
+                } else {
+                    from = new Date(year, 0, 1);
+                    to = new Date(year, 5, 30);
+                }
+
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(actualSemesterButton);
+
+        }
+
+        if (this.options.shortcuts.runningSemester?.enable) {
+
+            const runningSemesterButton = document.createElement('button');
+            runningSemesterButton.type = 'button';
+            runningSemesterButton.className = style.buttonRunningSemester;
+            runningSemesterButton.innerText = this.options.shortcuts.runningSemester.text;
+
+            runningSemesterButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                const year = d.getFullYear();
+
+                let from: Date = null;
+
+                if (d.getMonth() > 5) {
+                    from = new Date(year, 6, 1);
+                } else {
+                    from = new Date(year, 0, 1);
+                }
+
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date();
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(runningSemesterButton);
+
+        }
+
+        if (this.options.shortcuts.lastSemester?.enable) {
+
+            const lastSemesterButton = document.createElement('button');
+            lastSemesterButton.type = 'button';
+            lastSemesterButton.className = style.buttonLastSemester;
+            lastSemesterButton.innerText = this.options.shortcuts.lastSemester.text;
+
+            lastSemesterButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                let year = d.getFullYear();
+
+                let from: Date = null;
+                let to: Date = null;
+
+                if (d.getMonth() > 5) {
+                    from = new Date(year, 0, 1);
+                    to = new Date(year, 5, 30);
+                } else {
+                    year--;
+                    from = new Date(year, 6, 1);
+                    to = new Date(year, 11, 31);
+                }
+
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(lastSemesterButton);
+
+        }
+
+        if (this.options.shortcuts.actualYear?.enable) {
+
+            const actualYearButton = document.createElement('button');
+            actualYearButton.type = 'button';
+            actualYearButton.className = style.buttonActualYear;
+            actualYearButton.innerText = this.options.shortcuts.actualYear.text;
+
+            actualYearButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                const year = d.getFullYear();
+
+                const from = new Date(year, 0, 1);
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date(year, 11, 31);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(actualYearButton);
+
+        }
+
+        if (this.options.shortcuts.runningYear?.enable) {
+
+            const runningYearButton = document.createElement('button');
+            runningYearButton.type = 'button';
+            runningYearButton.className = style.buttonRunningYear;
+            runningYearButton.innerText = this.options.shortcuts.runningYear.text;
+
+            runningYearButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                const year = d.getFullYear();
+
+                const from = new Date(year, 0, 1);
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date();
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(runningYearButton);
+
+        }
+
+        if (this.options.shortcuts.lastYear?.enable) {
+
+            const lastYearButton = document.createElement('button');
+            lastYearButton.type = 'button';
+            lastYearButton.className = style.buttonLastYear;
+            lastYearButton.innerText = this.options.shortcuts.lastYear.text;
+
+            lastYearButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                const year = d.getFullYear() - 1;
+
+                const from = new Date(year, 0, 1);
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date(year, 11, 31);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(lastYearButton);
+
+        }
+
+        if (this.options.shortcuts.month12back?.enable) {
+
+            const month12BackButton = document.createElement('button');
+            month12BackButton.type = 'button';
+            month12BackButton.className = style.button12Month;
+            month12BackButton.innerText = this.options.shortcuts.month12back.text;
+
+            month12BackButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                for (let i = 0; i <= 11; i++) {
+                    from.setMonth(from.getMonth() - 1);
+                }
+
+                const to = new Date();
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(month12BackButton);
+
+        }
 
         return shortcuts;
     }
@@ -650,7 +1139,7 @@ export class Calendar extends LPCore {
             const hours = document.createElement('select');
             hours.className = `hour-range time${item}-hour`;
 
-            const actualHour = typeof(this.datePicked[item]) === 'undefined' ? this.timePicked[item].getHours() : this.datePicked[item].getHours();
+            const actualHour = typeof (this.datePicked[item]) === 'undefined' ? this.timePicked[item].getHours() : this.datePicked[item].getHours();
             let actualHourMeridiem = actualHour;
 
             if (actualHourMeridiem > 12) {
@@ -676,7 +1165,7 @@ export class Calendar extends LPCore {
             const minutes = document.createElement('select');
             minutes.className = `minute-range time${item}-minute`;
 
-            const actualMinute = typeof(this.datePicked[item]) === 'undefined' ? this.timePicked[item].getMinutes() : this.datePicked[item].getMinutes();
+            const actualMinute = typeof (this.datePicked[item]) === 'undefined' ? this.timePicked[item].getMinutes() : this.datePicked[item].getMinutes();
             for (let index = 0; index < 60; index++) {
                 minutes.appendChild(new Option(
                     (index + '').replace(/^(\d{1})$/, '0$1'), index + '', false, actualMinute === index

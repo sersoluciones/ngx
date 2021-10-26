@@ -65,17 +65,13 @@ export class LPCore extends EventEmitter {
             years: true
         },
 
-        shortcutsText: 'Accesos directos',
+        shortcuts: {
+            enable: false
+        },
 
         buttonText: {
             apply: 'Aceptar',
             cancel: 'Cancelar',
-            today: 'Hoy',
-            yesterday: 'Ayer',
-            week: 'Esta semana',
-            lastWeek: 'Semana anterior',
-            month: 'Este mes',
-            lastMonth: 'Mes anterior',
             previousMonth: '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>',
             nextMonth: '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>',
             reset: `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>`,

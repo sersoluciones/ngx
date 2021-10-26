@@ -51,7 +51,82 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
         inputFormat: 'dd/MM/y',
         clear: true,
         calendarOptions: {
-            shortcuts: true,
+            shortcuts: {
+                enable: true,
+                title: 'Accesos directos',
+                today: {
+                    enable: true,
+                    text: 'Hoy'
+                },
+                yesterday: {
+                    enable: true,
+                    text: 'Ayer'
+                },
+                actualWeek: {
+                    enable: true,
+                    text: 'Semana actual'
+                },
+                runningWeek: {
+                    enable: false,
+                    text: 'Semana corrida'
+                },
+                lastWeek: {
+                    enable: false,
+                    text: 'Semana anterior'
+                },
+                actualMonth: {
+                    enable: true,
+                    text: 'Mes actual'
+                },
+                runningMonth: {
+                    enable: false,
+                    text: 'Mes corrido'
+                },
+                lastMonth: {
+                    enable: false,
+                    text: 'Mes anterior'
+                },
+                actualTrimester: {
+                    enable: true,
+                    text: 'Trimestre actual'
+                },
+                runningTrimester: {
+                    enable: false,
+                    text: 'Trimestre corrido'
+                },
+                lastTrimester: {
+                    enable: false,
+                    text: 'Trimestre anterior'
+                },
+                actualSemester: {
+                    enable: true,
+                    text: 'Semestre actual'
+                },
+                runningSemester: {
+                    enable: false,
+                    text: 'Semestre corrido'
+                },
+                lastSemester: {
+                    enable: false,
+                    text: 'Semestre anterior'
+                },
+                actualYear: {
+                    enable: true,
+                    text: 'Año actual'
+                },
+                runningYear: {
+                    enable: false,
+                    text: 'Año corrido'
+                },
+                lastYear: {
+                    enable: false,
+                    text: 'Año anterior'
+                },
+                month12back: {
+                    enable: false,
+                    text: '12 meses atrás'
+                }
+            },
             singleMode: false,
             splitView: true,
             numberOfMonths: 1,

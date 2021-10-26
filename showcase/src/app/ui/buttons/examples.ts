@@ -60,3 +60,15 @@ export const ButtonsIcon =
 <button type="button" class="bttn icon yellow">
     <i class="material-icons">home</i>
 </button>`;
+
+export const ButtonsBordered =
+`<button type="button" class="bttn bordered">Normal</button>
+<button type="button" class="bttn bordered primary">Primario</button>
+<button type="button" class="bttn bordered green">Verde</button>
+<button type="button" class="bttn bordered red">Rojo</button>
+<button type="button" class="bttn bordered blue">Azul</button>
+<button type="button" class="bttn bordered light-blue">Azul claro</button>
+<button type="button" class="bttn bordered orange">Naranja</button>
+<button type="button" class="bttn bordered orangered">Naranja - Rojo</button>
+<button type="button" class="bttn bordered yellow">Amarillo</button>
+<button type="button" class="bttn bordered violet">Violeta</button>`;

@@ -1,5 +1,5 @@
 import { SnackbarService } from './../../../../src/ui/snackbar.service';
-import { OnInit, AfterViewInit, Injector, Directive, OnChanges, SimpleChanges } from '@angular/core';
+import { OnInit, AfterViewInit, Injector, Directive, OnChanges, SimpleChanges, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
@@ -11,6 +11,7 @@ export class BaseView implements OnInit, AfterViewInit {
     _msj: SnackbarService;
     modelForm: FormGroup;
     sanitized: DomSanitizer;
+    protected _renderer: Renderer2;
     _http: HttpClient;
 
     options = {
@@ -115,6 +116,7 @@ export class BaseView implements OnInit, AfterViewInit {
         this._msj = this.injectorObj.get(SnackbarService);
         this.sanitized = this.injectorObj.get(DomSanitizer);
         this._http = this.injectorObj.get(HttpClient);
+        this._renderer = this.injectorObj.get(Renderer2);
     }
 
     alert(text: string) {

@@ -37,16 +37,6 @@ address-col-input {
         transform-origin: 0 0;
         animation: dropdown-appear 150ms ease-in-out;
 
-        @media (max-width: 600px) {
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            max-height: 100% !important;
-            z-index: 1000;
-            border-radius: 0;
-        }
-
         .via-item {
 
             &:hover {
@@ -90,4 +80,18 @@ address-col-input {
         padding-bottom: 10px;
     }
 
+}
+
+.bpt-mobile,
+.bpt-tablet {
+    address-col-input {
+
+        .via-options {
+
+            @media (max-width: 600px) {
+                position: absolute;
+            }
+        }
+
+    }
 }

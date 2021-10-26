@@ -45,14 +45,6 @@
 
 <div #dropdownList class="dropdown-list">
 
-    <div class="pure-checkbox select-all" *ngIf="settings.enableCheckAll && data?.length > 0 && !isDisabledItemPresent" (click)="toggleSelectAll()">
-        <input type="checkbox" [checked]="isSelectAll" />
-        <label>
-            <span [hidden]="isSelectAll">{{ settings.selectAllText }}</span>
-            <span [hidden]="!isSelectAll">{{ settings.unSelectAllText }}</span>
-        </label>
-    </div>
-
     <div class="list" [style.maxHeight]="settings.maxHeight+'px'">
 
         <ng-container *ngIf="!hasValue(itemTempl) && !hasValue(badgeItemTempl)">

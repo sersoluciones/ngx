@@ -1,6 +1,6 @@
 <form class="form-example" [formGroup]="modelForm">
 
-    <a class="example-name" href="#default">
+    <a class="example-name" routerLink="." fragment="default">
         <span class="material-icons">link</span>
         <h1 id="default">Default</h1>
     </a>
@@ -39,7 +39,7 @@
 
 
 
-    <a class="example-name" href="#multiple">
+    <a class="example-name" routerLink="." fragment="multiple">
         <span class="material-icons">link</span>
         <h1 id="multiple">Multiple</h1>
     </a>
@@ -78,7 +78,7 @@
 
 
 
-    <a class="example-name" href="#multiple">
+    <a class="example-name" routerLink="." fragment="bttn-icon">
         <span class="material-icons">link</span>
         <h1 id="multiple">Multiple</h1>
     </a>
@@ -114,21 +114,4 @@
 
     </div>
 
-    <mat-tab-group mat-align-tabs="start">
-
-        <mat-tab label="First">
-
-            <ser-form-element style="width: 300px;">
-                <label>Por defecto</label>
-                <ser-select serControl formControlName="selectDefault" [data]="options.dropdown"></ser-select>
-
-                <div serErrors="selectDefault">
-                    <div serError="required">Requerido</div>
-                </div>
-            </ser-form-element>
-
-        </mat-tab>
-        <mat-tab label="Second">Content 2</mat-tab>
-        <mat-tab label="Third">Content 3</mat-tab>
-    </mat-tab-group>
 </form>

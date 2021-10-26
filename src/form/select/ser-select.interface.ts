@@ -28,6 +28,7 @@ export interface DropdownSettings {
     escapeToClose?: boolean;
     clearAll?: boolean;
     scrollEndGap?: number;
+    dropdownMobileFixed?: boolean;
 }
 
 export interface DropdownPaginationState {
