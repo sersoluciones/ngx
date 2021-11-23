@@ -19,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
 import { SerMaskModule } from '../../../src/form/mask/ser-mask.module';
+import { SerSplideModule } from '../../../src/splide/splide.module';
 
 registerLocaleData(localeEs, 'es-CO');
 
@@ -35,6 +36,7 @@ registerLocaleData(localeEs, 'es-CO');
         SerUiModule,
         SerFormModule,
         SerMaskModule.forRoot(),
+        SerSplideModule,
         HttpClientModule,
         HighlightModule,
         GoogleSDKModule.forRoot({

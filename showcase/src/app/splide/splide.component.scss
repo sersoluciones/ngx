@@ -1,0 +1,14 @@
+.img {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &.rounded {
+        border-radius: 24px;
+    }
+}
+
+.slide-example {
+    margin-top: 64px;
+}

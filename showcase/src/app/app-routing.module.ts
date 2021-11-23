@@ -34,6 +34,10 @@ const routes: Routes = [
     {
         path: 'file',
         loadChildren: () => import('./file/file.module').then(m => m.FileModule)
+    },
+    {
+        path: 'splide',
+        loadChildren: () => import('./splide/splide.module').then(m => m.SplideModule)
     }
 ];
 

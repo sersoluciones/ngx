@@ -115,3 +115,8 @@ export * from './ui/date.pipe';
 export * from './ui/currency.pipe';
 export * from './ui/filter.pipe';
 export * from './ui/ser-ui.module';
+
+// Splide
+export * from './splide/splide-slide.component';
+export * from './splide/splide.component';
+export * from './splide/splide.module';

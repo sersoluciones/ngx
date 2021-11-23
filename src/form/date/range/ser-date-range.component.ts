@@ -59,11 +59,11 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
                     text: 'Hoy'
                 },
                 yesterday: {
-                    enable: true,
+                    enable: false,
                     text: 'Ayer'
                 },
                 actualWeek: {
-                    enable: true,
+                    enable: false,
                     text: 'Semana actual'
                 },
                 runningWeek: {
@@ -73,6 +73,18 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
                 lastWeek: {
                     enable: false,
                     text: 'Semana anterior'
+                },
+                weekBack: {
+                    enable: false,
+                    text: '1 semana atrás'
+                },
+                nextWeek: {
+                    enable: false,
+                    text: 'Semana próxima'
+                },
+                weekNext: {
+                    enable: false,
+                    text: '7 días adelante'
                 },
                 actualMonth: {
                     enable: true,
@@ -86,6 +98,18 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
                     enable: false,
                     text: 'Mes anterior'
                 },
+                month1Back: {
+                    enable: false,
+                    text: '1 mes atrás'
+                },
+                nextMonth: {
+                    enable: false,
+                    text: 'Mes próximo'
+                },
+                month1Next: {
+                    enable: false,
+                    text: '1 mes adelante'
+                },
                 actualTrimester: {
                     enable: true,
                     text: 'Trimestre actual'
@@ -98,8 +122,20 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
                     enable: false,
                     text: 'Trimestre anterior'
                 },
+                month3Back: {
+                    enable: false,
+                    text: '3 meses atrás'
+                },
+                nextTrimester: {
+                    enable: false,
+                    text: 'Trimestre próximo'
+                },
+                month3Next: {
+                    enable: false,
+                    text: '3 meses adelante'
+                },
                 actualSemester: {
-                    enable: true,
+                    enable: false,
                     text: 'Semestre actual'
                 },
                 runningSemester: {
@@ -109,6 +145,18 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
                 lastSemester: {
                     enable: false,
                     text: 'Semestre anterior'
+                },
+                month6Back: {
+                    enable: false,
+                    text: '6 meses atrás'
+                },
+                nextSemester: {
+                    enable: false,
+                    text: 'Semestre próximo'
+                },
+                month6Next: {
+                    enable: false,
+                    text: '6 meses adelante'
                 },
                 actualYear: {
                     enable: true,
@@ -122,9 +170,17 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
                     enable: false,
                     text: 'Año anterior'
                 },
-                month12back: {
+                month12Back: {
                     enable: false,
                     text: '12 meses atrás'
+                },
+                nextYear: {
+                    enable: false,
+                    text: 'Año próximo'
+                },
+                month12Next: {
+                    enable: false,
+                    text: '12 meses adelante'
                 }
             },
             singleMode: false,

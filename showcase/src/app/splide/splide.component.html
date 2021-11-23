@@ -1,0 +1,16 @@
+
+<div class="slide-example">
+    <splide [options]="{ type: 'loop', perPage: 1, keyboard: false, fixedHeight: 400 }">
+        <splide-slide *ngFor="let image of images">
+            <div class="img" [ngStyle]="{'background-image': 'url(' + image.src + ')'}"></div>
+        </splide-slide>
+    </splide>
+</div>
+
+<div class="slide-example">
+    <splide [options]="{ type: 'loop', perPage: 2, keyboard: false, fixedHeight: 400, gap: '32px', padding: {left: 32, right: 32} }">
+        <splide-slide *ngFor="let image of images">
+            <div class="img rounded" [ngStyle]="{'background-image': 'url(' + image.src + ')'}"></div>
+        </splide-slide>
+    </splide>
+</div>

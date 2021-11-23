@@ -23,27 +23,38 @@ interface ILPOptionShotcuts {
     actualWeek?: ILPOptionShotcutItem;
     runningWeek?: ILPOptionShotcutItem;
     lastWeek?: ILPOptionShotcutItem;
+    weekBack?: ILPOptionShotcutItem;
+    nextWeek?: ILPOptionShotcutItem;
+    weekNext?: ILPOptionShotcutItem;
 
     actualMonth?: ILPOptionShotcutItem;
     runningMonth?: ILPOptionShotcutItem;
     lastMonth?: ILPOptionShotcutItem;
+    month1Back?: ILPOptionShotcutItem;
+    nextMonth?: ILPOptionShotcutItem;
+    month1Next?: ILPOptionShotcutItem;
 
     actualTrimester?: ILPOptionShotcutItem;
     runningTrimester?: ILPOptionShotcutItem;
     lastTrimester?: ILPOptionShotcutItem;
+    month3Back?: ILPOptionShotcutItem;
+    nextTrimester?: ILPOptionShotcutItem;
+    month3Next?: ILPOptionShotcutItem;
 
     actualSemester?: ILPOptionShotcutItem;
     runningSemester?: ILPOptionShotcutItem;
     lastSemester?: ILPOptionShotcutItem;
+    month6Back?: ILPOptionShotcutItem;
+    nextSemester?: ILPOptionShotcutItem;
+    month6Next?: ILPOptionShotcutItem;
 
     actualYear?: ILPOptionShotcutItem;
     runningYear?: ILPOptionShotcutItem;
     lastYear?: ILPOptionShotcutItem;
+    month12Back?: ILPOptionShotcutItem;
+    nextYear?: ILPOptionShotcutItem;
+    month12Next?: ILPOptionShotcutItem;
 
-    /**
-     * 12 months backs from today
-     */
-    month12back?: ILPOptionShotcutItem;
 }
 
 interface ILPOptionButtonText {

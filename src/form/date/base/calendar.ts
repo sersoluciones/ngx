@@ -480,11 +480,13 @@ export class Calendar extends LPCore {
                 from.setHours(0);
                 from.setMinutes(0);
                 from.setSeconds(0);
+                from.setMilliseconds(0);
 
                 const to = new Date();
                 to.setHours(23);
                 to.setMinutes(59);
                 to.setSeconds(59);
+                to.setMilliseconds(0);
 
                 this.setShortcutValue(from, to);
             });
@@ -508,12 +510,14 @@ export class Calendar extends LPCore {
                 from.setHours(0);
                 from.setMinutes(0);
                 from.setSeconds(0);
+                from.setMilliseconds(0);
 
                 const to = new Date();
                 to.setDate(to.getDate() - 1);
                 to.setHours(23);
                 to.setMinutes(59);
                 to.setSeconds(59);
+                to.setMilliseconds(0);
 
                 this.setShortcutValue(from, to);
             });
@@ -587,6 +591,34 @@ export class Calendar extends LPCore {
 
         }
 
+        if (this.options.shortcuts.weekBack?.enable) {
+
+            const weekBackButton = document.createElement('button');
+            weekBackButton.type = 'button';
+            weekBackButton.className = style.buttonWeekBack;
+            weekBackButton.innerText = this.options.shortcuts.weekBack.text;
+
+            weekBackButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+                from.setDate(from.getDate() - 7);
+
+                const to = new Date();
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(weekBackButton);
+
+        }
+
         if (this.options.shortcuts.lastWeek?.enable) {
 
             const lastWeekButton = document.createElement('button');
@@ -617,6 +649,62 @@ export class Calendar extends LPCore {
             });
 
             shortcuts.appendChild(lastWeekButton);
+
+        }
+
+        if (this.options.shortcuts.nextWeek?.enable) {
+
+            const nextWeekButton = document.createElement('button');
+            nextWeekButton.type = 'button';
+            nextWeekButton.className = style.buttonNextWeek;
+            nextWeekButton.innerText = this.options.shortcuts.nextWeek.text;
+
+            nextWeekButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setDate(from.getDate() - from.getDay() + 8);
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date(from.getFullYear(), from.getMonth(), from.getDate() + 6);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(nextWeekButton);
+
+        }
+
+        if (this.options.shortcuts.weekNext?.enable) {
+
+            const weekNextButton = document.createElement('button');
+            weekNextButton.type = 'button';
+            weekNextButton.className = style.buttonWeekNext;
+            weekNextButton.innerText = this.options.shortcuts.weekNext.text;
+
+            weekNextButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date();
+                to.setDate(to.getDate() + 7);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(weekNextButton);
 
         }
 
@@ -707,6 +795,91 @@ export class Calendar extends LPCore {
             });
 
             shortcuts.appendChild(lastMonthButton);
+
+        }
+
+        if (this.options.shortcuts.month1Back?.enable) {
+
+            const month1BackButton = document.createElement('button');
+            month1BackButton.type = 'button';
+            month1BackButton.className = style.buttonMonthBack;
+            month1BackButton.innerText = this.options.shortcuts.month1Back.text;
+
+            month1BackButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+                from.setMonth(from.getMonth() - 1);
+
+                const to = new Date();
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(month1BackButton);
+
+        }
+
+        if (this.options.shortcuts.nextMonth?.enable) {
+
+            const nextMonthButton = document.createElement('button');
+            nextMonthButton.type = 'button';
+            nextMonthButton.className = style.buttonNextSMonth;
+            nextMonthButton.innerText = this.options.shortcuts.nextMonth.text;
+
+            nextMonthButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setMonth(from.getMonth() + 1);
+                from.setDate(1);
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date(from.getFullYear(), from.getMonth() + 1, 0);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(nextMonthButton);
+
+        }
+
+        if (this.options.shortcuts.month1Next?.enable) {
+
+            const month1NextButton = document.createElement('button');
+            month1NextButton.type = 'button';
+            month1NextButton.className = style.buttonNext1Month;
+            month1NextButton.innerText = this.options.shortcuts.month1Next.text;
+
+            month1NextButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date(from);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+                to.setMonth(to.getMonth() + 1);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(month1NextButton);
 
         }
 
@@ -824,7 +997,7 @@ export class Calendar extends LPCore {
             lastTrimesterButton.addEventListener('click', (e) => {
                 e.preventDefault();
 
-                const d = new Date('2021-02-03');
+                const d = new Date();
                 let year = d.getFullYear();
 
                 let quarter = Math.floor((d.getMonth() + 3) / 3) - 1;
@@ -871,6 +1044,127 @@ export class Calendar extends LPCore {
             });
 
             shortcuts.appendChild(lastTrimesterButton);
+
+        }
+
+        if (this.options.shortcuts.month3Back?.enable) {
+
+            const month3BackButton = document.createElement('button');
+            month3BackButton.type = 'button';
+            month3BackButton.className = style.button3Month;
+            month3BackButton.innerText = this.options.shortcuts.month3Back.text;
+
+            month3BackButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                for (let i = 0; i <= 2; i++) {
+                    from.setMonth(from.getMonth() - 1);
+                }
+
+                const to = new Date();
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(month3BackButton);
+
+        }
+
+        if (this.options.shortcuts.nextTrimester?.enable) {
+
+            const nextTrimesterButton = document.createElement('button');
+            nextTrimesterButton.type = 'button';
+            nextTrimesterButton.className = style.buttonNextTrimester;
+            nextTrimesterButton.innerText = this.options.shortcuts.nextTrimester.text;
+
+            nextTrimesterButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                let year = d.getFullYear();
+
+                let quarter = Math.floor((d.getMonth() + 3) / 3) + 1;
+
+                console.log(quarter);
+
+                if (quarter === 5) {
+                    quarter = 1;
+                    year++;
+                }
+
+                let from: Date = null;
+                let to: Date = null;
+
+                switch (quarter) {
+                    case 1:
+                        from = new Date(year, 0, 1);
+                        to = new Date(year, 2, 31);
+                        break;
+
+                    case 2:
+                        from = new Date(year, 3, 1);
+                        to = new Date(year, 5, 30);
+                        break;
+
+                    case 3:
+                        from = new Date(year, 6, 1);
+                        to = new Date(year, 8, 30);
+                        break;
+
+                    case 4:
+                        from = new Date(year, 9, 1);
+                        to = new Date(year, 11, 31);
+                        break;
+                }
+
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(nextTrimesterButton);
+
+        }
+
+        if (this.options.shortcuts.month3Next?.enable) {
+
+            const month3NextButton = document.createElement('button');
+            month3NextButton.type = 'button';
+            month3NextButton.className = style.buttonNext3Month;
+            month3NextButton.innerText = this.options.shortcuts.month3Next.text;
+
+            month3NextButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date(from);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+                to.setMonth(to.getMonth() + 3);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(month3NextButton);
 
         }
 
@@ -990,6 +1284,105 @@ export class Calendar extends LPCore {
 
         }
 
+        if (this.options.shortcuts.month6Back?.enable) {
+
+            const month6BackButton = document.createElement('button');
+            month6BackButton.type = 'button';
+            month6BackButton.className = style.button6Month;
+            month6BackButton.innerText = this.options.shortcuts.month6Back.text;
+
+            month6BackButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                for (let i = 0; i <= 5; i++) {
+                    from.setMonth(from.getMonth() - 1);
+                }
+
+                const to = new Date();
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(month6BackButton);
+
+        }
+
+        if (this.options.shortcuts.nextSemester?.enable) {
+
+            const nextSemesterButton = document.createElement('button');
+            nextSemesterButton.type = 'button';
+            nextSemesterButton.className = style.buttonNextSemester;
+            nextSemesterButton.innerText = this.options.shortcuts.nextSemester.text;
+
+            nextSemesterButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const d = new Date();
+                let year = d.getFullYear();
+
+                let from: Date = null;
+                let to: Date = null;
+
+                if (d.getMonth() > 5) {
+                    year++;
+                    from = new Date(year, 0, 1);
+                    to = new Date(year, 5, 30);
+                } else {
+                    from = new Date(year, 6, 1);
+                    to = new Date(year, 11, 31);
+                }
+
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(nextSemesterButton);
+
+        }
+
+        if (this.options.shortcuts.month6Next?.enable) {
+
+            const month6NextButton = document.createElement('button');
+            month6NextButton.type = 'button';
+            month6NextButton.className = style.buttonNext6Month;
+            month6NextButton.innerText = this.options.shortcuts.month6Next.text;
+
+            month6NextButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date(from);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+                to.setMonth(to.getMonth() + 6);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(month6NextButton);
+
+        }
+
         if (this.options.shortcuts.actualYear?.enable) {
 
             const actualYearButton = document.createElement('button');
@@ -1080,12 +1473,12 @@ export class Calendar extends LPCore {
 
         }
 
-        if (this.options.shortcuts.month12back?.enable) {
+        if (this.options.shortcuts.month12Back?.enable) {
 
             const month12BackButton = document.createElement('button');
             month12BackButton.type = 'button';
             month12BackButton.className = style.button12Month;
-            month12BackButton.innerText = this.options.shortcuts.month12back.text;
+            month12BackButton.innerText = this.options.shortcuts.month12Back.text;
 
             month12BackButton.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -1108,6 +1501,64 @@ export class Calendar extends LPCore {
             });
 
             shortcuts.appendChild(month12BackButton);
+
+        }
+
+        if (this.options.shortcuts.nextYear?.enable) {
+
+            const nextYearButton = document.createElement('button');
+            nextYearButton.type = 'button';
+            nextYearButton.className = style.buttonNextYear;
+            nextYearButton.innerText = this.options.shortcuts.nextYear.text;
+
+            nextYearButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setMonth(0);
+                from.setDate(1);
+                from.setFullYear(from.getFullYear() + 1);
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date(from.getFullYear(), 11, 31);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(nextYearButton);
+
+        }
+
+        if (this.options.shortcuts.month12Next?.enable) {
+
+            const month12NextButton = document.createElement('button');
+            month12NextButton.type = 'button';
+            month12NextButton.className = style.buttonNext12Month;
+            month12NextButton.innerText = this.options.shortcuts.month12Next.text;
+
+            month12NextButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const from = new Date();
+                from.setHours(0);
+                from.setMinutes(0);
+                from.setSeconds(0);
+
+                const to = new Date(from);
+                to.setHours(23);
+                to.setMinutes(59);
+                to.setSeconds(59);
+                to.setMonth(to.getMonth() + 12);
+
+                this.setShortcutValue(from, to);
+            });
+
+            shortcuts.appendChild(month12NextButton);
 
         }
 

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HighlightModule } from 'ngx-highlightjs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SerMaskModule } from '../../../../src/form/mask/ser-mask.module';
+import { SerSplideModule } from '../../../../src/splide/splide.module';
 
 
 const modules = [
@@ -14,7 +15,8 @@ const modules = [
     HighlightModule,
     SerUiModule,
     SerFormModule,
-    SerMaskModule
+    SerMaskModule,
+    SerSplideModule
 ];
 
 @NgModule({
