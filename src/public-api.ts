@@ -54,6 +54,9 @@ export * from './form/ser-errors/ser-errors';
 export * from './form/ser-errors/ser-errors.directive';
 export * from './form/ser-errors/ser-error.directive';
 export * from './form/grow-on-input.directive';
+export * from './form/input-integer.directive';
+export * from './form/input-float.directive';
+export * from './form/input-currency/input-currency.component';
 export * from './form/input-regex.directive';
 export * from './form/input-regex-only.directive';
 export * from './form/input-lower-case.directive';
@@ -106,6 +109,8 @@ export * from './form/mask/ser-mask.module';
 
 // UI
 export * from './ui/when-scrolled.directive';
+export * from './ui/bg-image.directive';
+export * from './ui/long-press.directive';
 export * from './ui/finish-typing.directive';
 export * from './ui/copy-to-clipboard.directive';
 export * from './ui/download.service';
