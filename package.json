@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -o --ssl --ssl-key localhost.key  --ssl-cert localhost.crt",
-    "start-plain": "ng serve -o --host 0.0.0.0",
+    "start": "ng serve --hmr -o --ssl --ssl-key localhost.key  --ssl-cert localhost.crt",
+    "start-plain": "ng serve --hmr -o --host 0.0.0.0",
     "build": "ng build ngx --configuration production",
     "publish-lib": "npm run build && npm publish ./dist --access public && npm run publish-doc && npm run publish-showcase",
     "publish-doc": "npx compodoc -p tsconfig.json -d ../ngx-doc --theme vagrant --language es-ES src",

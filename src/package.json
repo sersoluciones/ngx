@@ -1,9 +1,9 @@
 {
   "name": "@sersol/ngx",
-  "version": "0.40.0",
+  "version": "0.40.1",
   "peerDependencies": {
-    "@angular/common": "10.x || 11.x || 12.x",
-    "@angular/core": "10.x || 11.x || 12.x",
+    "@angular/common": "10.x || 11.x || 12.x || 13.x",
+    "@angular/core": "10.x || 11.x || 12.x || 13.x",
     "@types/gapi": ">=0.0.39",
     "@types/facebook-js-sdk": ">=3.3.0",
     "bowser": ">=2.9.0"

@@ -89,6 +89,10 @@ export function getFileType(arrayBuffer: ArrayBuffer, file?: File) {
             ext = 'pdf';
             break;
 
+        case '503c7376674b34':
+            ext = 'svg';
+            break;
+
         case '504b34':
             ext = 'zip';
             break;

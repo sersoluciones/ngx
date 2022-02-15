@@ -47,18 +47,27 @@ export function browserWidth(): number {
  * @param value Valor a copiar
  */
 export function copyToClipboard(value: any) {
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.zIndex = '-1000';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = value;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
+
+    if (navigator.clipboard) {
+
+        navigator.clipboard?.writeText(value);
+
+    } else {
+
+        const selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.zIndex = '-1000';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = value;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+
+    }
 }
 
 

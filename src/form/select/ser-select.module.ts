@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { SDBadgeDirective, SDBadgeItemDirective, SDItemDirective } from './ser-select-menu-item.directive';
 import { SerSelectComponent } from './ser-select.component';
 import { DataService } from './ser-select.service';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { SerUiModule } from '../../ui/ser-ui.module';
 
 const dependencies = [
@@ -16,7 +15,7 @@ const dependencies = [
 ];
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, SerUiModule, ScrollingModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, SerUiModule],
     declarations: [...dependencies],
     exports: [...dependencies],
     providers: [DataService]

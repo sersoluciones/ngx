@@ -8,7 +8,7 @@
 // tslint:disable: component-class-suffix
 // tslint:disable: component-selector
 
-import { Attribute, HostBinding, Optional, QueryList, Renderer2 } from '@angular/core';
+import { Attribute, HostBinding, Optional, Renderer2 } from '@angular/core';
 import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ViewEncapsulation, ContentChild, ViewChild, forwardRef, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder } from '@angular/forms';
 import { DropdownSettings } from './ser-select.interface';
