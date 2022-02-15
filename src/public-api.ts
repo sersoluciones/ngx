@@ -119,6 +119,9 @@ export * from './ui/toggle-class.directive';
 export * from './ui/date.pipe';
 export * from './ui/currency.pipe';
 export * from './ui/filter.pipe';
+export * from './ui/abstract-2-fc.pipe';
+export * from './ui/abstract-2-fg.pipe';
+export * from './ui/abstract-2-fa.pipe';
 export * from './ui/ser-ui.module';
 
 // Splide

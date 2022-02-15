@@ -9,6 +9,9 @@ import { DateUTCPipe } from './date.pipe';
 import { FilterList } from './filter.pipe';
 import { CurrencyCOPPipe } from './currency.pipe';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { Abstract2FcPipe } from './abstract-2-fc.pipe';
+import { Abstract2FgPipe } from './abstract-2-fg.pipe';
+import { Abstract2FaPipe } from './abstract-2-fa.pipe';
 
 const dependencies = [
     WhenScrolledDirective,
@@ -19,7 +22,10 @@ const dependencies = [
     LongPressDirective,
     DateUTCPipe,
     CurrencyCOPPipe,
-    FilterList
+    FilterList,
+    Abstract2FcPipe,
+    Abstract2FgPipe,
+    Abstract2FaPipe
 ];
 
 @NgModule({
