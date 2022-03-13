@@ -1,6 +1,7 @@
 pin-input {
 
     display: flex;
+    gap: 4px;
     transform: translate3d(0, 0, 0);
     font-size: var(--pin-font-size, 2rem);
     color: var(--pin-color, #171516);
@@ -8,11 +9,6 @@ pin-input {
     span {
         display: block;
         flex: 1;
-        padding-right: var(--pin-item-spacing, 4px);
-
-        &:first-child {
-            padding-left: var(--pin-item-spacing, 4px);
-        }
 
         &.code-hidden input {
             text-security: var(--pin-text-security-type, disc);

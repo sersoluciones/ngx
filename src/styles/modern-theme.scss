@@ -60,7 +60,9 @@
     --chip-font-color: black;
     --chip-bg: #e4e3e3;
 
-    --input-font-size: 12px;
+    --input-font-family: var(--font-primary);
+    --input-label-font-size: 14px;
+    --input-font-size: 14px;
     --input-min-height: 40px;
     --input-max-height: 40px;
     --input-border-radius: 12px;
@@ -112,6 +114,7 @@
     --address-font-family: "Source Code Pro", monospace;
 
     --pin-font-size: 20px;
+    --pin-item-spacing: 4px;
     --pin-item-height: 50px;
     --pin-item-border: 2px solid var(--input-border);
     --pin-item-border-bottom: 2px solid var(--input-border);
@@ -294,36 +297,30 @@ input:-webkit-autofill {
 
 ser-form-element {
     $parent: &;
+    padding: 16px 4px 0;
+    border: 2px solid var(--input-border);
+    border-radius: var(--input-border-radius);
 
     > label:not(.switch) {
-        font-size: rem(10.5);
-        font-weight: 600;
-        text-transform: uppercase;
-        margin-bottom: 8px;
+        top: 18px;
+        left: 16px;
+        // font-weight: 600;
+        // text-transform: uppercase;
+        max-width: calc(100% - 36px);
+        font-size: var(--input-label-font-size);
+        border-radius: var(--input-label-radius);
+
+        &.tr {
+            left: 58px;
+        }
     }
 
     &:not([plain]) {
 
-        > label:not(.switch) {
-            top: 11px;
-            left: 18px;
-            margin-bottom: 0;
-            max-width: calc(100% - 36px);
-            border-radius: var(--input-label-radius);
-
-            &.tr {
-                left: 58px;
-            }
-        }
-
         &.active,
         &.focus {
             > label:not(.switch) {
-                font-size: rem(8);
-                letter-spacing: 1px;
-                padding: 0 8px;
-                border-radius: 8px;
-                background-color: var(--input-bg);
+                --input-label-font-size: 10px;
             }
         }
 
@@ -344,9 +341,10 @@ ser-form-element {
     #{$inputs} {
         margin: 0;
         position: relative;
-        font-family: inherit;
+        font-family: var(--input-font-family);
         color: var(--font-color-1);
         transition: background-color 500ms;
+        border: none;
         outline: none;
 
         :-webkit-autofill {
@@ -366,7 +364,6 @@ ser-form-element {
             padding: 6px 12px;
             background-color: var(--input-bg);
             min-height: var(--input-min-height);
-            border: 2px solid var(--input-border);
             border-radius: var(--input-border-radius);
         }
 
@@ -470,10 +467,6 @@ ser-form-element {
     }
 
     .input-group {
-        background-color: var(--input-bg);
-        border: 2px solid var(--input-border);
-        border-radius: var(--input-border-radius);
-        transition: background-color 500ms;
 
         .addon {
             position: relative;
@@ -481,7 +474,7 @@ ser-form-element {
             font-weight: normal;
             text-align: center;
             padding: 6px 12px;
-            font-family: inherit;
+            font-family: var(--input-family);
             font-size: rem(10);
             color: var(--font-color-1);
             display: flex;
@@ -502,7 +495,6 @@ ser-form-element {
                 font-size: var(--input-font-size);
                 padding: 6px;
                 min-height: var(--input-min-height);
-                border-radius: var(--input-border-radius);
                 background-color: var(--input-bg);
             }
 
@@ -541,17 +533,17 @@ ser-form-element {
     &.active,
     &.focus {
         > label:not(.switch) {
-            top: -5px;
-            left: 16px;
+            top: 7px;
+            opacity: 0.5;
         }
     }
 
     &.focus {
+        box-shadow: 0 0 0 4px var(--input-focus-shadow-color);
+        border-color: var(--input-focus-color);
 
         > {
             #{$inputs} {
-                box-shadow: 0 0 0 4px var(--input-focus-shadow-color);
-                border-color: var(--input-focus-color);
 
                 &:-webkit-autofill {
                     // box-shadow: 0 0 0 4px var(--input-focus-shadow-color), 0 0 0 1000px var(--input-bg) inset !important;
@@ -588,9 +580,10 @@ ser-form-element {
 
     &.invalid {
         &.dirty {
+            border-color: var(--input-error-border-color);
+
             > {
                 #{$inputs} {
-                    border-color: var(--input-error-border-color);
 
                     .selected-list .controls .chevron {
                         color: var(--input-error-border-color);
@@ -642,10 +635,10 @@ ser-form-element {
 
         &.invalid {
             &.dirty {
+                box-shadow: 0 0 0 4px var(--input-error-shadow-color);
 
                 > {
                     #{$inputs} {
-                        box-shadow: 0 0 0 4px var(--input-error-shadow-color);
 
                         &:-webkit-autofill {
                             box-shadow: 0 0 0 4px var(--input-error-shadow-color), 0 0 0 1000px var(--input-bg) inset !important;

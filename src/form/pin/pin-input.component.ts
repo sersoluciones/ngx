@@ -16,7 +16,7 @@ import { hasValue } from '../../utils/check';
 })
 export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAccessor {
 
-    @ViewChildren('input') inputsList: QueryList<ElementRef>;
+    @ViewChildren('input') inputsList: QueryList<ElementRef<HTMLInputElement>>;
     @HostBinding('class.show') show = false;
 
     private inputs: HTMLInputElement[] = [];
@@ -144,6 +144,10 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
                 this.inputs[next].focus();
             }
         }
+    }
+
+    setFocus() {
+        this.inputs[0].focus();
     }
 
     onClick(e: any) {

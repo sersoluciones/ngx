@@ -98,8 +98,6 @@ ser-form-element,
         &.active,
         &.focus {
             > label:not(.switch) {
-                top: -5px;
-                left: 16px;
                 transition: all 200ms ease-in-out;
                 pointer-events: all;
             }

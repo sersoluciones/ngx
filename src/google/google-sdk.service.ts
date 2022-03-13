@@ -59,11 +59,11 @@ export class GoogleSDKService {
 
                 const googleProfile: GoogleUserProfile = {
                     id: profile.getId(),
-                    id_token: res.getAuthResponse().id_token,
+                    id_token: res.getAuthResponse()?.id_token,
                     first_name: profile.getGivenName(),
                     last_name: profile.getFamilyName(),
                     email: profile.getEmail(),
-                    picture: profile.getImageUrl().replace('=s96-', '=-')
+                    picture: profile.getImageUrl()?.replace('=s96-', '=-')
                 };
 
                 observer.next(googleProfile);

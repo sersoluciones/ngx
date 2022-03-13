@@ -27,7 +27,8 @@
 @import "../../src/styles/treeview.scss";
 @import "../../src/styles/typography.scss";
 @import "../../src/styles/week.scss";
-@import "../../src/styles/default-theme.scss";
+// @import "../../src/styles/default-theme.scss";
+@import "../../src/styles/modern-theme.scss";
 
 @import "~highlight.js/styles/github-dark.css";
 @import "~@splidejs/splide/dist/css/splide.min.css";
@@ -36,7 +37,7 @@
 @import "./styles/main.scss";
 
 :root {
-    --font-family-primary: "Poppins", sans-serif;
+    --font-family-primary: "Segoe UI", sans-serif;
     --scrollbar-thumb-color-bg: #555555;
     --code-example-bg: #0d1117;
 }
