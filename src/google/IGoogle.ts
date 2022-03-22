@@ -5,6 +5,11 @@
 // TypeScript Version: 2.3
 
 export interface GoogleUserProfile {
+    profile: GoogleBasicProfile;
+    auth2User: gapi.auth2.GoogleUser;
+}
+
+export interface GoogleBasicProfile {
     id: string;
     id_token: string;
     first_name: string;

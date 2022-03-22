@@ -319,8 +319,7 @@ ser-form-element {
         &.active,
         &.focus {
             > label:not(.switch) {
-                font-size: rem(8);
-                letter-spacing: 1px;
+                font-size: rem(9);
                 padding: 0 8px;
                 border-radius: 8px;
                 background-color: var(--input-bg);

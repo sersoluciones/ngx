@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Inject, Injectable, InjectionToken, Output, EventEmitter } from '@angular/core';
 import { Observer } from 'rxjs';
 import { GoogleSDKConfig } from './config/google-sdk.config';
-import { GoogleUserProfile, GoogleClientConfig } from './Igoogle';
+import { GoogleUserProfile, GoogleClientConfig, GoogleBasicProfile } from './Igoogle';
 
 export let NG_GAPI_CONFIG: InjectionToken<GoogleClientConfig> = new InjectionToken<GoogleClientConfig>('google.config');
 
@@ -57,7 +57,7 @@ export class GoogleSDKService {
 
                 const profile = res.getBasicProfile();
 
-                const googleProfile: GoogleUserProfile = {
+                const googleProfile: GoogleBasicProfile = {
                     id: profile.getId(),
                     id_token: res.getAuthResponse()?.id_token,
                     first_name: profile.getGivenName(),
@@ -66,7 +66,10 @@ export class GoogleSDKService {
                     picture: profile.getImageUrl()?.replace('=s96-', '=-')
                 };
 
-                observer.next(googleProfile);
+                observer.next({
+                    profile: googleProfile,
+                    auth2User: res
+                });
                 observer.complete();
 
             }, (err: any) => {
