@@ -6,7 +6,7 @@
 </button>
 
 <button type="button" class="clean" *ngIf="!isDisabled" (click)="clear()" [title]="settings.removeText">
-    <div class="icon" [innerHTML]="settings.clearIconHTML"></div>
+    <div class="icon" [innerHTML]="settings.clearIconHTML | safe"></div>
 </button>
 
 <div #preview class="preview"></div>

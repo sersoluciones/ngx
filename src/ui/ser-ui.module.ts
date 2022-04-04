@@ -12,6 +12,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Abstract2FcPipe } from './abstract-2-fc.pipe';
 import { Abstract2FgPipe } from './abstract-2-fg.pipe';
 import { Abstract2FaPipe } from './abstract-2-fa.pipe';
+import { SafeHtmlPipe } from './safe.pipe';
 
 const dependencies = [
     WhenScrolledDirective,
@@ -25,7 +26,8 @@ const dependencies = [
     FilterList,
     Abstract2FcPipe,
     Abstract2FgPipe,
-    Abstract2FaPipe
+    Abstract2FaPipe,
+    SafeHtmlPipe
 ];
 
 @NgModule({
