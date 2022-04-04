@@ -32,4 +32,4 @@
     </div>
 </div>
 
-<div class="upload" (click)="onClick()" [title]="multiple ? settings.uploadMultipleText : settings.uploadText" [innerHTML]="settings.uploadIconHTML"></div>
+<div class="upload" (click)="onClick()" [title]="multiple ? settings.uploadMultipleText : settings.uploadText" [innerHTML]="settings.uploadIconHTML | safe"></div>
