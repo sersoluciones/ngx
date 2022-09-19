@@ -10,7 +10,7 @@
 
 import { Attribute, HostBinding, Optional, Renderer2 } from '@angular/core';
 import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ChangeDetectorRef, ViewEncapsulation, ContentChild, ViewChild, forwardRef, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, UntypedFormBuilder } from '@angular/forms';
 import { FilterSettings } from './ser-filter.interface';
 import { Subscription, fromEvent, Observable, merge, ReplaySubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
@@ -127,7 +127,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
     hasValue = hasValue;
 
-    constructor(public _elementRef: ElementRef, private cdr: ChangeDetectorRef, private _fb: FormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('primaryKey') primaryKey: any,
+    constructor(public _elementRef: ElementRef, private cdr: ChangeDetectorRef, private _fb: UntypedFormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('primaryKey') primaryKey: any,
                 @Optional() @Attribute('labelKey') labelKey: any) {
 
         if (primaryKey !== null) {

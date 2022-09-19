@@ -1,5 +1,5 @@
 // tslint:disable: component-selector
-import { AfterViewInit, Attribute, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnInit, Optional, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Attribute, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, NgZone, OnInit, Optional, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { map, take } from 'rxjs/operators';
 import { inArray } from '../../../utils/array';
@@ -7,6 +7,7 @@ import { getFileType, readAsArrayBuffer, readAsDataURL } from '../../../file/rea
 import { hasValue } from '../../../utils/check';
 import { InputImageSettings } from '../file.interface';
 import { IFItemDirective } from '../files/input-file-item.directive';
+import Compressor from 'compressorjs';
 
 @Component({
     selector: 'ser-input-image',
@@ -45,20 +46,28 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
     file: File = null;
     filesInstance = '';
 
+    procesing = false;
+
     defaultSettings: InputImageSettings = {
         removeText: 'Remover imagen',
         uploadText: 'Seleccionar imagen',
+        procesingText: 'Procesando...',
         uploadIconHTML: '<span class="material-icons-outlined">photo_camera</span>',
         clearIconHTML: '<span class="material-icons-outlined">delete</span>',
         classes: '',
-        optimize: true,
+        optimize: {
+            enable: true,
+            maxWidth: 1920,
+            maxHeight: Infinity,
+            quality: 0.8
+        },
         accept: ['.png', '.jpg', '.jpeg']
     };
 
-    constructor(private _renderer: Renderer2, @Optional() @Attribute('no-optimize') noOptimizeAtt: any, @Optional() @Attribute('accept') accept: any) {
+    constructor(private _renderer: Renderer2, private _ngZone: NgZone, @Optional() @Attribute('no-optimize') noOptimizeAtt: any, @Optional() @Attribute('accept') accept: any) {
 
         if (noOptimizeAtt != null) {
-            this.defaultSettings.optimize = false;
+            this.defaultSettings.optimize.enable = false;
         }
 
         if (accept != null) {
@@ -122,7 +131,9 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
         setTimeout(() => {
             if (hasValue(this.file)) {
 
-                readAsDataURL(this.file).pipe(take(1)).subscribe((result) => {
+                readAsDataURL(this.file)
+                .pipe(take(1))
+                .subscribe((result) => {
                     this._renderer.setStyle(this.previewDiv.nativeElement, 'background-image', `url(${result})`);
                 });
 
@@ -144,6 +155,14 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
         this.filesInstance = null;
     }
 
+    assingFile(file: File) {
+        this.file = new File([file], file.name.toLowerCase());
+        this.onSelect.emit(this.file);
+        this.setValue();
+        this.setPreview();
+        this.noEmpty = true;
+    }
+
     setFile(ev: any) {
 
         let file = new File([], '');
@@ -160,25 +179,32 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
 
         }
 
-        file = new File([file], file.name.toLowerCase());
+        if (inArray('.' + file?.name.substring(file?.name.lastIndexOf('.') + 1).toLowerCase(), this.settings.accept)) {
 
-        readAsArrayBuffer(file)
-        .pipe(take(1))
-        .subscribe((result: ArrayBuffer) => {
+            if (this.settings.optimize.enable) {
 
-            if (inArray(getFileType(result, file), this.settings.accept.map(a => {
-                return a.replace('.', '');
-            }))) {
+                this.procesing = true;
 
-                this.file = file;
-                this.onSelect.emit(this.file);
-                this.setValue();
-                this.setPreview();
-                this.noEmpty = true;
+                new Compressor(file, {
+                    strict: false,
+                    quality: this.settings.optimize.quality,
+                    maxWidth: this.settings.optimize.maxWidth,
+                    maxHeight: this.settings.optimize.maxHeight,
+                    success: (result) => {
 
+                        this._ngZone.run(() => {
+                            this.procesing = false;
+                            this.assingFile(new File([result], file.name.toLowerCase()));
+                        });
+
+                    },
+                });
+
+            } else {
+                this.assingFile(file);
             }
 
-        });
+        }
     }
 
     clear() {

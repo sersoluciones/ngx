@@ -1,15 +1,15 @@
 import { SnackbarService } from './../../../../src/ui/snackbar.service';
 import { OnInit, AfterViewInit, Injector, Directive, OnChanges, SimpleChanges, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
 @Directive()
 // tslint:disable-next-line: directive-class-suffix
 export class BaseView implements OnInit, AfterViewInit {
-    _fb: FormBuilder;
+    _fb: UntypedFormBuilder;
     _msj: SnackbarService;
-    modelForm: FormGroup;
+    modelForm: UntypedFormGroup;
     sanitized: DomSanitizer;
     protected _renderer: Renderer2;
     _http: HttpClient;
@@ -112,7 +112,7 @@ export class BaseView implements OnInit, AfterViewInit {
     };
 
     constructor(protected injectorObj: Injector) {
-        this._fb = this.injectorObj.get(FormBuilder);
+        this._fb = this.injectorObj.get(UntypedFormBuilder);
         this._msj = this.injectorObj.get(SnackbarService);
         this.sanitized = this.injectorObj.get(DomSanitizer);
         this._http = this.injectorObj.get(HttpClient);

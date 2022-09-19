@@ -1,4 +1,4 @@
-import { AsyncValidatorFn, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AsyncValidatorFn, UntypedFormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { getFileType, readAsArrayBuffer } from '../../file/read';
@@ -6,7 +6,7 @@ import { inArray } from '../../utils/array';
 import { hasValue } from '../../utils/check';
 
 export function maxFileSize(size: string): ValidatorFn {
-    return (control: FormControl): ValidationErrors | null => {
+    return (control: UntypedFormControl): ValidationErrors | null => {
 
         const number = /[-]{0,1}[\d]*[.]{0,1}[\d]+/g;
         const sizeNumber = size.match(number);
@@ -49,7 +49,7 @@ export function maxFileSize(size: string): ValidatorFn {
 
 
 export function minFileSize(size: string): ValidatorFn {
-    return (control: FormControl): ValidationErrors | null => {
+    return (control: UntypedFormControl): ValidationErrors | null => {
 
         const number = /[-]{0,1}[\d]*[.]{0,1}[\d]+/g;
         const sizeNumber = size.match(number);
@@ -91,7 +91,7 @@ export function minFileSize(size: string): ValidatorFn {
 }
 
 export function requiredFileType(ext: string | string[]): AsyncValidatorFn {
-    return (control: FormControl): Observable<ValidationErrors | null> => {
+    return (control: UntypedFormControl): Observable<ValidationErrors | null> => {
 
         const file = control.value;
 
@@ -120,5 +120,25 @@ export function requiredFileType(ext: string | string[]): AsyncValidatorFn {
         }
 
         return of(null);
+    };
+}
+
+
+export function fileType(types: string | string[]): ValidatorFn {
+    return (control: UntypedFormControl): ValidationErrors | null => {
+
+        const file = control.value;
+
+        if (!Array.isArray(types)) {
+            types = [types];
+        }
+
+        if (!(file instanceof File) || inArray(file?.name.substring(file?.name.lastIndexOf('.') + 1).toLowerCase(), types)) {
+            return null;
+        } else {
+            return {
+                fileType: true
+            };
+        }
     };
 }

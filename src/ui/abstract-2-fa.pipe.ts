@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AbstractControl, FormArray } from '@angular/forms';
+import { AbstractControl, UntypedFormArray } from '@angular/forms';
 
 @Pipe({
   name: 'abstract2Fa'
 })
 export class Abstract2FaPipe implements PipeTransform {
 
-    transform(value: AbstractControl[] | AbstractControl, ...args: any[]): FormArray {
-      return value as FormArray;
+    transform(value: AbstractControl[] | AbstractControl, ...args: any[]): UntypedFormArray {
+      return value as UntypedFormArray;
     }
 
 }

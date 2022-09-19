@@ -70,7 +70,7 @@ registerLocaleData(localeEs, 'es-CO');
                 xml: () => import('highlight.js/lib/languages/xml')
               }
             }
-          }
+        }
     ],
     bootstrap: [AppComponent]
 })

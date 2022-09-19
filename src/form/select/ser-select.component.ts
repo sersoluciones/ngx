@@ -10,7 +10,7 @@
 
 import { Attribute, HostBinding, Optional, Renderer2 } from '@angular/core';
 import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ViewEncapsulation, ContentChild, ViewChild, forwardRef, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, UntypedFormBuilder } from '@angular/forms';
 import { DropdownSettings } from './ser-select.interface';
 import { SDItemDirective, SDBadgeDirective, SDBadgeItemDirective } from './ser-select-menu-item.directive';
 import { DataService } from './ser-select.service';
@@ -143,7 +143,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     hasValue = hasValue;
 
-    constructor(public _elementRef: ElementRef, private _fb: FormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any,
+    constructor(public _elementRef: ElementRef, private _fb: UntypedFormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any,
                 @Optional() @Attribute('simple') simple: any, @Optional() @Attribute('primaryKey') primaryKey: any, @Optional() @Attribute('labelKey') labelKey: any,
                 @Optional() @Attribute('lazyLoading') lazyLoading: any, @Optional() @Attribute('noResponsive') noResponsive: any) {
 

@@ -226,6 +226,7 @@ loader-backdrop {
     top: 0;
     left: 0;
     z-index: 104;
+    color: white;
     background: rgba(0, 0, 0, 0.84);
     @include row;
     @include center-center;

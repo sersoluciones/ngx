@@ -82,6 +82,7 @@
     --input-image-width: 200px;
     --input-image-height: 200px;
     --input-image-margin: 0 auto;
+    --input-image-procesing-bg: white;
 
     --dark-grey-4dp: #272727;
     --dark-grey-6dp: #2c2c2c;
@@ -298,7 +299,7 @@ ser-form-element {
     > label:not(.switch) {
         font-size: rem(10.5);
         font-weight: 600;
-        text-transform: uppercase;
+        // text-transform: uppercase;
         margin-bottom: 8px;
     }
 
@@ -1358,6 +1359,16 @@ ser-input-image {
         .preview {
             background-size: cover;
         }
+    }
+
+    .procesing {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: var(--input-image-procesing-bg);
+        padding: 4px 8px;
+        border-radius: 8px;
     }
 
     .upload,

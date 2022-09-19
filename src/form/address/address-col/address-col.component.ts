@@ -1,6 +1,6 @@
 import { fromEvent, merge, Observable, Subscription } from 'rxjs';
 import { Component, forwardRef, OnInit, ViewEncapsulation, OnDestroy, HostBinding, AfterViewInit, ElementRef, ViewChild, Renderer2, Output, EventEmitter, HostListener } from '@angular/core';
-import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormBuilder, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { hasValue } from '../../../utils/check';
 import { inArray } from '../../..//utils/array';
 import { filter } from 'rxjs/operators';
@@ -63,7 +63,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
     };
     private viewInitialized = false;
 
-    constructor(private _fb: FormBuilder, private _renderer: Renderer2, private _elementRef: ElementRef<HTMLElement>) { }
+    constructor(private _fb: UntypedFormBuilder, private _renderer: Renderer2, private _elementRef: ElementRef<HTMLElement>) { }
 
     //#region ControlValueAccessor
     writeValue(obj: any) {

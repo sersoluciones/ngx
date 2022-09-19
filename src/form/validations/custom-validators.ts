@@ -2,7 +2,7 @@ import { ValidatorFn, AsyncValidatorFn, AbstractControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { betweenRange, greaterOrEqualThan, greaterThan, lowerOrEqualThan, lowerThan } from './comparison';
 import { match, verifyNIT } from './match';
-import { maxFileSize, minFileSize, requiredFileType } from './file';
+import { fileType, maxFileSize, minFileSize, requiredFileType } from './file';
 import { alreadyExist, BaseValidationModel } from './remote';
 
 // @dynamic
@@ -97,6 +97,14 @@ export class CustomValidators {
      */
     static requiredFileType(ext: string | string[]): AsyncValidatorFn {
         return requiredFileType(ext);
+    }
+
+    /**
+     * Verifica si el archivo tiene una extensión admitida por medio de su extensión
+     * @param ext Extensiones admitidas
+     */
+    static fileType(types: string | string[]): ValidatorFn {
+        return fileType(types);
     }
 
     /**

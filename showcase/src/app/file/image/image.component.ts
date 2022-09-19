@@ -14,7 +14,7 @@ export class ImageComponent extends BaseView {
     examples = examples;
 
     modelForm = this._fb.group({
-        image1: [null, [Validators.required, CustomValidators.maxFileSize('2MB')], CustomValidators.requiredFileType(['png', 'jpg', 'jpeg', 'gif'])]
+        image1: [null, [Validators.required, CustomValidators.maxFileSize('2MB'), CustomValidators.fileType(['png', 'jpg', 'jpeg', 'gif'])]]
     });
 
     afterInit() {

@@ -1,9 +1,9 @@
-import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Patterns } from '../../utils/patterns';
 import { hasValue } from '../../utils/check';
 
 export function match(originalPathField: string, duplicatePathField: string): ValidatorFn {
-    const validation = (fg: FormGroup): ValidationErrors | null => {
+    const validation = (fg: UntypedFormGroup): ValidationErrors | null => {
 
         const original = fg.get(originalPathField);
         const duplicate = fg.get(duplicatePathField);

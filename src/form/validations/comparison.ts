@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { hasValue, objHasValue } from '../../utils/check';
 
 function clearError(target: AbstractControl, name: string) {
@@ -27,7 +27,7 @@ function setError(target: AbstractControl, name: string) {
 }
 
 export function lowerThan(TargetPathField: string, GreaterPathField: string): ValidatorFn {
-    return (fg: FormGroup): ValidationErrors | null => {
+    return (fg: UntypedFormGroup): ValidationErrors | null => {
 
         const greater = fg.get(GreaterPathField);
         const target = fg.get(TargetPathField);
@@ -49,7 +49,7 @@ export function lowerThan(TargetPathField: string, GreaterPathField: string): Va
 }
 
 export function lowerOrEqualThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
-    return (fg: FormGroup): ValidationErrors | null => {
+    return (fg: UntypedFormGroup): ValidationErrors | null => {
 
         const lower = fg.get(LowerPathField);
         const target = fg.get(TargetPathField);
@@ -70,7 +70,7 @@ export function lowerOrEqualThan(TargetPathField: string, LowerPathField: string
 }
 
 export function greaterThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
-    return (fg: FormGroup): ValidationErrors | null => {
+    return (fg: UntypedFormGroup): ValidationErrors | null => {
 
         const lower = fg.get(LowerPathField);
         const target = fg.get(TargetPathField);
@@ -91,7 +91,7 @@ export function greaterThan(TargetPathField: string, LowerPathField: string): Va
 }
 
 export function greaterOrEqualThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
-    return (fg: FormGroup): ValidationErrors | null => {
+    return (fg: UntypedFormGroup): ValidationErrors | null => {
 
         const lower = fg.get(LowerPathField);
         const target = fg.get(TargetPathField);
@@ -112,7 +112,7 @@ export function greaterOrEqualThan(TargetPathField: string, LowerPathField: stri
 }
 
 export function betweenRange(TargetPathField: string, LowerPathField: string, GreaterPathField: string): ValidatorFn {
-    return (fg: FormGroup): ValidationErrors | null => {
+    return (fg: UntypedFormGroup): ValidationErrors | null => {
 
         const target = fg.get(TargetPathField);
         const lower = fg.get(LowerPathField);
