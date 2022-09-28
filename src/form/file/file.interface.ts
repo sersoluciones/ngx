@@ -10,6 +10,13 @@ export interface InputFileSettings {
     processFilenameUrl?: boolean;
 }
 
+export enum ImageFileWidthSize {
+    HD = 1280,
+    FULLHD = 1920,
+    UHD4K = 3840,
+    UHD8K = 7680
+}
+
 export interface InputImageSettings {
     uploadIconHTML?: string | SafeHtml;
     clearIconHTML?: string | SafeHtml;

@@ -5,7 +5,7 @@ import { map, take } from 'rxjs/operators';
 import { inArray } from '../../../utils/array';
 import { getFileType, readAsArrayBuffer, readAsDataURL } from '../../../file/read';
 import { hasValue } from '../../../utils/check';
-import { InputImageSettings } from '../file.interface';
+import { ImageFileWidthSize, InputImageSettings } from '../file.interface';
 import { IFItemDirective } from '../files/input-file-item.directive';
 import Compressor from 'compressorjs';
 
@@ -57,9 +57,10 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
         classes: '',
         optimize: {
             enable: true,
-            maxWidth: 1920,
+            strict: true,
+            maxWidth: ImageFileWidthSize.FULLHD,
             maxHeight: Infinity,
-            quality: 0.8
+            quality: 1.0
         },
         accept: ['.png', '.jpg', '.jpeg']
     };
@@ -179,31 +180,38 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
 
         }
 
-        if (inArray('.' + file?.name.substring(file?.name.lastIndexOf('.') + 1).toLowerCase(), this.settings.accept)) {
+        if (this.settings.optimize.enable) {
 
-            if (this.settings.optimize.enable) {
+            this.procesing = true;
 
-                this.procesing = true;
+            new Compressor(file, {
+                strict: this.settings.optimize.strict,
+                quality: this.settings.optimize.quality,
+                maxWidth: this.settings.optimize.maxWidth,
+                maxHeight: this.settings.optimize.maxHeight,
+                success: (result) => {
 
-                new Compressor(file, {
-                    strict: false,
-                    quality: this.settings.optimize.quality,
-                    maxWidth: this.settings.optimize.maxWidth,
-                    maxHeight: this.settings.optimize.maxHeight,
-                    success: (result) => {
+                    this._ngZone.run(() => {
+                        this.procesing = false;
+                        this.assingFile(new File([result], file.name.toLowerCase(), {type: file.type}));
+                    });
 
-                        this._ngZone.run(() => {
-                            this.procesing = false;
-                            this.assingFile(new File([result], file.name.toLowerCase()));
-                        });
+                },
+                error: e => {
+                    console.error(e);
 
-                    },
-                });
+                    this._ngZone.run(() => {
+                        this.procesing = false;
+                        this.file = new File([file], file.name.toLowerCase(), {type: file.type});
+                        this.onSelect.emit(this.file);
+                        this.setValue();
+                    });
 
-            } else {
-                this.assingFile(file);
-            }
+                },
+            });
 
+        } else {
+            this.assingFile(file);
         }
     }
 

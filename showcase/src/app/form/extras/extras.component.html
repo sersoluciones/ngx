@@ -115,6 +115,45 @@
 
     <a class="example-name" routerLink="." fragment="grow-on-input">
         <span class="material-icons">link</span>
+        <h1 id="grow-on-input">NIT (Colombia)</h1>
+    </a>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.TextAreaExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.TextAreaExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-icons">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <div class="desc">Validador <code>NIT</code></div>
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('text1')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Texto</label>
+                    <input serControl type="text" formControlName="text2">
+
+                    <div serErrors="text2">
+                        <div serError="verifyNIT">NIT error</div>
+                    </div>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+    <a class="example-name" routerLink="." fragment="grow-on-input">
+        <span class="material-icons">link</span>
         <h1 id="grow-on-input">Área de texto de alto dinámico</h1>
     </a>
 

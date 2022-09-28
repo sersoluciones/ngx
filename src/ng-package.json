@@ -4,6 +4,10 @@
   "assets": [
     "styles"
   ],
+  "allowedNonPeerDependencies": [
+    "bowser",
+    "compressorjs"
+  ],
   "lib": {
     "entryFile": "public-api.ts"
   }
