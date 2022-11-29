@@ -8,6 +8,12 @@ export interface InputFileSettings {
     fileInstanceTitle?: string;
     classes?: string;
     processFilenameUrl?: boolean;
+    /**
+     * @description
+     * Array of accepted file extensions.
+     * Example: ['.png', '.jpg', '.jpeg']
+     */
+    accept?: string[];
 }
 
 export enum ImageFileWidthSize {

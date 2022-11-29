@@ -1,4 +1,4 @@
-<input type="file" #file [multiple]="multiple" (change)="setFile($event)" [disabled]="isDisabled">
+<input type="file" #file [multiple]="multiple" (change)="setFile($event)" [disabled]="isDisabled" [accept]="accept">
 
 <div class="files">
     <div class="file" *ngFor="let file of files; let i = index;">

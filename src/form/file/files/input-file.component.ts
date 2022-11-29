@@ -40,6 +40,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor {
 
     files: File[] = [];
     filesInstance: string[] = [];
+    accept = '';
 
     defaultSettings: InputFileSettings = {
         removeText: 'Remover archivo',
@@ -51,8 +52,12 @@ export class InputFileComponent implements OnInit, ControlValueAccessor {
         processFilenameUrl: true
     };
 
-    constructor(@Optional() @Attribute('multiple') multipleAttr: any) {
+    constructor(@Optional() @Attribute('multiple') multipleAttr: any, @Optional() @Attribute('accept') acceptAttr: any) {
         this.multiple = multipleAttr !== null;
+
+        if (acceptAttr != null) {
+            this.defaultSettings.accept = acceptAttr;
+        }
     }
 
     @HostListener('drop', ['$event'])
@@ -103,6 +108,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor {
 
     ngOnInit() {
         this.settings = Object.assign(this.defaultSettings, this.settings);
+        this.accept = this.settings.accept.join(',');
     }
 
     getFilenameFromUrl(url: string) {
