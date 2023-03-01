@@ -36,7 +36,7 @@ export class RemoteComponent extends BaseView {
             all = ', all: "' + settings.paginationState.searchTerm + '"';
         }
 
-        return this._http.post('https://app.tiendana.com/api/graphql/v1/',
+        return this._http.post('https://stg-api.tiendana.com/api/graphql/v1/',
         {
             query: `{
                 city_list(orderBy: "name",
