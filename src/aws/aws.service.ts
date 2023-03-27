@@ -8,7 +8,6 @@ export let AWS_CONFIG: InjectionToken<AwsData> = new InjectionToken<AwsData>('aw
  * @description
  * Servicio para verificar si es usuario tiene o no permisos para realizar ciertas acciones
  * @example
- * constructor(private claimsService: ClaimsService) { }
  */
 @Injectable({
     providedIn: 'root'

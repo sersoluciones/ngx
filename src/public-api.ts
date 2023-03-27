@@ -24,10 +24,6 @@ export * from './facebook/facebook-sdk.service';
 export * from './facebook/config/facebook-sdk.config';
 export * from './facebook/Ifacebook';
 
-// OpenID
-export * from './open-id/Iopen-id-client';
-export * from './open-id/claims.service';
-
 // GraphQL
 export * from './graphql/utils';
 

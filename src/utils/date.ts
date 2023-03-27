@@ -105,12 +105,18 @@ export function getMonth(): { start: Date, end: Date } {
      * @param t Unidad de tiempo (hours, days)
      */
 export function diffDate(f1: Date, f2: Date, t: string) {
-    const diff = f2.getTime() - f1.getTime();
+    let diff = f2.getTime() - f1.getTime();
+
     switch (t) {
         case 'hours':
             return (diff / (1000 * 60 * 60));
 
         case 'days':
             return (diff / (1000 * 60 * 60 * 24));
+
+        case 'months':
+            diff = (f1.getTime() - f2.getTime()) / 1000; // Diferencia en segundos
+            diff /= (60 * 60 * 24 * 7 * 4); // Diferencia en meses aproximados
+            return Math.abs(Math.round(diff)); // Valor absoluto y redondeado al entero más cercano
     }
 }
