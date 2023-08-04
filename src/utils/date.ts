@@ -104,7 +104,7 @@ export function getMonth(): { start: Date, end: Date } {
      * @param f2 Fecha final
      * @param t Unidad de tiempo (hours, days)
      */
-export function diffDate(f1: Date, f2: Date, t: string) {
+export function diffDate(f1: Date, f2: Date, t: 'hours' | 'days' | 'months') {
     let diff = f2.getTime() - f1.getTime();
 
     switch (t) {

@@ -85,11 +85,14 @@ export class CookiesService {
     public set(
         name: string,
         value: any,
-        expires?: number | Date,
-        path?: string,
-        domain?: string,
-        secure?: boolean,
-        sameSite?: 'Lax' | 'Strict'
+        { expires, path, domain, secure, sameSite }:
+        {
+            expires?: number | Date,
+            path?: string,
+            domain?: string,
+            secure?: boolean,
+            sameSite?: 'Lax' | 'Strict'
+        }
     ): void {
 
         if (typeof value === 'object') {
@@ -133,9 +136,15 @@ export class CookiesService {
     * @param path   Ruta
     * @param domain Dominio
     */
-    public delete(name: string, path?: string, domain?: string): void {
+    public delete(name: string, { path, domain }: {
+        path?: string, domain?: string
+    }): void {
 
-        this.set(name, '', new Date('Thu, 01 Jan 1970 00:00:01 GMT'), path, domain);
+        this.set(name, '', {
+            expires: new Date('Thu, 01 Jan 1970 00:00:01 GMT'),
+            path,
+            domain
+        });
     }
 
     /**
