@@ -34,7 +34,7 @@ export class AwsService {
      * this.awsService.getS3Url('assets/file.png');
      * @returns {string}
      */
-    public getS3Url(key: string): string {
+    public getS3Url(key?: string): string {
         if (hasValue(key)) {
             return `https://${this.awsData.s3.bucket}.s3.amazonaws.com/${key}`;
         } else {
@@ -50,7 +50,7 @@ export class AwsService {
      * this.awsService.getS3Url('assets/file.png');
      * @returns {string}
      */
-    public getCloudfrontUrl(key: string): string {
+    public getCloudfrontUrl(key?: string): string {
         if (hasValue(key)) {
             return `https://${this.awsData.cloudfront?.id}.cloudfront.net/${key}`;
         } else {
@@ -66,7 +66,7 @@ export class AwsService {
      * this.awsService.getS3Url('assets/file.png');
      * @returns {string}
      */
-    public getS3BgUrl(key: string): string {
+    public getS3BgUrl(key?: string): string {
         if (hasValue(key)) {
             return `url(https://${this.awsData.s3.bucket}.s3.amazonaws.com/${key})`;
         } else {
@@ -82,7 +82,7 @@ export class AwsService {
      * this.awsService.getS3Url('assets/file.png');
      * @returns {string}
      */
-    public getCloudfrontBgUrl(key: string): string {
+    public getCloudfrontBgUrl(key?: string): string {
         if (hasValue(key)) {
             return `url(https://${this.awsData.cloudfront?.id}.cloudfront.net/${key})`;
         } else {
