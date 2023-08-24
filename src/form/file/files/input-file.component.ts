@@ -49,7 +49,8 @@ export class InputFileComponent implements OnInit, ControlValueAccessor {
         fileInstanceTitle: 'Clic para ver el archivo guardado',
         uploadIconHTML: '<span class="material-icons">upload</span>',
         classes: '',
-        processFilenameUrl: true
+        processFilenameUrl: true,
+        accept: ['*']
     };
 
     constructor(@Optional() @Attribute('multiple') multipleAttr: any, @Optional() @Attribute('accept') acceptAttr: any) {
@@ -108,7 +109,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor {
 
     ngOnInit() {
         this.settings = Object.assign(this.defaultSettings, this.settings);
-        this.accept = this.settings.accept.join(',');
+        this.accept = this.settings.accept?.join(',');
     }
 
     getFilenameFromUrl(url: string) {
