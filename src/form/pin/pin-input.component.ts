@@ -111,6 +111,10 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
 
     }
 
+    isPasteEvent(e: KeyboardEvent) {
+        return e.ctrlKey && e.key.toLowerCase() === 'v';
+    }
+
     async onKeydown(e: KeyboardEvent, i: number) {
         const prev = i - 1;
         const next = i + 1;
@@ -130,7 +134,7 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
 
         }
 
-        if (!this.canInputValue(e.key.toLowerCase())) {
+        if (!this.canInputValue(e.key.toLowerCase()) && !this.isPasteEvent(e)) {
             e.preventDefault();
             e.stopPropagation();
             return;
@@ -174,6 +178,29 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
 
     onBlur() {
         this.blur.emit();
+    }
+
+    onPaste(ev: ClipboardEvent) {
+
+        let data = ev.clipboardData.getData('text/plain').split('');
+
+        if (data.length > this.codeLength) {
+            data = data.slice(0, this.codeLength);
+        }
+
+        if (data.some(x => !this.canInputValue(x))) {
+            return;
+        }
+
+        this.inputsList.forEach((item, i) => {
+
+            if (data.length > i) {
+                (item.nativeElement as HTMLInputElement).value = data[i];
+                this.inputs[i].focus();
+            }
+
+        });
+
     }
 
     registerOnChange(fn: any): void {
