@@ -19,6 +19,7 @@ export class DownloadService {
     get(url: string, filename?: string) {
         document.body.appendChild(this.downloadElement);
         this.downloadElement.setAttribute('href', url);
+        this.downloadElement.setAttribute('target', '_blank');
         this.downloadElement.setAttribute('download', filename ? filename : url.split('/').pop());
         this.downloadElement.click();
         document.body.removeChild(this.downloadElement);
