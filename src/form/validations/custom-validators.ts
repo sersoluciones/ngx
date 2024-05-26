@@ -1,6 +1,6 @@
 import { ValidatorFn, AsyncValidatorFn, AbstractControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { betweenRange, greaterOrEqualThan, greaterThan, lowerOrEqualThan, lowerThan } from './comparison';
+import { betweenRange, dateGreaterThan, dateLowerThan, greaterOrEqualThan, greaterThan, lowerOrEqualThan, lowerThan } from './comparison';
 import { match, verifyNIT } from './match';
 import { fileType, maxFileSize, minFileSize, requiredFileType } from './file';
 import { alreadyExist, BaseValidationModel } from './remote';
@@ -73,6 +73,24 @@ export class CustomValidators {
      */
     static betweenRange(TargetPathField: string, LowerPathField: string, GreaterPathField: string): ValidatorFn {
         return betweenRange(TargetPathField, LowerPathField, GreaterPathField);
+    }
+
+    /**
+     * Verifica si una fecha es mayor a otra
+     * @param TargetPathField Path del campo que debería ser mayor
+     * @param LowerPathField Path del campo que debe ser menor
+     */
+    static dateLowerThan(TargetPathField: string, LowerPathField: string): ValidatorFn {
+        return dateLowerThan(TargetPathField, LowerPathField);
+    }
+
+    /**
+     * Verifica si una fecha es menor a otra
+     * @param TargetPathField Path del campo que debería ser menor
+     * @param GreaterPathField Path del campo que debe ser mayor
+     */
+    static dateGreaterThan(TargetPathField: string, GreaterPathField: string): ValidatorFn {
+        return dateGreaterThan(TargetPathField, GreaterPathField);
     }
 
     /**

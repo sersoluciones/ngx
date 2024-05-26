@@ -120,3 +120,13 @@ export function diffDate(f1: Date, f2: Date, t: 'hours' | 'days' | 'months') {
             return Math.abs(Math.round(diff)); // Valor absoluto y redondeado al entero más cercano
     }
 }
+
+export function getDate(value: any) {
+
+    if (typeof (value) === 'string' && !(/[\+zZ]/.test(value))) {
+        value = value + 'Z';
+    }
+
+    return new Date(value);
+
+}
