@@ -128,7 +128,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         remote: false,
         paginationState:  {
             loading: false,
-            pageSize: 10,
+            pageSize: 30,
             currentPage: 0,
             rowCount: 0,
             hasNextPage: true
@@ -145,7 +145,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     constructor(public _elementRef: ElementRef, private _fb: UntypedFormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any,
                 @Optional() @Attribute('simple') simple: any, @Optional() @Attribute('primaryKey') primaryKey: any, @Optional() @Attribute('labelKey') labelKey: any,
-                @Optional() @Attribute('lazyLoading') lazyLoading: any, @Optional() @Attribute('noResponsive') noResponsive: any) {
+                @Optional() @Attribute('lazyLoading') lazyLoading: any, @Optional() @Attribute('noResponsive') noResponsive: any, @Optional() @Attribute('groupBy') groupBy: any) {
 
         this.multiple = multipleAttr !== null;
 
@@ -172,6 +172,10 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         if (lazyLoading !== null) {
             this.defaultSettings.lazyLoading = true;
+        }
+
+        if (groupBy !== null) {
+            this.defaultSettings.groupBy = groupBy;
         }
     }
 
@@ -429,6 +433,28 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         }
 
         return item;
+    }
+
+    showGroupName(index: number) {
+
+        if (!hasValue(this.settings.groupBy)) {
+            return false;
+        }
+
+        if (index === 0) {
+            return true;
+        }
+
+        return this.filteredList[index - 1]?.[this.settings.groupBy] !== this.filteredList[index]?.[this.settings.groupBy];
+    }
+
+    getGroupName(item: any, i: number) {
+
+        if (typeof item === 'object') {
+            return item[this.settings.groupBy];
+        }
+
+        return 'Item is not an object';
     }
 
     onItemClick(item: any) {

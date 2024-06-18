@@ -249,6 +249,7 @@ fieldset {
 }
 
 @-webkit-keyframes autofill-fix {
+
     0%,
     100% {
         color: black;
@@ -257,6 +258,7 @@ fieldset {
 }
 
 @keyframes autofill-fix {
+
     0%,
     100% {
         color: black;
@@ -265,6 +267,7 @@ fieldset {
 }
 
 @-webkit-keyframes autofill-fix-dark {
+
     0%,
     100% {
         color: white;
@@ -273,6 +276,7 @@ fieldset {
 }
 
 @keyframes autofill-fix-dark {
+
     0%,
     100% {
         color: white;
@@ -284,6 +288,7 @@ $inputs: "input, textarea, select, .form-control, ser-select, ser-date, ser-date
 $inputsMaxH: "input, select, ser-date, ser-date-range, address-col-input, ser-input-number, ser-input-currency";
 
 input:-webkit-autofill {
+
     &,
     &:hover,
     &:focus,
@@ -296,7 +301,7 @@ input:-webkit-autofill {
 ser-form-element {
     $parent: &;
 
-    > label:not(.switch) {
+    >label:not(.switch) {
         font-size: rem(10.5);
         font-weight: 600;
         // text-transform: uppercase;
@@ -305,7 +310,7 @@ ser-form-element {
 
     &:not([plain]) {
 
-        > label:not(.switch) {
+        >label:not(.switch) {
             top: 11px;
             left: 18px;
             margin-bottom: 0;
@@ -319,7 +324,7 @@ ser-form-element {
 
         &.active,
         &.focus {
-            > label:not(.switch) {
+            >label:not(.switch) {
                 font-size: rem(9);
                 padding: 0 8px;
                 border-radius: 8px;
@@ -328,13 +333,13 @@ ser-form-element {
         }
 
         &.invalid.dirty {
-            > label:not(.switch) {
+            >label:not(.switch) {
                 color: red;
             }
         }
 
         &.disabled {
-            > label:not(.switch) {
+            >label:not(.switch) {
                 background-color: var(--input-bg-disabled);
                 color: var(--input-font-color-disabled);
             }
@@ -350,6 +355,7 @@ ser-form-element {
         outline: none;
 
         :-webkit-autofill {
+
             &,
             &:hover,
             &:focus,
@@ -391,7 +397,7 @@ ser-form-element {
         color: var(--font-color-placeholder);
     }
 
-    > address-col-input {
+    >address-col-input {
 
         .via {
             margin-right: 16px;
@@ -438,8 +444,8 @@ ser-form-element {
         }
     }
 
-    > ser-date,
-    > ser-date-range {
+    >ser-date,
+    >ser-date-range {
 
         &.active {
             border-radius: var(--input-border-radius) var(--input-border-radius) 0 0;
@@ -450,7 +456,7 @@ ser-form-element {
         }
     }
 
-    > ser-select {
+    >ser-select {
         padding: 4px 16px;
 
         &.active {
@@ -515,7 +521,7 @@ ser-form-element {
     &.disabled {
         cursor: not-allowed;
 
-        > label:not(.switch) {
+        >label:not(.switch) {
             border-radius: 8px;
         }
 
@@ -540,7 +546,7 @@ ser-form-element {
 
     &.active,
     &.focus {
-        > label:not(.switch) {
+        >label:not(.switch) {
             top: -5px;
             left: 16px;
         }
@@ -620,6 +626,7 @@ ser-form-element {
                 border-color: var(--input-error-border-color);
 
                 .addon {
+
                     .mat-icon,
                     .material-icons,
                     i {
@@ -633,7 +640,7 @@ ser-form-element {
     &.focus,
     &.active {
 
-        > label:not(.switch) {
+        >label:not(.switch) {
 
             &.tr {
                 left: 16px;
@@ -674,6 +681,7 @@ ser-form-element {
             }
 
             input {
+
                 &.address1,
                 &.address2,
                 &.address3 {
@@ -827,7 +835,17 @@ ser-select {
         }
 
         .list {
-            > .item {
+            >.group {
+                padding: var(--select-group-padding, 16px 24px);
+                font-weight: var(--select-group-font-weight, 700);
+                background-color: var(--select-group-bg-color, var(--select-hover-color));
+                position: sticky;
+                top: 0;
+                z-index: 1;
+                transition: transform 0.1s ease-out;
+            }
+
+            >.item {
                 &:hover {
                     background: var(--select-hover-color);
                 }
@@ -841,7 +859,7 @@ ser-select {
         .pure-checkbox {
             input[type="checkbox"] {
 
-                + label {
+                +label {
                     padding-left: 32px;
                     margin: 0px;
                     font-size: 12px;
@@ -869,9 +887,10 @@ ser-select {
         &:not(.single-select-mode) {
             .pure-checkbox {
                 input[type="checkbox"] {
+
                     &:focus,
                     &:hover {
-                        + label {
+                        +label {
                             &:before {
                                 border-color: var(--select-base-color);
                                 background-color: #f2f2f2;
@@ -880,14 +899,14 @@ ser-select {
                     }
 
                     &:checked {
-                        + label {
+                        +label {
                             &:before {
                                 background: var(--select-base-color);
                             }
                         }
                     }
 
-                    + label {
+                    +label {
                         padding-left: 32px;
                         margin: 0px;
                         font-size: 12px;
@@ -911,7 +930,7 @@ ser-select {
                     }
 
                     &:disabled {
-                        + label {
+                        +label {
                             color: #cccccc;
 
                             &:before {
@@ -920,7 +939,7 @@ ser-select {
                         }
 
                         &:checked {
-                            + label {
+                            +label {
                                 &:before {
                                     background-color: #cccccc;
                                 }
@@ -931,7 +950,7 @@ ser-select {
 
                 input[type="radio"] {
                     &:checked {
-                        + label {
+                        +label {
                             &:before {
                                 background-color: white;
                             }
@@ -945,7 +964,7 @@ ser-select {
             .pure-checkbox {
                 input[type="checkbox"] {
                     &:checked {
-                        + label {
+                        +label {
                             &:after {
                                 color: var(--select-check-color);
                             }
@@ -1133,16 +1152,17 @@ ser-filter {
 
     .pure-checkbox {
         input[type="checkbox"] {
+
             &:focus,
             &:hover {
-                + label:before {
+                +label:before {
                     border: 0 solid var(--filter-check-color);
                     background-color: #f2f2f2;
                 }
             }
 
             &:disabled {
-                + label {
+                +label {
                     color: #cccccc;
 
                     &:before {
@@ -1152,7 +1172,7 @@ ser-filter {
 
                 &:focus,
                 &:hover {
-                    + label {
+                    +label {
                         &:before {
                             background-color: inherit;
                         }
@@ -1160,7 +1180,7 @@ ser-filter {
                 }
 
                 &:checked {
-                    + label {
+                    +label {
                         &:before {
                             background-color: #cccccc;
                         }
@@ -1168,7 +1188,7 @@ ser-filter {
                 }
             }
 
-            + label {
+            +label {
                 padding-left: 32px;
                 vertical-align: middle;
                 margin: 0px;
@@ -1205,14 +1225,14 @@ ser-filter {
 
         input[type="radio"] {
             &:checked {
-                + label {
+                +label {
                     &:before {
                         background-color: white;
                     }
                 }
             }
 
-            + label {
+            +label {
                 &:before {
                     border-radius: 50%;
                 }
@@ -1227,7 +1247,7 @@ ser-filter {
     &.active {
         .list-filter {
             border-radius: 12px 12px 0 0;
-            box-shadow: 0 0 0 4px var(--input-focus-shadow-color) ;
+            box-shadow: 0 0 0 4px var(--input-focus-shadow-color);
             border: 2px solid var(--input-focus-color);
 
             &.ontop {
@@ -1411,7 +1431,7 @@ ser-input-image {
             }
         }
 
-        > .label {
+        >.label {
             margin-bottom: 16px;
         }
 
@@ -1471,7 +1491,7 @@ ser-input-image {
             z-index: 2;
             justify-content: center;
 
-            > .label {
+            >.label {
                 visibility: hidden;
                 width: 0;
                 height: 0;
@@ -1489,6 +1509,7 @@ ser-input-image {
     }
 
     &.disabled {
+
         .upload,
         .clean {
             cursor: not-allowed;
@@ -1501,6 +1522,7 @@ ser-input-image {
 }
 
 .scheme-dark {
+
     select:-webkit-autofill,
     textarea:-webkit-autofill,
     input:-webkit-autofill {

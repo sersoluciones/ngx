@@ -23,7 +23,7 @@ export interface DropdownSettings {
     disabledKey?: string;
     remote?: boolean;
     paginationState?: DropdownPaginationState;
-    selectGroup?: boolean;
+    groupBy?: string;
     addNewButtonText?: string;
     escapeToClose?: boolean;
     clearAll?: boolean;
