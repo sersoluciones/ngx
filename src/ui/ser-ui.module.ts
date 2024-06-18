@@ -13,6 +13,7 @@ import { Abstract2FcPipe } from './abstract-2-fc.pipe';
 import { Abstract2FgPipe } from './abstract-2-fg.pipe';
 import { Abstract2FaPipe } from './abstract-2-fa.pipe';
 import { SafeHtmlPipe } from './safe.pipe';
+import { HighlightedTextPipe } from './highlighted-text.pipe';
 
 const dependencies = [
     WhenScrolledDirective,
@@ -27,7 +28,8 @@ const dependencies = [
     Abstract2FcPipe,
     Abstract2FgPipe,
     Abstract2FaPipe,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    HighlightedTextPipe
 ];
 
 @NgModule({

@@ -4,6 +4,7 @@ import { BaseView } from 'src/app/base/base-view';
 import { DropdownSettings } from '../../../../../src/form/select/ser-select.interface';
 import { hasValue } from '../../../../../src/utils/check';
 import * as examples from './examples';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'showcase-remote',
@@ -20,34 +21,29 @@ export class RemoteComponent extends BaseView {
     settings: DropdownSettings = {
         badgeShowLimit: 3,
         remote: true,
+        groupBy: 'state_name',
         paginationState: {
-            listPath: ['data', 'city_list'],
-            rowCountPath: ['extensions', 'city_list', 'row_count'],
-            hasNextPagePath: ['extensions', 'city_list', 'has_next_page'],
+            listPath: ['results'],
+            rowCountPath: ['row_count'],
+            hasNextPagePath: ['has_next_page'],
             getList: (settings: DropdownSettings) => this.getCityListData(settings)
         }
     };
 
     getCityListData(settings: DropdownSettings): Observable<any> {
 
-        let all = '';
-
-        if (hasValue(settings.paginationState.searchTerm)) {
-            all = ', all: "' + settings.paginationState.searchTerm + '"';
+        let params: any = {
+            take: settings.paginationState?.pageSize,
+            page: settings.paginationState?.currentPage
         }
 
-        return this._http.post('https://stg-api.tiendana.com/api/graphql/v1/',
-        {
-            query: `{
-                city_list(orderBy: "name",
-                    first: ${settings.paginationState.pageSize},
-                    page: ${settings.paginationState.currentPage}
-                    ${all}
-                ) {
-                    id, name, code, state_name
-                }
-            }`
-        });
+        if (hasValue(settings.paginationState?.searchTerm)) {
+            params.searchTerm = settings.paginationState?.searchTerm;
+        }
+
+        return this._http.get<any[]>(`http://192.168.1.170:5000/admin/country/143/city`, {
+            params
+        }).pipe(take(1));
     }
 
 }

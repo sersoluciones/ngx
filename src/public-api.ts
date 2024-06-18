@@ -118,6 +118,7 @@ export * from './ui/filter.pipe';
 export * from './ui/abstract-2-fc.pipe';
 export * from './ui/abstract-2-fg.pipe';
 export * from './ui/abstract-2-fa.pipe';
+export * from './ui/highlighted-text.pipe';
 export * from './ui/safe.pipe';
 export * from './ui/ser-ui.module';
 

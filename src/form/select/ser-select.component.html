@@ -92,14 +92,12 @@
                 <ng-container *ngFor="let item of filteredList; let i = index;">
 
                     <ng-container *ngIf="showGroupName(i)">
-                        <div class="group">
-                            {{ getGroupName(item, i) }}
-                        </div>
+                        <div class="group" [innerHTML]="getGroupName(item, i) | highlightedText : search.value : 2"></div>
                     </ng-container>
 
                     <div class="item pure-checkbox" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item), 'disabled': (settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey] }">
                         <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
-                        <label>{{ getLabelText(item) }}</label>
+                        <label [innerHTML]="getLabelText(item) | highlightedText : search.value : 2"></label>
                     </div>
 
                 </ng-container>
@@ -111,19 +109,17 @@
                 <ng-container *ngFor="let item of filteredList; let i = index;">
 
                     <ng-container *ngIf="showGroupName(i)">
-                        <div class="group">
-                            {{ getGroupName(item, i) }}
-                        </div>
+                        <div class="group" [innerHTML]="getGroupName(item, i) | highlightedText : search.value : 2"></div>
                     </ng-container>
 
                     <div class="item pure-checkbox" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item), 'disabled': (settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey] }">
                         <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
                         <label></label>
                         <ng-container *ngIf="hasValue(itemTempl)">
-                            <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item}"></ng-container>
+                            <ng-container *ngTemplateOutlet="itemTempl.template; context:{item: item, searchTerm: search.value}"></ng-container>
                         </ng-container>
                         <ng-container *ngIf="hasValue(badgeItemTempl)">
-                            <ng-container *ngTemplateOutlet="badgeItemTempl.template; context:{item: item}"></ng-container>
+                            <ng-container *ngTemplateOutlet="badgeItemTempl.template; context:{item: item, searchTerm: search.value}"></ng-container>
                         </ng-container>
                     </div>
 
