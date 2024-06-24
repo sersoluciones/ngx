@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { removeDiacritics } from '../utils/diacritics';
 
 /**
  * Based on https://dev.to/this-is-angular/search-and-highlight-text-feature-using-angular-l98
@@ -8,14 +9,30 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class HighlightedTextPipe implements PipeTransform {
 
-    transform(value: any, args: string, minChar?: number): unknown {
+    transform(value: any, args: string, normalize = false, minChar = 2): unknown {
 
         if (!args || (minChar !== undefined && args.length < minChar)) return value;
 
-        const re = new RegExp(args, 'igm');
-        value = value.replace(re, '<span class="highlighted-text">$&</span>');
+        // If normalization is enabled, remove diacritics
+        const normalizedArgs = normalize ? removeDiacritics(args) : args;
+        const normalizedValue = normalize ? removeDiacritics(value) : value;
 
-        return value;
+        // Create a regular expression to search for the normalized term
+        const re = new RegExp(normalizedArgs, 'igm');
+
+        // Replace the found terms in the original text (not normalized if normalize is false)
+        let result = '';
+        let lastIndex = 0;
+        let match: RegExpExecArray;
+
+        while ((match = re.exec(normalizedValue)) !== null) {
+            result += value.substring(lastIndex, match.index);
+            result += `<span class="highlighted-text">${value.substring(match.index, match.index + match[0].length)}</span>`;
+            lastIndex = match.index + match[0].length;
+        }
+
+        result += value.substring(lastIndex);
+        return result;
     }
 
 }

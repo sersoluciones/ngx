@@ -31,6 +31,7 @@ export * from './graphql/utils';
 export * from './utils/object';
 export * from './utils/array';
 export * from './utils/date';
+export * from './utils/diacritics';
 export * from './utils/bowser';
 export * from './utils/check';
 export * from './utils/navigator';

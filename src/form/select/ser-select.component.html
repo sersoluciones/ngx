@@ -92,12 +92,12 @@
                 <ng-container *ngFor="let item of filteredList; let i = index;">
 
                     <ng-container *ngIf="showGroupName(i)">
-                        <div class="group" [innerHTML]="getGroupName(item, i) | highlightedText : search.value : 2"></div>
+                        <div class="group" [innerHTML]="getGroupName(item, i) | highlightedText : search.value : true"></div>
                     </ng-container>
 
                     <div class="item pure-checkbox" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item), 'disabled': (settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey] }">
                         <input *ngIf="settings.showCheckbox" type="checkbox" [checked]="isSelected(item)" [disabled]="(settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey]" />
-                        <label [innerHTML]="getLabelText(item) | highlightedText : search.value : 2"></label>
+                        <label [innerHTML]="getLabelText(item) | highlightedText : search.value : true"></label>
                     </div>
 
                 </ng-container>
@@ -109,7 +109,7 @@
                 <ng-container *ngFor="let item of filteredList; let i = index;">
 
                     <ng-container *ngIf="showGroupName(i)">
-                        <div class="group" [innerHTML]="getGroupName(item, i) | highlightedText : search.value : 2"></div>
+                        <div class="group" [innerHTML]="getGroupName(item, i) | highlightedText : search.value : true"></div>
                     </ng-container>
 
                     <div class="item pure-checkbox" (click)="onItemClick(item)" [ngClass]="{'selected-item': isSelected(item), 'disabled': (settings.limitSelection == selectedItems?.length && !isSelected(item)) || item[settings.disabledKey] }">
