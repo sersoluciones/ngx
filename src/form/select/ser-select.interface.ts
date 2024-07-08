@@ -41,5 +41,5 @@ export interface DropdownPaginationState {
     hasNextPage?: boolean;
     hasNextPagePath?: string[];
     listPath?: string[];
-    getList?: (settings: DropdownSettings) => Observable<any>;
+    getList?: (settings: DropdownSettings, selectedItems?: any[]) => Observable<any>;
 }

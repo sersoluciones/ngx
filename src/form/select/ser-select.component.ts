@@ -270,7 +270,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     protected _setlistDataSub() {
 
         this.listDataSub.pipe(
-            switchMap(() => this.settings.paginationState.getList(this.settings).pipe(takeUntil(this.cancelGetList))
+            switchMap(() => this.settings.paginationState.getList(this.settings, this.selectedItems).pipe(takeUntil(this.cancelGetList))
                 .pipe(
                     catchError((e: any) => {
                         this.settings.paginationState.loading = false;
