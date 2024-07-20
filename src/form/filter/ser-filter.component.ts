@@ -376,7 +376,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
         const parents$: Observable<any>[] = [
             fromEvent(document, 'scroll'),
-            fromEvent(document, 'resize')
+            fromEvent(window, 'resize').pipe(debounceTime(200))
         ];
 
         this.parents.forEach((parent) => {

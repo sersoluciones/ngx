@@ -627,7 +627,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         const parents$: Observable<any>[] = [
             fromEvent(document, 'scroll'),
-            fromEvent(document, 'resize')
+            fromEvent(window, 'resize').pipe(debounceTime(200))
         ];
 
         this.parents.forEach((parent) => {
@@ -648,7 +648,11 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
             )
             .subscribe(() => this.closeDropdown()),
 
-            merge(...parents$).pipe(filter(() => this.settings.dropdownMobileFixed)).subscribe(() => this.setPositionFixedDropdown())
+            merge(...parents$).pipe(filter(() => this.settings.dropdownMobileFixed)).subscribe(() => {
+                console.log('event');
+
+                this.setPositionFixedDropdown();
+            })
         );
 
         this._renderer.appendChild(this._elementRef.nativeElement, this.dropdownElem.nativeElement);

@@ -3,7 +3,7 @@ import { Component, forwardRef, OnInit, ViewEncapsulation, OnDestroy, HostBindin
 import { ControlValueAccessor, UntypedFormBuilder, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { hasValue } from '../../../utils/check';
 import { inArray } from '../../..//utils/array';
-import { filter } from 'rxjs/operators';
+import { debounceTime, filter } from 'rxjs/operators';
 import { fromIntersectionObserver } from '../../../utils/rx-utils';
 
 @Component({
@@ -238,7 +238,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
         const parents$: Observable<any>[] = [
             fromEvent(document, 'scroll'),
-            fromEvent(document, 'resize')
+            fromEvent(window, 'resize').pipe(debounceTime(200))
         ];
 
         this.parents.forEach((parent) => {

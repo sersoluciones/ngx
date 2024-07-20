@@ -1,5 +1,5 @@
 import { fromEvent, merge, Observable, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { debounceTime, filter } from 'rxjs/operators';
 import { inArray } from '../../../utils/array';
 import { hasValue } from '../../../utils/check';
 import { Calendar } from './calendar';
@@ -182,7 +182,7 @@ export class Datepicker extends Calendar {
 
         const parents$: Observable<any>[] = [
             fromEvent(document, 'scroll'),
-            fromEvent(document, 'resize')
+            fromEvent(window, 'resize').pipe(debounceTime(200))
         ];
 
         this.parents.forEach((parent) => {
