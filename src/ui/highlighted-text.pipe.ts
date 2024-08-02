@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { removeDiacritics } from '../utils/diacritics';
+import { hasValue } from '../utils/check';
 
 /**
  * Based on https://dev.to/this-is-angular/search-and-highlight-text-feature-using-angular-l98
@@ -11,7 +12,7 @@ export class HighlightedTextPipe implements PipeTransform {
 
     transform(value: any, args: string, normalize = false, minChar = 2): unknown {
 
-        if (!args || (minChar !== undefined && args.length < minChar)) return value;
+        if (!hasValue(value) || !args || (minChar !== undefined && args.length < minChar)) return value;
 
         // If normalization is enabled, remove diacritics
         const normalizedArgs = normalize ? removeDiacritics(args) : args;

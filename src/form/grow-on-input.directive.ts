@@ -1,6 +1,4 @@
-import { Directive, HostListener, OnInit, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
-import { NgControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Directive, OnInit, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
     // tslint:disable-next-line: directive-selector
