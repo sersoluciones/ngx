@@ -457,9 +457,21 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         return 'Item is not an object';
     }
 
-    onItemClick(item: any) {
+    canItemSelect(item: any) {
 
+        if (this.settings.canItemSelected !== undefined) {
+            return this.settings.canItemSelected(this.settings, item);
+        }
+
+        return true;
+    }
+
+    onItemClick(item: any) {
         if (this.isDisabled || item[this.settings.disabledKey]) {
+            return false;
+        }
+
+        if (!this.canItemSelect(item)) {
             return false;
         }
 

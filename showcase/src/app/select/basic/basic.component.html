@@ -25,7 +25,7 @@
 
                 <ser-form-element style="width: 300px;">
                     <label>Por defecto</label>
-                    <ser-select serControl formControlName="selectDefault" [data]="options.dropdown"></ser-select>
+                    <ser-select serControl formControlName="selectDefault" [data]="options.dropdown" [settings]="settingsb"></ser-select>
 
                     <div serErrors="selectDefault">
                         <div serError="required">Requerido</div>
@@ -65,44 +65,6 @@
                 <ser-form-element style="width: 300px;">
                     <label>Múltiple</label>
                     <ser-select serControl formControlName="selectMultiple" [data]="options.dropdown" multiple></ser-select>
-
-                    <div serErrors="selectMultiple">
-                        <div serError="required">Requerido</div>
-                    </div>
-                </ser-form-element>
-
-            </div>
-        </div>
-
-    </div>
-
-
-
-    <a class="example-name" routerLink="." fragment="bttn-icon">
-        <span class="material-icons">link</span>
-        <h1 id="multiple">Multiple</h1>
-    </a>
-
-    <div class="example-snippet">
-
-        <div class="code">
-
-            <div class="body">
-                <pre><code [highlight]="examples.MultipleExample"></code></pre>
-                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.MultipleExample" (copied)="alert('Copiado al portapapeles')">
-                    <span class="material-icons">content_copy</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="preview">
-
-            <div class="body">
-
-                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('selectMultiple')">Habilitar / Deshabilitar</button>
-
-                <ser-form-element style="width: 300px;">
-                    <ser-filter serControl formControlName="selectMultiple" label="Filtros" [data]="options.dropdown"></ser-filter>
 
                     <div serErrors="selectMultiple">
                         <div serError="required">Requerido</div>
