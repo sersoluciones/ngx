@@ -28,7 +28,7 @@ export class SnackbarService {
 
         _html.innerHTML = `
         <div class="icon ${defaultOpts.iconClass}">
-            <span class="material-icons">${defaultOpts.iconName}</span>
+            <span class="material-symbols-rounded">${defaultOpts.iconName}</span>
         </div>
         <span class="msj">${opts.msj}</span>`;
 

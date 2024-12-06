@@ -1,15 +1,15 @@
 <div class="list-filter" #searchInputCont (click)="toggleDropdown($event)">
 
-    <span class="material-icons icon-search">search</span>
+    <span class="material-symbols-rounded icon-search">search</span>
 
     <div class="label" [ngClass]="{active: labelActive}">{{ label }}</div>
 
     <input #searchInput class="c-input not-styled" type="text" [formControl]="search">
 
-    <span [hidden]="!hasValue(search.value)" (click)="clearSearch()" class="material-icons icon-clear">cancel</span>
+    <span [hidden]="!hasValue(search.value)" (click)="clearSearch()" class="material-symbols-rounded icon-clear">cancel</span>
 
     <div class="controls">
-        <span class="material-icons chevron" [ngClass]="{'rotate': isActive}">keyboard_arrow_down</span>
+        <span class="material-symbols-rounded chevron" [ngClass]="{'rotate': isActive}">keyboard_arrow_down</span>
     </div>
 
 </div>
@@ -33,7 +33,7 @@
                         </span>
 
                         <span class="remove" (click)="onItemClick(item);$event.stopPropagation()">
-                            <span class="material-icons">close</span>
+                            <span class="material-symbols-rounded">close</span>
                         </span>
                     </ng-container>
                 </div>

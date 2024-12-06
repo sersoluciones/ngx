@@ -47,7 +47,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor {
         uploadText: 'Seleccionar archivo',
         uploadMultipleText: 'Seleccionar archivos',
         fileInstanceTitle: 'Clic para ver el archivo guardado',
-        uploadIconHTML: '<span class="material-icons">upload</span>',
+        uploadIconHTML: '<span class="material-symbols-rounded">upload</span>',
         classes: '',
         processFilenameUrl: true,
         accept: ['*']

@@ -33,7 +33,7 @@
                         </span>
 
                         <span class="remove" (click)="onItemClick(item);$event.stopPropagation()">
-                            <span class="material-icons">close</span>
+                            <span class="material-symbols-rounded">close</span>
                         </span>
                     </div>
 
@@ -48,10 +48,10 @@
     <div class="controls">
 
         <button type="button" *ngIf="settings.clearAll && !isDisabled && selectedItems?.length > 0" class="clear-all" (click)="clearSelection($event);">
-            <span class="material-icons">close</span>
+            <span class="material-symbols-rounded">close</span>
         </button>
 
-        <span *ngIf="!isDisabled" class="material-icons chevron" [ngClass]="{'rotate': isActive}">keyboard_arrow_down</span>
+        <span *ngIf="!isDisabled" class="material-symbols-rounded chevron" [ngClass]="{'rotate': isActive}">keyboard_arrow_down</span>
     </div>
 </div>
 
@@ -59,13 +59,13 @@
 
     <div class="list-filter" *ngIf="settings.enableSearchFilter">
 
-        <span class="material-icons icon-back" (click)="closeDropdown()">arrow_back</span>
+        <span class="material-symbols-rounded icon-back" (click)="closeDropdown()">arrow_back</span>
 
-        <span class="material-icons icon-search">search</span>
+        <span class="material-symbols-rounded icon-search">search</span>
 
         <input #searchInput class="c-input not-styled" type="text" [placeholder]="settings.searchPlaceholderText" [formControl]="search" >
 
-        <span [hidden]="!hasValue(filter)" (click)="clearSearch()" class="material-icons icon-clear">cancel</span>
+        <span [hidden]="!hasValue(filter)" (click)="clearSearch()" class="material-symbols-rounded icon-clear">cancel</span>
 
     </div>
 
@@ -82,7 +82,7 @@
     <div class="list-container" [ngClass]="{'single-select-mode': settings.singleSelection }">
 
         <div *ngIf="!settings.enableSearchFilter" class="simple-close">
-            <span class="material-icons" (click)="closeDropdown()">arrow_back</span>
+            <span class="material-symbols-rounded" (click)="closeDropdown()">arrow_back</span>
         </div>
 
         <div #list class="list" [style.maxHeight]="settings.maxHeight + 'px'" (whenScrolled)="onScrollEnd($event)" [whenScrolledGap]="settings.scrollEndGap">

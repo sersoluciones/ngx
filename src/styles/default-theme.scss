@@ -495,7 +495,7 @@ ser-form-element {
             align-items: center;
 
             .mat-icon,
-            .material-icons,
+            .material-symbols-rounded,
             i {
                 color: var(--input-icon-color);
             }
@@ -605,7 +605,7 @@ ser-form-element {
 
                 ser-input-file {
                     .upload {
-                        .material-icons {
+                        .material-symbols-rounded {
                             color: var(--input-error-border-color);
                         }
                     }
@@ -628,7 +628,7 @@ ser-form-element {
                 .addon {
 
                     .mat-icon,
-                    .material-icons,
+                    .material-symbols-rounded,
                     i {
                         color: var(--input-error-border-color);
                     }
@@ -769,7 +769,7 @@ ser-select {
                 border-radius: 50%;
                 padding: 4px;
 
-                .material-icons {
+                .material-symbols-rounded {
                     font-size: 12px;
                     font-weight: bold;
                     color: var(--select-icon-color);
@@ -1037,7 +1037,7 @@ ser-filter {
                 border-radius: 50%;
                 padding: 4px;
 
-                .material-icons {
+                .material-symbols-rounded {
                     font-size: 12px;
                     font-weight: bold;
                 }
@@ -1078,7 +1078,7 @@ ser-filter {
                         border-radius: 50%;
                         padding: 0 3px;
 
-                        .material-icons {
+                        .material-symbols-rounded {
                             font-size: 10px;
                             font-weight: bold;
                         }
@@ -1268,7 +1268,7 @@ ser-date-range {
                 border-radius: 50%;
                 padding: 4px;
 
-                .material-icons {
+                .material-symbols-rounded {
                     font-size: 12px;
                     font-weight: bold;
                     color: var(--select-icon-color);
@@ -1319,7 +1319,7 @@ ser-input-file {
                 display: flex;
                 align-items: center;
 
-                .material-icons {
+                .material-symbols-rounded {
                     font-size: 13px;
                     font-weight: bold;
                     color: var(--input-file-item-delete-color);
