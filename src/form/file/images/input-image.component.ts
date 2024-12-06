@@ -52,8 +52,8 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
         removeText: 'Remover imagen',
         uploadText: 'Seleccionar imagen',
         procesingText: 'Procesando...',
-        uploadIconHTML: '<span class="material-icons-outlined">photo_camera</span>',
-        clearIconHTML: '<span class="material-icons-outlined">delete</span>',
+        uploadIconHTML: '<span class="material-symbols-rounded">photo_camera</span>',
+        clearIconHTML: '<span class="material-symbols-rounded">delete</span>',
         classes: '',
         optimize: {
             enable: true,
