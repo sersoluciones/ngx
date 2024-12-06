@@ -9,5 +9,5 @@ export const ButtonGroup =
 export const ButtonCollapse =
 `<button type="button" class="bttn primary text-collapse">
     <div class="text">Opciones</div>
-    <i class="material-icons">settings</i>
+    <i class="material-symbols-rounded">settings</i>
 </button>`;

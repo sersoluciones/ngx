@@ -4,7 +4,7 @@ import { PrefersColorSchemeService } from '../../../../src/prefers-color-scheme/
 import { SnackbarService } from '../../../../src/ui/snackbar.service';
 import { generatePassword } from '../../../../src/utils/random';
 import { BaseView } from '../base/base-view';
-import { MaterialIcons } from './material-icons-type';
+import { MaterialIcons } from './material-symbols-rounded-type';
 
 @Component({
     selector: 'showcase-utils',
