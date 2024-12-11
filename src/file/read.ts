@@ -162,3 +162,9 @@ export function urlImageToFile(imageUrl: string) {
     );
 
 }
+
+export function sanitizeFileName(fileName: string) {
+    let sanitized = fileName.replace(/[^a-zA-Z0-9 _-]/g, '');
+    sanitized = sanitized.replace(/\s+/g, ' ').trim();
+    return sanitized;
+}
