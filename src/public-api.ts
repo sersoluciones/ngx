@@ -39,6 +39,7 @@ export * from './utils/random';
 export * from './utils/keyboard-keys';
 export * from './utils/patterns';
 export * from './utils/rx-utils';
+export * from './utils/co';
 
 // File
 export * from './file/read';

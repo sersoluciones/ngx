@@ -1,5 +1,4 @@
 import { AbstractControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { Patterns } from '../../utils/patterns';
 import { hasValue } from '../../utils/check';
 
 export function match(originalPathField: string, duplicatePathField: string): ValidatorFn {
