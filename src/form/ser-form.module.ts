@@ -21,7 +21,6 @@ import { InputNumberComponent } from './input-number/input-number.component';
 import { SerMaskModule } from './mask/ser-mask.module';
 import { InputCurrencyComponent } from './input-currency/input-currency.component';
 import { SerFormFileModule } from './file/file.module';
-import { EssiDateModule } from './date-v2/essi-date.module';
 
 const dependencies = [
     SerFormElementComponent,
@@ -44,6 +43,6 @@ const dependencies = [
 @NgModule({
     imports: [CommonModule, FormsModule, ReactiveFormsModule, SerMaskModule.forChild()],
     declarations: [...dependencies],
-    exports: [...dependencies, SerSelectModule, SerFilterModule, SerDateModule, SerFormFileModule, SerMaskModule, EssiDateModule]
+    exports: [...dependencies, SerSelectModule, SerFilterModule, SerDateModule, SerFormFileModule, SerMaskModule]
 })
 export class SerFormModule { }
