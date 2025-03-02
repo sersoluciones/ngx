@@ -12,7 +12,8 @@ export class BasicComponent extends BaseView {
     examples = examples;
 
     modelForm = this._fb.group({
-        date1: [null, [Validators.required]],
+        date1: [], // [new Date()],
+        date11: [], // [new Date()],
         date2: [null, [Validators.required]]
     });
 

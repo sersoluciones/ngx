@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "../out-tsc/lib",
     "declaration": true,
-    "inlineSources": true
+    "inlineSources": true,
+    "allowJs": true
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

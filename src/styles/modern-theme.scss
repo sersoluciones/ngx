@@ -282,8 +282,8 @@ fieldset {
     }
 }
 
-$inputs: "input, textarea, select, .form-control, ser-select, ser-date, ser-date-range, address-col-input, ser-input-file, ser-input-number, ser-input-currency";
-$inputsMaxH: "input, select, ser-date, ser-date-range, address-col-input, ser-input-number, ser-input-currency";
+$inputs: "input, textarea, select, .form-control, ser-select, ser-date, ser-date-range, essi-date, address-col-input, ser-input-file, ser-input-number, ser-input-currency";
+$inputsMaxH: "input, select, ser-date, ser-date-range, essi-date, address-col-input, ser-input-number, ser-input-currency";
 
 input:-webkit-autofill {
     &,
@@ -436,7 +436,8 @@ ser-form-element {
     }
 
     > ser-date,
-    > ser-date-range {
+    > ser-date-range,
+    > essi-date {
 
         &.active {
             border-radius: var(--input-border-radius) var(--input-border-radius) 0 0;
@@ -1231,7 +1232,8 @@ ser-filter {
 }
 
 ser-date,
-ser-date-range {
+ser-date-range,
+essi-date {
 
     .controls {
 

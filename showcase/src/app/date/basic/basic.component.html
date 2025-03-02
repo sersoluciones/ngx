@@ -25,9 +25,43 @@
 
                 <ser-form-element style="width: 300px;">
                     <label>Por defecto</label>
-                    <ser-date serControl formControlName="date1"></ser-date>
+                    <!-- <ser-date serControl formControlName="date1"></ser-date> -->
+                    <essi-date serControl formControlName="date1"></essi-date>
 
                     <div serErrors="date1">
+                        <div serError="required">Requerido</div>
+                    </div>
+                </ser-form-element>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="example-snippet">
+
+        <div class="code">
+
+            <div class="body">
+                <pre><code [highlight]="examples.DateExample"></code></pre>
+                <button class="bttn icon copy" type="button" [copyToClipboard]="examples.DateExample" (copied)="alert('Copiado al portapapeles')">
+                    <span class="material-symbols-rounded">content_copy</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview">
+
+            <div class="body">
+
+                <button class="bttn center-margin" type="button" (click)="toogleFormControlDisabled('date1')">Habilitar / Deshabilitar</button>
+
+                <ser-form-element style="width: 300px;">
+                    <label>Por defecto</label>
+                    <!-- <ser-date serControl formControlName="date1"></ser-date> -->
+                    <essi-date serControl formControlName="date11" range></essi-date>
+
+                    <div serErrors="date11">
                         <div serError="required">Requerido</div>
                     </div>
                 </ser-form-element>

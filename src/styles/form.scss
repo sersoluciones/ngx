@@ -1,4 +1,5 @@
 ﻿@import "mixins.scss";
+@import "../form/date-v2/base/index";
 
 
 [hidden] {
@@ -37,7 +38,7 @@ ser-form-element {
 
 ser-form-element,
 .form-group {
-    $inputs: "input, textarea, select, ser-select, ser-date, ser-date-range, address-col-input";
+    $inputs: "input, textarea, select, ser-select, ser-date, ser-date-range, essi-date, address-col-input";
     display: flex;
     position: relative;
     flex-direction: column;
