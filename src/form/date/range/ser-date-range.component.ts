@@ -332,8 +332,8 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
 
         setTimeout(() => {
             const dates = {};
-            dates[this.settings.startDateField] = this._picker.getStartDate().toJSDate();
-            dates[this.settings.endDateField] = this._picker.getEndDate().toJSDate();
+            dates[this.settings.startDateField] = this._picker.getStartDate()?.toJSDate();
+            dates[this.settings.endDateField] = this._picker.getEndDate()?.toJSDate();
             this.selectedDateRange = dates;
         });
     }

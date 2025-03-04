@@ -11,64 +11,6 @@ export const formatterRangeDates = Intl.DateTimeFormat("es", {
     // timeZoneName: "shortOffset",
 });
 
-/**
- * Función para formatear rangos de fecha
- * @param dates
- * @param formatterRangeDates Custom formatter
- * @returns
- */
-export function formatRangeDates(dates: Date[], customFormatter?: Intl.DateTimeFormat) {
-
-    if (!hasValue(dates)) {
-        return '';
-    }
-
-    const today = getToday();
-
-    if (dates.length === 1) {
-
-        if (isSameTime(dates[0], today.start)) {
-            return 'Hoy';
-        }
-
-        const yesterday = getYesterday();
-        if (isSameTime(dates[0], yesterday.start)) {
-            return 'Ayer';
-        }
-
-        return (customFormatter ?? formatterRangeDates).format(dates[0]);
-    }
-
-    if (isSameTime(dates[0], today.start) && isSameTime(dates[dates.length - 1], today.end)) {
-        return 'Hoy';
-    }
-
-    const yesterday = getYesterday();
-    if (isSameTime(dates[0], yesterday.start) && isSameTime(dates[dates.length - 1], yesterday.end)) {
-        return 'Ayer';
-    }
-
-    const week = getWeek();
-
-    if (isSameTime(dates[0], week.start) && isSameTime(dates[dates.length - 1], week.end)) {
-        return 'Esta semana';
-    }
-
-    const month = getMonth();
-
-    if (isSameTime(dates[0], month.start) && isSameTime(dates[dates.length - 1], month.end)) {
-        return 'Este mes';
-    }
-
-    const year = getYear();
-
-    if (isSameTime(dates[0], year.start) && isSameTime(dates[dates.length - 1], year.end)) {
-        return 'Este año';
-    }
-
-    return ((customFormatter ?? formatterRangeDates) as any).formatRange(...dates);
-}
-
 export interface DateRangeOptions {
     days?: number;
     currentMonth?: boolean;
@@ -190,10 +132,6 @@ export function getMonth(): { start: Date, end: Date } {
     };
 }
 
-export function isSameTime(d1: Date, d2: Date) {
-    return d1.getTime() === d2.getTime();
-}
-
 export function getYear(): { start: Date, end: Date } {
 
     const date = new Date();
@@ -225,28 +163,6 @@ export function getWeek(): { start: Date, end: Date } {
     sunday.setHours(23, 59, 59, 999);
 
     return { start: monday, end: sunday };
-}
-
-/**
-     * @param f1 Fecha inicial
-     * @param f2 Fecha final
-     * @param t Unidad de tiempo (hours, days)
-     */
-export function diffDate(f1: Date, f2: Date, t: 'hours' | 'days' | 'months') {
-    let diff = f2.getTime() - f1.getTime();
-
-    switch (t) {
-        case 'hours':
-            return (diff / (1000 * 60 * 60));
-
-        case 'days':
-            return (diff / (1000 * 60 * 60 * 24));
-
-        case 'months':
-            diff = (f1.getTime() - f2.getTime()) / 1000; // Diferencia en segundos
-            diff /= (60 * 60 * 24 * 7 * 4); // Diferencia en meses aproximados
-            return Math.abs(Math.round(diff)); // Valor absoluto y redondeado al entero más cercano
-    }
 }
 
 export function getDate(value: any) {
