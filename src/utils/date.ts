@@ -165,6 +165,28 @@ export function getWeek(): { start: Date, end: Date } {
     return { start: monday, end: sunday };
 }
 
+/**
+     * @param f1 Fecha inicial
+     * @param f2 Fecha final
+     * @param t Unidad de tiempo (hours, days)
+     */
+export function diffDate(f1: Date, f2: Date, t: 'hours' | 'days' | 'months') {
+    let diff = f2.getTime() - f1.getTime();
+
+    switch (t) {
+        case 'hours':
+            return (diff / (1000 * 60 * 60));
+
+        case 'days':
+            return (diff / (1000 * 60 * 60 * 24));
+
+        case 'months':
+            diff = (f1.getTime() - f2.getTime()) / 1000; // Diferencia en segundos
+            diff /= (60 * 60 * 24 * 7 * 4); // Diferencia en meses aproximados
+            return Math.abs(Math.round(diff)); // Valor absoluto y redondeado al entero más cercano
+    }
+}
+
 export function getDate(value: any) {
 
     if (typeof (value) === 'string' && !(/[\+zZ]/.test(value))) {
