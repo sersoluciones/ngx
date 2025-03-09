@@ -1,4 +1,4 @@
-﻿
+@use "sass:color";
 @use "sass:math";
 
 $browser-context: 14 !default; // Default
@@ -10,7 +10,7 @@ $cloudfrontId: '' !default;
 }
 
 @function toRGB($color) {
-  @return red($color) + ", " + green($color) + ", " + blue($color);
+  @return color.red($color) + ", " + color.green($color) + ", " + color.blue($color);
 }
 
 @function urlS3($key) {

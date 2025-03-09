@@ -1,4 +1,4 @@
-@import "mixins.scss";
+@use "mixins.scss";
 
 :root {
     --primary-color: #653182;
@@ -476,7 +476,7 @@ ser-form-element {
             text-align: center;
             padding: 6px 12px;
             font-family: var(--input-family);
-            font-size: rem(10);
+            font-size: mixins.rem(10);
             color: var(--font-color-1);
             display: flex;
             justify-content: center;
@@ -705,7 +705,7 @@ ser-form-element {
     .errors {
         padding-left: 4px;
         color: red;
-        font-size: rem(10);
+        font-size: mixins.rem(10);
 
         * {
             text-align: right;
@@ -952,7 +952,7 @@ ser-select {
 }
 
 ser-filter {
-    font-size: rem(10);
+    font-size: mixins.rem(10);
 
     .list-filter {
         border-radius: 12px;

@@ -1,4 +1,4 @@
-﻿@import "mixins.scss";
+﻿@use "mixins.scss";
 
 .fc button,
 .bttn {
@@ -6,7 +6,7 @@
     color: var(--font-color-2);
     font-family: var(--font-family-primary);
     background-image: none;
-    font-size: rem(10);
+    font-size: mixins.rem(10);
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;

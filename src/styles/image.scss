@@ -1,4 +1,4 @@
-﻿@import 'mixins.scss';
+﻿@use 'mixins.scss';
 
 md-dialog-container .zoomContainer {
     z-index: 1000;
@@ -20,7 +20,7 @@ img-zoom{
         opacity: 0;
         transition: opacity 0.2s ease-in;
         z-index: 3;
-        @include row;
+        display: flex;
 
         > * {
             margin: 0 8px;

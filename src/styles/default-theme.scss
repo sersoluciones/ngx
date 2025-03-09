@@ -1,4 +1,4 @@
-@import "mixins.scss";
+@use "mixins.scss" as mixins;
 
 :root {
     --primary-color: #653182;
@@ -243,7 +243,7 @@ fieldset {
     border-radius: 12px;
 
     legend {
-        font-size: rem(13);
+        font-size: mixins.rem(13);
         text-transform: uppercase;
     }
 }
@@ -302,7 +302,7 @@ ser-form-element {
     $parent: &;
 
     >label:not(.switch) {
-        font-size: rem(10.5);
+        font-size: mixins.rem(10.5);
         font-weight: 600;
         // text-transform: uppercase;
         margin-bottom: 8px;
@@ -325,7 +325,7 @@ ser-form-element {
         &.active,
         &.focus {
             >label:not(.switch) {
-                font-size: rem(9);
+                font-size: mixins.rem(9);
                 padding: 0 8px;
                 border-radius: 8px;
                 background-color: var(--input-bg);
@@ -489,7 +489,7 @@ ser-form-element {
             text-align: center;
             padding: 6px 12px;
             font-family: inherit;
-            font-size: rem(10);
+            font-size: mixins.rem(10);
             color: var(--font-color-1);
             display: flex;
             justify-content: center;
@@ -720,7 +720,7 @@ ser-form-element {
     .errors {
         padding-left: 4px;
         color: red;
-        font-size: rem(10);
+        font-size: mixins.rem(10);
 
         * {
             text-align: right;
@@ -978,7 +978,7 @@ ser-select {
 }
 
 ser-filter {
-    font-size: rem(10);
+    font-size: mixins.rem(10);
 
     .list-filter {
         border-radius: 12px;

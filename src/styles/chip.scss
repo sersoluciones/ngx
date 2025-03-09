@@ -1,4 +1,4 @@
-@import 'mixins.scss';
+@use 'mixins.scss' as mixins;
 
 .chip {
     display: inline-flex;
@@ -38,8 +38,9 @@
 }
 
 ser-chips {
-    @include row-wrap;
-    @include start-center;
+    @include mixins.row-wrap;
+    justify-content: flex-start;
+    align-items: center;
     position: relative;
 
     input.chip-input {
@@ -50,8 +51,9 @@ ser-chips {
     }
 
     .chip {
-        @include row;
-        @include start-center;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
         color: #185698;
         background-color: #84d0fd;
         border-color: #3694f7;
@@ -78,6 +80,6 @@ ser-chips {
 
 ser-chips.ng-focused {
     border-color: #66dee9;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 222, 233, 0.6);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 222, 233, 0.6);
 }

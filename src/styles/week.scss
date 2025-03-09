@@ -1,4 +1,4 @@
-@import 'mixins.scss';
+@use 'mixins.scss' as mixins;
 
 .week-day,
 week-day {
@@ -6,13 +6,13 @@ week-day {
     padding: 16px;
 
     .wrapper {
-        @include row;
-        @include space-around-center;
+        display: flex;
+        @include mixins.space-around-center;
 
         .day {
             display: -webkit-flex;
             display: flex;
-            @include center-center;
+            @include mixins.center-center;
             padding: 4px;
             border: 1px solid var(--button-blue-border);
             color: var(--button-blue-font);

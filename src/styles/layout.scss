@@ -1,11 +1,11 @@
-﻿@import 'mixins.scss';
+﻿@use 'mixins.scss' as mixins;
 
 $primary_color: #653182;
 $primary_color_dark: #00adff;
 
 :root {
   --primary-color: #{$primary_color};
-  --primary-color-rgb: #{toRGB($primary_color)};
+  --primary-color-rgb: #{mixins.toRGB($primary_color)};
   --grey-border: #f3f3f3;
 }
 
@@ -72,12 +72,12 @@ body{
 }
 
 small {
-    font-size: rem(12);
+    font-size: mixins.rem(12);
 }
 
 .site-wrapper{
-    @include row;
-    @include start-start;
+    display: flex;
+    @include mixins.start-start;
     height: 100%;
 }
 
@@ -86,7 +86,7 @@ small {
     padding: 16px;
     border-radius: 4px;
     background: white;
-    @include md-shadow;
+    @include mixins.md-shadow;
 }
 
 .main-view {
@@ -109,95 +109,96 @@ small {
 }
 
 .row{
-    @include row;
+    display: flex;
 }
 
 .row-wrap{
-    @include row-wrap;
+    @include mixins.row-wrap;
 }
 
 .column{
-    @include column;
+    @include mixins.column;
 }
 
 .start-start{
-    @include start-start;
+    @include mixins.start-start;
 }
 
 .start-center {
-    @include start-center;
+    justify-content: flex-start;
+align-items: center;
 }
 
 .start-end {
-    @include start-end;
+    @include mixins.start-end;
 }
 
 .start-stretch {
-    @include start-stretch;
+    @include mixins.start-stretch;
 }
 
 .center-start {
-    @include center-start;
+    @include mixins.center-start;
 }
 
 .center-center{
-    @include center-center;
+    @include mixins.center-center;
 }
 
 .center-end {
-    @include center-end;
+    @include mixins.center-end;
 }
 
 .center-stretch {
-    @include center-stretch;
+    @include mixins.center-stretch;
 }
 
 .end-start {
-    @include end-start;
+    @include mixins.end-start;
 }
 
 .end-center {
-    @include end-center;
+    @include mixins.end-center;
 }
 
 .end-end {
-    @include end-end;
+    @include mixins.end-end;
 }
 
 .end-stretch {
-    @include end-stretch;
+    @include mixins.end-stretch;
 }
 
 .space-around-start {
-    @include space-around-start;
+    @include mixins.space-around-start;
 }
 
 .space-around-center {
-    @include space-around-center;
+    @include mixins.space-around-center;
 }
 
 .space-around-end {
-    @include space-around-end;
+    @include mixins.space-around-end;
 }
 
 .space-around-stretch {
-    @include space-around-stretch;
+    @include mixins.space-around-stretch;
 }
 
 .space-between-start {
-    @include space-between-start;
+    @include mixins.space-between-start;
 }
 
 .space-between-center {
-    @include space-between-center;
+    @include mixins.space-between-center;
 }
 
 .space-between-end {
-    @include space-between-end;
+    @include mixins.space-between-end;
 }
 
 .space-between-stretch {
-    @include space-between-stretch;
+    @include mixins.space-between-stretch;
 }
 
 .center-margin {
@@ -326,8 +327,8 @@ i.blue{
     left: 0;
     background: rgba(255, 255, 255, 0.8);
     z-index: 10;
-    @include column;
-    @include center-center;
+    @include mixins.column;
+    @include mixins.center-center;
 }
 
 .scroll-mask {

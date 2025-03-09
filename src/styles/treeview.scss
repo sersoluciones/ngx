@@ -1,16 +1,16 @@
-﻿@import 'mixins.scss';
+﻿@use 'mixins.scss' as mixins;
 
 li.ivh-treeview-node {
     list-style: none;
 
     .group{
-        @include md-shadow;
+        @include mixins.md-shadow;
         margin-bottom: 8px;
         padding: 8px 0 4px 0;
         background-color: #fbfafa;
 
         .group-label{
-            font-size: rem(16);
+            font-size: mixins.rem(16);
         }
 
         .group-children{

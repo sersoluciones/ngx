@@ -1,4 +1,4 @@
-﻿@import 'mixins.scss';
+﻿@use 'mixins.scss' as mixins;
 
 .dropzone{
     position: relative;
@@ -7,8 +7,8 @@
     padding: 8px;
     border: 2px dashed rgba(black, 0.55);
     border-radius: 6px;
-    @include row;
-    @include center-center;
+    display: flex;
+    @include mixins.center-center;
 
     .placeholder{
         text-align: center;

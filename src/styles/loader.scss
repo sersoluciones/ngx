@@ -1,4 +1,4 @@
-﻿@import "mixins.scss";
+﻿@use "mixins.scss" as mixins;
 
 .content-placeholder-container {
     width: 100%;
@@ -55,8 +55,8 @@
     background-color: white;
     transition: background-color 500ms;
     cursor: wait;
-    @include column;
-    @include center-center;
+    @include mixins.column;
+    @include mixins.center-center;
 
     .logo {
         width: 60px;
@@ -105,8 +105,8 @@
     height: 100%;
     background-color: rgba(white, 0.9);
     z-index: 20;
-    @include column;
-    @include center-center;
+    @include mixins.column;
+    @include mixins.center-center;
 }
 
 @media (min-width: 1000px) {
@@ -228,8 +228,8 @@ loader-backdrop {
     z-index: 104;
     color: white;
     background: rgba(0, 0, 0, 0.84);
-    @include row;
-    @include center-center;
+    display: flex;
+    @include mixins.center-center;
 }
 
 .loader-wrapper {
