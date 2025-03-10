@@ -181,7 +181,10 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     ngOnInit() {
 
-        this.settings = mergeObjs(this.defaultSettings, this.settings);
+        this.settings = {
+            ...this.defaultSettings,
+            ...this.settings
+        };
 
         this.multipleClass = !this.settings.singleSelection;
 
@@ -239,7 +242,10 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
         }
 
         if (changes.settings && !changes.settings.firstChange) {
-            this.settings = mergeObjs(this.defaultSettings, this.settings);
+            this.settings = {
+                ...this.defaultSettings,
+                ...this.settings
+            };
         }
 
     }
