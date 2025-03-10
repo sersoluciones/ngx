@@ -14,6 +14,10 @@ export class HighlightedTextPipe implements PipeTransform {
 
         if (!hasValue(value) || !args || (minChar !== undefined && args.length < minChar)) return value;
 
+        if (typeof value !== 'string') {
+            value = value.toString();
+        }
+
         // If normalization is enabled, remove diacritics
         const normalizedArgs = normalize ? removeDiacritics(args) : args;
         const normalizedValue = normalize ? removeDiacritics(value) : value;
