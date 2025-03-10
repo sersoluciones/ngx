@@ -1,6 +1,6 @@
 {
   "name": "@sersol/ngx",
-  "version": "0.52.20",
+  "version": "0.52.21",
   "peerDependencies": {
     "@angular/common": ">=10.x",
     "@angular/core": ">=10.x",
