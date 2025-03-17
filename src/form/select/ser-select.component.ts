@@ -24,6 +24,8 @@ import { getPath, mergeObjs } from '../../utils/object';
 const noop = () => {
 };
 
+
+// TODO: Cuando se abre el dropdown, trackear si el #selectedList cambia de posicion y actualizar la posicion
 @Component({
     selector: 'ser-select',
     templateUrl: './ser-select.component.html',
