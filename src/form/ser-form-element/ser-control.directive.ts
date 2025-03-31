@@ -35,11 +35,11 @@ export class SerControlDirective implements OnInit, OnDestroy {
     }
 
     onChangeState() {
-        this.dirty = this._ngControl?.control?.dirty;
-        this.valid = this._ngControl?.control?.valid;
-        this.invalid = this._ngControl?.control?.invalid;
-        this.pending = this._ngControl?.control?.pending;
-        this.disabled = this._ngControl?.control?.disabled;
+        this.dirty = this._ngControl?.control?.dirty ?? false;
+        this.valid = this._ngControl?.control?.valid ?? false;
+        this.invalid = this._ngControl?.control?.invalid ?? false;
+        this.pending = this._ngControl?.control?.pending ?? false;
+        this.disabled = this._ngControl?.control?.disabled ?? false;
     }
 
     ngOnInit() {

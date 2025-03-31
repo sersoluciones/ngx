@@ -29,7 +29,7 @@ export interface DropdownSettings {
     clearAll?: boolean;
     scrollEndGap?: number;
     dropdownMobileFixed?: boolean;
-    canItemSelected?: (settings: DropdownSettings, selectedItem?: any) => boolean;
+    canItemSelected?: (settings: DropdownSettings, selectedItem?: any, additionalData?: any) => boolean;
     // canItemSelected?: (settings: DropdownSettings, selectedItem?: any) => (settings: DropdownSettings, selectedItem?: any)
 }
 

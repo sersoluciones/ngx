@@ -15,37 +15,37 @@ export class SerFormElementComponent {
 
     @HostBinding('class.disabled')
     get disabled() {
-        return this.formElement?.disabled;
+        return this.formElement?.disabled ?? false;
     }
 
     @HostBinding('class.focus')
     get focus() {
-        return this.formElement?.focus;
+        return this.formElement?.focus ?? false;
     }
 
     @HostBinding('class.active')
     get active() {
-        return this.formElement?.hasValue;
+        return this.formElement?.hasValue ?? false;
     }
 
     @HostBinding('class.dirty')
     get dirty() {
-        return this.formElement?.dirty;
+        return this.formElement?.dirty ?? false;
     }
 
     @HostBinding('class.valid')
     get valid() {
-        return this.formElement?.valid;
+        return this.formElement?.valid ?? false;
     }
 
     @HostBinding('class.invalid')
     get invalid() {
-        return this.formElement?.invalid;
+        return this.formElement?.invalid ?? false;
     }
 
     @HostBinding('class.pending')
     get pending() {
-        return this.formElement?.pending;
+        return this.formElement?.pending ?? false;
     }
 
 }
