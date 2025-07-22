@@ -91,7 +91,7 @@ export class CookiesService {
             path?: string,
             domain?: string,
             secure?: boolean,
-            sameSite?: 'Lax' | 'Strict'
+            sameSite?: 'Lax' | 'Strict' | 'None'
         }
     ): void {
 

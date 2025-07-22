@@ -1,7 +1,7 @@
 // tslint:disable: component-selector
 import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { hasValue } from '../../utils/check';
+import { hasValueLegacy } from '../../utils/check';
 
 @Component({
     selector: 'pin-input',
@@ -34,7 +34,7 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
     isDisabled = false;
 
     writeValue(obj: any) {
-        if (hasValue(obj)) {
+        if (hasValueLegacy(obj)) {
             this.value = obj.toString().split('');
         }
     }
@@ -51,7 +51,7 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
                 item.nativeElement.setAttribute('inputmode', 'numeric');
             }
 
-            if (hasValue(this.value[i])) {
+            if (hasValueLegacy(this.value[i])) {
                 (item.nativeElement as HTMLInputElement).value = this.value[i];
             }
 
@@ -60,7 +60,7 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
     }
 
     private canInputValue(value: any): boolean {
-        if (!hasValue(value)) {
+        if (!hasValueLegacy(value)) {
             return true;
         }
 
@@ -76,7 +76,7 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
 
         this.inputs.forEach((input) => {
 
-            if (hasValue(input.value)) {
+            if (hasValueLegacy(input.value)) {
                 values.push(input.value.trim());
             }
 
@@ -103,7 +103,7 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
             return;
         }
 
-        if (next < this.codeLength && hasValue(value)) {
+        if (next < this.codeLength && hasValueLegacy(value)) {
             this.inputs[next].focus();
         }
 
@@ -140,7 +140,7 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
             return;
         }
 
-        if (hasValue(value)) {
+        if (hasValueLegacy(value)) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -161,13 +161,13 @@ export class PinInputComponent implements AfterViewInit, OnInit, ControlValueAcc
 
         for (let i = 0; i < this.inputs.length; i++) {
 
-            if (!hasValue(this.inputs[i].value)) {
+            if (!hasValueLegacy(this.inputs[i].value)) {
                 index = i;
                 break;
             }
         }
 
-        if (hasValue(index)) {
+        if (hasValueLegacy(index)) {
             this.inputs[index].focus();
         }
     }

@@ -1,7 +1,7 @@
 import { fromEvent, merge, Observable, Subscription } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import { inArray } from '../../../utils/array';
-import { hasValue } from '../../../utils/check';
+import { hasValueLegacy } from '../../../utils/check';
 import { Calendar } from './calendar';
 import { DateTime } from './datetime';
 import { ILPConfiguration } from './interfaces';
@@ -78,7 +78,7 @@ export class Datepicker extends Calendar {
 
         let parent = this.options.element.parentElement;
 
-        while (hasValue(parent)) {
+        while (hasValueLegacy(parent)) {
 
             if (inArray(getComputedStyle(parent).overflowY, ['auto', 'scroll', 'overlay']) || inArray(getComputedStyle(parent).overflowX, ['auto', 'scroll', 'overlay'])) {
                 this.parents.push(parent);

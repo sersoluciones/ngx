@@ -1,7 +1,7 @@
 import { Directive, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { hasValue } from '../../utils/check';
+import { hasValueLegacy } from '../../utils/check';
 
 @Directive({
     // tslint:disable-next-line: directive-selector
@@ -31,7 +31,7 @@ export class SerControlDirective implements OnInit, OnDestroy {
     }
 
     onChangeValue(value: any) {
-        this.hasValue = hasValue(value);
+        this.hasValue = hasValueLegacy(value);
     }
 
     onChangeState() {

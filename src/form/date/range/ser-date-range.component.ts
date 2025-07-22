@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ViewEncapsulation, forwardRef, AfterViewInit, ElementRef, Attribute, EventEmitter, HostBinding, HostListener, Input, Optional, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { hasValue } from '../../../utils/check';
-import { mergeObjs, noop } from '../../../utils/object';
+import { hasValueLegacy } from '../../../utils/check';
+import { mergeObjs, noopLegacy } from '../../../utils/object';
 import { Datepicker } from '../base/datepicker';
 import { DateInputSettings, DateRangeInputSettings } from '../ser-date.interface';
 
@@ -40,7 +40,7 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
     private _value: any;
     private _picker: Datepicker;
     selectedDateRange: any;
-    hasValue = hasValue;
+    hasValue = hasValueLegacy;
 
     defaultSettings: DateRangeInputSettings = {
         classes: '',
@@ -217,7 +217,7 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
     //#region ControlValueAccessor
     writeValue(value: any) {
 
-        if (!hasValue(value)) {
+        if (!hasValueLegacy(value)) {
             this._picker?.clearSelection();
             this.selectedDateRange = null;
             return;
@@ -252,14 +252,14 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
     }
 
     // tslint:disable-next-line: member-ordering
-    private onChangeCallback: (_: any) => void = noop;
+    private onChangeCallback: (_: any) => void = noopLegacy;
     registerOnChange(fn: any) {
         this.onChangeCallback = fn;
     }
 
 
     // tslint:disable-next-line: member-ordering
-    private onTouchedCallback: (_: any) => void = noop;
+    private onTouchedCallback: (_: any) => void = noopLegacy;
     registerOnTouched(fn: any) {
         this.onTouchedCallback = fn;
     }
@@ -291,7 +291,7 @@ export class SerDateRangeComponent implements OnInit, ControlValueAccessor, OnCh
             ...this.settings.calendarOptions
         });
 
-        if (hasValue(this._value)) {
+        if (hasValueLegacy(this._value)) {
             this.setValue();
         }
 

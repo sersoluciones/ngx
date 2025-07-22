@@ -1,4 +1,4 @@
-import { CustomValidators } from './../../../../src/form/validations/custom-validators';
+import { CustomValidatorsLegacy } from './../../../../src/form/validations/custom-validators';
 import { Component, SecurityContext } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { BaseView } from '../base/base-view';
@@ -15,13 +15,13 @@ export class FormsComponent extends BaseView {
         file: [null, Validators.required],
         file_id: [''],
         regexInput: ['\\d+', Validators.required],
-        nit: ['', [Validators.required, CustomValidators.verifyNIT]],
+        nit: ['', [Validators.required, CustomValidatorsLegacy.verifyNIT]],
         address: ['', Validators.required],
         num: [2],
         num1: [],
         num2: []
     }, {
-        validators: [CustomValidators.betweenRange('num', 'num1', 'num2')]
+        validators: [CustomValidatorsLegacy.betweenRange('num', 'num1', 'num2')]
     });
 
     text3Regex = '\\d+';

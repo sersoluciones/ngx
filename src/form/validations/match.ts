@@ -1,5 +1,5 @@
 import { AbstractControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { hasValue } from '../../utils/check';
+import { hasValueLegacy } from '../../utils/check';
 
 export function match(originalPathField: string, duplicatePathField: string): ValidatorFn {
     const validation = (fg: UntypedFormGroup): ValidationErrors | null => {
@@ -8,10 +8,10 @@ export function match(originalPathField: string, duplicatePathField: string): Va
         const duplicate = fg.get(duplicatePathField);
 
         if (original.value === duplicate.value) {
-            if (hasValue(duplicate.errors)) {
+            if (hasValueLegacy(duplicate.errors)) {
                 delete duplicate.errors.match;
 
-                if (hasValue(duplicate.errors)) {
+                if (hasValueLegacy(duplicate.errors)) {
                     duplicate.setErrors(duplicate.errors);
                 } else {
                     duplicate.setErrors(null);
@@ -22,7 +22,7 @@ export function match(originalPathField: string, duplicatePathField: string): Va
 
         } else {
 
-            if (hasValue(duplicate.errors)) {
+            if (hasValueLegacy(duplicate.errors)) {
                 duplicate.errors.match = true;
                 duplicate.setErrors(duplicate.errors);
             } else {
@@ -40,7 +40,7 @@ export function match(originalPathField: string, duplicatePathField: string): Va
 
 export function verifyNIT(control: AbstractControl): { [key: string]: any } | null {
 
-    if (!hasValue(control.value)) {
+    if (!hasValueLegacy(control.value)) {
         return null;
     }
 
@@ -54,7 +54,7 @@ export function verifyNIT(control: AbstractControl): { [key: string]: any } | nu
         return { 'verifyNIT': true };
     }
 
-    if (hasValue(values[0])) {
+    if (hasValueLegacy(values[0])) {
 
         let v = 41 * values[0][0];
         v += 37 * values[0][1];
@@ -73,7 +73,7 @@ export function verifyNIT(control: AbstractControl): { [key: string]: any } | nu
 
         if (parseInt(values[1], 10) === v) {
             return null;
-        } else if (hasValue(values[1])) {
+        } else if (hasValueLegacy(values[1])) {
             return { 'verifyNITIntegrity': true };
         }
 

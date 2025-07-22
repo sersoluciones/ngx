@@ -68,7 +68,7 @@ export interface RandomPasswordOps {
  * Función para generar contraseñas aleatorias
  * @param options Parametros de contraseña
  */
-export function generatePassword(options?: RandomPasswordOps) {
+export function generatePasswordLegacy(options?: RandomPasswordOps) {
 
     const defaultOptions: RandomPasswordOps = {
         length: 8,

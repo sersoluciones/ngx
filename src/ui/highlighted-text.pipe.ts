@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { removeDiacritics } from '../utils/diacritics';
-import { hasValue } from '../utils/check';
+import { removeDiacriticsLegacy } from '../utils/diacritics';
+import { hasValueLegacy } from '../utils/check';
 
 /**
  * Based on https://dev.to/this-is-angular/search-and-highlight-text-feature-using-angular-l98
@@ -8,19 +8,19 @@ import { hasValue } from '../utils/check';
 @Pipe({
     name: 'highlightedText'
 })
-export class HighlightedTextPipe implements PipeTransform {
+export class HighlightedTextLegacyPipe implements PipeTransform {
 
     transform(value: any, args: string, normalize = false, minChar = 2): unknown {
 
-        if (!hasValue(value) || !args || (minChar !== undefined && args.length < minChar)) return value;
+        if (!hasValueLegacy(value) || !args || (minChar !== undefined && args.length < minChar)) return value;
 
         if (typeof value !== 'string') {
             value = value.toString();
         }
 
         // If normalization is enabled, remove diacritics
-        const normalizedArgs = normalize ? removeDiacritics(args) : args;
-        const normalizedValue = normalize ? removeDiacritics(value) : value;
+        const normalizedArgs = normalize ? removeDiacriticsLegacy(args) : args;
+        const normalizedValue = normalize ? removeDiacriticsLegacy(value) : value;
 
         // Create a regular expression to search for the normalized term
         const re = new RegExp(normalizedArgs, 'igm');

@@ -2,7 +2,7 @@ import { Component, Injector } from '@angular/core';
 import { FullscreenService } from '../../../../src/fullscreen/fullscreen.service';
 import { PrefersColorSchemeService } from '../../../../src/prefers-color-scheme/prefers-color-scheme.service';
 import { SnackbarService } from '../../../../src/ui/snackbar.service';
-import { generatePassword } from '../../../../src/utils/random';
+import { generatePasswordLegacy } from '../../../../src/utils/random';
 import { BaseView } from '../base/base-view';
 import { MaterialIcons } from './material-symbols-rounded-type';
 
@@ -62,7 +62,7 @@ export class Utils2Component extends BaseView {
     }
 
     getPassword() {
-        this.newPassword = generatePassword({
+        this.newPassword = generatePasswordLegacy({
             length: this.passwordForm.value.length,
             numbers: this.passwordForm.value.numbers,
             lettersLowerCase: this.passwordForm.value.lettersLowerCase,

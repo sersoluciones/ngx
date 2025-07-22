@@ -1,7 +1,7 @@
 import { fromEvent, merge, Observable, Subscription } from 'rxjs';
 import { Component, forwardRef, OnInit, ViewEncapsulation, OnDestroy, HostBinding, AfterViewInit, ElementRef, ViewChild, Renderer2, Output, EventEmitter, HostListener } from '@angular/core';
 import { ControlValueAccessor, UntypedFormBuilder, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { hasValue } from '../../utils/check';
+import { hasValueLegacy } from '../../utils/check';
 import { inArray } from '../../utils/array';
 import { filter } from 'rxjs/operators';
 import { fromIntersectionObserver } from '../../utils/rx-utils';
@@ -60,7 +60,7 @@ export class ChipsComponent implements OnInit, AfterViewInit, OnDestroy, Control
     //#region ControlValueAccessor
     writeValue(obj: any) {
 
-        if (hasValue(obj)) {
+        if (hasValueLegacy(obj)) {
             let address1: any;
 
             obj = obj.trim().replace(/\s+/g, ' ');
@@ -92,15 +92,15 @@ export class ChipsComponent implements OnInit, AfterViewInit, OnDestroy, Control
     generateValue() {
         let address = this.modelForm.get('via').value;
 
-        if (hasValue(this.modelForm.get('address1').value)) {
+        if (hasValueLegacy(this.modelForm.get('address1').value)) {
             address += ' ' + this.modelForm.get('address1').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
         }
 
-        if (hasValue(this.modelForm.get('address2').value)) {
+        if (hasValueLegacy(this.modelForm.get('address2').value)) {
             address += ' # ' + this.modelForm.get('address2').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
         }
 
-        if (hasValue(this.modelForm.get('address3').value)) {
+        if (hasValueLegacy(this.modelForm.get('address3').value)) {
             address += ' - ' + this.modelForm.get('address3').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
         }
 
@@ -144,7 +144,7 @@ export class ChipsComponent implements OnInit, AfterViewInit, OnDestroy, Control
         this.viewInitialized = true;
         let parent = this._elementRef.nativeElement.parentElement;
 
-        while (hasValue(parent)) {
+        while (hasValueLegacy(parent)) {
 
             if (inArray(getComputedStyle(parent).overflowY, ['auto', 'scroll', 'overlay']) || inArray(getComputedStyle(parent).overflowX, ['auto', 'scroll', 'overlay'])) {
                 this.parents.push(parent);
@@ -154,7 +154,7 @@ export class ChipsComponent implements OnInit, AfterViewInit, OnDestroy, Control
         }
 
         setTimeout(() => {
-            if (hasValue(this.lateInstance.via)) {
+            if (hasValueLegacy(this.lateInstance.via)) {
                 this.modelForm.get('via').setValue(this.lateInstance.via);
                 this.lateInstance.via = null;
             }
@@ -173,7 +173,7 @@ export class ChipsComponent implements OnInit, AfterViewInit, OnDestroy, Control
 
     onKeydown(el: string, ev: KeyboardEvent) {
 
-        if (ev.key.toLowerCase() === 'backspace' && !hasValue((ev.target as HTMLInputElement).value)) {
+        if (ev.key.toLowerCase() === 'backspace' && !hasValueLegacy((ev.target as HTMLInputElement).value)) {
             /* switch (el) {
                 case 'address1':
                     this.viaEl.nativeElement.focus();
@@ -201,7 +201,7 @@ export class ChipsComponent implements OnInit, AfterViewInit, OnDestroy, Control
         this.focused = false;
         this.blur.emit();
 
-        if (!hasValue(this.address1.nativeElement.value)) {
+        if (!hasValueLegacy(this.address1.nativeElement.value)) {
             this.modelForm.get('via').setValue('');
             this.viaOptions = this.viaOptionsOriginal;
         }

@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { getFileType, readAsArrayBuffer } from '../../file/read';
 import { inArray } from '../../utils/array';
-import { hasValue } from '../../utils/check';
+import { hasValueLegacy } from '../../utils/check';
 
 export function maxFileSize(size: string): ValidatorFn {
     return (control: UntypedFormControl): ValidationErrors | null => {
@@ -26,7 +26,7 @@ export function maxFileSize(size: string): ValidatorFn {
                 break;
         }
 
-        if (hasValue(sizeNumber)) {
+        if (hasValueLegacy(sizeNumber)) {
             const sizeOnBytes = parseFloat(sizeNumber.join('')) * multiplier;
 
             if (control.value instanceof File || control.value instanceof Blob) {
@@ -69,7 +69,7 @@ export function minFileSize(size: string): ValidatorFn {
                 break;
         }
 
-        if (hasValue(sizeNumber)) {
+        if (hasValueLegacy(sizeNumber)) {
             const sizeOnBytes = parseFloat(sizeNumber.join('')) * multiplier;
 
             if (control.value instanceof File || control.value instanceof Blob) {

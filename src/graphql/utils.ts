@@ -1,4 +1,4 @@
-import { hasValue } from '../utils/check';
+import { hasValueLegacy } from '../utils/check';
 
 /**
  * @description
@@ -11,7 +11,7 @@ export function objectToGraphParams(obj: any): string {
   let graph_params = '';
 
   for (const [key, value] of Object.entries(obj)) {
-      if (hasValue(value)) {
+      if (hasValueLegacy(value)) {
           graph_params += key + ': ';
 
           if (typeof (value) === 'string') {
@@ -24,7 +24,7 @@ export function objectToGraphParams(obj: any): string {
       }
   }
 
-  if (hasValue(graph_params)) {
+  if (hasValueLegacy(graph_params)) {
       graph_params = graph_params.substring(0, graph_params.length - 1);
   }
 

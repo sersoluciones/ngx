@@ -30,7 +30,7 @@ export function mergeObjs(target: any, source: any) {
     return target;
 }
 
-export const noop = () => { };
+export const noopLegacy = () => { };
 
 export function getPath(obj: any, path: string[]) {
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges, ViewEncapsulation, forwardRef, AfterViewInit, ElementRef, Input, EventEmitter, Output, Attribute, Optional, HostBinding, HostListener } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { hasValue } from '../../../utils/check';
-import { mergeObjs, noop } from '../../../utils/object';
+import { hasValueLegacy } from '../../../utils/check';
+import { mergeObjs, noopLegacy } from '../../../utils/object';
 import { Datepicker } from '../base/datepicker';
 import { DateInputSettings } from '../ser-date.interface';
 
@@ -76,7 +76,7 @@ export class SerDateComponent implements OnInit, ControlValueAccessor, OnChanges
     //#region ControlValueAccessor
     writeValue(value: any) {
 
-        if (hasValue(this._value)) {
+        if (hasValueLegacy(this._value)) {
 
             if (typeof (value) === 'string' && !(/[zZ]/.test(value))) {
                 value = value + 'Z';
@@ -97,14 +97,14 @@ export class SerDateComponent implements OnInit, ControlValueAccessor, OnChanges
     }
 
     // tslint:disable-next-line: member-ordering
-    private onChangeCallback: (_: any) => void = noop;
+    private onChangeCallback: (_: any) => void = noopLegacy;
     registerOnChange(fn: any) {
         this.onChangeCallback = fn;
     }
 
 
     // tslint:disable-next-line: member-ordering
-    private onTouchedCallback: (_: any) => void = noop;
+    private onTouchedCallback: (_: any) => void = noopLegacy;
     registerOnTouched(fn: any) {
         this.onTouchedCallback = fn;
     }
@@ -136,7 +136,7 @@ export class SerDateComponent implements OnInit, ControlValueAccessor, OnChanges
             ...this.settings.calendarOptions
         });
 
-        if (hasValue(this._value)) {
+        if (hasValueLegacy(this._value)) {
             this.setValue();
         }
 

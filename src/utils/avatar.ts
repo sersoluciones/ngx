@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { hasValue } from './check';
+import { hasValueLegacy } from './check';
 
 export class Color {
 
@@ -86,7 +86,7 @@ export function generateDefaultImage(name: string, lastName?: string, type?: 'im
 
         let initials: string;
 
-        if (hasValue(lastName)) {
+        if (hasValueLegacy(lastName)) {
             initials = name.charAt(0) + lastName.charAt(0);
         } else {
             initials = name.charAt(0) + name.charAt(0);

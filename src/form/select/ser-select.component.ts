@@ -16,7 +16,7 @@ import { SDItemDirective, SDBadgeDirective, SDBadgeItemDirective } from './ser-s
 import { DataService } from './ser-select.service';
 import { Subscription, fromEvent, merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, filter, switchMap, takeUntil } from 'rxjs/operators';
-import { hasValue } from '../../utils/check';
+import { hasValueLegacy } from '../../utils/check';
 import { inArray } from '../../utils/array';
 import { fromIntersectionObserver } from '../../utils/rx-utils';
 import { getPath, mergeObjs } from '../../utils/object';
@@ -57,7 +57,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     public set data(value) {
         this._data = value;
 
-        if (hasValue(this.value) && !this.settings.remote) {
+        if (hasValueLegacy(this.value) && !this.settings.remote) {
             this.writeValue(this.value);
         }
 
@@ -143,7 +143,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
     };
     //#endregion
 
-    hasValue = hasValue;
+    hasValue = hasValueLegacy;
 
     constructor(public _elementRef: ElementRef, private _fb: UntypedFormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('multiple') multipleAttr: any,
                 @Optional() @Attribute('simple') simple: any, @Optional() @Attribute('primaryKey') primaryKey: any, @Optional() @Attribute('labelKey') labelKey: any,
@@ -223,7 +223,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         let parent = this._elementRef.nativeElement.parentElement;
 
-        while (hasValue(parent)) {
+        while (hasValueLegacy(parent)) {
 
             if (inArray(getComputedStyle(parent).overflowY, ['auto', 'scroll', 'overlay']) || inArray(getComputedStyle(parent).overflowX, ['auto', 'scroll', 'overlay'])) {
                 this.parents.push(parent);
@@ -317,9 +317,9 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         this.value = value;
 
-        if (hasValue(value)) {
+        if (hasValueLegacy(value)) {
 
-            if (!hasValue(this.data) && !this.settings.remote) {
+            if (!hasValueLegacy(this.data) && !this.settings.remote) {
 
                 console.warn('ser-select: Data is empty at the write value');
 
@@ -339,7 +339,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
                 });
 
-                if (hasValue(selectedObject)) {
+                if (hasValueLegacy(selectedObject)) {
 
                     this.selectedItems = [selectedObject];
 
@@ -368,7 +368,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
                 });
 
-                if (hasValue(selectedObjects)) {
+                if (hasValueLegacy(selectedObjects)) {
                     if (this.settings.limitSelection) {
                         this.selectedItems = selectedObjects.slice(0, this.settings.limitSelection);
                     } else {
@@ -440,7 +440,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     showGroupName(index: number) {
 
-        if (!hasValue(this.settings.groupBy)) {
+        if (!hasValueLegacy(this.settings.groupBy)) {
             return false;
         }
 
@@ -524,7 +524,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
         let found = false;
 
-        if (hasValue(this.selectedItems)) {
+        if (hasValueLegacy(this.selectedItems)) {
             for (const selectdItem of this.selectedItems) {
                 if (selectdItem[this.settings.primaryKey] === item[this.settings.primaryKey]) {
                     found = true;
@@ -571,7 +571,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     removeSelected(clickedItem: any) {
 
-        if (hasValue(this.selectedItems)) {
+        if (hasValueLegacy(this.selectedItems)) {
             this.selectedItems.forEach((item, index) => {
 
                 if (typeof item === 'object') {
@@ -790,7 +790,7 @@ export class SerSelectComponent implements OnInit, ControlValueAccessor, OnChang
 
     clearSearch() {
 
-        if (hasValue(this.search.value)) {
+        if (hasValueLegacy(this.search.value)) {
             this.search.setValue('');
         }
 

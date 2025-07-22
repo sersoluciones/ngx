@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '../../utils/check';
+import { hasValueLegacy } from '../../utils/check';
 
 @Injectable({
     providedIn: 'root'
@@ -7,13 +7,13 @@ import { hasValue } from '../../utils/check';
 export class DataService {
 
     filterData(data: any[], filter: any, searchBy: any) {
-        if (!hasValue(data) || !hasValue(filter)) {
+        if (!hasValueLegacy(data) || !hasValueLegacy(filter)) {
             return data;
         }
 
         const filteredList = data.filter((item: any) => this.applyFilter(item, filter, searchBy));
 
-        if (hasValue(filteredList)) {
+        if (hasValueLegacy(filteredList)) {
             return filteredList;
         } else {
             return [];

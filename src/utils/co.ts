@@ -1,36 +1,19 @@
-export function calculateDv(nit: string) {
-    let x = 0;
-    const _nit = nit.replace(/\D+/g, '');
-    let z = _nit.length;
+export function calculateDv(nit: string): number {
+    // Limpiar y conservar solo los dígitos
+    const cleanNit = nit.replace(/\D+/g, '');
 
-    let arr = new Array(16);
-    arr[1] = 3;
-    arr[2] = 7;
-    arr[3] = 13;
-    arr[4] = 17;
-    arr[5] = 19;
-    arr[6] = 23;
-    arr[7] = 29;
-    arr[8] = 37;
-    arr[9] = 41;
-    arr[10] = 43;
-    arr[11] = 47;
-    arr[12] = 53;
-    arr[13] = 59;
-    arr[14] = 67;
-    arr[15] = 71;
+    // Factores predefinidos
+    const factors = [0, 3, 7, 13, 17, 19, 23, 29, 37, 41, 43, 47, 53, 59, 67, 71];
 
-    let y = 0;
-    for (let i = 0; i < z; i++) {
-        y = parseInt(_nit.substring(i, i + 1));
-        x += (y * arr[z - i]);
-    }
+    // Convertir string a array de dígitos y calcular la suma ponderada
+    const sum = Array.from(cleanNit)
+        .map(char => parseInt(char, 10))
+        .reduce((acc, digit, index) => {
+            const factor = factors[cleanNit.length - index];
+            return acc + (digit * factor);
+        }, 0);
 
-    y = x % 11;
-
-    if (y > 1) {
-        return 11 - y;
-    } else {
-        return y;
-    }
+    // Calcular dígito verificador
+    const remainder = sum % 11;
+    return remainder > 1 ? 11 - remainder : remainder;
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseView } from 'src/app/base/base-view';
 import { DropdownSettings } from '../../../../../src/form/select/ser-select.interface';
-import { hasValue } from '../../../../../src/utils/check';
+import { hasValueLegacy } from '../../../../../src/utils/check';
 import * as examples from './examples';
 import { take } from 'rxjs/operators';
 
@@ -37,7 +37,7 @@ export class RemoteComponent extends BaseView {
             page: settings.paginationState?.currentPage
         }
 
-        if (hasValue(settings.paginationState?.searchTerm)) {
+        if (hasValueLegacy(settings.paginationState?.searchTerm)) {
             params.searchTerm = settings.paginationState?.searchTerm;
         }
 

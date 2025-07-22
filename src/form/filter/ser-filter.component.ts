@@ -14,7 +14,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor, UntypedFormBuilder } from '@an
 import { FilterSettings } from './ser-filter.interface';
 import { Subscription, fromEvent, Observable, merge, ReplaySubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
-import { hasValue } from '../../utils/check';
+import { hasValueLegacy } from '../../utils/check';
 import { SDBadgeDirective, SDBadgeItemDirective, SDItemDirective } from '../select/ser-select-menu-item.directive';
 import { inArray } from '../../utils/array';
 import { DataService } from '../select/ser-select.service';
@@ -125,7 +125,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
     public isDisabledItemPresent = false;
     //#endregion
 
-    hasValue = hasValue;
+    hasValue = hasValueLegacy;
 
     constructor(public _elementRef: ElementRef, private cdr: ChangeDetectorRef, private _fb: UntypedFormBuilder, private _ds: DataService, private _renderer: Renderer2, @Optional() @Attribute('primaryKey') primaryKey: any,
                 @Optional() @Attribute('labelKey') labelKey: any) {
@@ -172,7 +172,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
         let parent = this._elementRef.nativeElement.parentElement;
 
-        while (hasValue(parent)) {
+        while (hasValueLegacy(parent)) {
 
             if (inArray(getComputedStyle(parent).overflowY, ['auto', 'scroll', 'overlay']) || inArray(getComputedStyle(parent).overflowX, ['auto', 'scroll', 'overlay'])) {
                 this.parents.push(parent);
@@ -216,7 +216,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
     writeValue(value: any) {
 
-        if (hasValue(value)) {
+        if (hasValueLegacy(value)) {
             if (!Array.isArray(value)) {
                 throw Error('Single value detected as input, please set "singleSelection" setting in true or remove "multiple" attribute in the select if you added');
             }
@@ -225,7 +225,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
                 return inArray(item[this.settings.primaryKey], value);
             });
 
-            if (hasValue(selectedObjects)) {
+            if (hasValueLegacy(selectedObjects)) {
                 this.selectedItems = selectedObjects;
             } else {
                 this.selectedItems = [];
@@ -287,7 +287,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
         let found = false;
 
-        if (hasValue(this.selectedItems)) {
+        if (hasValueLegacy(this.selectedItems)) {
             for (const item of this.selectedItems) {
                 if (clickedItem[this.settings.primaryKey] === item[this.settings.primaryKey]) {
                     found = true;
@@ -318,7 +318,7 @@ export class SerFilterComponent implements OnInit, ControlValueAccessor, OnChang
 
     removeSelected(clickedItem: any) {
 
-        if (hasValue(this.selectedItems)) {
+        if (hasValueLegacy(this.selectedItems)) {
             this.selectedItems.forEach((item, index) => {
                 if (typeof item === 'object') {
                     if (clickedItem[this.settings.primaryKey] === item[this.settings.primaryKey]) {

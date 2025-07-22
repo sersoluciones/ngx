@@ -1,4 +1,4 @@
-import { hasValue } from '../utils/check';
+import { hasValueLegacy } from '../utils/check';
 
 export const formatterRangeDates = Intl.DateTimeFormat("es", {
     year: "numeric",
@@ -33,16 +33,16 @@ export function getDateRange(options: DateRangeOptions): { start: Date, end: Dat
         start = new Date(date.getFullYear(), date.getMonth(), 1);
         end = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
-    } else if (hasValue(options.fromStr) && /^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$/g.test(options.fromStr)) {
+    } else if (hasValueLegacy(options.fromStr) && /^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$/g.test(options.fromStr)) {
         start = new Date(options.fromStr);
-    } else if (hasValue(options.from)) {
+    } else if (hasValueLegacy(options.from)) {
         start = options.from;
     }
 
     start.setHours(0, 0, 0, 0);
     end.setHours(23, 59, 59, 0);
 
-    if (hasValue(options.days)) {
+    if (hasValueLegacy(options.days)) {
         end.setDate(end.getDate() + options.days);
     }
 

@@ -1,5 +1,5 @@
 import { AbstractControl, UntypedFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { hasValue, objHasValue } from '../../utils/check';
+import { hasValueLegacy, objHasValue } from '../../utils/check';
 import { getDate } from '../../utils/date';
 
 
@@ -34,7 +34,7 @@ export function lowerThan(TargetPathField: string, GreaterPathField: string): Va
         const greater = fg.get(GreaterPathField);
         const target = fg.get(TargetPathField);
 
-        if (!hasValue(greater.value) || !hasValue(target.value)) {
+        if (!hasValueLegacy(greater.value) || !hasValueLegacy(target.value)) {
             clearError(target, 'lowerThan');
             return null;
         }
@@ -56,7 +56,7 @@ export function lowerOrEqualThan(TargetPathField: string, LowerPathField: string
         const lower = fg.get(LowerPathField);
         const target = fg.get(TargetPathField);
 
-        if (!hasValue(lower.value) || !hasValue(target.value)) {
+        if (!hasValueLegacy(lower.value) || !hasValueLegacy(target.value)) {
             clearError(target, 'lowerOrEqualThan');
             return null;
         }
@@ -77,7 +77,7 @@ export function greaterThan(TargetPathField: string, LowerPathField: string): Va
         const lower = fg.get(LowerPathField);
         const target = fg.get(TargetPathField);
 
-        if (!hasValue(lower.value) || !hasValue(target.value)) {
+        if (!hasValueLegacy(lower.value) || !hasValueLegacy(target.value)) {
             clearError(target, 'greaterThan');
             return null;
         }
@@ -98,7 +98,7 @@ export function greaterOrEqualThan(TargetPathField: string, LowerPathField: stri
         const lower = fg.get(LowerPathField);
         const target = fg.get(TargetPathField);
 
-        if (!hasValue(lower.value) || !hasValue(target.value)) {
+        if (!hasValueLegacy(lower.value) || !hasValueLegacy(target.value)) {
             clearError(target, 'greaterOrEqualThan');
             return null;
         }
@@ -120,7 +120,7 @@ export function betweenRange(TargetPathField: string, LowerPathField: string, Gr
         const lower = fg.get(LowerPathField);
         const greater = fg.get(GreaterPathField);
 
-        if (!hasValue(lower.value) || !hasValue(greater.value) || !hasValue(target.value)) {
+        if (!hasValueLegacy(lower.value) || !hasValueLegacy(greater.value) || !hasValueLegacy(target.value)) {
             clearError(target, 'betweenRange');
             return null;
         }
@@ -141,7 +141,7 @@ export function dateLowerThan(TargetPathField: string, GreaterPathField: string)
         const greater = fg.get(GreaterPathField);
         const target = fg.get(TargetPathField);
 
-        if (!hasValue(greater?.value) || !hasValue(target?.value)) {
+        if (!hasValueLegacy(greater?.value) || !hasValueLegacy(target?.value)) {
             clearError(target!, 'dateLowerThan');
             return null;
         }
@@ -166,7 +166,7 @@ export function dateGreaterThan(TargetPathField: string, LowerPathField: string)
         const lower = fg.get(LowerPathField);
         const target = fg.get(TargetPathField);
 
-        if (!hasValue(lower?.value) || !hasValue(target?.value)) {
+        if (!hasValueLegacy(lower?.value) || !hasValueLegacy(target?.value)) {
             clearError(target!, 'greaterThan');
             return null;
         }

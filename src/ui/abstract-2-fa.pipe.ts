@@ -4,7 +4,7 @@ import { AbstractControl, UntypedFormArray } from '@angular/forms';
 @Pipe({
   name: 'abstract2Fa'
 })
-export class Abstract2FaPipe implements PipeTransform {
+export class Abstract2FaLegacyPipe implements PipeTransform {
 
     transform(value: AbstractControl[] | AbstractControl, ...args: any[]): UntypedFormArray {
       return value as UntypedFormArray;

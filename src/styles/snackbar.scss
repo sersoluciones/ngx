@@ -7,7 +7,7 @@
     bottom: 0;
     left: 50%;
     color: white;
-    background-color: var(--snackbar-bg);
+    background-color: var(--snackbar-bg, #474747);
     border-radius: 100px;
     padding: 16px;
     max-width: 62px;
@@ -27,23 +27,23 @@
         animation: SnackbarIcon 300ms ease-in-out 400ms forwards;
 
         &.green {
-            background-color: var(--snackbar-bg-green);
+            background-color: var(--snackbar-bg-green, limegreen);
         }
 
         &.red {
-            background-color: var(--snackbar-bg-red);
+            background-color: var(--snackbar-bg-red, red);
         }
 
         &.orange {
-            background-color: var(--snackbar-bg-orange);
+            background-color: var(--snackbar-bg-orange, orange);
         }
 
         &.orangered {
-            background-color: var(--snackbar-bg-orange-red);
+            background-color: var(--snackbar-bg-orange-red, orangered);
         }
 
         .material-symbols-rounded {
-            color: var(--snackbar-icon-color);
+            color: var(--snackbar-icon-color, white);
             font-size: 16px;
         }
     }

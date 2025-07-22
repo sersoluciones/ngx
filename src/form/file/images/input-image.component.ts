@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { map, take } from 'rxjs/operators';
 import { inArray } from '../../../utils/array';
 import { getFileType, readAsArrayBuffer, readAsDataURL } from '../../../file/read';
-import { hasValue } from '../../../utils/check';
+import { hasValueLegacy } from '../../../utils/check';
 import { ImageFileWidthSize, InputImageSettings } from '../file.interface';
 import { IFItemDirective } from '../files/input-file-item.directive';
 import Compressor from 'compressorjs';
@@ -39,7 +39,7 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
 
     @ContentChild(IFItemDirective, { static: true }) itemTempl: IFItemDirective;
 
-    hasValue = hasValue;
+    hasValue = hasValueLegacy;
     isDisabled = false;
     accept = '';
 
@@ -99,7 +99,7 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
 
     writeValue(obj: any) {
 
-        if (hasValue(obj)) {
+        if (hasValueLegacy(obj)) {
 
             if (obj instanceof File) {
                 this.file = obj;
@@ -130,7 +130,7 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
     setPreview() {
 
         setTimeout(() => {
-            if (hasValue(this.file)) {
+            if (hasValueLegacy(this.file)) {
 
                 readAsDataURL(this.file)
                 .pipe(take(1))
@@ -138,7 +138,7 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
                     this._renderer.setStyle(this.previewDiv.nativeElement, 'background-image', `url(${result})`);
                 });
 
-            } else if (hasValue(this.filesInstance)) {
+            } else if (hasValueLegacy(this.filesInstance)) {
 
                 this._renderer.setStyle(this.previewDiv.nativeElement, 'background-image', `url(${this.filesInstance})`);
 
@@ -217,7 +217,7 @@ export class InputImageComponent implements OnInit, ControlValueAccessor, AfterV
 
     clear() {
 
-        if (hasValue(this.filesInstance)) {
+        if (hasValueLegacy(this.filesInstance)) {
             this.onClearInstance.emit(this.filesInstance);
         } else {
             this.onClear.emit(this.file);

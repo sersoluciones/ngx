@@ -9,7 +9,7 @@ import { alreadyExist, BaseValidationModel } from './remote';
 /**
  * Validaciones adicionales para Form Control's
  */
-export class CustomValidators {
+export class CustomValidatorsLegacy {
 
     /**
      * Verifica si los campos proveídos son iguales

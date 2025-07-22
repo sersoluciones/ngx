@@ -1,6 +1,6 @@
 import { Component, forwardRef, ViewEncapsulation, HostBinding, Output, EventEmitter, ViewChild, ElementRef, Input, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { hasValue } from '../../utils/check';
+import { hasValueLegacy } from '../../utils/check';
 
 
 @Component({
@@ -32,7 +32,7 @@ export class InputCurrencyComponent implements ControlValueAccessor {
 
     setValue() {
 
-        if (hasValue(this.value)) {
+        if (hasValueLegacy(this.value)) {
 
             if (typeof this.value === 'string') {
                 this.onChange(parseFloat(this.value));

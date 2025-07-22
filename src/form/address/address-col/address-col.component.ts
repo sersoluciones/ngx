@@ -1,7 +1,7 @@
 import { fromEvent, merge, Observable, Subscription } from 'rxjs';
 import { Component, forwardRef, OnInit, ViewEncapsulation, OnDestroy, HostBinding, AfterViewInit, ElementRef, ViewChild, Renderer2, Output, EventEmitter, HostListener } from '@angular/core';
 import { ControlValueAccessor, UntypedFormBuilder, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { hasValue } from '../../../utils/check';
+import { hasValueLegacy } from '../../../utils/check';
 import { inArray } from '../../..//utils/array';
 import { debounceTime, filter } from 'rxjs/operators';
 import { fromIntersectionObserver } from '../../../utils/rx-utils';
@@ -68,7 +68,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
     //#region ControlValueAccessor
     writeValue(obj: any) {
 
-        if (hasValue(obj)) {
+        if (hasValueLegacy(obj)) {
             let address1: any;
             let address2: any;
             let address3: any;
@@ -139,15 +139,15 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
     generateValue() {
         let address = this.modelForm.get('via').value;
 
-        if (hasValue(this.modelForm.get('address1').value)) {
+        if (hasValueLegacy(this.modelForm.get('address1').value)) {
             address += ' ' + this.modelForm.get('address1').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
         }
 
-        if (hasValue(this.modelForm.get('address2').value)) {
+        if (hasValueLegacy(this.modelForm.get('address2').value)) {
             address += ' # ' + this.modelForm.get('address2').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
         }
 
-        if (hasValue(this.modelForm.get('address3').value)) {
+        if (hasValueLegacy(this.modelForm.get('address3').value)) {
             address += ' - ' + this.modelForm.get('address3').value?.trim().split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
         }
 
@@ -191,7 +191,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
         this.viewInitialized = true;
         let parent = this._elementRef.nativeElement.parentElement;
 
-        while (hasValue(parent)) {
+        while (hasValueLegacy(parent)) {
 
             if (inArray(getComputedStyle(parent).overflowY, ['auto', 'scroll', 'overlay']) || inArray(getComputedStyle(parent).overflowX, ['auto', 'scroll', 'overlay'])) {
                 this.parents.push(parent);
@@ -201,24 +201,24 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
         }
 
         setTimeout(() => {
-            if (hasValue(this.lateInstance.via)) {
+            if (hasValueLegacy(this.lateInstance.via)) {
                 this.modelForm.get('via').setValue(this.lateInstance.via);
                 this.viaEl.nativeElement.value = this.lateInstance.via;
                 this.viaElHint.nativeElement.value = this.lateInstance.via;
                 this.lateInstance.via = null;
             }
 
-            if (hasValue(this.lateInstance.address1)) {
+            if (hasValueLegacy(this.lateInstance.address1)) {
                 this.modelForm.get('address1').setValue(this.lateInstance.address1);
                 this.lateInstance.address1 = null;
             }
 
-            if (hasValue(this.lateInstance.address2)) {
+            if (hasValueLegacy(this.lateInstance.address2)) {
                 this.modelForm.get('address2').setValue(this.lateInstance.address2);
                 this.lateInstance.address2 = null;
             }
 
-            if (hasValue(this.lateInstance.address3)) {
+            if (hasValueLegacy(this.lateInstance.address3)) {
                 this.modelForm.get('address3').setValue(this.lateInstance.address3);
                 this.lateInstance.address3 = null;
             }
@@ -314,11 +314,11 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
     filterViaOptions(value: string) {
 
-        if (hasValue(value)) {
+        if (hasValueLegacy(value)) {
             this.viaEl.nativeElement.value = this.viaEl.nativeElement.value?.split(' ').map(val => val.charAt(0).toUpperCase() + val.slice(1).toLowerCase()).join(' ');
             this.viaOptions = this.viaOptionsOriginal.filter(it => it.slice(0, value.length).toLowerCase() === value?.toLowerCase());
 
-            if (hasValue(this.viaOptions)) {
+            if (hasValueLegacy(this.viaOptions)) {
                 this.viaElHint.nativeElement.value = this.viaOptions[0];
             } else {
                 this.viaElHint.nativeElement.value = '';
@@ -342,7 +342,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
     }
 
     setVia(value: string) {
-        if (hasValue(value)) {
+        if (hasValueLegacy(value)) {
             this.modelForm.get('via').setValue(value);
             this.viaEl.nativeElement.value = value;
             this.viaElHint.nativeElement.value = value;
@@ -358,7 +358,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
     onKeydown(el: string, ev: KeyboardEvent) {
 
-        if (ev.key.toLowerCase() === 'backspace' && !hasValue((ev.target as HTMLInputElement).value)) {
+        if (ev.key.toLowerCase() === 'backspace' && !hasValueLegacy((ev.target as HTMLInputElement).value)) {
             switch (el) {
                 case 'address1':
                     this.viaEl.nativeElement.focus();
@@ -380,19 +380,19 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
 
         switch (el) {
             case 'address1':
-                if (!hasValue((this.viaEl.nativeElement as HTMLInputElement).value)) {
+                if (!hasValueLegacy((this.viaEl.nativeElement as HTMLInputElement).value)) {
                     this.viaEl.nativeElement.focus();
                 }
                 break;
 
             case 'address2':
-                if (!hasValue(this.modelForm.get('address1').value)) {
+                if (!hasValueLegacy(this.modelForm.get('address1').value)) {
                     this.address1.nativeElement.focus();
                 }
                 break;
 
             case 'address3':
-                if (!hasValue(this.modelForm.get('address2').value)) {
+                if (!hasValueLegacy(this.modelForm.get('address2').value)) {
                     this.address2.nativeElement.focus();
                 }
                 break;
@@ -406,7 +406,7 @@ export class AddressColComponent implements OnInit, AfterViewInit, OnDestroy, Co
         this.focused = false;
         this.blur.emit();
 
-        if (!hasValue(this.address1.nativeElement.value)) {
+        if (!hasValueLegacy(this.address1.nativeElement.value)) {
             this.viaEl.nativeElement.value = '';
             this.modelForm.get('via').setValue('');
             this.viaElHint.nativeElement.value = 'Calle';

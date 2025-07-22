@@ -6,7 +6,7 @@
  * @param {any | any[]} variable Variable a verificar
  * @returns {boolean}
  */
-export function hasValue(variable: any | any[]): boolean {
+export function hasValueLegacy(variable: any | any[]): boolean {
 
     if (Array.isArray(variable)) {
 

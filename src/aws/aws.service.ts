@@ -1,6 +1,6 @@
 import { AwsData } from './Iaws';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { hasValue } from '../utils/check';
+import { hasValueLegacy } from '../utils/check';
 
 export let AWS_CONFIG: InjectionToken<AwsData> = new InjectionToken<AwsData>('aws.config');
 
@@ -35,7 +35,7 @@ export class AwsService {
      * @returns {string}
      */
     public getS3Url(key?: string): string {
-        if (hasValue(key)) {
+        if (hasValueLegacy(key)) {
             return `https://${this.awsData.s3.bucket}.s3.amazonaws.com/${key}`;
         } else {
             return '';
@@ -51,7 +51,7 @@ export class AwsService {
      * @returns {string}
      */
     public getCloudfrontUrl(key?: string): string {
-        if (hasValue(key)) {
+        if (hasValueLegacy(key)) {
             return `https://${this.awsData.cloudfront?.id}.cloudfront.net/${key}`;
         } else {
             return '';
@@ -67,7 +67,7 @@ export class AwsService {
      * @returns {string}
      */
     public getS3BgUrl(key?: string): string {
-        if (hasValue(key)) {
+        if (hasValueLegacy(key)) {
             return `url(https://${this.awsData.s3.bucket}.s3.amazonaws.com/${key})`;
         } else {
             return '';
@@ -83,7 +83,7 @@ export class AwsService {
      * @returns {string}
      */
     public getCloudfrontBgUrl(key?: string): string {
-        if (hasValue(key)) {
+        if (hasValueLegacy(key)) {
             return `url(https://${this.awsData.cloudfront?.id}.cloudfront.net/${key})`;
         } else {
             return '';

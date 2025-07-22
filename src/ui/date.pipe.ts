@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
-import { hasValue } from '../utils/check';
+import { hasValueLegacy } from '../utils/check';
 
 @Pipe({
     name: 'dateUTC',
@@ -11,7 +11,7 @@ export class DateUTCPipe implements PipeTransform {
 
     transform(value: any, format?: string, timezone?: string, locale?: string): string | null {
 
-        if (!hasValue(value)) {
+        if (!hasValueLegacy(value)) {
             return '';
         }
 

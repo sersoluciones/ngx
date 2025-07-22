@@ -35,20 +35,21 @@ export class SnackbarService {
         document.body.append(_html);
 
         timer(1000)
-        .pipe(take(1)).subscribe(() => {
-            _html.className = 'snackbar show-text';
+            .pipe(take(1))
+            .subscribe(() => {
+                _html.className = 'snackbar show-text';
 
-            setTimeout(() => {
                 setTimeout(() => {
-                    _html.className = 'snackbar hide';
-
                     setTimeout(() => {
-                        document.body.removeChild(_html);
-                        _html = null;
-                    }, 1000);
-                }, 1500);
-            }, defaultOpts.duration);
-        });
+                        _html.className = 'snackbar hide';
+
+                        setTimeout(() => {
+                            document.body.removeChild(_html);
+                            _html = null;
+                        }, 1000);
+                    }, 1500);
+                }, defaultOpts.duration);
+            });
 
     }
 }

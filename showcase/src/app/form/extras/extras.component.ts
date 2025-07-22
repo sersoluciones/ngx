@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { BaseView } from 'src/app/base/base-view';
-import { CustomValidators } from '../../../../../src/form/validations/custom-validators';
+import { CustomValidatorsLegacy } from '../../../../../src/form/validations/custom-validators';
 import * as examples from './examples';
 
 @Component({
@@ -16,7 +16,7 @@ export class ExtrasComponent extends BaseView {
         number2: [null, [Validators.required]],
         addressCOL: [null, [Validators.required]],
         text1: [null],
-        text2: [null, CustomValidators.verifyNIT],
+        text2: [null, CustomValidatorsLegacy.verifyNIT],
     });
 
 }

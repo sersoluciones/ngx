@@ -1,7 +1,7 @@
 // tslint:disable: component-selector
 import { Attribute, Component, ContentChild, ElementRef, EventEmitter, forwardRef, HostBinding, HostListener, Input, OnInit, Optional, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { hasValue } from '../../../utils/check';
+import { hasValueLegacy } from '../../../utils/check';
 import { IFItemDirective } from './input-file-item.directive';
 import { InputFileSettings } from '../file.interface';
 
@@ -34,7 +34,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor {
 
     @ContentChild(IFItemDirective, { static: true }) itemTempl: IFItemDirective;
 
-    hasValue = hasValue;
+    hasValue = hasValueLegacy;
     isDisabled = false;
     multiple = false;
 
@@ -84,7 +84,7 @@ export class InputFileComponent implements OnInit, ControlValueAccessor {
 
     writeValue(obj: any) {
 
-        if (hasValue(obj)) {
+        if (hasValueLegacy(obj)) {
 
             if (Array.isArray(obj)) {
 
